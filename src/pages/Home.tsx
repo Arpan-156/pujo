@@ -34,10 +34,10 @@ export function Home() {
           <div className="dir-more"><Btn to="/pujas" cursor="Open">See all {pujas.length} Puja</Btn></div>
         </div>
       </section>
-      <ThemesGrid />
+      {/* <ThemesGrid /> */}
       <Experiences />
       <Timeline />
-      <section className="bd-teaser">
+      {/* <section className="bd-teaser">
         <div className="bd-teaser-bg" aria-hidden="true"><Photo v={landmarks[0].visual} /></div>
         <div className="bd-teaser-shade" />
         <div className="wrap bd-teaser-in">
@@ -45,7 +45,7 @@ export function Home() {
           <Reveal delay={200} className="lead">Curzon Gate, the railway overbridge, the river at first light and the lanes between them.</Reveal>
           <Reveal delay={300}><Btn to="/bardhaman" cursor="Explore">Explore Bardhaman</Btn></Reveal>
         </div>
-      </section>
+      </section> */}
       <div className="wrap map-head">
         <RevealText lines={['PUJA MAP']} className="display" />
         <Reveal delay={150} className="lead">Tap a glowing pin to see who is building what, and where. <Link to="/map" className="ulink">Open the full map</Link></Reveal>

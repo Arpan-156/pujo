@@ -195,7 +195,7 @@ export function PujaDetail({ slug }: { slug: string }) {
 export const ThemesPage = () => (
   <>
     <PageHead lines={['PUJA', 'THEMES']} bn="থিমের পুজো" lead="Nine kinds of ideas, built at full size." visual={{ art: 'mythology', seed: 61, hue: 8, tone: 'night' }} />
-    <ThemesGrid withHead={false} />
+    {/* <ThemesGrid withHead={false} /> */}
   </>
 );
 
@@ -240,7 +240,7 @@ export const AboutPage = () => (
   <>
     <PageHead lines={['ABOUT', 'US']} bn="আমাদের কথা" lead="Two communities. One celebration." visual={{ art: 'camera', seed: 67, hue: 350, tone: 'dusk' }} />
     <AboutBrands />
-    <Team />
+    {/* <Team /> */}
     <Social />
   </>
 );

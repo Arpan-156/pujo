@@ -140,3 +140,11 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
   .rv, .rt-line > span { transform: none !important; }
   .smoke, .rays { display: none; }
 }
+
+/* Fix for iOS Safari Memory Crash */
+@media (max-width: 820px) {
+  .smoke, .rays { display: none !important; }
+  .intro-sweep { mix-blend-mode: normal !important; }
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .nav.scrolled, .music-panel, .music-fab, .btn.ghost { background: rgba(20, 8, 9, 0.95) !important; }
+}

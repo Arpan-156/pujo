@@ -18,14 +18,14 @@ function Routes() {
   switch (pathname.replace(/\/$/, '') || '/') {
     case '/': return <Home />;
     case '/pujas': return <PujasPage />;
-    case '/themes': return <ThemesPage />;
+    // case '/themes': return <ThemesPage />;
     case '/featured': return <FeaturedPage />;
     case '/bardhaman': return <BardhamanPage />;
     case '/gallery': return <GalleryPage />;
     case '/map': return <MapPage />;
     case '/timeline': return <TimelinePage />;
     case '/about': return <AboutPage />;
-    case '/contact': return <ContactPage />;
+    // case '/contact': return <ContactPage />;
     default: return <Home />;
   }
 }

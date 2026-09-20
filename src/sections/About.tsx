@@ -48,7 +48,7 @@ export function AboutBrands() {
           <Rows rows={PUJO} />
         </Reveal>
       </div>
-      <p className="wrap ab-note">Descriptions are placeholders. Replace them with each community&rsquo;s own words and logos.</p>
+      {/* <p className="wrap ab-note">Descriptions are placeholders. Replace them with each community&rsquo;s own words and logos.</p> */}
     </section>
   );
 }
