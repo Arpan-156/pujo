@@ -50,23 +50,23 @@ export function PageHead({ lines, bn, visual, lead, tall = false }: { lines: str
 export function PujaCard({ p }: { p: Puja }) {
   return (
     <article className="pcard" data-flip={p.slug}>
-      <Link to={`/puja/${p.slug}`} className="pcard-img" data-cursor="View" aria-label={`Open ${p.name}`}>
+      {/* <Link to={`/puja/${p.slug}`} className="pcard-img" data-cursor="View" aria-label={`Open ${p.name}`}>
         <Photo v={p.heroImage} alt={`${p.name} pandal`} />
         <span className="pcard-idol"><Photo v={p.idolImage} alt={`${p.name} idol`} /></span>
         {p.featured && <span className="tag-feat">Featured</span>}
         <span className="pcard-year">Since {p.established}</span>
-      </Link>
+      </Link> */}
       <div className="pcard-body">
         <p className="pcard-cats">{p.categories.join(' · ')}</p>
-        <h3><Link to={`/puja/${p.slug}`}>{p.name}</Link></h3>
+        <h3>{p.name}</h3>
         <p className="pcard-loc">{p.location}</p>
         <p className="pcard-theme"><em>Theme:</em> “{p.theme}”</p>
-        <p className="pcard-desc">{p.description}</p>
-        <div className="pcard-actions">
+        {/* <p className="pcard-desc">{p.description}</p> */}
+        {/* <div className="pcard-actions">
           <Link to={`/puja/${p.slug}`} className="chip solid" data-cursor="Explore">Explore</Link>
           <Link to={`/puja/${p.slug}?view=pandal`} className="chip" data-cursor="View">View Pandal</Link>
           <Link to={`/pujas?theme=${p.themeId}`} className="chip" data-cursor="Filter">View Theme</Link>
-        </div>
+        </div> */}
       </div>
     </article>
   );

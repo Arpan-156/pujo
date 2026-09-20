@@ -82,7 +82,7 @@ const build = (r: Row): Puja => {
  *  <PujaProvider>. Nothing else in the UI needs to change.
  * ------------------------------------------------------------------ */
 const ROWS: Row[] = [
-  { slug: 'curzon-gate-yuvak-sangha', name: 'Curzon Gate Yuvak Sangha', area: 'Curzon Gate', themeId: 'architecture', themeName: 'The Gate Remembered',
+  { slug: 'curzon-gate-yuvak-sangha', name: 'Curzon Yuvak Sangha', area: 'Curzon Gate', themeId: 'architecture', themeName: 'The Gate Remembered',
     cats: ['Theme Puja', 'Large Pandal'], est: 1978, feat: true, art: 'gate', seed: 201, hue: 14, tone: 'dusk', x: 53, y: 44,
     desc: 'A full-scale rebuild of a triple-arched gateway, with the idol seated beneath its central arch.',
     story: 'Every Bardhaman child knows the gate by heart. This year the committee rebuilds it as a pandal: three arches, a carved cornice, and Durga seated under the middle one. Walk in through the left arch, out through the right, and the crowd becomes part of the architecture.' },
@@ -102,7 +102,7 @@ const ROWS: Row[] = [
     cats: ['Heritage', 'Traditional'], est: 1902, feat: true, art: 'temple', seed: 205, hue: 18, tone: 'dusk', x: 78, y: 62,
     desc: 'A courtyard puja beside the old temple complex, with terracotta panels copied from the temples themselves.',
     story: 'Near the old Shiva temples, this puja keeps to the classical form: ekchala idol, daker saaj, a courtyard aarti at dusk. The new touch is the facade, reproduced panel by panel from the terracotta on the neighbouring temples.' },
-  { slug: 'sadarghat-ekata-sangha', name: 'Sadarghat Ekata Sangha', area: 'Sadarghat', themeId: 'mythology', themeName: 'Mahishasura Mardini',
+  { slug: 'sadarghat-ekata-sangha', name: 'Sadarghat homo Ekata Sangha', area: 'Sadarghat', themeId: 'mythology', themeName: 'Mahishasura Mardini',
     cats: ['Theme Puja', 'Large Pandal'], est: 1984, feat: true, art: 'mythology', seed: 206, hue: 8, tone: 'night', x: 42, y: 72,
     desc: 'A lit walk-through of the great battle, narrated in Bengali verse and layered light.',
     story: 'The pandal is a corridor of painted panels that walks you through the nine nights of battle. A narrated verse plays as you move, and the last room opens onto the idol in full light.' },
