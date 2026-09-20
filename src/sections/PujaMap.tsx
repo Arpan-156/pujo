@@ -1,11 +1,13 @@
+import type { PointerEvent } from 'react';
 import { useState } from 'react';
 import { useData } from '../data/store';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
 import { Pin, ArrowRight } from '../components/Icons';
+import { useFinePointer } from '../lib/motion';
 
 /**
- * Stylised placeholder map. Pin positions come from `puja.map` (0–100) and are NOT surveyed.
+ * Stylised placeholder map. Pin positions come from `puja.map` (0?"100) and are NOT surveyed.
  * To go live, swap <MapBase /> for a Leaflet / MapLibre / Google map and project real lat/lng.
  */
 function MapBase() {
@@ -16,12 +18,12 @@ function MapBase() {
       </defs>
       <rect width="100" height="100" fill="url(#mgrid)" />
       {/* Damodar */}
-      <path d="M-2 88C18 82 30 96 52 90S82 80 102 88V102H-2z" fill="#1c3a4a" opacity=".55" />
-      <path d="M-2 88C18 82 30 96 52 90S82 80 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".5" strokeWidth=".3" />
+      <path className="map-river" d="M-2 88C18 82 30 96 52 90S82 80 102 88V102H-2z" fill="#1c3a4a" opacity=".55" />
+      <path className="map-path" d="M-2 88C18 82 30 96 52 90S82 80 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".5" strokeWidth=".3" />
       {/* lake */}
       <ellipse cx="72" cy="42" rx="6" ry="3.4" fill="#1c3a4a" opacity=".6" />
       {/* main streets */}
-      <g stroke="#e9b558" strokeOpacity=".22" strokeWidth=".35" fill="none">
+      <g stroke="#e9b558" strokeOpacity=".22" strokeWidth=".35" fill="none" className="map-streets">
         <path d="M0 50C25 46 40 52 60 48S90 44 100 46" />
         <path d="M50 0C48 30 54 60 50 100" />
         <path d="M10 20C30 30 50 30 70 24S90 14 100 10" />
@@ -29,7 +31,7 @@ function MapBase() {
         <path d="M60 60C72 66 82 70 96 78" />
       </g>
       {/* railway */}
-      <path d="M0 62C30 58 50 64 100 56" fill="none" stroke="#f6efe2" strokeOpacity=".45" strokeWidth=".55" strokeDasharray="1.6 1.2" />
+      <path className="map-train" d="M0 62C30 58 50 64 100 56" fill="none" stroke="#f6efe2" strokeOpacity=".45" strokeWidth=".55" strokeDasharray="1.6 1.2" />
       <g fill="#f6efe2" fillOpacity=".5" fontSize="2.3" fontFamily="Hanken Grotesk, sans-serif">
         <text x="3" y="94">Damodar</text>
         <text x="1.5" y="60">Railway line</text>
@@ -43,12 +45,22 @@ export function PujaMap({ className = '' }: { className?: string }) {
   const { pujas } = useData();
   const [sel, setSel] = useState<string | null>(pujas[0]?.slug ?? null);
   const cur = pujas.find((p) => p.slug === sel);
+  const fine = useFinePointer();
+
+  const move = (e: PointerEvent<HTMLDivElement>) => {
+    if (!fine) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
+    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
+  };
 
   return (
     <section className={`pmap ${className}`}>
       <div className="wrap pmap-grid">
-        <div className="pmap-canvas" role="group" aria-label="Map of Puja locations">
-          <MapBase />
+        <div className="pmap-canvas-wrap" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
+          <div className="pmap-canvas" role="group" aria-label="Map of Puja locations">
+            <div className="pmap-radar" aria-hidden="true" />
+            <MapBase />
           {pujas.map((p) => (
             <button
               key={p.slug}
@@ -62,13 +74,14 @@ export function PujaMap({ className = '' }: { className?: string }) {
           ))}
           <p className="pmap-note">Stylised map. Pin positions are placeholders until real coordinates are added.</p>
         </div>
+        </div>
         <aside className="pmap-side" aria-live="polite">
           {cur ? (
             <div className="pmap-card" key={cur.slug}>
               <div className="pmap-img"><Photo v={cur.heroImage} alt={`${cur.name} pandal`} /></div>
               <p className="pmap-loc"><Pin size={16} /> {cur.location}</p>
               <h3>{cur.name}</h3>
-              <p className="pmap-theme"><em>Theme:</em> “{cur.theme}”</p>
+              <p className="pmap-theme"><em>Theme:</em> &ldquo;{cur.theme}&rdquo;</p>
               <p>{cur.description}</p>
               <Link to={`/puja/${cur.slug}`} className="btn solid" data-cursor="Explore"><span>Explore</span><ArrowRight size={18} /></Link>
             </div>
