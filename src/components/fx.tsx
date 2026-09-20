@@ -220,7 +220,7 @@ export function Alpana({ size = 320, className = '', spin = true }: { size?: num
  * ============================================================ */
 export function BrandMark({ brand, size = 44, className = '' }: { brand: 'capturers' | 'pujo'; size?: number; className?: string }) {
   const src = brand === 'capturers' ? '/logos/capturers.jpg' : '/logos/pujo.jpg';
-  return <img src={src} width={size} height={size} alt={brand} className={`brand-mark ${className}`} style={{ borderRadius: '50%', objectFit: 'cover' }} />;
+  return <img src={src} width={size} height={size} alt={brand} className={`brand-mark ${className}`} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />;
 }
 
 /* ============================================================ *

@@ -322,8 +322,9 @@
   .theme-cell, .theme-cell.tc0, .theme-cell.tc1, .theme-cell.tc5, .theme-cell.tc6, .theme-cell.tc7, .theme-cell.tc8 { grid-column: span 6; }
 }
 @media (max-width: 820px) {
+  .hero-cam { transform: translate3d(0, calc((var(--p, 0.5) - 0.5) * 60px), 0) scale(1.15); }
   .mf-grid, .story-grid, .pmap-grid { grid-template-columns: 1fr; }
-  .mf-imgs { height: 520px; order: -1; }
+  .mf-imgs { height: clamp(340px, 120vw, 520px); order: -1; }
   .manifesto { padding-top: 60px; }
   .hero-scroll { display: none; }
   .theme-cell, .theme-cell.tc0, .theme-cell.tc1, .theme-cell.tc5, .theme-cell.tc6, .theme-cell.tc7, .theme-cell.tc8 { grid-column: 1 / -1; }
