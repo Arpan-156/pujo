@@ -12,17 +12,29 @@ import { PujaMap } from '../sections/PujaMap';
 import { Social } from '../sections/About';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
+import type { PointerEvent } from 'react';
+import { useMemo } from 'react';
+import { useFinePointer } from '../lib/motion';
 
 export function Home() {
   const { pujas, landmarks } = useData();
-  const preview = pujas.filter((p) => !p.featured).slice(0, 6);
+  const fine = useFinePointer();
+  const preview = useMemo(() => pujas.filter((p) => !p.featured).slice(0, 6), [pujas]);
+  const move = (e: PointerEvent<HTMLElement>) => {
+    if (!fine) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
+    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
+  };
+
   return (
     <>
       <Hero />
       <Countdown />
       <Manifesto />
       <FeaturedRail compact />
-      <section className="dir-preview">
+      <section className="dir-preview" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
+        <div className="dir-spotlight" aria-hidden="true" />
         <div className="wrap">
           <div className="dir-head">
             <RevealText lines={['BARDHAMAN', 'ALL PUJA']} className="display" />
