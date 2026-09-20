@@ -48,26 +48,27 @@ export function PageHead({ lines, bn, visual, lead, tall = false }: { lines: str
 
 /* ---------- puja card ---------- */
 export function PujaCard({ p }: { p: Puja }) {
+  const move = (e: React.PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
+    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
+  };
+  const leave = (e: React.PointerEvent<HTMLElement>) => {
+    e.currentTarget.style.setProperty('--px', '0.5');
+    e.currentTarget.style.setProperty('--py', '0.5');
+  };
+
   return (
-    <article className="pcard" data-flip={p.slug}>
-      {/* <Link to={`/puja/${p.slug}`} className="pcard-img" data-cursor="View" aria-label={`Open ${p.name}`}>
-        <Photo v={p.heroImage} alt={`${p.name} pandal`} />
-        <span className="pcard-idol"><Photo v={p.idolImage} alt={`${p.name} idol`} /></span>
-        {p.featured && <span className="tag-feat">Featured</span>}
-        <span className="pcard-year">Since {p.established}</span>
-      </Link> */}
-      <div className="pcard-body">
-        <p className="pcard-cats">{p.categories.join(' · ')}</p>
-        <h3>{p.name}</h3>
+    <article className="pcard" data-flip={p.slug} onPointerMove={move} onPointerLeave={leave} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
+      <Link to={`/puja/${p.slug}`} className="pcard-body" data-cursor="View">
+        <p className="pcard-cats">{p.categories.join(' • ')}</p>
+        <h3 className="pcard-title">
+          <span className="pcard-title-text">{p.name}</span>
+          <span className="pcard-title-glow" aria-hidden="true">{p.name}</span>
+        </h3>
         <p className="pcard-loc">{p.location}</p>
         <p className="pcard-theme"><em>Theme:</em> “{p.theme}”</p>
-        {/* <p className="pcard-desc">{p.description}</p> */}
-        {/* <div className="pcard-actions">
-          <Link to={`/puja/${p.slug}`} className="chip solid" data-cursor="Explore">Explore</Link>
-          <Link to={`/puja/${p.slug}?view=pandal`} className="chip" data-cursor="View">View Pandal</Link>
-          <Link to={`/pujas?theme=${p.themeId}`} className="chip" data-cursor="Filter">View Theme</Link>
-        </div> */}
-      </div>
+      </Link>
     </article>
   );
 }
