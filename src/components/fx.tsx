@@ -218,22 +218,9 @@ export function Alpana({ size = 320, className = '', spin = true }: { size?: num
 /* ============================================================ *
  *  Logos (placeholders: replace with real artwork via `src`)
  * ============================================================ */
-export function BrandMark({ brand, size = 44, src }: { brand: 'capturers' | 'pujo'; size?: number; src?: string }) {
-  if (src) return <img src={src} width={size} height={size} alt="" />;
-  return brand === 'capturers' ? (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-      <circle cx="24" cy="24" r="21" />
-      {Array.from({ length: 6 }, (_, i) => <path key={i} transform={`rotate(${i * 60} 24 24)`} d="M24 3v14l9 7" opacity=".65" />)}
-      <path d="M15 34V26a9 9 0 0118 0V34" strokeWidth="1.8" /><path d="M12 34h24" strokeWidth="1.8" /><circle cx="24" cy="26" r="2" fill="currentColor" />
-    </svg>
-  ) : (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-      <circle cx="24" cy="24" r="21" />
-      <path d="M12 20c4-4 20-4 24 0l-3 12c-6 4-12 4-18 0z" strokeWidth="1.8" />
-      {[0, 1, 2, 3, 4].map((i) => <path key={i} d={`M${16 + i * 4} 21L${15 + i * 4.5} 31`} opacity=".6" />)}
-      <path d="M9 12l9 7M39 12l-9 7" strokeWidth="1.8" /><circle cx="8.500" cy="11.500" r="1.800" fill="currentColor" /><circle cx="39.500" cy="11.500" r="1.800" fill="currentColor" />
-    </svg>
-  );
+export function BrandMark({ brand, size = 44, className = '' }: { brand: 'capturers' | 'pujo'; size?: number; className?: string }) {
+  const src = brand === 'capturers' ? '/logos/capturers.jpg' : '/logos/pujo.jpg';
+  return <img src={src} width={size} height={size} alt={brand} className={`brand-mark ${className}`} style={{ borderRadius: '50%', objectFit: 'cover' }} />;
 }
 
 /* ============================================================ *
