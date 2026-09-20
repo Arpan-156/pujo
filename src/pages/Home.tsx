@@ -1,6 +1,6 @@
 import { useData } from '../data/store';
 import { PujaCard, Btn } from '../components/shared';
-import { Reveal, RevealText } from '../components/fx';
+import { Reveal, RevealText, Alpana } from '../components/fx';
 import { Hero } from '../sections/Hero';
 import { Countdown } from '../sections/Countdown';
 import { Manifesto } from '../sections/Manifesto';
@@ -37,8 +37,13 @@ export function Home() {
         <div className="dir-spotlight" aria-hidden="true" />
         <div className="wrap">
           <div className="dir-head">
-            <RevealText lines={['BARDHAMAN', 'ALL PUJA']} className="display" />
-            <Reveal delay={200} className="lead">Explore the Puja celebrations across Bardhaman. The directory grows every week.</Reveal>
+            <div className="dir-head-text">
+              <RevealText lines={['BARDHAMAN', 'ALL PUJA']} className="display" />
+              <Reveal delay={200} className="lead">Explore the Puja celebrations across Bardhaman. The directory grows every week.</Reveal>
+            </div>
+            <div className="dir-head-art" aria-hidden="true">
+              <Alpana size={400} spin />
+            </div>
           </div>
           <div className="pcards">
             {preview.map((p, i) => <Reveal key={p.slug} delay={(i % 3) * 90}><PujaCard p={p} /></Reveal>)}
