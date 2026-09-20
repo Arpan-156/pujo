@@ -285,7 +285,8 @@
 .ab-pujo .ab-rows > div { border-color: rgba(200, 40, 30, 0.35); }
 .ab-rows dt { font-family: var(--f-display); font-size: 1.1rem; } .ab-rows dd { font-size: 0.97rem; opacity: 0.85; }
 .ab-join { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 clamp(10px, 1.6vw, 22px); }
-.ab-join .laal-paar { width: 14px; height: auto; flex: 1; background: linear-gradient(90deg, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); }
+.ab-join .laal-paar { width: 14px; height: auto; flex: 1; background-image: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%), linear-gradient(90deg, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); background-size: 100% 150vh, 100% 100%; animation: paar-shine-v 4s ease-in-out infinite; }
+@keyframes paar-shine-v { 0% { background-position: 0 150vh, 0 0; } 100% { background-position: 0 -100vh, 0 0; } }
 .ab-join span { font-family: var(--f-display); font-size: 2.4rem; color: var(--gold); }
 .ab-note { margin-top: 20px; color: var(--mute); font-size: 0.85rem; text-align: center; }
 .team { padding: clamp(70px, 12vh, 130px) 0; }
@@ -333,7 +334,7 @@
   .xp { min-height: 340px; }
   .ab-pair { grid-template-columns: 1fr; }
   .ab-join { flex-direction: row; padding: 10px 0; }
-  .ab-join .laal-paar { width: auto; height: 14px; background: linear-gradient(to bottom, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); }
+  .ab-join .laal-paar { width: auto; height: 14px; background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%), linear-gradient(to bottom, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); background-size: 150vw 100%, 100% 100%; animation: paar-shine 4s ease-in-out infinite; }
   .ab-rows > div { grid-template-columns: 1fr; gap: 2px; }
   .story-stage { display: none; }
   .story-block { min-height: 0; opacity: 1; padding: 34px 0; }

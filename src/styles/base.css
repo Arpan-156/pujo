@@ -99,7 +99,8 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 .rt.in .rt-line > span { transform: none; }
 
 /* ---------- motifs ---------- */
-.laal-paar { height: 14px; background: linear-gradient(to bottom, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); }
+.laal-paar { height: 14px; background-color: var(--sindoor); background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%), linear-gradient(to bottom, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); background-size: 150vw 100%, 100% 100%; animation: paar-shine 4s ease-in-out infinite; }
+@keyframes paar-shine { 0% { background-position: 150vw 0, 0 0; } 100% { background-position: -100vw 0, 0 0; } }
 .alpana { color: var(--gold); opacity: 0.2; pointer-events: none; }
 .alpana.spin { animation: spin 160s linear infinite; }
 .alpana .ring.r2 { transform-origin: 100px 100px; animation: spin 90s linear infinite reverse; }
