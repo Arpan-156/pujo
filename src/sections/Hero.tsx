@@ -7,7 +7,7 @@ import { Photo } from '../components/Art';
 import { LaalPaar, Particles, Rays, RevealText, Smoke } from '../components/fx';
 import { Btn } from '../components/shared';
 
-const HERO: Visual = { art: 'pandal', seed: 7, hue: 10, tone: 'dusk' };
+const HERO: Visual = { art: 'pandal', seed: 7, hue: 10, tone: 'dusk', src: '/cover.jpg' };
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
