@@ -46,7 +46,7 @@ function Shell() {
     <EntranceCtx.Provider value={ctx}>
       <Cursor />
       <a className="skip" href="#main">Skip to content</a>
-      {(stage === 'curtain' || stage === 'site') && (
+      {stage === 'site' && (
         <>
           <Nav visible={open} />
           <main id="main" className="page"><Routes /></main>
@@ -56,8 +56,7 @@ function Shell() {
       )}
       <MusicPlayer visible={open} />
       {stage === 'loading' && <Loader onDone={() => setStage('intro')} />}
-      {stage === 'intro' && <Intro onDone={() => setStage('curtain')} />}
-      {stage === 'curtain' && <Curtain onOpenStart={() => setOpen(true)} onDone={() => setStage('site')} />}
+      {stage === 'intro' && <Intro onDone={() => { setOpen(true); setStage('site'); }} />}
     </EntranceCtx.Provider>
   );
 }
