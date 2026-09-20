@@ -14,10 +14,14 @@
 .nav-links a:hover::after, .nav-links a.on::after { transform: scaleX(1); }
 .nav-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; place-items: center; border: 1px solid var(--line-2); background: rgba(20, 8, 9, 0.5); backdrop-filter: blur(8px); }
 
-.menu { position: fixed; inset: 0; z-index: 75; background: radial-gradient(ellipse at 80% 10%, #4a0f16, var(--ink) 65%); clip-path: circle(0 at calc(100% - 44px) 44px); visibility: hidden; transition: clip-path 0.9s var(--ease-io), visibility 0s 0.9s; overflow-y: auto; display: block; }
-.menu.open { clip-path: circle(150% at calc(100% - 44px) 44px); visibility: visible; transition: clip-path 0.9s var(--ease-io), visibility 0s; }
+.menu { position: fixed; inset: 0; z-index: 75; pointer-events: none; visibility: hidden; transition: visibility 0s 0.9s; }
+.menu.open { pointer-events: auto; visibility: visible; transition: visibility 0s; }
+.menu-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 10%, #4a0f16, var(--ink) 65%); clip-path: circle(0 at calc(100% - 44px) 44px); transition: clip-path 0.9s var(--ease-io); }
+.menu.open .menu-bg { clip-path: circle(150% at calc(100% - 44px) 44px); }
+.menu-scroll { position: relative; height: 100%; overflow-y: auto; display: block; }
 .menu-alpana { position: absolute; right: -25%; top: -8%; width: 120vw; height: auto; max-width: 900px; opacity: 0.11; }
-.menu-close { position: absolute; top: calc(var(--safe-t) + 16px); right: 18px; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 50%; z-index: 2; }
+.menu-close { position: absolute; top: calc(var(--safe-t) + 16px); right: 18px; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 50%; z-index: 2; opacity: 0; transition: opacity 0.3s; }
+.menu.open .menu-close { opacity: 1; transition-delay: 0.5s; }
 .menu-list { position: relative; display: grid; gap: 2px; padding: calc(var(--safe-t) + 84px) var(--gut) 40px; }
 .menu-list a { position: relative; z-index: 10; display: flex; align-items: baseline; gap: 18px; padding: 6px 0; border-bottom: 1px solid rgba(233, 181, 88, 0.12); opacity: 0; transform: translate3d(0, 34px, 0); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease), color 0.3s; }
 .menu.open .menu-list a { opacity: 1; transform: none; transition-delay: calc(var(--i) * 65ms + 380ms), calc(var(--i) * 65ms + 380ms), 0s; }

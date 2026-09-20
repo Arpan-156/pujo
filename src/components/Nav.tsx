@@ -47,19 +47,23 @@ export function Nav({ visible }: { visible: boolean }) {
       </header>
 
       <div className={`menu ${open ? 'open' : ''}`} aria-hidden={!open}>
-        <Alpana size={720} className="menu-alpana" />
-        <button className="menu-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={28} /></button>
-        <nav className="menu-list" aria-label="Mobile">
-          {NAV.map((n, i) => (
-            <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1}>
-              <small>{n.bn}</small>
-              <span>{n.label}</span>
-            </Link>
-          ))}
-        </nav>
-        <div className="menu-foot">
-          <LaalPaar />
-          <p>Burdwan Capturers Official × Banglar Pujo Official</p>
+        <div className="menu-bg">
+          <Alpana size={720} className="menu-alpana" />
+        </div>
+        <div className="menu-scroll">
+          <button className="menu-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={28} /></button>
+          <nav className="menu-list" aria-label="Mobile">
+            {NAV.map((n, i) => (
+              <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1}>
+                <small>{n.bn}</small>
+                <span>{n.label}</span>
+              </Link>
+            ))}
+          </nav>
+          <div className="menu-foot">
+            <LaalPaar />
+            <p>Burdwan Capturers Official × Banglar Pujo Official</p>
+          </div>
         </div>
       </div>
     </>
