@@ -105,16 +105,19 @@ export function Social() {
           <div className="soc-row" key={b}>
             <div className="soc-who"><BrandMark brand={b} size={44} /><h3>{BRANDS[b].name}</h3></div>
             <div className="soc-cards">
-              {SOCIALS.map(({ key, label, Icon }, i) => (
-                <Reveal key={key} delay={i * 90} variant="up">
-                  <a className={`soc-card ${key}`} href={BRANDS[b].socials[key]} data-cursor={DETAIL[key][1]} aria-label={`${BRANDS[b].short} on ${label}`}>
-                    <Icon size={30} />
-                    <b>{label}</b>
-                    <span>{DETAIL[key][0]}</span>
-                    <i className="soc-sweep" />
-                  </a>
-                </Reveal>
-              ))}
+              {SOCIALS.map(({ key, label, Icon }, i) => {
+                if (b === 'pujo' && key === 'youtube') return null; // Hidden for now
+                return (
+                  <Reveal key={key} delay={i * 90} variant="up">
+                    <a className={`soc-card ${key}`} href={BRANDS[b].socials[key]} data-cursor={DETAIL[key][1]} aria-label={`${BRANDS[b].short} on ${label}`}>
+                      <Icon size={30} />
+                      <b>{label}</b>
+                      <span>{DETAIL[key][0]}</span>
+                      <i className="soc-sweep" />
+                    </a>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         ))}
