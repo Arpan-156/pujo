@@ -32,7 +32,13 @@ function Routes() {
 
 function GlobalBranding() {
   return (
-    <div className="global-branding" aria-hidden="true" style={{
+    <>
+      <style>{`
+        @media (max-width: 800px) {
+          .global-branding { display: none !important; }
+        }
+      `}</style>
+      <div className="global-branding" aria-hidden="true" style={{
       position: 'fixed',
       left: '15px',
       top: '50%',
@@ -58,6 +64,7 @@ function GlobalBranding() {
       </div>
       <span style={{ display: 'block', width: '1px', height: '30px', background: 'var(--gold)', opacity: 0.4 }} />
     </div>
+    </>
   );
 }
 
