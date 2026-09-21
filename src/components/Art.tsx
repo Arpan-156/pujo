@@ -68,8 +68,8 @@ export const Kash = ({ x, y, s = 1, seed = 1, color = '#f8efe0' }: { x: number; 
   );
 };
 
-const Person = ({ x, y, s = 1, fill }: { x: number; y: number; s?: number; fill: string }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`} fill={fill}>
+const Person = ({ x, y, s = 1, fill, del = 0 }: { x: number; y: number; s?: number; fill: string; del?: number }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} fill={fill} style={{ animation: `art-float ${3 + (del % 2)}s ease-in-out ${-del}s infinite alternate` }}>
     <circle cx="0" cy="-26" r="8" />
     <path d="M-16 6C-16-14-9-18 0-18S16-14 16 6z" />
   </g>
@@ -77,17 +77,20 @@ const Person = ({ x, y, s = 1, fill }: { x: number; y: number; s?: number; fill:
 
 const Crowd = ({ y, n, seed, fill, s = 1, w = 800 }: { y: number; n: number; seed: number; fill: string; s?: number; w?: number }) => {
   const r = rng(seed);
-  return <g>{Array.from({ length: n }, (_, i) => <Person key={i} x={(i + r() * 0.6) * (w / n)} y={y + r() * 16} s={s * (0.8 + r() * 0.5)} fill={fill} />)}</g>;
+  return <g>{Array.from({ length: n }, (_, i) => {
+    const x = (i + r() * 0.6) * (w / n);
+    return <Person key={i} x={x} y={y + r() * 16} s={s * (0.8 + r() * 0.5)} fill={fill} del={r() * 5} />;
+  })}</g>;
 };
 
 const Stars = ({ seed, n = 46, h = 300 }: { seed: number; n?: number; h?: number }) => {
   const r = rng(seed + 99);
-  return <g fill="#fff">{Array.from({ length: n }, (_, i) => <circle key={i} cx={r() * 800} cy={r() * h} r={r() * 1.2 + 0.3} opacity={0.25 + r() * 0.6} />)}</g>;
+  return <g fill="#fff">{Array.from({ length: n }, (_, i) => <circle key={i} cx={r() * 800} cy={r() * h} r={r() * 1.2 + 0.3} opacity={0.25 + r() * 0.6} style={{ animation: `art-twinkle ${2 + r() * 4}s ease-in-out ${r() * -5}s infinite alternate` }} />)}</g>;
 };
 
 const Bokeh = ({ seed, n = 18, y0 = 0, y1 = 600, col, op = 0.22 }: { seed: number; n?: number; y0?: number; y1?: number; col: string; op?: number }) => {
-  const r = rng(seed + 5);
-  return <g fill={col}>{Array.from({ length: n }, (_, i) => <circle key={i} cx={r() * 800} cy={y0 + r() * (y1 - y0)} r={8 + r() * 26} opacity={op * (0.4 + r())} />)}</g>;
+  const r = rng(seed + 33);
+  return <g fill={col}>{Array.from({ length: n }, (_, i) => <circle key={i} cx={r() * 800} cy={y0 + r() * (y1 - y0)} r={8 + r() * 24} opacity={r() * op} style={{ animation: `art-float ${4 + r() * 6}s ease-in-out ${r() * -5}s infinite alternate` }} />)}</g>;
 };
 
 /* ---------- scenes ---------- */
@@ -420,8 +423,19 @@ const scenes: Record<ArtKind, (c: Ctx) => ReactNode> = {
         const x = 30 + i * 56;
         return <g key={i}><path d={`M${x} 600V${80 + r() * 80}`} stroke={p.sil2} strokeWidth="10" />{[130, 230, 330, 430].map((y) => <path key={y} d={`M${x - 8} ${y}h16`} stroke={p.sil} strokeWidth="3" />)}</g>;
       })}
-      {Array.from({ length: 36 }, (_, i) => <ellipse key={i} cx={r() * 800} cy={60 + r() * 420} rx="10" ry="32" transform={`rotate(${r() * 180} ${r() * 800} ${r() * 400})`} fill={`hsl(${100 + r() * 40} 50% ${28 + r() * 18}%)`} opacity=".85" />)}
-      {[[200, 300], [400, 260], [600, 320]].map(([x, y], i) => <g key={i}><path d={`M${x} 0V${y}`} stroke="#8a6a3a" /><path d={`M${x - 22} ${y}h44l-8 44h-28z`} fill="#c19a5b" /><circle cx={x} cy={y + 24} r="6" fill={GOLD} /><circle cx={x} cy={y + 24} r="30" fill={GOLD} opacity=".2" /></g>)}
+      {Array.from({ length: 36 }, (_, i) => (
+        <g key={i} style={{ animation: `art-fall ${6 + r() * 8}s linear ${r() * -10}s infinite` }}>
+          <ellipse cx={r() * 800} cy={20 + r() * 220} rx="10" ry="32" transform={`rotate(${r() * 180} ${r() * 800} ${r() * 400})`} fill={`hsl(${100 + r() * 40} 50% ${28 + r() * 18}%)`} opacity=".85" />
+        </g>
+      ))}
+      {[[200, 300], [400, 260], [600, 320]].map(([x, y], i) => (
+        <g key={i} style={{ transformOrigin: `${x}px 0px`, animation: `art-swing ${3 + r()}s ease-in-out ${r() * -2}s infinite alternate` }}>
+          <path d={`M${x} 0V${y}`} stroke="#8a6a3a" />
+          <path d={`M${x - 22} ${y}h44l-8 44h-28z`} fill="#c19a5b" />
+          <circle cx={x} cy={y + 24} r="6" fill={GOLD} />
+          <circle cx={x} cy={y + 24} r="30" fill={GOLD} opacity=".2" style={{ animation: `art-twinkle ${1 + r()}s infinite alternate` }} />
+        </g>
+      ))}
       <path d="M0 540H800V600H0z" fill={p.sil} />
     </>
   ),
@@ -505,6 +519,12 @@ export const Art = memo(function Art({ art, seed, hue = 12, tone = 'night', clas
   return (
     <svg className={`art ${className}`} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role={title ? 'img' : 'presentation'} aria-label={title} xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <style>{`
+          @keyframes art-float { 0% { transform: translateY(-6px); } 100% { transform: translateY(6px); } }
+          @keyframes art-swing { 0% { transform: rotate(-6deg); } 100% { transform: rotate(6deg); } }
+          @keyframes art-fall { 0% { transform: translateY(-150px); opacity: 0; } 20% { opacity: 0.85; } 80% { opacity: 0.85; } 100% { transform: translateY(600px); opacity: 0; } }
+          @keyframes art-twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        `}</style>
         <linearGradient id={`sky${uid}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={p.top} /><stop offset=".55" stopColor={p.mid} /><stop offset="1" stopColor={p.bot} /></linearGradient>
         <radialGradient id={`glow${uid}`}><stop offset="0" stopColor={p.glow} stopOpacity=".75" /><stop offset="1" stopColor={p.glow} stopOpacity="0" /></radialGradient>
         <linearGradient id={`water${uid}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={p.bot} /><stop offset="1" stopColor={p.mid} /></linearGradient>

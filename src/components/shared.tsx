@@ -2,7 +2,7 @@ import { Children, isValidElement, useLayoutEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import type { Puja } from '../data/types';
 import { BRANDS, NAV } from '../data/site';
-import { Link } from '../lib/router';
+import { Link, useRouter } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { Photo } from './Art';
 import { Alpana, BrandMark, DhakIcon, DurgaEye, LaalPaar, Magnetic, Reveal, RevealText, Rays, Particles } from './fx';
@@ -168,12 +168,14 @@ function KashField() {
 
 /* ---------- footer ---------- */
 export function Footer() {
+  const { pathname } = useRouter();
+
   return (
     <>
-      <KashField />
+      {pathname === '/' && <KashField />}
       <footer className="footer">
         <LaalPaar />
-      <Alpana size={900} className="footer-alpana" />
+        <Alpana size={900} className="footer-alpana" />
       <div className="wrap footer-in">
         <div className="footer-lockup">
           <div className="fl-a"><BrandMark brand="capturers" size={54} /><span>Burdwan Capturers Official</span></div>
