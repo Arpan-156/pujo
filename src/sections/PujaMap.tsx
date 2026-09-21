@@ -118,7 +118,8 @@ function MapBase({ pujas = [] }: { pujas?: any[] }) {
 }
 
 export function PujaMap({ className = '' }: { className?: string }) {
-  const { pujas } = useData();
+  const { pujas: allPujas } = useData();
+  const pujas = allPujas.filter(p => p.slug !== 'amadpur-zomidar-bari');
   const [sel, setSel] = useState<string | null>(pujas[0]?.slug ?? null);
   const cur = pujas.find((p) => p.slug === sel);
   const fine = useFinePointer();
@@ -195,7 +196,8 @@ export function PujaMap({ className = '' }: { className?: string }) {
 export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
   const finalX = lat && lng ? toX(lng) : x;
   const finalY = lat && lng ? toY(lat) : y;
-  const { pujas } = useData();
+  const { pujas: allPujas } = useData();
+  const pujas = allPujas.filter(p => p.slug !== 'amadpur-zomidar-bari');
   
   return (
     <div className="pmap-canvas mini">
