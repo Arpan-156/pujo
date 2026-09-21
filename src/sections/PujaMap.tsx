@@ -51,14 +51,14 @@ function MapBase() {
       <path className="map-train" d="M0 62C30 58 50 64 100 56" fill="none" stroke="#ff4d4d" strokeOpacity=".6" strokeWidth=".4" strokeDasharray="1.2 1.2" filter="url(#hud-glow)" />
       
       {/* HUD Labels */}
-      <g fill="#6ea6bd" fontSize="1.8" fontFamily="var(--f-sans)" fontWeight="600" letterSpacing="0.1em" opacity="0.8">
+      <g fill="#6ea6bd" fontSize="1.8" fontFamily="var(--f-body)" fontWeight="600" letterSpacing="0.1em" opacity="0.8">
         <text x="3" y="93">DAMODAR</text>
         <circle cx="1.5" cy="92.3" r="0.4" fill="#e9b558" />
         
         <text x="63" y="37">KRISHNA SAYAR</text>
         <circle cx="61.5" cy="36.3" r="0.4" fill="#e9b558" />
       </g>
-      <text x="2" y="60" fill="#ff4d4d" fontSize="1.4" fontFamily="var(--f-sans)" letterSpacing="0.15em" opacity="0.7">RAILWAY</text>
+      <text x="2" y="60" fill="#ff4d4d" fontSize="1.4" fontFamily="var(--f-body)" letterSpacing="0.15em" opacity="0.7">RAILWAY</text>
     </svg>
   );
 }
