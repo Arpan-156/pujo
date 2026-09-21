@@ -162,12 +162,26 @@ export function PujaMap({ className = '' }: { className?: string }) {
         </div>
         <aside className="pmap-side" aria-live="polite">
           {cur ? (
-            <div className="pmap-card" key={cur.slug}>
+            <div 
+              className="pmap-card" 
+              key={cur.slug}
+              onPointerMove={(e: PointerEvent<HTMLDivElement>) => {
+                if (!fine) return;
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--cpx', ((e.clientX - r.left) / r.width).toFixed(3));
+                e.currentTarget.style.setProperty('--cpy', ((e.clientY - r.top) / r.height).toFixed(3));
+              }}
+              onPointerLeave={(e: PointerEvent<HTMLDivElement>) => {
+                e.currentTarget.style.setProperty('--cpx', '0.5');
+                e.currentTarget.style.setProperty('--cpy', '0.5');
+              }}
+              style={{ '--cpx': 0.5, '--cpy': 0.5 } as React.CSSProperties}
+            >
               <div className="pmap-img"><Photo v={cur.heroImage} alt={`${cur.name} pandal`} /></div>
               <p className="pmap-loc"><Pin size={16} /> {cur.location}</p>
               <h3>{cur.name}</h3>
               <p className="pmap-theme"><em>Theme:</em> &ldquo;{cur.theme}&rdquo;</p>
-              <p>{cur.description}</p>
+              <p className="pmap-desc">{cur.description}</p>
               <Link to={`/puja/${cur.slug}`} className="btn solid" data-cursor="Explore"><span>Explore</span><ArrowRight size={18} /></Link>
             </div>
           ) : <p>Select a pin to see the Puja.</p>}

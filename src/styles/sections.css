@@ -292,14 +292,14 @@
 .map-river { transform-origin: center; animation: map-fadein 2s ease-out forwards; }
 @keyframes map-fadein { from { opacity: 0; transform: scale(0.9); } }
 .pmap-note { position: absolute; left: 12px; bottom: 10px; right: 12px; font-size: 0.76rem; color: var(--mute); z-index: 1; }
-.pmap-side { position: sticky; top: 90px; }
-.pmap-card { display: grid; gap: 8px; animation: fadeup 0.6s var(--ease); }
-@keyframes fadeup { from { opacity: 0; transform: translateY(14px); } }
-.pmap-img { position: relative; aspect-ratio: 4 / 3; border-radius: 999px 999px 0 0; overflow: hidden; margin-bottom: 8px; }
-.pmap-loc { display: flex; align-items: center; gap: 6px; color: var(--gold-2); font-size: 0.92rem; }
-.pmap-card h3 { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.08; }
-.pmap-theme em { font-style: normal; color: var(--gold-2); }
-.pmap-card p { color: var(--mute); } .pmap-card .btn { justify-self: start; margin-top: 8px; }
+.pmap-side { position: sticky; top: 90px; perspective: 1400px; }
+.pmap-card { display: grid; gap: 8px; animation: fadeup 0.6s var(--ease); transform-style: preserve-3d; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); transform: rotateY(calc((var(--cpx, 0.5) - 0.5) * 16deg)) rotateX(calc((var(--cpy, 0.5) - 0.5) * -16deg)); will-change: transform; }
+@keyframes fadeup { from { opacity: 0; transform: translateY(14px) rotateY(calc((var(--cpx, 0.5) - 0.5) * 16deg)) rotateX(calc((var(--cpy, 0.5) - 0.5) * -16deg)); } }
+.pmap-img { position: relative; aspect-ratio: 4 / 3; border-radius: 999px 999px 0 0; overflow: hidden; margin-bottom: 8px; transform: translateZ(24px); box-shadow: 0 16px 32px rgba(0,0,0,0.4); outline: 1px solid var(--line); }
+.pmap-loc { display: flex; align-items: center; gap: 6px; color: var(--gold-2); font-size: 0.92rem; transform: translateZ(10px); }
+.pmap-card h3 { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.08; transform: translateZ(36px); text-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.pmap-theme { transform: translateZ(18px); } .pmap-theme em { font-style: normal; color: var(--gold-2); }
+.pmap-desc { transform: translateZ(12px); color: var(--mute); } .pmap-card .btn { justify-self: start; margin-top: 8px; transform: translateZ(24px); box-shadow: 0 8px 24px rgba(225, 48, 108, 0.2); }
 .bd-teaser { position: relative; min-height: 80svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
 .bd-teaser-bg { position: absolute; inset: 0; z-index: -2; } .bd-teaser-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20, 8, 9, 0.92), rgba(20, 8, 9, 0.35)); }
 .bd-teaser-in { display: grid; gap: 22px; justify-items: start; }
