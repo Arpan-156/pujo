@@ -52,7 +52,7 @@ export const STAGES: Stage[] = [
   {
     id: 'shashthi', name: 'Shashthi', bn: 'ষষ্ঠী', date: 'Sat 17 Oct', iso: '2026-10-17',
     ritual: 'Bodhon: the face is unveiled',
-    text: "At dusk the idol's face is revealed and the goddess is welcomed with conch shells and dhak. Pandals open their gates for the first night.",
+    text: "At dusk the idol's face is revealed and the Goddess is welcomed with conch shells and dhak. Pandals open their gates for the first night.",
     visual: { art: 'idol', seed: 12, src: '/images/shashthi.jpg' },
   },
   {
@@ -70,13 +70,13 @@ export const STAGES: Stage[] = [
   {
     id: 'navami', name: 'Navami', bn: 'নবমী', date: 'Tue 20 Oct', iso: '2026-10-20',
     ritual: 'Maha aarti and dhunuchi naach',
-    text: 'Smoke, coconut husk and dhak. Dancers balance dhunuchis on their hands, on their teeth, and around the idol.',
+    text: 'Smoke, coconut husk and dhak. Dancers balance dhunuchis on their hands, on their teeth, and perfoems the famous dhunuchi naach.',
     visual: { art: 'dhunuchi', seed: 15, src: '/images/navami.jpg' },
   },
   {
     id: 'dashami', name: 'Dashami', bn: 'দশমী', date: 'Wed 21 Oct', iso: '2026-10-21',
     ritual: 'Sindoor khela and Bishorjon',
-    text: 'Married women smear sindoor on the goddess and on each other. By evening the idols move toward the water, and the dhak slows.',
+    text: 'Married women smear sindoor on the Goddess and on each other. By evening the idols move toward the water, and the dhak slows.',
     visual: { art: 'sindoor', seed: 16, src: '/images/dashami.jpg' },
   },
 ];
