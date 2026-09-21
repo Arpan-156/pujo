@@ -21,7 +21,38 @@ export const LANDMARKS = [
  * Stylised placeholder map based on real geographic coordinates of Bardhaman.
  * Bounding Box: Lng 87.82 - 87.90, Lat 23.22 - 23.28
  */
-function MapBase() {
+function MapBase({ pujas = [] }: { pujas?: any[] }) {
+  // Generate capillary roads: connect each puja to its 2 nearest neighbors to form a dense web
+  const connections = [];
+  
+  // Create a mesh of anchor points along GT Road and NH19 to pull the streets together
+  const anchors = [
+    { x: 15.6, y: 19.3 }, { x: 30, y: 35 }, { x: 50, y: 45 }, { x: 62.2, y: 50.1 }, 
+    { x: 59.4, y: 66.0 }, { x: 61.7, y: 75.0 }, { x: 90.9, y: 81.3 },
+    { x: 40, y: 10 }, { x: 70, y: 30 }, { x: 80, y: 50 } // NH19 curve points
+  ];
+
+  const pts = pujas.filter(p => p.map.lat && p.map.lng).map(p => ({
+    x: toX(p.map.lng), y: toY(p.map.lat)
+  }));
+  
+  // Add anchors to pts so the web connects to the main roads
+  const allPts = [...pts, ...anchors];
+  
+  for (let i = 0; i < pts.length; i++) {
+    // find distances to all other points (including anchors)
+    const dists = allPts
+      .map((p, j) => ({ j, d: Math.hypot(pts[i].x - p.x, pts[i].y - p.y) }))
+      .filter(entry => entry.j !== i)
+      .sort((a, b) => a.d - b.d);
+      
+    // connect to 2 closest
+    for (let k = 0; k < Math.min(2, dists.length); k++) {
+      const target = allPts[dists[k].j];
+      connections.push(`M ${pts[i].x} ${pts[i].y} L ${target.x} ${target.y}`);
+    }
+  }
+
   return (
     <svg className="map-base" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <defs>
@@ -41,24 +72,28 @@ function MapBase() {
       </defs>
       <rect width="100" height="100" fill="url(#mgrid)" />
       
-      {/* Rivers & Lakes */}
+      {/* Rivers */}
       <g filter="url(#hud-glow)">
         <path className="map-river" d="M-2 88C20 84 40 92 60 88S85 82 102 88V102H-2z" fill="url(#river-grad)" opacity=".7" />
         <path className="map-path" d="M-2 88C20 84 40 92 60 88S85 82 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".4" />
-        {/* Krishna Sayar Lake (approx 72, 49) */}
-        <ellipse cx="72" cy="49" rx="5" ry="3" fill="url(#river-grad)" opacity=".8" />
-        <path d="M67 49C67 45 77 45 77 49S67 53 67 49" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".3" />
       </g>
+
+      {/* Krishna Sayar Lake (approx 34.6, 58.7) - Outside glow to prevent blurring */}
+      <g>
+        <ellipse cx="34.6" cy="58.7" rx="3.5" ry="2.2" fill="url(#river-grad)" opacity=".6" />
+        <path d="M31.1 58.7C31.1 56.5 38.1 56.5 38.1 58.7S31.1 60.9 31.1 58.7" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".3" />
+      </g>
+
+      {/* Capillary Roads connecting Pujas */}
+      {connections.length > 0 && (
+        <path d={connections.join(' ')} fill="none" stroke="#e9b558" strokeOpacity=".15" strokeWidth=".15" className="map-streets" />
+      )}
 
       {/* Main Geographic Roads */}
       <g stroke="#e9b558" strokeOpacity=".4" strokeWidth=".25" fill="none" className="map-streets">
-        {/* NH19 Highway (Nawabhat to Ullas bypassing town) */}
         <path d="M 15.6 19.3 Q 65 0 90.9 81.3" filter="url(#hud-glow)" />
-        {/* GT Road (Nawabhat -> Bridge -> Curzon -> Clock -> Ullas) */}
         <path d="M 15.6 19.3 Q 35 30 62.2 50.1 C 65 57 58 63 59.4 66.0 C 60 70 61 72 61.7 75.0 Q 75 80 90.9 81.3" filter="url(#hud-glow)" />
-        {/* BC Road (Crosses GT Road near Curzon Gate) */}
         <path d="M 35 63 Q 59.4 66.0 85 68" />
-        {/* Secondary connecting road */}
         <path d="M 25 50 Q 55 55 61.7 75.0" />
       </g>
 
@@ -70,8 +105,8 @@ function MapBase() {
         <text x="3" y="93">DAMODAR</text>
         <circle cx="1.5" cy="92.3" r="0.4" fill="#e9b558" />
         
-        <text x="63" y="44">KRISHNA SAYAR</text>
-        <circle cx="61.5" cy="43.3" r="0.4" fill="#e9b558" />
+        <text x="36.5" y="55">KRISHNA SAYAR</text>
+        <circle cx="35" cy="54.3" r="0.4" fill="#e9b558" />
 
         <text x="75" y="15">NH19</text>
         <text x="35" y="40">GT ROAD</text>
@@ -101,7 +136,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
         <div className="pmap-canvas-wrap" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
           <div className="pmap-canvas" role="group" aria-label="Map of Puja locations">
             <div className="pmap-radar" aria-hidden="true" />
-            <MapBase />
+            <MapBase pujas={pujas} />
             
             {/* Render Landmarks */}
             {LANDMARKS.map(lm => (
@@ -146,10 +181,11 @@ export function PujaMap({ className = '' }: { className?: string }) {
 export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
   const finalX = lat && lng ? toX(lng) : x;
   const finalY = lat && lng ? toY(lat) : y;
+  const { pujas } = useData();
   
   return (
     <div className="pmap-canvas mini">
-      <MapBase />
+      <MapBase pujas={pujas} />
       
       {/* Render Landmarks in MiniMap */}
       {LANDMARKS.map(lm => (
