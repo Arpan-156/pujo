@@ -47,7 +47,7 @@ export const STAGES: Stage[] = [
     id: 'shashthi', name: 'Shashthi', bn: 'ষষ্ঠী', date: 'Sat 17 Oct', iso: '2026-10-17',
     ritual: 'Bodhon: the face is unveiled',
     text: "At dusk the idol's face is revealed and the goddess is welcomed with conch shells and dhak. Pandals open their gates for the first night.",
-    visual: { art: 'idol', seed: 12, tone: 'dusk', hue: 8 },
+    visual: { art: 'idol', seed: 12, src: '/images/shashthi.jpg' },
   },
   {
     id: 'saptami', name: 'Saptami', bn: 'সপ্তমী', date: 'Sun 18 Oct', iso: '2026-10-18',

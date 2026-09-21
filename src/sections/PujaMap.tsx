@@ -6,6 +6,17 @@ import { Photo } from '../components/Art';
 import { Pin, ArrowRight } from '../components/Icons';
 import { useFinePointer } from '../lib/motion';
 
+const toX = (lng: number) => ((lng - 87.8200) / 0.0800) * 100;
+const toY = (lat: number) => ((23.2800 - lat) / 0.0600) * 100;
+
+export const LANDMARKS = [
+  { id: 'curzon-gate', name: 'Curzon Gate', lat: 23.2404, lng: 87.8675, icon: <path d="M4 22V10a8 8 0 0 1 16 0v12M4 14h16" /> },
+  { id: '108-shiv-mandir', name: '108 Shiv Mandir', lat: 23.2684, lng: 87.8325, icon: <path d="M12 2v20M5 22l7-10 7 10M3 22h18" /> },
+  { id: 'railway-bridge', name: 'Railway Bridge', lat: 23.2500, lng: 87.8500, icon: <path d="M2 14c4-6 16-6 20 0M2 14v6M22 14v6M6 11v9M18 11v9" /> },
+  { id: 'clock-tower', name: 'Clock Tower', lat: 23.2350, lng: 87.8694, icon: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></> },
+  { id: 'ullas-more', name: 'Ullas More', lat: 23.2312, lng: 87.8927, icon: <path d="M12 2v20M2 12h20" /> },
+];
+
 /**
  * Stylised placeholder map. Pin positions come from `puja.map` (0?"100) and are NOT surveyed.
  * To go live, swap <MapBase /> for a Leaflet / MapLibre / Google map and project real lat/lng.
@@ -83,11 +94,20 @@ export function PujaMap({ className = '' }: { className?: string }) {
           <div className="pmap-canvas" role="group" aria-label="Map of Puja locations">
             <div className="pmap-radar" aria-hidden="true" />
             <MapBase />
+            
+            {/* Render Landmarks */}
+            {LANDMARKS.map(lm => (
+              <div key={lm.id} className="pmap-landmark" style={{ left: `${toX(lm.lng)}%`, top: `${toY(lm.lat)}%` }} aria-label={lm.name}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>{lm.icon}</svg>
+                <span>{lm.name}</span>
+              </div>
+            ))}
+
           {pujas.map((p) => (
             <button
               key={p.slug}
               className={`pin ${sel === p.slug ? 'on' : ''} ${p.featured ? 'feat' : ''}`}
-              style={{ left: `${p.map.x}%`, top: `${p.map.y}%` }}
+              style={{ left: `${p.map.lat ? toX(p.map.lng!) : p.map.x}%`, top: `${p.map.lat ? toY(p.map.lat) : p.map.y}%` }}
               onClick={() => setSel(p.slug)}
               aria-label={`${p.name}, ${p.area}`}
               aria-pressed={sel === p.slug}
@@ -115,11 +135,22 @@ export function PujaMap({ className = '' }: { className?: string }) {
 }
 
 /** Small single-pin map for the detail page. */
-export function MiniMap({ x, y, name }: { x: number; y: number; name: string }) {
+export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
+  const finalX = lat && lng ? toX(lng) : x;
+  const finalY = lat && lng ? toY(lat) : y;
+  
   return (
     <div className="pmap-canvas mini">
       <MapBase />
-      <span className="pin on static" style={{ left: `${x}%`, top: `${y}%` }} role="img" aria-label={name}><i /></span>
+      
+      {/* Render Landmarks in MiniMap */}
+      {LANDMARKS.map(lm => (
+        <div key={lm.id} className="pmap-landmark" style={{ left: `${toX(lm.lng)}%`, top: `${toY(lm.lat)}%` }} aria-label={lm.name}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>{lm.icon}</svg>
+        </div>
+      ))}
+
+      <span className="pin on static" style={{ left: `${finalX}%`, top: `${finalY}%` }} role="img" aria-label={name}><i /></span>
     </div>
   );
 }

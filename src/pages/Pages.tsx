@@ -170,7 +170,7 @@ export function PujaDetail({ slug }: { slug: string }) {
             <p className="pd-body">{p.location}. Pin position is a placeholder until real coordinates are added.</p>
           )}
         </div>
-        <MiniMap x={p.map.x} y={p.map.y} name={p.name} />
+        <MiniMap x={p.map.x} y={p.map.y} lat={p.map.lat} lng={p.map.lng} name={p.name} />
       </section>
 
       <section className="pd-more wrap">
