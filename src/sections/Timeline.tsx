@@ -9,7 +9,7 @@ export function Timeline() {
   useScrollVar(ref);
   return (
     <section className="timeline" ref={ref} style={{ position: 'relative', overflow: 'hidden' }}>
-      <Particles kind="petals" count={30} className="tl-particles" />
+      <Particles kind="petals" count={50} className="tl-particles" />
       <div className="wrap">
         <RevealText lines={['MAHALAYA', 'TO DASHAMI']} className="display" />
         <Reveal delay={150} className="lead">Six mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>

@@ -61,7 +61,7 @@ export function Cursor() {
  *  Particles: embers, shiuli petals, dust (one canvas, paused offscreen)
  * ============================================================ */
 type PKind = 'embers' | 'petals' | 'dust';
-interface P { x: number; y: number; vx: number; vy: number; s: number; a: number; ph: number; rot: number; vr: number; isLeaf?: boolean }
+interface P { x: number; y: number; vx: number; vy: number; s: number; a: number; ph: number; rot: number; vr: number; type?: number }
 
 export function Particles({ kind = 'embers', count = 60, className = '' }: { kind?: PKind; count?: number; className?: string }) {
   const cv = useRef<HTMLCanvasElement>(null);
@@ -89,7 +89,7 @@ export function Particles({ kind = 'embers', count = 60, className = '' }: { kin
       vy: kind === 'petals' ? 14 + Math.random() * 26 : -(kind === 'dust' ? 3 : 14) - Math.random() * (kind === 'dust' ? 6 : 34),
       s: kind === 'petals' ? 3 + Math.random() * 4 : 0.7 + Math.random() * 2,
       a: 0.3 + Math.random() * 0.7, ph: Math.random() * 6.28, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 2,
-      isLeaf: kind === 'petals' ? Math.random() > 0.6 : false
+      type: kind === 'petals' ? Math.floor(Math.random() * 5) : 0
     });
     const ps = Array.from({ length: n }, () => mk(true));
     const draw = (now: number) => {
@@ -103,13 +103,27 @@ export function Particles({ kind = 'embers', count = 60, className = '' }: { kin
         if (p.y < -20 || p.y > h + 24 || p.x < -20 || p.x > w + 20) { ps[i] = mk(false); continue; }
         if (kind === 'petals') {
           ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = p.a * 0.85;
-          if (p.isLeaf) {
+          
+          if (p.type === 1) { // Leaf
             ctx.fillStyle = '#4a7550'; ctx.beginPath(); ctx.ellipse(0, 0, p.s * 1.8, p.s * 0.8, 0, 0, 6.28); ctx.fill();
             ctx.strokeStyle = '#395c3e'; ctx.lineWidth = p.s * 0.2; ctx.beginPath(); ctx.moveTo(-p.s * 1.6, 0); ctx.lineTo(p.s * 1.6, 0); ctx.stroke();
-          } else {
+          } else if (p.type === 2) { // Marigold (Genda)
+            ctx.fillStyle = '#ff9900'; ctx.beginPath();
+            for (let j = 0; j < 8; j++) { ctx.ellipse(Math.cos(j*0.78)*p.s*0.5, Math.sin(j*0.78)*p.s*0.5, p.s*0.8, p.s*0.8, 0, 0, 6.28); }
+            ctx.fill();
+            ctx.fillStyle = '#ffcc00'; ctx.beginPath(); ctx.arc(0, 0, p.s*0.4, 0, 6.28); ctx.fill();
+          } else if (p.type === 3) { // Red Hibiscus (Jaba)
+            ctx.fillStyle = '#d32f2f'; ctx.beginPath();
+            for (let j = 0; j < 5; j++) { const a = j * 1.256; ctx.ellipse(Math.cos(a)*p.s*0.7, Math.sin(a)*p.s*0.7, p.s*1.1, p.s*0.6, a, 0, 6.28); }
+            ctx.fill();
+            ctx.strokeStyle = '#ffc107'; ctx.lineWidth = p.s*0.15; ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(p.s*1.2, p.s*1.2); ctx.stroke();
+          } else if (p.type === 4) { // Pink Lotus petal
+            ctx.fillStyle = '#ec407a'; ctx.beginPath(); ctx.moveTo(-p.s, 0); ctx.quadraticCurveTo(0, -p.s*1.5, p.s, 0); ctx.quadraticCurveTo(0, p.s*1.5, -p.s, 0); ctx.fill();
+          } else { // Shiuli
             ctx.fillStyle = '#fbf3e4'; ctx.beginPath(); ctx.ellipse(0, 0, p.s, p.s * 0.45, 0, 0, 6.28); ctx.fill();
             ctx.fillStyle = '#f0a25a'; ctx.beginPath(); ctx.arc(p.s * 0.6, 0, p.s * 0.22, 0, 6.28); ctx.fill();
           }
+          
           ctx.restore();
         } else {
           const f = kind === 'embers' ? 0.55 + 0.45 * Math.sin(p.ph * 3) : 1;
