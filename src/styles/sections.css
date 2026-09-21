@@ -194,10 +194,10 @@
 .timeline .wrap { display: grid; gap: 20px; }
 .tl-scroll { margin-top: clamp(40px, 8vh, 80px); overflow-x: auto; padding: 0 var(--gut) 40px; scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x mandatory; }
 .tl-scroll::-webkit-scrollbar { display: none; }
-.tl-track { position: relative; min-width: 1000px; max-width: 1440px; margin-inline: auto; padding-top: 20px; }
+.tl-track { position: relative; min-width: 1200px; max-width: 1600px; margin-inline: auto; padding-top: 20px; }
 .tl-line { position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: rgba(233, 181, 88, 0.18); z-index: 1; }
 .tl-line span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--sindoor)); transform-origin: left; transform: scaleX(min(1, max(0, calc(var(--p, 0) * 1.9 - 0.3)))); box-shadow: 0 0 10px var(--gold); }
-.tl-list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; }
+.tl-list { display: grid; grid-template-columns: repeat(7, 1fr); gap: 24px; }
 .tl-item { position: relative; padding-top: 34px; scroll-snap-align: start; }
 .tl-item .rv { display: grid; gap: 4px; align-content: start; }
 .tl-dot { position: absolute; left: 0; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px var(--ink), 0 0 0 6px rgba(233, 181, 88, 0.4); z-index: 2; transition: transform 0.3s; }

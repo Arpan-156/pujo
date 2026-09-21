@@ -12,7 +12,7 @@ export function Timeline() {
       <Particles kind="petals" count={50} className="tl-particles" />
       <div className="wrap">
         <RevealText lines={['MAHALAYA', 'TO DASHAMI']} className="display" />
-        <Reveal delay={150} className="lead">Six mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>
+        <Reveal delay={150} className="lead">Seven mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>
       </div>
       <div className="tl-scroll" tabIndex={0} role="region" aria-label="Festival timeline, scroll sideways">
         <div className="tl-track">

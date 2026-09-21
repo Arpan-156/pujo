@@ -47,7 +47,7 @@ export const STAGES: Stage[] = [
     id: 'panchami', name: 'Panchami', bn: 'পঞ্চমী', date: 'Fri 16 Oct', iso: '2026-10-16',
     ritual: 'Final touches and early hopping',
     text: 'The calm before the festival. Artisans add final brushstrokes, lighting trials illuminate the streets, and crowds begin hopping to beat the rush.',
-    visual: { art: 'pandal', seed: 21, tone: 'dusk', hue: 45 },
+    visual: { art: 'pandal', seed: 21, src: '/images/panchami.jpg' },
   },
   {
     id: 'shashthi', name: 'Shashthi', bn: 'ষষ্ঠী', date: 'Sat 17 Oct', iso: '2026-10-17',
