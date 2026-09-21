@@ -179,12 +179,7 @@ export const FEATURED: FeaturedPandal[] = [
 export const FILTERS: { id: string; label: string; test: (p: Puja) => boolean }[] = [
   { id: 'all', label: 'All', test: () => true },
   { id: 'town', label: 'Bardhaman Town', test: (p) => p.zone === 'Bardhaman Town' },
-  { id: 'traditional', label: 'Traditional', test: (p) => p.categories.includes('Traditional') },
-  { id: 'theme', label: 'Theme Puja', test: (p) => p.categories.includes('Theme Puja') },
-  { id: 'large', label: 'Large Pandals', test: (p) => p.categories.includes('Large Pandal') },
   { id: 'heritage', label: 'Heritage', test: (p) => p.categories.includes('Heritage') },
-  { id: 'family', label: 'Family Puja', test: (p) => p.categories.includes('Family Puja') },
-  { id: 'community', label: 'Community Puja', test: (p) => p.categories.includes('Community Puja') },
   { id: 'featured', label: 'Featured', test: (p) => p.featured },
 ];
 

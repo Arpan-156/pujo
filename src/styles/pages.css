@@ -1,7 +1,11 @@
 /* ---------- page header ---------- */
 .page-head { position: relative; min-height: 72svh; display: flex; align-items: flex-end; padding: 150px 0 clamp(70px, 12vh, 120px); overflow: hidden; isolation: isolate; }
 .page-head.tall { min-height: 92svh; }
-.page-head-bg { position: absolute; inset: -4%; z-index: -3; } .page-head-bg .photo { animation: kenburns 40s ease-in-out infinite alternate; }
+.page-head-bg { position: absolute; inset: -4%; z-index: -3; }
+.page-head-bg .photo { animation: kenburns 40s ease-in-out infinite alternate; object-position: center 30%; }
+@media (max-width: 800px) {
+  .page-head-bg .photo { object-position: center 10%; }
+}
 .page-head-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(20, 8, 9, 0.96) 5%, rgba(20, 8, 9, 0.5) 50%, rgba(20, 8, 9, 0.25)); }
 .page-head-in { position: relative; z-index: 2; display: grid; gap: clamp(12px, 2vh, 22px); }
 .bn-line { font-family: var(--f-bn); color: var(--gold-2); font-size: clamp(1.1rem, 2.2vw, 1.6rem); }
