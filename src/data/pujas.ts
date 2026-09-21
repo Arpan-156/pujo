@@ -53,7 +53,7 @@ const CONCEPT: Record<string, { pandal: string; idol: string; attractions: strin
 interface Row {
   slug: string; name: string; area: string; town?: boolean; themeId: string; themeName: string;
   cats: PujaCategory[]; est: number; feat?: boolean; art: ArtKind; seed: number; hue: number; tone?: Tone;
-  desc: string; x: number; y: number; story?: string;
+  desc: string; x: number; y: number; lat?: number; lng?: number; story?: string;
 }
 
 const build = (r: Row): Puja => {
@@ -70,7 +70,7 @@ const build = (r: Row): Puja => {
     heroImage: V(r.art, r.seed, r.hue, r.tone ?? 'night'),
     idolImage: V('idol', r.seed + 40, r.hue, 'dusk'),
     gallery: gallerySet.map((k, i) => V(k, r.seed + i * 7, r.hue, i === 4 ? 'dusk' : 'night')),
-    map: { x: r.x, y: r.y },
+    map: { x: r.x, y: r.y, lat: r.lat, lng: r.lng },
     sample: true,
   };
 };
@@ -82,6 +82,10 @@ const build = (r: Row): Puja => {
  *  <PujaProvider>. Nothing else in the UI needs to change.
  * ------------------------------------------------------------------ */
 const ROWS: Row[] = [
+  { slug: 'vivekananda-sevak-sangha', name: 'Vivekananda Sevak Sangha', area: 'Vivekananda Pally', themeId: 'eco', themeName: 'Prakriti O Pran',
+    cats: ['Traditional', 'Community Puja'], est: 1985, feat: true, art: 'eco', seed: 231, hue: 140, tone: 'day', x: 45, y: 35, lat: 23.2305, lng: 87.8624,
+    desc: 'An eco-friendly celebration focusing on nature, using natural materials for a serene and pure environment.',
+    story: 'For decades, Vivekananda Sevak Sangha has organized an authentic, traditional puja. This year, the focus is entirely on eco-consciousness. The pandal is woven from jute and bamboo, and the idol is sculpted from untouched river clay without synthetic paints, returning peacefully to nature on Dashami.' },
   { slug: 'curzon-gate-yuvak-sangha', name: 'Curzon Yuvak Sangha', area: 'Curzon Gate', themeId: 'architecture', themeName: 'The Gate Remembered',
     cats: ['Theme Puja', 'Large Pandal'], est: 1978, feat: true, art: 'gate', seed: 201, hue: 14, tone: 'dusk', x: 53, y: 44,
     desc: 'A full-scale rebuild of a triple-arched gateway, with the idol seated beneath its central arch.',
@@ -165,7 +169,8 @@ const ROWS: Row[] = [
 export const PUJAS: Puja[] = ROWS.map(build);
 
 export const FEATURED: FeaturedPandal[] = [
-  { slug: 'curzon-gate-yuvak-sangha', tagline: 'The city gate, rebuilt for the Goddess.', note: 'Architecture · Large pandal' },
+  { slug: 'vivekananda-sevak-sangha', tagline: 'A luminous presence in the heart of the city.', note: 'Traditional & Eco' },
+  { slug: 'curzon-gate-yuvak-sangha', tagline: 'The city gate, rebuilt for the Goddess.', note: 'Architecture • Large pandal' },
   { slug: 'kanchannagar-nabin-sangha', tagline: 'A ceiling of a thousand moving lights.', note: 'Contemporary art' },
   { slug: 'badamtala-bandhu-mahal', tagline: 'A village courtyard inside the town.', note: 'Rural Bengal' },
   { slug: 'sadarghat-ekata-sangha', tagline: 'The battle, told room by room.', note: 'Mythology' },

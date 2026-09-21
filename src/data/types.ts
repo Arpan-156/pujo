@@ -36,8 +36,8 @@ export interface Puja {
   heroImage: Visual;
   idolImage: Visual;
   gallery: Visual[];
-  /** position on the stylised map, 0–100 */
-  map: { x: number; y: number };
+  /** position on the stylised map, 0-100 */
+  map: { x: number; y: number; lat?: number; lng?: number };
   /** true until the entry has been verified with the organisers */
   sample?: boolean;
 }

@@ -161,7 +161,14 @@ export function PujaDetail({ slug }: { slug: string }) {
       <section className="pd-loc wrap">
         <div>
           <RevealText lines={['FIND IT']} className="display" />
-          <p className="pd-body">{p.location}. Pin position is a placeholder until real coordinates are added.</p>
+          {p.map.lat && p.map.lng ? (
+            <p className="pd-body">
+              <strong>Real Coordinates:</strong> {p.map.lat}&deg; N, {p.map.lng}&deg; E <br/>
+              {p.location}. Map pin is stylised.
+            </p>
+          ) : (
+            <p className="pd-body">{p.location}. Pin position is a placeholder until real coordinates are added.</p>
+          )}
         </div>
         <MiniMap x={p.map.x} y={p.map.y} name={p.name} />
       </section>
