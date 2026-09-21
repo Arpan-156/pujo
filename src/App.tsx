@@ -30,6 +30,34 @@ function Routes() {
   }
 }
 
+function GlobalBranding() {
+  return (
+    <div className="global-branding" aria-hidden="true" style={{
+      position: 'fixed',
+      left: '20px',
+      top: '50%',
+      transform: 'translateY(-50%) rotate(180deg)',
+      writingMode: 'vertical-rl',
+      textOrientation: 'mixed',
+      zIndex: 100,
+      pointerEvents: 'none',
+      fontFamily: 'var(--f-body)',
+      fontSize: '11px',
+      letterSpacing: '0.3em',
+      color: 'var(--gold)',
+      opacity: 0.65,
+      mixBlendMode: 'screen',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '15px'
+    }}>
+      <span style={{ display: 'block', width: '1px', height: '40px', background: 'var(--gold)', opacity: 0.4 }} />
+      <span>PHOTOGRAPHY & DESIGN BY <b style={{ color: '#fff' }}>BURDWAN CAPTURERS</b></span>
+      <span style={{ display: 'block', width: '1px', height: '40px', background: 'var(--gold)', opacity: 0.4 }} />
+    </div>
+  );
+}
+
 function Shell() {
   const [stage, setStage] = useState<Stage>('loading');
   const [open, setOpen] = useState(false);
@@ -38,7 +66,7 @@ function Shell() {
   useEffect(() => {
     document.documentElement.classList.toggle('locked', stage !== 'site');
   }, [stage]);
-  useEffect(() => { document.title = `${label.en} · Bardhaman Durga Puja 2026`; }, [label]);
+  useEffect(() => { document.title = `${label.en} — Bardhaman Durga Puja 2026`; }, [label]);
 
   const ctx = useMemo(() => ({ open }), [open]);
 
@@ -48,6 +76,7 @@ function Shell() {
       <a className="skip" href="#main">Skip to content</a>
       {stage === 'site' && (
         <>
+          <GlobalBranding />
           <Nav visible={open} />
           <main id="main" className="page"><Routes /></main>
           <Footer />
