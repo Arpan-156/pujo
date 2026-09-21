@@ -10,16 +10,16 @@ const toX = (lng: number) => ((lng - 87.8200) / 0.0800) * 100;
 const toY = (lat: number) => ((23.2800 - lat) / 0.0600) * 100;
 
 export const LANDMARKS = [
-  { id: 'curzon-gate', name: 'Curzon Gate', lat: 23.2404, lng: 87.8675, icon: <path d="M4 22V10a8 8 0 0 1 16 0v12M4 14h16" /> },
   { id: '108-shiv-mandir', name: '108 Shiv Mandir', lat: 23.2684, lng: 87.8325, icon: <path d="M12 2v20M5 22l7-10 7 10M3 22h18" /> },
-  { id: 'railway-bridge', name: 'Railway Bridge', lat: 23.2500, lng: 87.8500, icon: <path d="M2 14c4-6 16-6 20 0M2 14v6M22 14v6M6 11v9M18 11v9" /> },
+  { id: 'railway-bridge', name: 'Railway Bridge', lat: 23.2499, lng: 87.8698, icon: <path d="M2 14c4-6 16-6 20 0M2 14v6M22 14v6M6 11v9M18 11v9" /> },
+  { id: 'curzon-gate', name: 'Curzon Gate', lat: 23.2404, lng: 87.8675, icon: <path d="M4 22V10a8 8 0 0 1 16 0v12M4 14h16" /> },
   { id: 'clock-tower', name: 'Clock Tower', lat: 23.2350, lng: 87.8694, icon: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></> },
   { id: 'ullas-more', name: 'Ullas More', lat: 23.2312, lng: 87.8927, icon: <path d="M12 2v20M2 12h20" /> },
 ];
 
 /**
- * Stylised placeholder map. Pin positions come from `puja.map` (0?"100) and are NOT surveyed.
- * To go live, swap <MapBase /> for a Leaflet / MapLibre / Google map and project real lat/lng.
+ * Stylised placeholder map based on real geographic coordinates of Bardhaman.
+ * Bounding Box: Lng 87.82 - 87.90, Lat 23.22 - 23.28
  */
 function MapBase() {
   return (
@@ -43,33 +43,41 @@ function MapBase() {
       
       {/* Rivers & Lakes */}
       <g filter="url(#hud-glow)">
-        <path className="map-river" d="M-2 88C18 82 30 96 52 90S82 80 102 88V102H-2z" fill="url(#river-grad)" opacity=".7" />
-        <path className="map-path" d="M-2 88C18 82 30 96 52 90S82 80 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".4" />
-        <ellipse cx="72" cy="42" rx="6" ry="3.4" fill="url(#river-grad)" opacity=".8" />
-        <path d="M66 42C66 38 78 38 78 42S66 46 66 42" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".3" />
+        <path className="map-river" d="M-2 88C20 84 40 92 60 88S85 82 102 88V102H-2z" fill="url(#river-grad)" opacity=".7" />
+        <path className="map-path" d="M-2 88C20 84 40 92 60 88S85 82 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".4" />
+        {/* Krishna Sayar Lake (approx 72, 49) */}
+        <ellipse cx="72" cy="49" rx="5" ry="3" fill="url(#river-grad)" opacity=".8" />
+        <path d="M67 49C67 45 77 45 77 49S67 53 67 49" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".3" />
       </g>
 
-      {/* Main Streets */}
+      {/* Main Geographic Roads */}
       <g stroke="#e9b558" strokeOpacity=".4" strokeWidth=".25" fill="none" className="map-streets">
-        <path d="M0 50C25 46 40 52 60 48S90 44 100 46" filter="url(#hud-glow)" />
-        <path d="M50 0C48 30 54 60 50 100" />
-        <path d="M10 20C30 30 50 30 70 24S90 14 100 10" />
-        <path d="M14 96C22 74 30 66 46 60" />
-        <path d="M60 60C72 66 82 70 96 78" />
+        {/* NH19 Highway (Nawabhat to Ullas bypassing town) */}
+        <path d="M 15.6 19.3 Q 65 0 90.9 81.3" filter="url(#hud-glow)" />
+        {/* GT Road (Nawabhat -> Bridge -> Curzon -> Clock -> Ullas) */}
+        <path d="M 15.6 19.3 Q 35 30 62.2 50.1 C 65 57 58 63 59.4 66.0 C 60 70 61 72 61.7 75.0 Q 75 80 90.9 81.3" filter="url(#hud-glow)" />
+        {/* BC Road (Crosses GT Road near Curzon Gate) */}
+        <path d="M 35 63 Q 59.4 66.0 85 68" />
+        {/* Secondary connecting road */}
+        <path d="M 25 50 Q 55 55 61.7 75.0" />
       </g>
 
-      {/* Railway */}
-      <path className="map-train" d="M0 62C30 58 50 64 100 56" fill="none" stroke="#ff4d4d" strokeOpacity=".6" strokeWidth=".4" strokeDasharray="1.2 1.2" filter="url(#hud-glow)" />
+      {/* Railway Line */}
+      <path className="map-train" d="M 10 20 Q 62.2 50.1 95 65" fill="none" stroke="#ff4d4d" strokeOpacity=".6" strokeWidth=".4" strokeDasharray="1.2 1.2" filter="url(#hud-glow)" />
       
       {/* HUD Labels */}
       <g fill="#6ea6bd" fontSize="1.8" fontFamily="var(--f-body)" fontWeight="600" letterSpacing="0.1em" opacity="0.8">
         <text x="3" y="93">DAMODAR</text>
         <circle cx="1.5" cy="92.3" r="0.4" fill="#e9b558" />
         
-        <text x="63" y="37">KRISHNA SAYAR</text>
-        <circle cx="61.5" cy="36.3" r="0.4" fill="#e9b558" />
+        <text x="63" y="44">KRISHNA SAYAR</text>
+        <circle cx="61.5" cy="43.3" r="0.4" fill="#e9b558" />
+
+        <text x="75" y="15">NH19</text>
+        <text x="35" y="40">GT ROAD</text>
+        <text x="75" y="66">BC ROAD</text>
       </g>
-      <text x="2" y="60" fill="#ff4d4d" fontSize="1.4" fontFamily="var(--f-body)" letterSpacing="0.15em" opacity="0.7">RAILWAY</text>
+      <text x="15" y="30" fill="#ff4d4d" fontSize="1.4" fontFamily="var(--f-body)" letterSpacing="0.15em" opacity="0.7">RAILWAY</text>
     </svg>
   );
 }
