@@ -38,10 +38,10 @@ export const TRACKS: Track[] = [
 
 export const STAGES: Stage[] = [
   {
-    id: 'mahalaya', name: 'Mahalaya', bn: 'মহালয়া', date: 'Sat 10 Oct', iso: '2026-10-10',
+    id: 'mahalaya', name: 'Mahalaya', bn: 'মহালয়া', date: 'Sat 10 Oct', iso: '2026-10-10',
     ritual: 'Tarpan, and the voice on the radio',
     text: 'Before dawn, families offer tarpan to their ancestors and the old Mahishasura Mardini recital fills the house. The Goddess has been invited.',
-    visual: { art: 'river', seed: 11, tone: 'dawn', hue: 24 },
+    visual: { art: 'river', seed: 11, src: '/images/mahalaya.jpg' },
   },
   {
     id: 'shashthi', name: 'Shashthi', bn: 'ষষ্ঠী', date: 'Sat 17 Oct', iso: '2026-10-17',

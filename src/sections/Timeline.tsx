@@ -19,8 +19,8 @@ export function Timeline() {
           <ol className="tl-list">
             {STAGES.map((s, i) => (
               <li key={s.id} className="tl-item">
+                <span className="tl-dot" aria-hidden="true" />
                 <Reveal delay={i * 110} variant="up">
-                  <span className="tl-dot" aria-hidden="true" />
                   <p className="tl-date">{s.date}</p>
                   <div className="tl-arch"><Photo v={s.visual} alt={`${s.name}: ${s.ritual}`} /></div>
                   <h3><span lang="bn" className="bn">{s.bn}</span>{s.name}</h3>

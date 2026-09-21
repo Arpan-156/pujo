@@ -14,29 +14,51 @@ function MapBase() {
   return (
     <svg className="map-base" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <pattern id="mgrid" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M4 0H0V4" fill="none" stroke="#e9b558" strokeOpacity=".07" strokeWidth=".15" /></pattern>
+        <pattern id="mgrid" width="8" height="8" patternUnits="userSpaceOnUse">
+          <path d="M8 0H0V8" fill="none" stroke="rgba(233,181,88,0.12)" strokeWidth=".1" />
+          <circle cx="0" cy="0" r="0.2" fill="rgba(233,181,88,0.3)" />
+        </pattern>
+        <filter id="hud-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <linearGradient id="river-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#193c47" />
+          <stop offset="50%" stopColor="#255a6d" />
+          <stop offset="100%" stopColor="#193c47" />
+        </linearGradient>
       </defs>
       <rect width="100" height="100" fill="url(#mgrid)" />
-      {/* Damodar */}
-      <path className="map-river" d="M-2 88C18 82 30 96 52 90S82 80 102 88V102H-2z" fill="#1c3a4a" opacity=".55" />
-      <path className="map-path" d="M-2 88C18 82 30 96 52 90S82 80 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".5" strokeWidth=".3" />
-      {/* lake */}
-      <ellipse cx="72" cy="42" rx="6" ry="3.4" fill="#1c3a4a" opacity=".6" />
-      {/* main streets */}
-      <g stroke="#e9b558" strokeOpacity=".22" strokeWidth=".35" fill="none" className="map-streets">
-        <path d="M0 50C25 46 40 52 60 48S90 44 100 46" />
+      
+      {/* Rivers & Lakes */}
+      <g filter="url(#hud-glow)">
+        <path className="map-river" d="M-2 88C18 82 30 96 52 90S82 80 102 88V102H-2z" fill="url(#river-grad)" opacity=".7" />
+        <path className="map-path" d="M-2 88C18 82 30 96 52 90S82 80 102 88" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".4" />
+        <ellipse cx="72" cy="42" rx="6" ry="3.4" fill="url(#river-grad)" opacity=".8" />
+        <path d="M66 42C66 38 78 38 78 42S66 46 66 42" fill="none" stroke="#6ea6bd" strokeOpacity=".8" strokeWidth=".3" />
+      </g>
+
+      {/* Main Streets */}
+      <g stroke="#e9b558" strokeOpacity=".4" strokeWidth=".25" fill="none" className="map-streets">
+        <path d="M0 50C25 46 40 52 60 48S90 44 100 46" filter="url(#hud-glow)" />
         <path d="M50 0C48 30 54 60 50 100" />
         <path d="M10 20C30 30 50 30 70 24S90 14 100 10" />
         <path d="M14 96C22 74 30 66 46 60" />
         <path d="M60 60C72 66 82 70 96 78" />
       </g>
-      {/* railway */}
-      <path className="map-train" d="M0 62C30 58 50 64 100 56" fill="none" stroke="#f6efe2" strokeOpacity=".45" strokeWidth=".55" strokeDasharray="1.6 1.2" />
-      <g fill="#f6efe2" fillOpacity=".5" fontSize="2.3" fontFamily="Hanken Grotesk, sans-serif">
-        <text x="3" y="94">Damodar</text>
-        <text x="1.5" y="60">Railway line</text>
-        <text x="67" y="37.500">Krishna Sayar</text>
+
+      {/* Railway */}
+      <path className="map-train" d="M0 62C30 58 50 64 100 56" fill="none" stroke="#ff4d4d" strokeOpacity=".6" strokeWidth=".4" strokeDasharray="1.2 1.2" filter="url(#hud-glow)" />
+      
+      {/* HUD Labels */}
+      <g fill="#6ea6bd" fontSize="1.8" fontFamily="var(--f-sans)" fontWeight="600" letterSpacing="0.1em" opacity="0.8">
+        <text x="3" y="93">DAMODAR</text>
+        <circle cx="1.5" cy="92.3" r="0.4" fill="#e9b558" />
+        
+        <text x="63" y="37">KRISHNA SAYAR</text>
+        <circle cx="61.5" cy="36.3" r="0.4" fill="#e9b558" />
       </g>
+      <text x="2" y="60" fill="#ff4d4d" fontSize="1.4" fontFamily="var(--f-sans)" letterSpacing="0.15em" opacity="0.7">RAILWAY</text>
     </svg>
   );
 }

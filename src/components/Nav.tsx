@@ -32,7 +32,7 @@ export function Nav({ visible }: { visible: boolean }) {
       <header className={`nav ${visible ? 'show' : ''} ${scrolled ? 'scrolled' : ''}`}>
         <Link to="/" className="nav-brand" data-cursor="Home" aria-label="Bardhaman Durga Puja 2026, home">
           <span className="nav-marks"><BrandMark brand="capturers" size={30} /><BrandMark brand="pujo" size={30} /></span>
-          <span className="nav-brand-text"><b>বর্ধমান পুজো</b><small>Puja 2026</small></span>
+          <span className="nav-brand-text"><b>বর্ধমানের দুর্গাপূজা</b><small>2026</small></span>
         </Link>
         <nav className="nav-links" aria-label="Primary">
           {NAV.map((n) => (
