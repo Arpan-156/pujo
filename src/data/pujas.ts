@@ -113,9 +113,7 @@ const ROWS: Row[] = [
   { slug: 'golapbag-sarbojanin', name: 'Golapbag Sarbojanin Durgotsab', area: 'Golapbag', themeId: 'heritage', themeName: 'Zamindar Bari',
     cats: ['Traditional', 'Community Puja', 'Large Pandal'], est: 1948, art: 'pandal', seed: 207, hue: 10, x: 58, y: 24,
     desc: 'A big neighbourhood puja with a classical thakur-dalan facade and daily bhog for hundreds.' },
-  { slug: 'rajbati-prangan-pujo', name: 'Rajbati Prangan Pujo', area: 'Rajbati', themeId: 'heritage', themeName: 'The Old Courtyard',
-    cats: ['Heritage', 'Family Puja', 'Traditional'], est: 1876, art: 'temple', seed: 208, hue: 22, tone: 'dusk', x: 46, y: 36,
-    desc: 'A family courtyard puja kept in the old way, with hand-pressed sandesh and dhaki families who return every year.' },
+
   { slug: 'khosbagan-sarbojanin', name: 'Khosbagan Sarbojanin', area: 'Khosbagan', themeId: 'heritage', themeName: 'Daker Saaj',
     cats: ['Traditional', 'Community Puja'], est: 1962, art: 'pandal', seed: 209, hue: 16, x: 36, y: 46,
     desc: 'The classic form. Daker saaj silver-foil decoration and a bhog line that runs out the gate.' },
