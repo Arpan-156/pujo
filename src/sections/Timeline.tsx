@@ -2,13 +2,14 @@ import { useRef } from 'react';
 import { STAGES } from '../data/site';
 import { useScrollVar } from '../lib/motion';
 import { Photo } from '../components/Art';
-import { Reveal, RevealText } from '../components/fx';
+import { Reveal, RevealText, Particles } from '../components/fx';
 
 export function Timeline() {
   const ref = useRef<HTMLElement>(null);
   useScrollVar(ref);
   return (
-    <section className="timeline" ref={ref}>
+    <section className="timeline" ref={ref} style={{ position: 'relative', overflow: 'hidden' }}>
+      <Particles kind="petals" count={30} className="tl-particles" />
       <div className="wrap">
         <RevealText lines={['MAHALAYA', 'TO DASHAMI']} className="display" />
         <Reveal delay={150} className="lead">Six mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>
