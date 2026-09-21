@@ -44,6 +44,12 @@ export const STAGES: Stage[] = [
     visual: { art: 'river', seed: 11, src: '/images/mahalaya.jpg' },
   },
   {
+    id: 'panchami', name: 'Panchami', bn: 'পঞ্চমী', date: 'Fri 16 Oct', iso: '2026-10-16',
+    ritual: 'Final touches and early hopping',
+    text: 'The calm before the festival. Artisans add final brushstrokes, lighting trials illuminate the streets, and crowds begin hopping to beat the rush.',
+    visual: { art: 'pandal', seed: 21, tone: 'dusk', hue: 45 },
+  },
+  {
     id: 'shashthi', name: 'Shashthi', bn: 'ষষ্ঠী', date: 'Sat 17 Oct', iso: '2026-10-17',
     ritual: 'Bodhon: the face is unveiled',
     text: "At dusk the idol's face is revealed and the goddess is welcomed with conch shells and dhak. Pandals open their gates for the first night.",
