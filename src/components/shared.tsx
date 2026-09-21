@@ -115,11 +115,64 @@ export const SOCIALS = [
   { key: 'youtube', label: 'YouTube', Icon: Youtube },
 ] as const;
 
+/* ---------- kash field ---------- */
+function KashField() {
+  return (
+    <>
+      <style>{`
+        @keyframes sway {
+          0% { transform: rotate(-12deg); }
+          100% { transform: rotate(12deg); }
+        }
+        .kash-field {
+          position: relative;
+          height: 0;
+          width: 100%;
+          pointer-events: none;
+          z-index: 50;
+        }
+        .kash-stalk {
+          position: absolute;
+          bottom: 0px;
+          transform-origin: bottom center;
+        }
+      `}</style>
+      <div className="kash-field" aria-hidden="true">
+        {Array.from({ length: 50 }, (_, i) => {
+          const x = Math.random() * 100;
+          const s = 0.6 + Math.random() * 0.7;
+          const delay = Math.random() * -5;
+          const dur = 3 + Math.random() * 4;
+          return (
+            <div key={i} className="kash-stalk" style={{
+              left: `${x}%`,
+              transform: `scale(${s})`,
+            }}>
+              <div style={{
+                transformOrigin: 'bottom center',
+                animation: `sway ${dur}s ease-in-out ${delay}s infinite alternate`
+              }}>
+                <svg width="20" height="90" viewBox="0 0 20 90" overflow="visible">
+                  <path d="M10 90 Q10 40 10 10" stroke="#a08a70" strokeWidth="1.5" fill="none" opacity="0.8" />
+                  <ellipse cx="10" cy="15" rx="5" ry="20" fill="#f8efe0" opacity="0.9" transform="rotate(-5 10 15)" />
+                  <ellipse cx="10" cy="15" rx="2" ry="16" fill="#fff" opacity="0.7" transform="rotate(-5 10 15)" />
+                </svg>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
 /* ---------- footer ---------- */
 export function Footer() {
   return (
-    <footer className="footer">
-      <LaalPaar />
+    <>
+      <KashField />
+      <footer className="footer">
+        <LaalPaar />
       <Alpana size={900} className="footer-alpana" />
       <div className="wrap footer-in">
         <div className="footer-lockup">
@@ -149,5 +202,6 @@ export function Footer() {
         <p className="footer-copy">© 2026 Burdwan Capturers Official × Banglar Pujo Official</p>
       </div>
     </footer>
+    </>
   );
 }

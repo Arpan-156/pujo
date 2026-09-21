@@ -96,16 +96,8 @@ import { useFinePointer } from '../lib/motion';
 import type { PointerEvent } from 'react';
 
 export function Social() {
-  const fine = useFinePointer();
-  const move = (e: PointerEvent<HTMLElement>) => {
-    if (!fine) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
-    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
-  };
-
   return (
-    <section className="social" onPointerMove={move} style={{ position: 'relative', overflow: 'hidden' }}>
+    <section className="social" style={{ position: 'relative', overflow: 'hidden' }}>
       <Particles kind="embers" count={35} className="soc-particles" />
       <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
         <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
@@ -127,7 +119,6 @@ export function Social() {
           </div>
         ))}
       </div>
-      <div className="soc-spotlight" aria-hidden="true" />
     </section>
   );
 }
