@@ -104,14 +104,18 @@
 .plist-col { display: grid; gap: 4px; }
 .plist-name { font-family: var(--f-display); font-weight: 500; font-size: 1.6rem; line-height: 1.1; color: #fff; }
 .plist-cats { font-size: 0.82rem; color: var(--gold-2); }
+.feat-tag { color: var(--gold); font-weight: 600; text-shadow: 0 0 8px rgba(230, 200, 100, 0.6); }
 .plist-label { font-size: 0.8rem; color: var(--gold-2); text-transform: uppercase; letter-spacing: 0.5px; }
 .plist-loc, .plist-theme { color: var(--mute); font-size: 1rem; }
-.plist-arr { color: var(--gold-3); opacity: 0; transform: translateX(-10px); transition: opacity 0.3s, transform 0.3s; }
+.plist-arr-wrap { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+.badge-shiny { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 12px rgba(233, 181, 88, 0.4); }
+.plist-arr { color: var(--gold-3); opacity: 0; transform: translateX(-10px); transition: opacity 0.3s, transform 0.3s; display: flex; align-items: center; }
 .plist-row:hover .plist-arr { opacity: 1; transform: translateX(0); }
 @media (max-width: 800px) {
   .plist-row { grid-template-columns: 1fr; gap: 16px; }
   .plist-col:not(:first-child) { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px; }
   .plist-arr { display: none; }
+  .plist-arr-wrap { justify-content: flex-start; margin-top: 8px; }
 }
 .pcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: clamp(28px, 3vw, 48px) clamp(20px, 2.4vw, 36px); align-items: start; }
 .pcard { display: grid; gap: 0; perspective: 1200px; }

@@ -61,7 +61,10 @@ export function PujaCard({ p }: { p: Puja }) {
   return (
     <article className="pcard" data-flip={p.slug} onPointerMove={move} onPointerLeave={leave} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
       <Link to={`/puja/${p.slug}`} className="pcard-body" data-cursor="View">
-        <p className="pcard-cats">{p.categories.join(' • ')}</p>
+        <p className="pcard-cats">
+          {p.featured && <span className="feat-tag">Featured • </span>}
+          {p.categories.join(' • ')}
+        </p>
         <h3 className="pcard-title">
           <span className="pcard-title-text">{p.name}</span>
           <span className="pcard-title-glow" aria-hidden="true">{p.name}</span>

@@ -31,7 +31,9 @@ export function PujasPage() {
   const list = useMemo(() => {
     const f = FILTERS.find((x) => x.id === filter) ?? FILTERS[0];
     const needle = q.trim().toLowerCase();
-    return pujas.filter((p) => f.test(p) && (!themeId || p.themeId === themeId) && (!needle || `${p.name} ${p.area} ${p.theme} ${p.location}`.toLowerCase().includes(needle)));
+    const res = pujas.filter((p) => f.test(p) && (!themeId || p.themeId === themeId) && (!needle || `${p.name} ${p.area} ${p.theme} ${p.location}`.toLowerCase().includes(needle)));
+    res.sort((a, b) => Number(b.featured) - Number(a.featured));
+    return res;
   }, [pujas, filter, q, themeId]);
 
   const reset = () => { setFilter('all'); setQ(''); if (themeId) navigate('/pujas'); };
@@ -65,7 +67,10 @@ export function PujasPage() {
               {list.map((p) => (
                 <Link key={p.slug} to={`/puja/${p.slug}`} className="plist-row" data-cursor="View">
                   <div className="plist-col">
-                    <p className="plist-cats">{p.categories.join(' • ')}</p>
+                    <p className="plist-cats">
+                      {p.featured && <span className="feat-tag">Featured • </span>}
+                      {p.categories.join(' • ')}
+                    </p>
                     <h3 className="plist-name">{p.name}</h3>
                   </div>
                   <div className="plist-col">
@@ -76,7 +81,10 @@ export function PujasPage() {
                     <p className="plist-label">Theme</p>
                     <p className="plist-theme">"{p.theme}"</p>
                   </div>
-                  <div className="plist-arr"><ArrowRight size={20} /></div>
+                  <div className="plist-arr-wrap">
+                    {p.featured && <span className="badge-shiny">Featured</span>}
+                    <div className="plist-arr"><ArrowRight size={20} /></div>
+                  </div>
                 </Link>
               ))}
             </FlipGrid>
