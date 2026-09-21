@@ -1,6 +1,6 @@
 import { useData } from '../data/store';
 import { BRANDS } from '../data/site';
-import { Alpana, BrandMark, LaalPaar, Reveal, RevealText } from '../components/fx';
+import { Alpana, BrandMark, LaalPaar, Reveal, RevealText, Particles } from '../components/fx';
 import { Camera, Instagram } from '../components/Icons';
 import { SOCIALS } from '../components/shared';
 import { vars } from '../lib/util';
@@ -92,10 +92,22 @@ const DETAIL = {
   youtube: ['Walk-throughs and film-length Puja documentaries.', 'Watch'],
 } as const;
 
+import { useFinePointer } from '../lib/motion';
+import type { PointerEvent } from 'react';
+
 export function Social() {
+  const fine = useFinePointer();
+  const move = (e: PointerEvent<HTMLElement>) => {
+    if (!fine) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
+    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
+  };
+
   return (
-    <section className="social">
-      <div className="wrap">
+    <section className="social" onPointerMove={move} style={{ position: 'relative', overflow: 'hidden' }}>
+      <Particles kind="embers" count={35} className="soc-particles" />
+      <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
         <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
         {(['capturers', 'pujo'] as const).map((b) => (
           <div className="soc-row" key={b}>
@@ -115,6 +127,7 @@ export function Social() {
           </div>
         ))}
       </div>
+      <div className="soc-spotlight" aria-hidden="true" />
     </section>
   );
 }
