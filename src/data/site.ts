@@ -53,24 +53,24 @@ export const STAGES: Stage[] = [
     id: 'saptami', name: 'Saptami', bn: 'সপ্তমী', date: 'Sun 18 Oct', iso: '2026-10-18',
     ritual: 'Nabapatrika snan',
     text: 'The banana plant wrapped in a red-bordered sari, Kola Bou, is bathed in the river at first light and carried to the pandal.',
-    visual: { art: 'kash', seed: 13, tone: 'dawn', hue: 30 },
+    visual: { art: 'kash', seed: 13, src: '/images/saptami.jpg' },
   },
   {
     id: 'ashtami', name: 'Ashtami', bn: 'অষ্টমী', date: 'Mon 19 Oct', iso: '2026-10-19',
     ritual: 'Anjali and Sandhi Puja',
     text: 'The busiest day. Morning anjali with the whole neighbourhood, then Sandhi Puja at the hinge between Ashtami and Navami, lit by 108 lamps.',
-    visual: { art: 'pandal', seed: 14, tone: 'night', hue: 12 },
+    visual: { art: 'pandal', seed: 14, src: '/images/ashtami.jpg' },
   },
   {
     id: 'navami', name: 'Navami', bn: 'নবমী', date: 'Tue 20 Oct', iso: '2026-10-20',
     ritual: 'Maha aarti and dhunuchi naach',
     text: 'Smoke, coconut husk and dhak. Dancers balance dhunuchis on their hands, on their teeth, and around the idol.',
-    visual: { art: 'dhunuchi', seed: 15, tone: 'night', hue: 22 },
+    visual: { art: 'dhunuchi', seed: 15, src: '/images/navami.jpg' },
   },
   {
     id: 'dashami', name: 'Dashami', bn: 'দশমী', date: 'Wed 21 Oct', iso: '2026-10-21',
     ritual: 'Sindoor khela and Bishorjon',
     text: 'Married women smear sindoor on the goddess and on each other. By evening the idols move toward the water, and the dhak slows.',
-    visual: { art: 'sindoor', seed: 16, tone: 'dusk', hue: 355 },
+    visual: { art: 'sindoor', seed: 16, src: '/images/dashami.jpg' },
   },
 ];

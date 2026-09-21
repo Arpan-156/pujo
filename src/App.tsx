@@ -34,7 +34,7 @@ function GlobalBranding() {
   return (
     <div className="global-branding" aria-hidden="true" style={{
       position: 'fixed',
-      left: '20px',
+      left: '15px',
       top: '50%',
       transform: 'translateY(-50%) rotate(180deg)',
       writingMode: 'vertical-rl',
@@ -42,18 +42,21 @@ function GlobalBranding() {
       zIndex: 100,
       pointerEvents: 'none',
       fontFamily: 'var(--f-body)',
-      fontSize: '11px',
-      letterSpacing: '0.3em',
+      fontSize: '9px',
+      letterSpacing: '0.25em',
       color: 'var(--gold)',
-      opacity: 0.65,
+      opacity: 0.7,
       mixBlendMode: 'screen',
       display: 'flex',
       alignItems: 'center',
-      gap: '15px'
+      gap: '12px'
     }}>
-      <span style={{ display: 'block', width: '1px', height: '40px', background: 'var(--gold)', opacity: 0.4 }} />
-      <span>PHOTOGRAPHY & DESIGN BY <b style={{ color: '#fff' }}>BURDWAN CAPTURERS</b></span>
-      <span style={{ display: 'block', width: '1px', height: '40px', background: 'var(--gold)', opacity: 0.4 }} />
+      <span style={{ display: 'block', width: '1px', height: '30px', background: 'var(--gold)', opacity: 0.4 }} />
+      <div style={{ textAlign: 'center', lineHeight: '1.8' }}>
+        <span style={{ display: 'block', opacity: 0.8 }}>PHOTOGRAPHY & DESIGN BY</span>
+        <b style={{ display: 'block', color: '#fff', fontWeight: 600 }}>BURDWAN CAPTURERS OFFICIAL</b>
+      </div>
+      <span style={{ display: 'block', width: '1px', height: '30px', background: 'var(--gold)', opacity: 0.4 }} />
     </div>
   );
 }
