@@ -1,7 +1,7 @@
 import { useData } from '../data/store';
 import { BRANDS } from '../data/site';
 import { Alpana, BrandMark, LaalPaar, Reveal, RevealText, Particles } from '../components/fx';
-import { Camera, Instagram } from '../components/Icons';
+import { Camera, Instagram, Facebook } from '../components/Icons';
 import { SOCIALS } from '../components/shared';
 import { vars } from '../lib/util';
 
@@ -100,7 +100,24 @@ export function Social() {
     <section className="social" style={{ position: 'relative', overflow: 'hidden' }}>
       <Particles kind="embers" count={35} className="soc-particles" />
       <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
-        <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
+          <div className="soc-header-row">
+            <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
+            <Reveal className="soc-founder" delay={200}>
+              <div className="sf-info">
+                <p className="sf-label">Founder &amp; Owner</p>
+                <h4 className="sf-name">Arpan Ganguly</h4>
+                <p className="sf-desc">Burdwan Capturers Official <br/> Banglar Pujo Official</p>
+                <div className="sf-socials">
+                  <a href="#" aria-label="Arpan Ganguly Instagram"><Instagram size={18} /></a>
+                  <a href="#" aria-label="Arpan Ganguly Facebook"><Facebook size={18} /></a>
+                </div>
+              </div>
+              <div className="sf-photo-wrap">
+                {/* Replace src with your actual photo path, e.g., /images/founder.jpg */}
+                <img src="/images/founder.jpg" alt="Arpan Ganguly" className="sf-photo" onError={(e) => e.currentTarget.style.display = 'none'} />
+              </div>
+            </Reveal>
+          </div>
         {(['capturers', 'pujo'] as const).map((b) => (
           <div className="soc-row" key={b}>
             <div className="soc-who"><BrandMark brand={b} size={44} /><h3>{BRANDS[b].name}</h3></div>
