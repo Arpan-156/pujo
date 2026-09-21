@@ -61,8 +61,24 @@ export function PujasPage() {
           </div>
           <p className="dir-count" aria-live="polite">{list.length} of {pujas.length} Puja</p>
           {list.length ? (
-            <FlipGrid className="pcards">
-              {list.map((p) => <PujaCard key={p.slug} p={p} />)}
+            <FlipGrid className="plist">
+              {list.map((p) => (
+                <Link key={p.slug} to={`/puja/${p.slug}`} className="plist-row" data-cursor="View">
+                  <div className="plist-col">
+                    <p className="plist-cats">{p.categories.join(' • ')}</p>
+                    <h3 className="plist-name">{p.name}</h3>
+                  </div>
+                  <div className="plist-col">
+                    <p className="plist-label">Address</p>
+                    <p className="plist-loc">{p.location}</p>
+                  </div>
+                  <div className="plist-col">
+                    <p className="plist-label">Theme</p>
+                    <p className="plist-theme">"{p.theme}"</p>
+                  </div>
+                  <div className="plist-arr"><ArrowRight size={20} /></div>
+                </Link>
+              ))}
             </FlipGrid>
           ) : (
             <div className="empty">
