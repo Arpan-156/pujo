@@ -68,8 +68,8 @@
 .footer { position: relative; background: #0d0405; overflow: hidden; margin-top: 0; }
 .footer-alpana { position: absolute; right: -260px; bottom: -380px; opacity: 0.13; pointer-events: auto; max-width: none; }
 .footer-alpana:hover .dots { transform: rotate(35deg) scale(1.1); }
-.footer-in { position: relative; padding: clamp(60px, 10vh, 110px) 0 calc(36px + var(--safe-b)); z-index: 1; }
-.footer-lockup { display: flex; align-items: center; gap: clamp(14px, 3vw, 40px); flex-wrap: wrap; margin-bottom: clamp(40px, 8vh, 80px); }
+.footer-in { position: relative; padding: clamp(60px, 10svh, 110px) 0 calc(36px + var(--safe-b)); z-index: 1; }
+.footer-lockup { display: flex; align-items: center; gap: clamp(14px, 3vw, 40px); flex-wrap: wrap; margin-bottom: clamp(40px, 8svh, 80px); }
 .fl-a { display: flex; align-items: center; gap: 14px; color: var(--gold); font-family: var(--f-display); font-size: clamp(1.4rem, 3.6vw, 2.8rem); color: var(--shankha); line-height: 1.1; }
 .fl-a svg { color: var(--gold); flex: none; }
 .fl-x { font-family: var(--f-display); font-size: clamp(1.6rem, 4vw, 3rem); color: var(--gold); font-weight: 400; }
@@ -83,7 +83,7 @@
 .footer-soc a:hover { background: var(--gold); color: var(--ink); transform: translateY(-3px); }
 .footer-eggs { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .footer-eggs .bn { width: 100%; font-size: 1.6rem; }
-.footer-love { margin-top: clamp(40px, 8vh, 80px); font-family: var(--f-display); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--gold-2); }
+.footer-love { margin-top: clamp(40px, 8svh, 80px); font-family: var(--f-display); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--gold-2); }
 .footer-copy { margin-top: 8px; color: var(--mute); font-size: 0.9rem; }
 
 @media (max-width: 1120px) {
