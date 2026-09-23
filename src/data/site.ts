@@ -4,12 +4,20 @@ export const BRANDS = {
   capturers: {
     name: 'Burdwan Capturers Official',
     short: 'Burdwan Capturers',
-    socials: { instagram: '#', facebook: '#', youtube: '#' },
+    socials: { 
+      instagram: 'https://www.instagram.com/burdwan_capturers/?hl=en', 
+      facebook: 'https://www.facebook.com/burdwancapturer/', 
+      youtube: 'https://www.youtube.com/@BurdwanCapturersOfficial' 
+    },
   },
   pujo: {
     name: 'Banglar Pujo Official',
     short: 'Banglar Pujo',
-    socials: { instagram: '#', facebook: '#', youtube: '#' },
+    socials: { 
+      instagram: 'https://www.instagram.com/banglar_pujo_official/?__d=1%252F%253Fhidemenu%253Dtrue', 
+      facebook: 'https://www.facebook.com/Banglarpujoofficial/', 
+      youtube: '#' 
+    },
   },
 };
 
