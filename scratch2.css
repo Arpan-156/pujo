@@ -1,0 +1,30 @@
+
+.fc-watermark {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.04;
+  pointer-events: none;
+  transition: opacity 0.5s, transform 0.5s;
+  color: var(--gold);
+}
+.founder-card:hover .fc-watermark {
+  opacity: 0.08;
+  transform: translateY(-50%) scale(1.05) rotate(5deg);
+}
+.fc-watermark-2 {
+  position: absolute;
+  left: 20%;
+  top: -20px;
+  opacity: 0.02;
+  pointer-events: none;
+  color: #fff;
+}
+.fc-name {
+  background: linear-gradient(135deg, #fff 0%, var(--gold-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+

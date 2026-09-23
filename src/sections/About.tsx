@@ -102,22 +102,42 @@ export function Social() {
       <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
           <div className="soc-header-row">
             <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
-            <Reveal className="soc-founder" delay={200}>
-              <div className="sf-info">
-                <p className="sf-label">Founder &amp; Owner</p>
-                <h4 className="sf-name">Arpan Ganguly</h4>
-                <p className="sf-desc">Burdwan Capturers Official <br/> Banglar Pujo Official</p>
-                <div className="sf-socials">
-                  <a href="#" aria-label="Arpan Ganguly Instagram"><Instagram size={18} /></a>
-                  <a href="#" aria-label="Arpan Ganguly Facebook"><Facebook size={18} /></a>
-                </div>
-              </div>
-              <div className="sf-photo-wrap">
-                {/* Replace src with your actual photo path, e.g., /images/founder.jpg */}
-                <img src="/images/founder.jpg" alt="Arpan Ganguly" className="sf-photo" onError={(e) => e.currentTarget.style.display = 'none'} />
-              </div>
-            </Reveal>
           </div>
+          <Reveal delay={200} variant="up">
+            <div 
+              className="founder-card" 
+              onPointerMove={(e: PointerEvent<HTMLDivElement>) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+                e.currentTarget.style.setProperty('--my', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+              }}
+              onPointerLeave={(e: PointerEvent<HTMLDivElement>) => {
+                e.currentTarget.style.setProperty('--mx', '0');
+                e.currentTarget.style.setProperty('--my', '0');
+              }}
+              style={{ '--mx': 0, '--my': 0 } as React.CSSProperties}
+            >
+              <BrandMark brand="capturers" size={300} className="fc-watermark" />
+              <BrandMark brand="pujo" size={200} className="fc-watermark-2" />
+              <div className="fc-avatar">
+                 <div className="fc-img-wrap"><img src="/images/founder.jpg" alt="Arpan Ganguly" onError={(e) => e.currentTarget.style.display = 'none'} /></div>
+                 <div className="fc-ring"></div>
+              </div>
+              <div className="fc-info">
+                 <span className="fc-role">Founder &amp; Owner</span>
+                 <h4 className="fc-name">Arpan Ganguly</h4>
+                 <p className="fc-desc">Driving the vision of Burdwan Capturers and Banglar Pujo to the world.</p>
+                 <div className="fc-socials">
+                   <a href="#" aria-label="Arpan Ganguly Instagram" data-cursor="Follow"><Instagram size={18} /></a>
+                   <a href="#" aria-label="Arpan Ganguly Facebook" data-cursor="Like"><Facebook size={18} /></a>
+                 </div>
+              </div>
+              <div className="fc-quote">
+                 <p>&#8220;Documenting the stories, the people, and the magic of Bengal's greatest festival.&#8221;</p>
+                 <LaalPaar className="fc-quote-paar" />
+              </div>
+            </div>
+          </Reveal>
         {(['capturers', 'pujo'] as const).map((b) => (
           <div className="soc-row" key={b}>
             <div className="soc-who"><BrandMark brand={b} size={44} /><h3>{BRANDS[b].name}</h3></div>
