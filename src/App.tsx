@@ -71,7 +71,7 @@ function GlobalBranding() {
 function Shell() {
   const [stage, setStage] = useState<Stage>('loading');
   const [open, setOpen] = useState(false);
-  const { label } = useRouter();
+  const { label, pathname } = useRouter();
 
   useEffect(() => {
     document.documentElement.classList.toggle('locked', stage !== 'site');
@@ -89,7 +89,7 @@ function Shell() {
           <GlobalBranding />
           <Nav visible={open} />
           <main id="main" className="page"><Routes /></main>
-          <Footer />
+          {pathname !== '/featured' && <Footer />}
           <PageWipe />
         </>
       )}

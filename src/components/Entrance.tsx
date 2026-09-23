@@ -17,14 +17,14 @@ export function Loader({ onDone }: { onDone: () => void }) {
     const t0 = performance.now();
     const dur = reduced ? 600 : 2600;
     let raf = 0;
-    let auto: Promise<boolean> = engine.tryAutoplay();
+    
     const fontsReady = (document.fonts?.ready ?? Promise.resolve()).catch(() => undefined);
     const loop = (now: number) => {
       const t = Math.min(1, (now - t0) / dur);
       setPct(Math.round((1 - Math.pow(1 - t, 3)) * 100));
       if (t < 1) raf = requestAnimationFrame(loop);
       else {
-        Promise.all([auto, fontsReady, new Promise((r) => setTimeout(r, 200))]).then(([ok]) => {
+        Promise.all([fontsReady, new Promise((r) => setTimeout(r, 200))]).then(([ok]) => {
           if (done.current) return;
           setNeedsTap(true);
         });
