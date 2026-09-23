@@ -18,7 +18,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
     const dur = reduced ? 600 : 2600;
     let raf = 0;
     
-    const fontsReady = (document.fonts?.ready ?? Promise.resolve()).catch(() => undefined);
+    const fontsReady = Promise.race([(document.fonts?.ready ?? Promise.resolve()), new Promise(r => setTimeout(r, 1000))]).catch(() => undefined);
     const loop = (now: number) => {
       const t = Math.min(1, (now - t0) / dur);
       setPct(Math.round((1 - Math.pow(1 - t, 3)) * 100));

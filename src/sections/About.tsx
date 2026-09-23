@@ -100,9 +100,7 @@ export function Social() {
     <section className="social" style={{ position: 'relative', overflow: 'hidden' }}>
       <Particles kind="embers" count={35} className="soc-particles" />
       <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="soc-header-row">
-            <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
-          </div>
+          
           <Reveal delay={200} variant="up">
             <div 
               className="founder-card" 
@@ -138,6 +136,9 @@ export function Social() {
               </div>
             </div>
           </Reveal>
+          <div className="soc-header-row" style={{ marginTop: '80px', marginBottom: '30px' }}>
+            <RevealText lines={['FOLLOW THE', 'PUJO JOURNEY']} className="display" />
+          </div>
         {(['capturers', 'pujo'] as const).map((b) => (
           <div className="soc-row" key={b}>
             <div className="soc-who"><BrandMark brand={b} size={44} /><h3>{BRANDS[b].name}</h3></div>

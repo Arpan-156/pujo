@@ -24,8 +24,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; background: var(--ink); }
 html.locked, html.menu-open, html.lb-open { overflow: hidden; }
-.page { overflow-x: clip; }
-#root { overflow-x: clip; width: 100%; position: relative; }
+.page { overflow-x: hidden; overflow-x: clip; }
+#root { overflow-x: hidden; overflow-x: clip; width: 100%; position: relative; }
 body {
   margin: 0; background: var(--ink); color: var(--shankha);
   font-family: var(--f-body); font-size: 1.0625rem; line-height: 1.6;

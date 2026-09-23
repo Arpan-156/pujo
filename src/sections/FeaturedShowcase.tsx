@@ -3,18 +3,27 @@ import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
 import { ArrowRight, ChevronDown } from '../components/Icons';
 import { pad2 } from '../lib/util';
+import { Footer } from '../components/shared';
 import { useEffect, useRef, useState } from 'react';
 
 export function FeaturedShowcase() {
   const { featuredPujas } = useData();
   const [active, setActive] = useState(0);
-  const total = featuredPujas.length + 1;
+  const total = featuredPujas.length + 2;
   const animating = useRef(false);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
+        const handleWheel = (e: WheelEvent) => {
       if (animating.current) return;
       if (Math.abs(e.deltaY) < 30) return;
+      
+      const target = e.target as HTMLElement;
+      const inFooter = target.closest('.fs-footer-wrap');
+      if (inFooter) {
+        if (e.deltaY > 0) return; // Allow scrolling down in footer
+        if (inFooter.scrollTop > 0) return; // Allow scrolling up if not at top
+      }
+
       const dir = e.deltaY > 0 ? 1 : -1;
       
       setActive(curr => {
@@ -30,9 +39,18 @@ export function FeaturedShowcase() {
 
     let touchStartY = 0;
     const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
-    const handleTouchMove = (e: TouchEvent) => {
+        const handleTouchMove = (e: TouchEvent) => {
       if (animating.current) return;
+      
+      const target = e.target as HTMLElement;
+      const inFooter = target.closest('.fs-footer-wrap');
       const dy = touchStartY - e.touches[0].clientY;
+      
+      if (inFooter) {
+        if (dy > 0) return; // Allow swiping up (scrolling down) in footer
+        if (inFooter.scrollTop > 0) return; // Allow swiping down if not at top
+      }
+
       if (Math.abs(dy) > 50) {
         const dir = dy > 0 ? 1 : -1;
         setActive(curr => {
@@ -105,10 +123,17 @@ export function FeaturedShowcase() {
                     Explore Pandal <ArrowRight size={20} />
                   </Link>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              
+        {/* Footer Slide */}
+        <div className={`fs-slide ${active === total - 1 ? 'fs-active' : ''}`} style={{ background: 'var(--ink)' }}>
+          <div className="fs-footer-wrap" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+            <Footer />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+})}
       </div>
     </div>
   );

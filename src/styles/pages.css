@@ -1,13 +1,13 @@
 /* ---------- page header ---------- */
-.page-head { position: relative; min-height: 72svh; display: flex; align-items: flex-end; padding: 150px 0 clamp(70px, 12svh, 120px); overflow: hidden; isolation: isolate; }
-.page-head.tall { min-height: 92svh; }
+.page-head { position: relative; min-height: 72vh; height: 72svh; display: flex; align-items: flex-end; padding: 150px 0 clamp(70px, 12svh, 120px); overflow: hidden; isolation: isolate; }
+.page-head.tall { min-height: 92vh; height: 92svh; }
 .page-head-bg { position: absolute; inset: -4%; z-index: -3; }
 .page-head-bg .photo { animation: kenburns 40s ease-in-out infinite alternate; object-position: center 30%; }
 @media (max-width: 800px) {
   .page-head-bg .photo { object-position: center 10%; }
 }
 .page-head-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(20, 8, 9, 0.96) 5%, rgba(20, 8, 9, 0.5) 50%, rgba(20, 8, 9, 0.25)); }
-.page-head-in { position: relative; z-index: 2; display: grid; gap: clamp(12px, 2svh, 22px); }
+.page-head-in { position: relative; z-index: 2; display: grid; gap: clamp(12px, 2vh, 22px); gap: clamp(12px, 2svh, 22px); }
 .bn-line { font-family: var(--f-bn); color: var(--gold-2); font-size: clamp(1.1rem, 2.2vw, 1.6rem); }
 .page-head .display { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.88; }
 .ph-paar { position: absolute; left: 0; right: 0; bottom: 0; }
@@ -27,9 +27,9 @@
 .empty h3 { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.7rem, 3.4vw, 2.6rem); } .empty p:not(.bn) { color: var(--mute); max-width: 40ch; } .empty .btn { margin-top: 10px; } .empty .bn { font-size: 1.4rem; }
 
 /* ---------- puja detail ---------- */
-.pd-hero { position: relative; min-height: 90svh; display: flex; align-items: flex-end; padding: 130px 0 clamp(50px, 9svh, 90px); overflow: hidden; isolation: isolate; }
+.pd-hero { position: relative; min-height: 90vh; height: 90svh; display: flex; align-items: flex-end; padding: 130px 0 clamp(50px, 9svh, 90px); overflow: hidden; isolation: isolate; }
 .pd-hero-bg { position: absolute; inset: -3%; z-index: -3; } .pd-hero-bg .photo { animation: kenburns 36s ease-in-out infinite alternate; }
-.pd-hero-in { position: relative; z-index: 2; display: grid; gap: clamp(14px, 2.4svh, 26px); justify-items: start; }
+.pd-hero-in { position: relative; z-index: 2; display: grid; gap: clamp(14px, 2.4vh, 26px); gap: clamp(14px, 2.4svh, 26px); justify-items: start; }
 .back { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-2); border-bottom: 1px solid var(--line-2); padding-bottom: 2px; }
 .pd-h { font-size: clamp(2.6rem, 8vw, 7.4rem); line-height: 0.92; max-width: 14ch; }
 .pd-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 26px; color: var(--kash); } .pd-meta span { display: inline-flex; align-items: center; gap: 6px; }
@@ -55,7 +55,7 @@
 .pd-pn a { display: flex; align-items: center; gap: 14px; max-width: 46%; transition: color 0.3s, transform 0.4s var(--ease); } .pd-pn a:hover { color: var(--gold-2); } .pd-pn a:first-child:hover { transform: translateX(-6px); } .pd-pn a:last-child { text-align: right; } .pd-pn a:last-child:hover { transform: translateX(6px); }
 .pd-pn small { display: block; color: var(--mute); font-size: 0.82rem; } .pd-pn span { font-family: var(--f-display); font-size: clamp(1rem, 2vw, 1.5rem); line-height: 1.2; }
 .notfound .display { font-size: clamp(2.2rem, 6vw, 4.6rem); }
-.notfound { min-height: 80svh; display: grid; align-content: center; justify-items: start; gap: 20px; padding-top: 140px; }
+.notfound { min-height: 80vh; height: 80svh; display: grid; align-content: center; justify-items: start; gap: 20px; padding-top: 140px; }
 
 /* ---------- misc pages ---------- */
 .cta-band { padding: clamp(70px, 12svh, 130px) 0; background: radial-gradient(ellipse at 20% 50%, #3a0c13, var(--ink) 70%); } .cta-band .wrap { display: grid; gap: 28px; justify-items: start; }
@@ -81,7 +81,7 @@
 
 
 .showcase { padding: clamp(40px, 8svh, 80px) 0; }
-.sc-list { display: grid; gap: clamp(60px, 15svh, 160px); padding: 0 var(--gut); max-width: 1400px; margin: 0 auto; }
+.sc-list { display: grid; gap: clamp(60px, 15vh, 160px); gap: clamp(60px, 15svh, 160px); padding: 0 var(--gut); max-width: 1400px; margin: 0 auto; }
 .sc-item { display: grid; gap: clamp(30px, 6vw, 60px); grid-template-columns: 1fr; align-items: center; }
 @media (min-width: 800px) {
   .sc-item { grid-template-columns: 1fr 1fr; }
@@ -101,9 +101,9 @@
 
 
 /* Cinematic Featured Showcase */
-.fs-viewport { position: absolute; inset: 0; width: 100vw; height: 100svh; overflow: hidden; background: var(--ink); z-index: 0; }
+.fs-viewport { position: absolute; inset: 0; width: 100vw; height: 100vh; height: 100svh; overflow: hidden; background: var(--ink); z-index: 0; }
 .fs-track { transition: transform 1s cubic-bezier(0.7, 0, 0.2, 1); height: 100%; }
-.fs-slide { position: relative; width: 100vw; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.fs-slide { position: relative; width: 100vw; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 
 /* Backgrounds & Parallax */
 .fs-bg { position: absolute; inset: -5%; width: 110%; height: 110%; z-index: 1; transition: transform 1.5s var(--ease-io); transform: scale(1.1); }
