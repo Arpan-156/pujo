@@ -26,7 +26,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       else {
         Promise.all([auto, fontsReady, new Promise((r) => setTimeout(r, 200))]).then(([ok]) => {
           if (done.current) return;
-          if (ok) { done.current = true; onDone(); } else setNeedsTap(true);
+          setNeedsTap(true);
         });
       }
     };

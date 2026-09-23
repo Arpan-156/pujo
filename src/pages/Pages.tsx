@@ -8,6 +8,7 @@ import { Reveal, RevealText } from '../components/fx';
 import { ArrowLeft, ArrowRight, Mail, Pin, Search, X } from '../components/Icons';
 import { Btn, FlipGrid, PageHead, PujaCard } from '../components/shared';
 import { FeaturedRail } from '../sections/FeaturedRail';
+import { FeaturedShowcase } from '../sections/FeaturedShowcase';
 import { ThemesGrid } from '../sections/ThemesGrid';
 import { ExploreBardhaman } from '../sections/ExploreBardhaman';
 import { GalleryBoard } from '../sections/GalleryBoard';
@@ -233,7 +234,7 @@ export const ThemesPage = () => (
 export const FeaturedPage = () => (
   <>
     <PageHead lines={['FEATURED', 'PANDALS 2026']} bn="এ বছরের বাছাই মণ্ডপ" lead="The pandals Burdwan Capturers Official and Banglar Pujo Official are specially featuring this year." visual={{ art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
-    <FeaturedRail compact />
+    <FeaturedShowcase />
   </>
 );
 
