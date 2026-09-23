@@ -25,6 +25,9 @@ type Sub = () => void;
 const subs = new Set<Sub>();
 let ticking = false;
 let bound = false;
+export let stableVh = typeof window !== 'undefined' ? window.innerHeight : 800;
+export let lastW = typeof window !== 'undefined' ? window.innerWidth : 800;
+
 function frame() {
   ticking = false;
   subs.forEach((s) => s());
@@ -35,11 +38,20 @@ function kick() {
     requestAnimationFrame(frame);
   }
 }
+
+function onResize() {
+  if (window.innerWidth !== lastW || Math.abs(window.innerHeight - stableVh) > 150) {
+    lastW = window.innerWidth;
+    stableVh = window.innerHeight;
+  }
+  kick();
+}
+
 export function onScrollFrame(cb: Sub): () => void {
   if (!bound) {
     bound = true;
     window.addEventListener('scroll', kick, { passive: true });
-    window.addEventListener('resize', kick, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
   }
   subs.add(cb);
   cb();
@@ -60,7 +72,7 @@ export function useScrollVar(ref: RefObject<HTMLElement | null>, mode: 'through'
     }
     return onScrollFrame(() => {
       const r = el.getBoundingClientRect();
-      const vh = window.innerHeight;
+      const vh = stableVh;
       let p: number;
       if (mode === 'pinned') p = -r.top / Math.max(1, r.height - vh);
       else p = (vh - r.top) / (vh + r.height);

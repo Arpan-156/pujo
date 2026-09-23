@@ -54,7 +54,7 @@ export function Nav({ visible }: { visible: boolean }) {
           <button className="menu-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={28} /></button>
           <nav className="menu-list" aria-label="Mobile">
             {NAV.map((n, i) => (
-              <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1}>
+              <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
                 <small>{n.bn}</small>
                 <span>{n.label}</span>
               </Link>

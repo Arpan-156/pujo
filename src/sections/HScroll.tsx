@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { clamp, onScrollFrame, useIsMobile, useReducedMotion } from '../lib/motion';
+import { clamp, onScrollFrame, useIsMobile, useReducedMotion, stableVh, lastW } from '../lib/motion';
 
 /**
  * Vertical scroll drives a horizontal track on desktop (pinned).
@@ -19,8 +19,8 @@ export function HScroll({ children, className = '' }: { children: ReactNode; cla
     const o = outer.current!, t = track.current!;
     let lastH = 0;
     return onScrollFrame(() => {
-      const vh = window.innerHeight;
-      const dist = Math.max(0, t.scrollWidth - window.innerWidth);
+      const vh = stableVh;
+      const dist = Math.max(0, t.scrollWidth - lastW);
       const h = Math.round(dist + vh);
       if (h !== lastH) { o.style.height = `${h}px`; lastH = h; }
       const r = o.getBoundingClientRect();
