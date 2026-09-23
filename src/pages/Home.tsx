@@ -32,7 +32,7 @@ export function Home() {
       <Hero />
       <Countdown />
       <Manifesto />
-      <FeaturedRail compact />
+      <FeaturedRail />
       <section className="dir-preview" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
         <div className="dir-spotlight" aria-hidden="true" />
         <div className="wrap">
