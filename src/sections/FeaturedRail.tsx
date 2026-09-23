@@ -14,15 +14,17 @@ export function FeaturedRail({ compact = false }: { compact?: boolean }) {
         <div className="wrap feat-head">
           <RevealText lines={['FEATURED', 'PANDALS 2026']} className="display" />
           <Reveal delay={200} className="feat-lead">
-            The pandals Burdwan Capturers Official and Banglar Pujo Official are following most closely this year. Scroll sideways.
+            <p>The pandals Burdwan Capturers Official and Banglar Pujo Official are following most closely this year. Scroll sideways.</p>
+            <p lang="bn" className="bn" style={{ marginTop: "16px", fontSize: "1.2rem", color: "var(--gold-2)" }}>এ বছরের বাছাই মণ্ডপ</p>
           </Reveal>
         </div>
       )}
       <HScroll>
-        <div className="feat-lead-card" aria-hidden={!compact}>
-          {compact && <RevealText lines={['FEATURED', 'PANDALS 2026']} className="display" />}
-          {!compact && <p lang="bn" className="bn">এ বছরের বাছাই মণ্ডপ</p>}
-        </div>
+        {compact && (
+          <div className="feat-lead-card" aria-hidden="false">
+            <RevealText lines={['FEATURED', 'PANDALS 2026']} className="display" />
+          </div>
+        )}
         {featuredPujas.map(({ puja, tagline, note }, i) => (
           <Link key={puja.slug} to={`/puja/${puja.slug}`} className="cover" data-cursor="Discover">
             <div className="cover-img"><Photo v={puja.heroImage} alt={`${puja.name} pandal`} /></div>
