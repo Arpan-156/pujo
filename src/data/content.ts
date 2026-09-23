@@ -1,24 +1,43 @@
 import type { GalleryItem, Contributor, Landmark, ArtKind, Tone } from './types';
 
-export const GALLERY_CATEGORIES = ['All', 'Maa Durga', 'Pandals', 'Street', 'Crowd'];
+export const GALLERY_CATEGORIES = [
+  'All', 'Maa Durga', 'Pandals', 'Themes', 'Dhak', 'Dhunuchi', 'Sindoor Khela', 'Crowd', 'Street', 'Night', 'Morning', 'Behind the Scenes',
+];
 
 const CREDIT = 'Burdwan Capturers (placeholder)';
-type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?];
+type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?];
 
 const ROWS: Row[] = [
-  ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg'],
-  ['Maa Durga', 'Ekchala idol, painted by hand, unlit', 'idol', 'night', 302, 20, undefined, '/images/maa2.jpg'],
-  ['Maa Durga', 'Ten arms, one lamp', 'idol', 'night', 303, 350, 'tall', '/images/maa3.jpg'],
-  ['Maa Durga', 'Traditional daaker saaj and vibrant colors', 'idol', 'dusk', 304, 34, undefined, '/images/maa4.jpg'],
+  ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall'],
+  ['Maa Durga', 'Ekchala idol, painted by hand, unlit', 'idol', 'night', 302, 20],
+  ['Maa Durga', 'Ten arms, one lamp', 'idol', 'night', 303, 350, 'tall'],
   ['Pandals', 'Three tiers of light, Ashtami evening', 'pandal', 'night', 304, 12, 'wide'],
   ['Pandals', 'The gate that became a pandal', 'gate', 'dusk', 305, 14],
   ['Pandals', 'Bamboo and cloth in the last week of construction', 'pandal', 'dusk', 306, 30, 'tall'],
-  ['Pandals', 'Terracotta panels, copied one by one', 'temple', 'dusk', 330, 18],
+  ['Themes', 'Suspended light, contemporary theme', 'abstract', 'night', 307, 335],
+  ['Themes', 'A village courtyard in the town', 'rural', 'dawn', 308, 34, 'wide'],
+  ['Themes', 'Eco theme: only bamboo, jute and clay', 'eco', 'day', 309, 110],
+  ['Dhak', 'The dhaki\'s wrist, mid-roll', 'dhak', 'dusk', 310, 24, 'tall'],
+  ['Dhak', 'Dhak and kash, Saptami morning', 'dhak', 'dawn', 311, 30],
+  ['Dhunuchi', 'Smoke, embers, and a steady hand', 'dhunuchi', 'night', 312, 22, 'tall'],
+  ['Dhunuchi', 'Navami aarti, full smoke', 'dhunuchi', 'night', 313, 16],
+  ['Sindoor Khela', 'Dashami, red in the air', 'sindoor', 'dusk', 314, 355, 'wide'],
+  ['Sindoor Khela', 'Sindoor on the Goddess\'s feet', 'sindoor', 'dusk', 315, 4],
   ['Crowd', 'Ashtami night, the queue at the gate', 'crowd', 'night', 316, 20, 'wide'],
   ['Crowd', 'Anjali, packed to the courtyard wall', 'crowd', 'day', 317, 30],
   ['Street', 'Bunting and lamps on a lane', 'street', 'night', 318, 24, 'tall'],
   ['Street', 'Station Bazar after midnight', 'market', 'night', 319, 28],
   ['Street', 'Sitabhog and mihidana, a sweet-shop counter', 'food', 'dusk', 320, 34],
+  ['Night', 'The overbridge, lit for Puja', 'bridge', 'night', 321, 18, 'wide'],
+  ['Night', 'Fog on the pandal roof', 'pandal', 'night', 322, 220, 'tall'],
+  ['Morning', 'Damodar at first light on Mahalaya', 'river', 'dawn', 323, 24, 'wide'],
+  ['Morning', 'Kash on the riverbank', 'kash', 'dawn', 324, 34],
+  ['Morning', 'Station platform before the first train', 'station', 'dawn', 325, 30],
+  ['Behind the Scenes', 'Artisans finishing an idol\'s crown', 'camera', 'dusk', 326, 22],
+  ['Behind the Scenes', 'Bamboo frame, day nine of construction', 'pandal', 'day', 327, 40, 'tall'],
+  ['Behind the Scenes', 'The photographers\' bench, Ashtami', 'camera', 'night', 328, 350],
+  ['Themes', 'A gothic hall in bamboo and cloth', 'global', 'night', 329, 215],
+  ['Pandals', 'Terracotta panels, copied one by one', 'temple', 'dusk', 330, 18],
 ];
 
 export const GALLERY: GalleryItem[] = ROWS.map((r, i) => ({
