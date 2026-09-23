@@ -76,7 +76,7 @@ function Shell() {
   useEffect(() => {
     document.documentElement.classList.toggle('locked', stage !== 'site');
   }, [stage]);
-  useEffect(() => { document.title = `${label.en} — Bardhaman Durga Puja 2026`; }, [label]);
+  useEffect(() => { document.title = `${label.en} — Burdwan Pujo 2026`; }, [label]);
 
   const ctx = useMemo(() => ({ open }), [open]);
 

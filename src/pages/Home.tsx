@@ -38,7 +38,7 @@ export function Home() {
         <div className="wrap">
           <div className="dir-head">
             <div className="dir-head-text">
-              <RevealText lines={['BARDHAMAN', 'ALL PUJA']} className="display" />
+              <RevealText lines={['BURDWAN', 'PUJA PANDALS']} className="display" />
               <Reveal delay={200} className="lead">Explore the Puja celebrations across Bardhaman. The directory grows every week.</Reveal>
             </div>
             <div className="dir-head-art" aria-hidden="true">

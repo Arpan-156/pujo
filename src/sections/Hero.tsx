@@ -32,7 +32,7 @@ export function Hero() {
       <div className="hero-shade" />
       <div className="wrap hero-in">
         <p className="hero-bn" lang="bn">আলোর শহর, ঢাকের তালে, আবারও ফিরছে পুজোর দিনগুলি।</p>
-        <RevealText as="h1" lines={['BARDHAMAN', 'DURGA PUJA', '2026']} className="display hero-h1" live={open} delay={300} />
+        <RevealText as="h1" lines={['BURDWAN ', 'PUJO ', '2026']} className="display hero-h1" live={open} delay={300} />
         <p className="hero-sub">Where tradition meets imagination.</p>
         <p className="hero-brand" style={{ fontFamily: 'var(--f-body)', fontSize: '0.85rem', letterSpacing: '0.25em', color: 'var(--gold)', textTransform: 'uppercase', marginTop: '20px', opacity: 0.9 }}>
           Presented by <b style={{ color: '#fff', fontWeight: 600 }}>Burdwan Capturers</b>
