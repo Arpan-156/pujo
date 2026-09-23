@@ -40,7 +40,7 @@ export function PujasPage() {
 
   return (
     <>
-      <PageHead lines={['BARDHAMAN', 'ALL PUJA']} bn="বর্ধমানের সব পুজো" lead="Explore the Puja celebrations across Bardhaman." visual={{ src: '/images/all-puja-cover.jpg', art: 'crowd', seed: 0 }} />
+      <PageHead lines={['BURDWAN DURGA PUJA', 'PANDAL LIST 2026']} bn="বর্ধমানের সব পুজো" lead="Explore the Puja celebrations across Bardhaman." visual={{ src: '/images/all-puja-cover.jpg', art: 'crowd', seed: 0 }} />
       <section className="directory">
         <div className="wrap">
           <div className="dir-bar">

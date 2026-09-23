@@ -32,9 +32,9 @@ export function Manifesto() {
         </div>
         <div className="mf-imgs">
           <Particles kind="petals" count={12} className="mf-parts" />
-          <Reveal delay={300} variant="up" className="mf-a"><Photo v={{ art: 'idol', seed: 32, hue: 8, tone: 'dusk', src: '/photos/durga.jpg' }} alt="A Durga idol" /></Reveal>
-          <Reveal delay={500} variant="zoom" className="mf-b"><Photo v={{ art: 'dhak', seed: 33, hue: 24, tone: 'dawn', src: '/photos/radio.jpg' }} alt="Radio and Mahalaya mask" /></Reveal>
-          <Reveal delay={700} variant="left" className="mf-c"><Photo v={{ art: 'gate', seed: 34, hue: 14, tone: 'dusk', src: '/photos/gate.jpg' }} alt="Dhakis at sunset" /></Reveal>
+          <Reveal delay={300} variant="up" className="mf-a"><Photo v={{ art: 'idol', seed: 32, hue: 8, tone: 'dusk', src: '/photos/durga.jpg' }} alt="Burdwan Durga Puja 2026 idol" /></Reveal>
+          <Reveal delay={500} variant="zoom" className="mf-b"><Photo v={{ art: 'dhak', seed: 33, hue: 24, tone: 'dawn', src: '/photos/radio.jpg' }} alt="Mahalaya radio in Burdwan Puja" /></Reveal>
+          <Reveal delay={700} variant="left" className="mf-c"><Photo v={{ art: 'gate', seed: 34, hue: 14, tone: 'dusk', src: '/photos/gate.jpg' }} alt="Dhakis at Burdwan Durga Puja pandal" /></Reveal>
         </div>
       </div>
     </section>

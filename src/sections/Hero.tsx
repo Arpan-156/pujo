@@ -24,7 +24,7 @@ export function Hero() {
 
   return (
     <section ref={ref} className={`hero ${open ? 'go' : ''}`} onPointerMove={move}>
-      <div className="hero-bg"><div className="hero-cam"><Photo v={HERO} eager alt="A pandal glowing at dusk" /></div></div>
+      <div className="hero-bg"><div className="hero-cam"><Photo v={HERO} eager alt="Burdwan Durga Puja pandal 2026 at dusk" /></div></div>
       <Rays />
       <Smoke className="hero-smoke" />
       <Particles kind="petals" count={22} />

@@ -30,8 +30,7 @@ const TITLES: [RegExp, { en: string; bn: string }][] = [
 const titleFor = (p: string) => TITLES.find(([re]) => re.test(p))?.[1] ?? { en: 'Bardhaman Durga Puja', bn: 'বর্ধমান দুর্গাপূজা' };
 
 const read = () => {
-  const h = window.location.hash.replace(/^#/, '') || '/';
-  return h.startsWith('/') ? h : `/${h}`;
+  return window.location.pathname || '/';
 };
 
 export function RouterProvider({ children }: { children: ReactNode }) {
@@ -81,17 +80,18 @@ export function RouterProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const on = () => go(read());
-    window.addEventListener('hashchange', on);
-    return () => window.removeEventListener('hashchange', on);
+    window.addEventListener('popstate', on);
+    return () => window.removeEventListener('popstate', on);
   }, [go]);
 
   const navigate = useCallback((to: string) => {
     const t = to.startsWith('/') ? to : `/${to}`;
-    if (`#${t}` === window.location.hash || (t === '/' && !window.location.hash)) {
+    if (t === window.location.pathname) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    window.location.hash = t;
+    window.history.pushState(null, '', t);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   }, []);
 
   const value = useMemo<RouterCtx>(() => {
@@ -102,9 +102,15 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
-export function Link({ to, children, ...rest }: { to: string; children: ReactNode } & AnchorHTMLAttributes<HTMLAnchorElement>) {
+export function Link({ to, children, onClick, ...rest }: { to: string; children: ReactNode } & AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const { navigate } = useRouter();
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (onClick) onClick(e);
+    navigate(to);
+  };
   return (
-    <a href={`#${to}`} {...rest}>
+    <a href={to} onClick={handleClick} {...rest}>
       {children}
     </a>
   );
