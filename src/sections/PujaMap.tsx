@@ -125,7 +125,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
   const filtered = pujas.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.location.toLowerCase().includes(q.toLowerCase()));
   const cur = pujas.find((p) => p.slug === sel) || pujas[0];
 
-  const mapQuery = encodeURIComponent(`${cur.name} Durga Puja, ${cur.location}, Bardhaman`);
+  const mapQuery = cur.lat && cur.lng ? `${cur.lat},${cur.lng}` : (cur.x && cur.y ? `${23.28 - (cur.y / 100) * 0.06},${(cur.x / 100) * 0.08 + 87.82}` : encodeURIComponent(`${cur.name} Durga Puja, ${cur.location}, Bardhaman`));
 
   return (
     <>

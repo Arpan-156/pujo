@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+const dpr = Math.min(window.devicePixelRatio || 1, 1);import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, ElementType, ReactNode } from 'react';
 import { useFinePointer, useInView, useIsMobile, useReducedMotion } from '../lib/motion';
 import { engine } from '../audio/engine';
@@ -72,7 +72,7 @@ export function Particles({ kind = 'embers', count = 60, className = '' }: { kin
     if (!c || reduced) return;
     const ctx = c.getContext('2d');
     if (!ctx) return;
-    const n = Math.round(count * (mobile ? 0.5 : 1));
+    const n = Math.round(count * (mobile ? 0.25 : 0.5));
     let w = 0, h = 0, raf = 0, visible = true, last = performance.now();
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const size = () => {

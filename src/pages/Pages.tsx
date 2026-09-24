@@ -274,7 +274,7 @@ export const TimelinePage = () => (
 
 export const AboutPage = () => (
   <>
-    <PageHead lines={[]} bn="" lead="" visual={{ src: '/images/about-cover.jpg', art: 'camera', seed: 67, hue: 350, tone: 'dusk' }} />
+    <PageHead lines={['ABOUT', 'US']} bn="আমাদের কথা" lead="Two communities. One celebration." visual={{ src: '/images/about-cover.jpg', art: 'camera', seed: 67, hue: 350, tone: 'dusk' }} />
     <AboutBrands />
     {/* <Team /> */}
     <Social />

@@ -18,6 +18,10 @@ export type PujaCategory =
   | 'Traditional' | 'Theme Puja' | 'Large Pandal' | 'Heritage' | 'Family Puja' | 'Community Puja';
 
 export interface Puja {
+  lat?: number;
+  lng?: number;
+  x?: number;
+  y?: number;
   slug: string;
   name: string;
   location: string;
