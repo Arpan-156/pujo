@@ -65,7 +65,14 @@ export function Home() {
       </section> */}
       <div className="wrap map-head">
         <RevealText lines={['PUJA MAP']} className="display" />
-        <Reveal delay={150} className="lead">Tap a glowing pin to see who is building what, and where. <Link to="/map" className="ulink">Open the full map</Link></Reveal>
+        <Reveal delay={150}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px' }}>
+            <p className="lead" style={{ margin: 0, maxWidth: '40ch' }}>
+              Tap a glowing pin to see who is building what, and where.
+            </p>
+            <Btn to="/map" cursor="Open">Open the full map</Btn>
+          </div>
+        </Reveal>
       </div>
       <PujaMap />
       <Social />
