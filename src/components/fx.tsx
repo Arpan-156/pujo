@@ -333,6 +333,34 @@ export function TuniLights({ className = '' }: { className?: string }) {
 export function PujaScenario({ className = '' }: { className?: string }) {
   return (
     <div className={`puja-scenario ${className}`} aria-hidden="true" style={{ position: 'absolute', bottom: '180px', right: '2%', width: 'clamp(250px, 30vw, 350px)', height: '300px', pointerEvents: 'none', zIndex: 5, color: 'var(--gold)', opacity: 0.85 }}>
+      <style>{`
+        @keyframes puja-flicker {
+          0%, 100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 4px #f59e0b); }
+          50% { transform: scale(1.15) translateY(-1px); opacity: 0.8; filter: drop-shadow(0 0 8px #f59e0b); }
+        }
+        @keyframes puja-ring {
+          0% { transform: rotate(0deg); }
+          25% { transform: rotate(-10deg); }
+          75% { transform: rotate(2deg); }
+          100% { transform: rotate(0deg); }
+        }
+        @keyframes puja-sway {
+          0%, 100% { transform: skewX(0deg); }
+          50% { transform: skewX(3deg); }
+        }
+        .puja-anim-flame {
+          animation: puja-flicker 0.15s ease-in-out infinite alternate;
+          transform-origin: 15px -5px;
+        }
+        .puja-anim-arm {
+          animation: puja-ring 0.4s ease-in-out infinite;
+          transform-origin: 35px 35px;
+        }
+        .puja-anim-sway {
+          animation: puja-sway 4s ease-in-out infinite;
+          transform-origin: 15px 180px;
+        }
+      `}</style>
       <svg viewBox="0 0 350 300" width="100%" height="100%" fill="currentColor">
         {/* Bamboo Pandal Structure */}
         <g opacity="0.15">
@@ -346,15 +374,17 @@ export function PujaScenario({ className = '' }: { className?: string }) {
         
         {/* Banana Tree (Kola Bou) */}
         <g transform="translate(280, 120)">
-          {/* trunk */}
-          <path d="M12,180 Q18,100 15,20 Q10,100 5,180 Z" />
-          {/* leaves */}
-          <path d="M15,30 Q60,10 70,50 Q40,40 15,30 Z" />
-          <path d="M15,40 Q80,20 85,70 Q50,60 15,40 Z" />
-          <path d="M5,30 Q-40,10 -50,50 Q-20,40 5,30 Z" />
-          <path d="M5,40 Q-60,20 -65,70 Q-30,60 5,40 Z" />
-          {/* Saree drape */}
-          <path d="M3,60 Q30,100 25,180 L-5,180 Q-15,100 3,60 Z" fill="#b02626" opacity="0.9" />
+          <g className="puja-anim-sway">
+            {/* trunk */}
+            <path d="M12,180 Q18,100 15,20 Q10,100 5,180 Z" />
+            {/* leaves */}
+            <path d="M15,30 Q60,10 70,50 Q40,40 15,30 Z" />
+            <path d="M15,40 Q80,20 85,70 Q50,60 15,40 Z" />
+            <path d="M5,30 Q-40,10 -50,50 Q-20,40 5,30 Z" />
+            <path d="M5,40 Q-60,20 -65,70 Q-30,60 5,40 Z" />
+            {/* Saree drape */}
+            <path d="M3,60 Q30,100 25,180 L-5,180 Q-15,100 3,60 Z" fill="#b02626" opacity="0.9" />
+          </g>
         </g>
 
         {/* Kalsi (Kalash) */}
@@ -377,20 +407,24 @@ export function PujaScenario({ className = '' }: { className?: string }) {
           <path d="M30,25 Q50,60 30,80 L-5,80 Q5,50 20,25 Z" />
           {/* Legs crossed */}
           <path d="M-20,80 Q20,100 60,80 Q30,65 10,75 Z" />
-          {/* Arm holding bell */}
-          <path d="M35,35 Q70,45 80,65" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
-          {/* Bell */}
-          <path d="M75,65 L85,65 L82,80 L78,80 Z" />
           {/* Dhuti */}
           <path d="M-20,80 Q20,95 60,80 L30,65 Z" fill="#b02626" opacity="0.5" />
+          
+          {/* Arm holding bell (Animated) */}
+          <g className="puja-anim-arm">
+            <path d="M35,35 Q70,45 80,65" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+            <path d="M75,65 L85,65 L82,80 L78,80 Z" />
+          </g>
         </g>
 
         {/* Offerings / Diya */}
         <g transform="translate(150, 270)">
           <path d="M0,0 L30,0 L25,10 L5,10 Z" />
-          {/* Flame */}
-          <path d="M15,-5 Q22,-12 15,-20 Q8,-12 15,-5 Z" fill="#f59e0b" />
-          <circle cx="15" cy="-10" r="4" fill="#fff" opacity="0.8" />
+          {/* Flame (Animated) */}
+          <g className="puja-anim-flame">
+            <path d="M15,-5 Q22,-12 15,-20 Q8,-12 15,-5 Z" fill="#f59e0b" />
+            <circle cx="15" cy="-10" r="4" fill="#fff" opacity="0.8" />
+          </g>
         </g>
       </svg>
     </div>
