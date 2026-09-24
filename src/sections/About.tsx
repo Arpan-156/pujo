@@ -1,6 +1,6 @@
 import { useData } from '../data/store';
 import { BRANDS } from '../data/site';
-import { Alpana, BrandMark, LaalPaar, Reveal, RevealText, Particles } from '../components/fx';
+import { Alpana, BrandMark, LaalPaar, Reveal, RevealText, Particles, TuniLights } from '../components/fx';
 import { Camera, Instagram, Facebook } from '../components/Icons';
 import { SOCIALS } from '../components/shared';
 import { vars } from '../lib/util';
@@ -98,6 +98,7 @@ import type { PointerEvent } from 'react';
 export function Social() {
   return (
     <section className="social" style={{ position: 'relative', overflow: 'hidden' }}>
+      <TuniLights />
       <Particles kind="embers" count={35} className="soc-particles" />
       <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
           

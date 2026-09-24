@@ -1,7 +1,7 @@
 import { PUJA_START } from '../data/site';
 import { useCountdown } from '../lib/motion';
 import { pad2 } from '../lib/util';
-import { Alpana, LaalPaar, Particles, Reveal, RevealText, Smoke, TuniLights } from '../components/fx';
+import { Alpana, LaalPaar, Particles, Reveal, RevealText, Smoke } from '../components/fx';
 
 /** Each digit re-mounts on change so the old one rolls out and the new one rolls in. */
 const Digit = ({ v }: { v: string }) => (
@@ -22,7 +22,6 @@ export function Countdown() {
   const t = useCountdown(PUJA_START);
   return (
     <section className="countdown">
-      <TuniLights />
       <Alpana size={980} className="cd-alpana" />
       <Smoke className="cd-smoke" />
       <Particles kind="dust" count={34} />
