@@ -150,3 +150,5 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
   * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
   .nav.scrolled, .music-panel, .music-fab, .btn.ghost { background: rgba(20, 8, 9, 0.95) !important; }
 }
+
+@media (max-width: 800px) { * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } .nav.scrolled { background: rgba(20, 8, 9, 0.95) !important; } .music-fab, .music-panel, .fs-glass, .pmap-new-bot, .pmap-new-list input { background: rgba(20, 8, 9, 0.98) !important; } }

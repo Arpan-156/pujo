@@ -40,6 +40,7 @@ export function Hero() {
         <div className="hero-cta">
           <Btn to="/pujas" cursor="Explore">Explore Puja</Btn>
           <Btn to="/featured" variant="ghost" cursor="Open">Featured Pandals</Btn>
+          <Btn to="/map" variant="ghost" cursor="Open">Pandal Map</Btn>
         </div>
       </div>
       <div className="hero-scroll" aria-hidden="true"><span>Scroll</span><i /></div>

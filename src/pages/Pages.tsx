@@ -237,14 +237,14 @@ export const ThemesPage = () => (
 
 export const FeaturedPage = () => (
   <>
-    <PageHead lines={['FEATURED', 'PANDALS 2026']} bn="এ বছরের বাছাই মণ্ডপ" lead="The pandals Burdwan Capturers Official and Banglar Pujo Official are specially featuring this year." visual={{ art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
+    <PageHead lines={['FEATURED', 'PANDALS 2026']} bn="এ বছরের বাছাই মণ্ডপ" lead="The pandals Burdwan Capturers Official and Banglar Pujo Official are specially featuring this year." visual={{ src: '/images/featured-cover.jpg', art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
     <FeaturedShowcase />
   </>
 );
 
 export const BardhamanPage = () => (
   <>
-    <PageHead lines={['EXPLORE', 'BARDHAMAN']} bn="আমাদের বর্ধমান" lead="Gates, rivers, temples, sweets and the lanes that link them." visual={{ art: 'bridge', seed: 63, hue: 18, tone: 'night' }} />
+    <PageHead lines={['EXPLORE', 'BARDHAMAN']} bn="আমাদের বর্ধমান" lead="Gates, rivers, temples, sweets and the lanes that link them." visual={{ src: '/images/burdwan-cover.jpg', art: 'bridge', seed: 63, hue: 18, tone: 'night' }} />
     <ExploreBardhaman />
     <section className="cta-band"><div className="wrap"><RevealText lines={['NOW FIND', 'THE PANDALS']} className="display" /><Btn to="/map" cursor="Open">Open the Puja Map</Btn></div></section>
   </>
@@ -252,7 +252,7 @@ export const BardhamanPage = () => (
 
 export const GalleryPage = () => (
   <>
-    <PageHead lines={['THE', 'GALLERY']} bn="ছবিঘর" lead="Maa Durga, the pandals, the dhak and the crowd, in frames from the field." visual={{ art: 'camera', seed: 64, hue: 20, tone: 'dusk' }} />
+    <PageHead lines={['THE', 'GALLERY']} bn="ছবিঘর" lead="Maa Durga, the pandals, the dhak and the crowd, in frames from the field." visual={{ src: '/images/gallery-cover.jpg', art: 'camera', seed: 64, hue: 20, tone: 'dusk' }} />
     <GalleryBoard />
   </>
 );

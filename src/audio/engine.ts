@@ -150,23 +150,23 @@ class Engine {
   /* ---------- transport ---------- */
   async play(index = this.s.index) {
     const ctx = this.ensure();
+    const track = TRACKS[index];
+    if (track.src) {
+      const a = (this.audioEl ??= new Audio());
+      if (!a.src.includes(track.src)) a.src = track.src;
+      a.loop = true;
+      a.volume = this.s.volume;
+      a.play().catch(() => this.set({ blocked: true }));
+    }
     try { await ctx.resume(); } catch { /* ignore */ }
     this.stopVoices();
-    const track = TRACKS[index];
     const g = ++this.gen;
     this.set({ index, playing: true, started: true, blocked: ctx.state !== 'running' });
     const t = ctx.currentTime;
     this.bus.gain.cancelScheduledValues(t);
     this.bus.gain.setValueAtTime(this.bus.gain.value, t);
     this.bus.gain.linearRampToValueAtTime(1, t + 1.2);
-    if (track.src) {
-      const a = (this.audioEl ??= new Audio());
-      a.src = track.src;
-      a.loop = true;
-      a.volume = this.s.volume;
-      a.play().catch(() => this.set({ blocked: true }));
-      return;
-    }
+    if (track.src) return;
     const spec = SPECS[track.id] ?? SPECS['pujo-theme'];
     this.spec = spec;
     this.events.clear();

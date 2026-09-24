@@ -121,6 +121,8 @@ function MapBase({ pujas = [] }: { pujas?: any[] }) {
 export function PujaMap({ className = '' }: { className?: string }) {
   const { pujas } = useData();
   const [sel, setSel] = useState<string | null>(pujas[0]?.slug ?? null);
+  const [q, setQ] = useState('');
+  const filtered = pujas.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.location.toLowerCase().includes(q.toLowerCase()));
   const cur = pujas.find((p) => p.slug === sel) || pujas[0];
 
   const mapQuery = encodeURIComponent(`${cur.name} Durga Puja, ${cur.location}, Bardhaman`);
@@ -128,12 +130,12 @@ export function PujaMap({ className = '' }: { className?: string }) {
   return (
     <>
       <style>{`
-        .pmap-new-grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; height: 75vh; min-height: 650px; padding: 40px 0; }
+        .pmap-new-grid { display: grid; grid-template-columns: 380px 1fr; gap: 30px; height: 75vh; min-height: 650px; padding: 40px 0; }
         @media (max-width: 900px) {
           .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; }
-          .pmap-new-list { max-height: 350px; }
-          .pmap-new-iframe { height: 400px; }
-          .pmap-new-bot { flex-direction: column; text-align: center; gap: 16px; }
+          .pmap-new-list { max-height: 280px; overflow-y: auto; }
+          .pmap-new-iframe { height: 350px; margin-top: 10px; }
+          .pmap-mobile-wrapper { height: auto !important; }\n          .pmap-new-bot { flex-direction: column; text-align: center; gap: 16px; }
         }
       `}</style>
       <section className={`pmap ${className}`} style={{ position: 'relative', overflow: 'hidden' }}>
@@ -142,8 +144,20 @@ export function PujaMap({ className = '' }: { className?: string }) {
         <div style={{ position: 'absolute', left: '-10%', bottom: '-10%', opacity: 0.1, pointerEvents: 'none' }}><Alpana size={600} /></div>
         <div className="wrap pmap-new-grid">
           
-          <aside className="pmap-new-list" style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '12px', scrollbarWidth: 'thin', scrollbarColor: 'var(--gold) transparent' }}>
-            {pujas.map((p) => {
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', height: '100%', minHeight: 0 }} className="pmap-mobile-wrapper">
+          <div style={{ position: 'relative' }}>
+            <input 
+              type="text" 
+              placeholder="Search Pandals..." 
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              style={{ width: '100%', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--line-2)', background: 'rgba(20,8,9,0.5)', color: '#fff', fontSize: '1.1rem', outline: 'none', backdropFilter: 'blur(8px)', transition: 'border-color 0.3s' }}
+              onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
+              onBlur={(e) => e.target.style.borderColor = 'var(--line-2)'}
+            />
+          </div>
+          <aside className="pmap-new-list" style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '12px', scrollbarWidth: 'thin', scrollbarColor: 'var(--gold) transparent' }}>
+            {filtered.map((p) => {
               const active = sel === p.slug;
               return (
                 <button
@@ -158,11 +172,11 @@ export function PujaMap({ className = '' }: { className?: string }) {
                     cursor: 'pointer',
                     transition: 'all 0.3s',
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'visible'
                   }}
                 >
                   {active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '5px', background: 'var(--gold)' }} />}
-                  <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500, lineHeight: 1.3, paddingBottom: '4px' }}>
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500, lineHeight: 1.5, paddingBottom: '8px' }}>
                     {p.name}
                   </h4>
                   <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--mute)' }}>{p.location}</p>
@@ -173,8 +187,9 @@ export function PujaMap({ className = '' }: { className?: string }) {
               );
             })}
           </aside>
+        </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', height: '100%', minHeight: 0 }}>
             <div className="pmap-new-iframe" style={{ flex: 1, borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(233, 181, 88, 0.3)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', position: 'relative', zIndex: 2 }}>
               <iframe 
                 width="100%" 
