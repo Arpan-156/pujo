@@ -113,6 +113,7 @@ const ROWS: Row[] = [
 export const PUJAS: Puja[] = ROWS.map(build);
 
 export const FEATURED: FeaturedPandal[] = [
+  { slug: 'amadpur-zomidar-bari', tagline: 'A timeless legacy preserving centuries of devotion.', note: 'Heritage' },
   { slug: 'vivekananda-sevak-sangha', tagline: 'A luminous presence in the heart of the city.', note: 'Traditional & Eco' },
   { slug: 'ichlabad-kiran-sangha', tagline: 'Epic grandeur brought to life.', note: 'Mythology' },
   { slug: 'laltu-smriti-sangha', tagline: 'Divine architecture recreated.', note: 'Architecture' },

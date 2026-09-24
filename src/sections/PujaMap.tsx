@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useData } from '../data/store';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
+import { Particles, Alpana } from '../components/fx';
 import { Pin, ArrowRight } from '../components/Icons';
 import { useFinePointer } from '../lib/motion';
 
@@ -135,7 +136,10 @@ export function PujaMap({ className = '' }: { className?: string }) {
           .pmap-new-bot { flex-direction: column; text-align: center; gap: 16px; }
         }
       `}</style>
-      <section className={`pmap ${className}`}>
+      <section className={`pmap ${className}`} style={{ position: 'relative', overflow: 'hidden' }}>
+        <Particles kind="embers" count={45} />
+        <div style={{ position: 'absolute', right: '-20%', top: '-10%', opacity: 0.15, pointerEvents: 'none' }}><Alpana size={800} spin /></div>
+        <div style={{ position: 'absolute', left: '-10%', bottom: '-10%', opacity: 0.1, pointerEvents: 'none' }}><Alpana size={600} /></div>
         <div className="wrap pmap-new-grid">
           
           <aside className="pmap-new-list" style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '12px', scrollbarWidth: 'thin', scrollbarColor: 'var(--gold) transparent' }}>
@@ -158,7 +162,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
                   }}
                 >
                   {active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '5px', background: 'var(--gold)' }} />}
-                  <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500 }}>
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500, lineHeight: 1.3, paddingBottom: '4px' }}>
                     {p.name}
                   </h4>
                   <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--mute)' }}>{p.location}</p>
@@ -171,7 +175,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
           </aside>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div className="pmap-new-iframe" style={{ flex: 1, borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--line-2)' }}>
+            <div className="pmap-new-iframe" style={{ flex: 1, borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(233, 181, 88, 0.3)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', position: 'relative', zIndex: 2 }}>
               <iframe 
                 width="100%" 
                 height="100%" 
@@ -183,17 +187,13 @@ export function PujaMap({ className = '' }: { className?: string }) {
               ></iframe>
             </div>
             
-            <div className="pmap-new-bot" style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--line)', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="pmap-new-bot" style={{ padding: '24px', background: 'rgba(20, 8, 9, 0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(233, 181, 88, 0.2)', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                 <div>
                   <h3 style={{ margin: '0 0 8px 0', fontSize: '1.8rem', fontFamily: 'var(--f-display)', color: 'var(--gold-2)' }}>{cur.name}</h3>
                   <p style={{ margin: '0 0 0 0', color: 'var(--mute)', fontSize: '1rem' }}>{cur.location}</p>
                 </div>
                 <div>
-                  {cur.featured ? (
-                    <Link to={`/puja/${cur.slug}`} className="btn solid"><span>Explore Details</span></Link>
-                  ) : (
-                    <span style={{ color: 'var(--mute)', fontSize: '0.9rem' }}>Details not available.</span>
-                  )}
+                  <a href={`https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`} target="_blank" rel="noopener noreferrer" className="btn solid"><span>Get Directions</span></a>
                 </div>
             </div>
           </div>
