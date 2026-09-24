@@ -6,7 +6,7 @@ import { BRANDS, NAV } from '../data/site';
 import { Link, useRouter } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { Photo } from './Art';
-import { Alpana, BrandMark, DhakIcon, DurgaEye, LaalPaar, Magnetic, Reveal, RevealText, Rays, Particles } from './fx';
+import { Alpana, BrandMark, DhakIcon, DurgaEye, LaalPaar, Magnetic, Reveal, RevealText, Rays, Particles, TuniLights } from './fx';
 import { ArrowRight, Facebook, Instagram, Youtube } from './Icons';
 import type { Visual } from '../data/types';
 
@@ -30,9 +30,10 @@ export function Btn({ to, children, variant = 'solid', cursor = 'Open', onClick 
 }
 
 /* ---------- page header with photograph ---------- */
-export function PageHead({ lines, bn, visual, lead, tall = false }: { lines: string[]; bn: string; visual: Visual; lead?: string; tall?: boolean }) {
+export function PageHead({ lines, bn, visual, lead, tall = false, tuni = true }: { lines: string[]; bn: string; visual: Visual; lead?: string; tall?: boolean; tuni?: boolean }) {
   return (
-    <section className={`page-head ${tall ? 'tall' : ''}`}>
+    <>
+      <section className={`page-head ${tall ? 'tall' : ''}`}>
       <div className="page-head-bg"><Photo v={visual} eager /></div>
       <Rays />
       <Particles kind="embers" count={26} />
@@ -43,7 +44,13 @@ export function PageHead({ lines, bn, visual, lead, tall = false }: { lines: str
         {lead && <Reveal delay={400} live className="lead">{lead}</Reveal>}
       </div>
       <LaalPaar className="ph-paar" />
-    </section>
+      </section>
+      {tuni && (
+        <div style={{ position: 'relative', width: '100%', height: '50px', zIndex: 10, marginTop: '-2px' }}>
+          <TuniLights />
+        </div>
+      )}
+    </>
   );
 }
 

@@ -237,7 +237,7 @@ export const ThemesPage = () => (
 
 export const FeaturedPage = () => (
   <>
-    <PageHead lines={['FEATURED', 'PANDALS 2026']} bn="এ বছরের বাছাই মণ্ডপ" lead="The pandals Burdwan Capturers Official and Banglar Pujo Official are specially featuring this year." visual={{ src: '/images/featured-cover.jpg', art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
+    <PageHead tuni={false} lines={['FEATURED', 'PANDALS 2026']} bn="এ বছরের বাছাই মণ্ডপ" lead="The pandals Burdwan Capturers Official and Banglar Pujo Official are specially featuring this year." visual={{ src: '/images/featured-cover.jpg', art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
     <FeaturedShowcase />
   </>
 );
