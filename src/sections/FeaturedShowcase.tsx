@@ -85,17 +85,19 @@ export function FeaturedShowcase() {
       <div className="fs-track" style={{ transform: `translateY(-${active * 100}svh)` }}>
         {/* Slide 0: Intro */}
         <div className={`fs-slide ${active === 0 ? 'fs-active' : ''}`}>
-          <div className="fs-bg" style={{ background: 'var(--ink)' }}>
+          <div className="fs-bg">
+              <Photo v={{ src: '/images/featured-cover.jpg', art: 'gate', seed: 62, hue: 14, tone: 'dusk' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(20,8,9,0.85) 100%)', zIndex: 1 }} />
             <div className="fs-ambient-glow" />
           </div>
           <div className="fs-content fs-intro-content">
-            <h1 className="fs-title" style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(3rem, 10vw, 8rem)', lineHeight: 1, textTransform: 'uppercase', marginBottom: '20px', textAlign: 'center' }}>
+            <h1 className="fs-title" style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(3rem, 10vw, 8rem)', lineHeight: 1, textTransform: 'uppercase', marginBottom: '20px', textAlign: 'center' , textShadow: '0 8px 40px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)'}}>
               Featured<br/><span style={{ color: 'var(--gold)' }}>Pandals 2026</span>
             </h1>
-            <p className="fs-lead" style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)', color: 'var(--mute)', maxWidth: '600px', textAlign: 'center', lineHeight: 1.6, marginBottom: '60px' }}>
+            <p className="fs-lead" style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.9)', maxWidth: '600px', textAlign: 'center', lineHeight: 1.6, marginBottom: '60px' }}>
               The most highly anticipated pavilions, curated by Burdwan Capturers Official and Banglar Pujo Official.
             </p>
-            <div className="fs-scroll-indicator" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', color: 'var(--gold-2)', opacity: 0.8, animation: 'bounce 2s infinite' }}>
+            <div className="fs-scroll-indicator" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', color: 'var(--gold-2)', opacity: 1, textShadow: '0 4px 15px rgba(0,0,0,0.9)', animation: 'bounce 2s infinite' }}>
               <span>Scroll to explore</span>
               <ChevronDown size={24} />
             </div>
