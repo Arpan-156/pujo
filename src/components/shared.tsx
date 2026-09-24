@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { Children, isValidElement, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Puja } from '../data/types';
@@ -119,7 +120,7 @@ export const SOCIALS = [
 ] as const;
 
 /* ---------- kash field ---------- */
-function KashField() {
+export function KashField() {
   return (
     <>
       <style>{`
@@ -182,6 +183,7 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
 
   return (
     <>
+      
       {pathname === '/' && <KashField />}
       <footer className="footer">
         <LaalPaar />
@@ -212,7 +214,7 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
         </div>
         <p className="footer-love">Made with love for Bardhaman &amp; Bengal.</p>
         <button className="footer-copy-btn" onClick={() => setShowCopyright(true)} style={{ background: 'none', border: 'none', padding: 0, color: 'var(--mute)', cursor: 'pointer', fontSize: '0.85rem', textDecoration: 'underline', fontStyle: 'italic', opacity: 0.8, justifySelf: 'center', alignSelf: 'center' }}>all copyrights are reserved by Burdwan Captuers Official</button>
-        {showCopyright && (
+        {showCopyright && typeof document !== 'undefined' && createPortal((
           <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(20, 8, 9, 0.92)', backdropFilter: 'blur(10px)' }} onClick={() => setShowCopyright(false)}>
             
             <div style={{ position: 'relative', background: 'var(--ink)', padding: '40px', borderRadius: '12px', border: '1px solid var(--gold)', maxWidth: '500px', textAlign: 'center', margin: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} onClick={e => e.stopPropagation()}>
@@ -221,7 +223,7 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
               <button onClick={() => setShowCopyright(false)} style={{ background: 'var(--gold)', color: 'var(--ink)', border: 'none', padding: '10px 24px', borderRadius: '24px', fontWeight: 600, cursor: 'pointer' }}>Close</button>
             </div>
           </div>
-        )}
+        ), document.body)}
       </div>
     </footer>
     </>
