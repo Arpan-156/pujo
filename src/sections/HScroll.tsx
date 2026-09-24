@@ -15,7 +15,12 @@ export function HScroll({ children, className = '' }: { children: ReactNode; cla
   const pinned = !mobile && !reduced;
 
   useEffect(() => {
-    if (!pinned) return;
+    if (!pinned) {
+      if (track.current) track.current.style.transform = '';
+      if (outer.current) outer.current.style.height = '';
+      if (bar.current) bar.current.style.transform = '';
+      return;
+    }
     const o = outer.current!, t = track.current!;
     let lastH = 0;
     return onScrollFrame(() => {

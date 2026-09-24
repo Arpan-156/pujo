@@ -414,7 +414,9 @@
   .sticky-chips::-webkit-scrollbar { display: none; }
   .masonry { columns: 2 150px; column-gap: 10px; } .masonry > .g-item, .masonry > .flip-item { margin-bottom: 10px; }
   .lb-nav { top: auto; bottom: calc(24px + var(--safe-b)); translate: none; }
-  .tl-track { min-width: 1120px; padding-right: 20px; }
+  .tl-track { min-width: max-content; padding-right: 20px; }
+  .tl-list { display: flex; gap: 24px; }
+  .tl-item { width: clamp(260px, 75vw, 320px); flex: none; }
 }
 @media (max-width: 520px) {
   .team-grid { grid-template-columns: 1fr 1fr; gap: 14px; }

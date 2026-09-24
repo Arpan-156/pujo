@@ -284,7 +284,8 @@ export function TuniLights({ className = '' }: { className?: string }) {
   return (
     <div className={`tuni-wrapper ${className}`} aria-hidden="true" style={{ position: 'absolute', top: -2, left: 0, width: '100%', height: '80px', overflow: 'hidden', pointerEvents: 'none', zIndex: 15 }}>
       <style>{`
-        .tuni-bulb-svg {
+        .tuni-wrapper svg { max-width: none !important; }
+          .tuni-bulb-svg {
           animation: tuni-flash 1s infinite alternate;
         }
         .tuni-c0 { fill: #ff3b3b; filter: drop-shadow(0 4px 6px #ff3b3b); }
@@ -295,7 +296,14 @@ export function TuniLights({ className = '' }: { className?: string }) {
         @keyframes tuni-flash {
           0%, 20% { opacity: 0.15; filter: brightness(0.5); }
           80%, 100% { opacity: 1; filter: brightness(1.5); }
-        }
+          }
+          @media (max-width: 768px) {
+            .tuni-wrapper svg {
+              max-width: none !important;
+              transform: translateX(-50%) scale(0.6) !important;
+              transform-origin: top center;
+            }
+          }
       `}</style>
       <svg width={scallops * w} height="80" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)' }}>
         {Array.from({ length: scallops }).map((_, i) => (

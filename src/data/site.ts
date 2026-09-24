@@ -78,7 +78,7 @@ export const STAGES: Stage[] = [
   {
     id: 'navami', name: 'Navami', bn: 'নবমী', date: 'Tue 20 Oct', iso: '2026-10-20',
     ritual: 'Maha aarti and dhunuchi naach',
-    text: 'Smoke, coconut husk and dhak. Dancers balance dhunuchis on their hands, on their teeth, and perfoems the famous dhunuchi naach.',
+    text: 'Smoke, coconut husk and dhak. Dancers balance dhunuchis on their hands, on their teeth, and performs the famous dhunuchi naach.',
     visual: { art: 'dhunuchi', seed: 15, src: '/images/navami.jpg' },
   },
   {
