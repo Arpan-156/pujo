@@ -68,18 +68,12 @@
 .open .curtain-sheen { opacity: 0; }
 
 /* ---------- page wipe ---------- */
-.wipe { position: fixed; inset: 0; z-index: 170; display: flex; pointer-events: none; }
+.wipe { position: fixed; inset: 0; z-index: 170; display: flex; align-items: center; justify-content: center; pointer-events: none; background: var(--ink); opacity: 0; transition: opacity 0.5s var(--ease-io); }
 .wipe.idle { visibility: hidden; }
-.wipe.cover { pointer-events: auto; }
-.wipe i { flex: 1; transform: scaleY(0); transform-origin: bottom; border-right: 1px solid rgba(233, 181, 88, 0.35);
-  background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0 6%, transparent 6% 14%), linear-gradient(180deg, #7a1522, #4a0f16);
-  transition: transform 0.62s var(--ease-io) calc(var(--i) * 55ms); }
-.wipe i:nth-child(odd) { background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0 6%, transparent 6% 14%), linear-gradient(180deg, #5a0c17, #34080e); }
-.wipe.cover i { transform: scaleY(1); }
-.wipe.reveal i { transform: scaleY(0); transform-origin: top; }
-.wipe::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--gold); opacity: 0; transition: opacity 0.4s; z-index: 2; }
-.wipe.cover::before { opacity: 1; }
-.wipe-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 4px; opacity: 0; transition: opacity 0.35s; z-index: 1; }
-.wipe.cover .wipe-label { opacity: 1; transition-delay: 0.42s; }
+.wipe.cover { pointer-events: auto; opacity: 1; }
+.wipe.reveal { opacity: 0; }
+.wipe i { display: none; }
+.wipe-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 4px; opacity: 0; transition: opacity 0.35s; z-index: 1; transform: translateY(10px); }
+.wipe.cover .wipe-label { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
 .wipe-label .bn { font-size: clamp(2.2rem, 7vw, 4.4rem); }
 .wipe-label .en { font-family: var(--f-display); font-style: italic; font-size: clamp(1rem, 2.4vw, 1.5rem); color: var(--shankha); opacity: 0.85; }
