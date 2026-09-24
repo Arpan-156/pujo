@@ -59,9 +59,12 @@ export function PujaCard({ p }: { p: Puja }) {
     e.currentTarget.style.setProperty('--py', '0.5');
   };
 
+  const Wrapper: any = p.featured ? Link : 'div';
+  const props = p.featured ? { to: `/puja/${p.slug}`, 'data-cursor': 'View' } : { style: { cursor: 'default' } };
+
   return (
     <article className="pcard" data-flip={p.slug} onPointerMove={move} onPointerLeave={leave} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
-      <Link to={`/puja/${p.slug}`} className="pcard-body" data-cursor="View">
+      <Wrapper className="pcard-body" {...props}>
         <p className="pcard-cats">
           {p.featured && <span className="feat-tag">Featured • </span>}
           {p.categories.join(' • ')}
@@ -72,7 +75,7 @@ export function PujaCard({ p }: { p: Puja }) {
         </h3>
         <p className="pcard-loc">{p.location}</p>
         <p className="pcard-theme"><em>Theme:</em> “{p.theme}”</p>
-      </Link>
+      </Wrapper>
     </article>
   );
 }

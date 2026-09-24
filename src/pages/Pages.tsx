@@ -65,8 +65,11 @@ export function PujasPage() {
           <p className="dir-count" aria-live="polite">{list.length} of {pujas.length} Puja</p>
           {list.length ? (
             <FlipGrid className="plist">
-              {list.map((p) => (
-                <Link key={p.slug} to={`/puja/${p.slug}`} className="plist-row" data-cursor="View">
+              {list.map((p) => {
+                const Wrapper: any = p.featured ? Link : 'div';
+                const props = p.featured ? { to: `/puja/${p.slug}`, 'data-cursor': 'View' } : { style: { cursor: 'default' } };
+                return (
+                <Wrapper key={p.slug} className="plist-row" {...props}>
                   <div className="plist-col">
                     <p className="plist-cats">
                       {p.featured && <span className="feat-tag">Featured • </span>}
@@ -86,8 +89,9 @@ export function PujasPage() {
                     {p.featured && <span className="badge-shiny">Featured</span>}
                     <div className="plist-arr"><ArrowRight size={20} /></div>
                   </div>
-                </Link>
-              ))}
+                </Wrapper>
+                );
+              })}
             </FlipGrid>
           ) : (
             <div className="empty">

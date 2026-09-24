@@ -118,77 +118,89 @@ function MapBase({ pujas = [] }: { pujas?: any[] }) {
 }
 
 export function PujaMap({ className = '' }: { className?: string }) {
-  const { pujas: allPujas } = useData();
-  const pujas = allPujas.filter(p => p.slug !== 'amadpur-zomidar-bari');
+  const { pujas } = useData();
   const [sel, setSel] = useState<string | null>(pujas[0]?.slug ?? null);
-  const cur = pujas.find((p) => p.slug === sel);
-  const fine = useFinePointer();
+  const cur = pujas.find((p) => p.slug === sel) || pujas[0];
 
-  const move = (e: PointerEvent<HTMLDivElement>) => {
-    if (!fine) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
-    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
-  };
+  const mapQuery = encodeURIComponent(`${cur.name} Durga Puja, ${cur.location}, Bardhaman`);
 
   return (
-    <section className={`pmap ${className}`}>
-      <div className="wrap pmap-grid">
-        <div className="pmap-canvas-wrap" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
-          <div className="pmap-canvas" role="group" aria-label="Map of Puja locations">
-            <div className="pmap-radar" aria-hidden="true" />
-            <MapBase pujas={pujas} />
-            
-            {/* Render Landmarks */}
-            {LANDMARKS.map(lm => (
-              <div key={lm.id} className="pmap-landmark" style={{ left: `${toX(lm.lng)}%`, top: `${toY(lm.lat)}%` }} aria-label={lm.name}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>{lm.icon}</svg>
-                <span>{lm.name}</span>
-              </div>
-            ))}
+    <>
+      <style>{`
+        .pmap-new-grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; height: 75vh; min-height: 650px; padding: 40px 0; }
+        @media (max-width: 900px) {
+          .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; }
+          .pmap-new-list { max-height: 350px; }
+          .pmap-new-iframe { height: 400px; }
+          .pmap-new-bot { flex-direction: column; text-align: center; gap: 16px; }
+        }
+      `}</style>
+      <section className={`pmap ${className}`}>
+        <div className="wrap pmap-new-grid">
+          
+          <aside className="pmap-new-list" style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '12px', scrollbarWidth: 'thin', scrollbarColor: 'var(--gold) transparent' }}>
+            {pujas.map((p) => {
+              const active = sel === p.slug;
+              return (
+                <button
+                  key={p.slug}
+                  onClick={() => setSel(p.slug)}
+                  style={{
+                    textAlign: 'left',
+                    padding: '20px',
+                    background: active ? 'rgba(233,181,88,0.12)' : 'rgba(255,255,255,0.02)',
+                    border: `1px solid ${active ? 'var(--gold)' : 'var(--line)'}`,
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  {active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '5px', background: 'var(--gold)' }} />}
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500 }}>
+                    {p.name}
+                  </h4>
+                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--mute)' }}>{p.location}</p>
+                  {p.featured && (
+                    <span style={{ display: 'inline-block', marginTop: '12px', fontSize: '0.75rem', color: '#111', background: 'linear-gradient(135deg, var(--gold), var(--gold-2))', padding: '3px 10px', borderRadius: '4px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>FEATURED</span>
+                  )}
+                </button>
+              );
+            })}
+          </aside>
 
-          {pujas.map((p) => (
-            <button
-              key={p.slug}
-              className={`pin ${sel === p.slug ? 'on' : ''} ${p.featured ? 'feat' : ''}`}
-              style={{ left: `${p.map.lat ? toX(p.map.lng!) : p.map.x}%`, top: `${p.map.lat ? toY(p.map.lat) : p.map.y}%` }}
-              onClick={() => setSel(p.slug)}
-              aria-label={`${p.name}, ${p.area}`}
-              aria-pressed={sel === p.slug}
-              data-cursor="Open"
-            ><i /></button>
-          ))}
-          <p className="pmap-note">Stylised map. Pin positions are placeholders until real coordinates are added.</p>
-        </div>
-        </div>
-        <aside className="pmap-side" aria-live="polite">
-          {cur ? (
-            <div 
-              className="pmap-card" 
-              key={cur.slug}
-              onPointerMove={(e: PointerEvent<HTMLDivElement>) => {
-                if (!fine) return;
-                const r = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty('--cpx', ((e.clientX - r.left) / r.width).toFixed(3));
-                e.currentTarget.style.setProperty('--cpy', ((e.clientY - r.top) / r.height).toFixed(3));
-              }}
-              onPointerLeave={(e: PointerEvent<HTMLDivElement>) => {
-                e.currentTarget.style.setProperty('--cpx', '0.5');
-                e.currentTarget.style.setProperty('--cpy', '0.5');
-              }}
-              style={{ '--cpx': 0.5, '--cpy': 0.5 } as React.CSSProperties}
-            >
-              <div className="pmap-img"><Photo v={cur.heroImage} alt={`${cur.name} pandal`} /></div>
-              <p className="pmap-loc"><Pin size={16} /> {cur.location}</p>
-              <h3>{cur.name}</h3>
-              <p className="pmap-theme"><em>Theme:</em> &ldquo;{cur.theme}&rdquo;</p>
-              <p className="pmap-desc">{cur.description}</p>
-              <Link to={`/puja/${cur.slug}`} className="btn solid" data-cursor="Explore"><span>Explore</span><ArrowRight size={18} /></Link>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="pmap-new-iframe" style={{ flex: 1, borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--line-2)' }}>
+              <iframe 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }}
+                loading="lazy" 
+                allowFullScreen 
+                referrerPolicy="no-referrer-when-downgrade" 
+                src={`https://maps.google.com/maps?q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              ></iframe>
             </div>
-          ) : <p>Select a pin to see the Puja.</p>}
-        </aside>
-      </div>
-    </section>
+            
+            <div className="pmap-new-bot" style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--line)', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <h3 style={{ margin: '0 0 8px 0', fontSize: '1.8rem', fontFamily: 'var(--f-display)', color: 'var(--gold-2)' }}>{cur.name}</h3>
+                  <p style={{ margin: '0 0 0 0', color: 'var(--mute)', fontSize: '1rem' }}>{cur.location}</p>
+                </div>
+                <div>
+                  {cur.featured ? (
+                    <Link to={`/puja/${cur.slug}`} className="btn solid"><span>Explore Details</span></Link>
+                  ) : (
+                    <span style={{ color: 'var(--mute)', fontSize: '0.9rem' }}>Details not available.</span>
+                  )}
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </>
   );
 }
 
