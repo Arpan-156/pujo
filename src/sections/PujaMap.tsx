@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useData } from '../data/store';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
-import { Particles, Alpana } from '../components/fx';
+import { Particles, Alpana, PujaScenario } from '../components/fx';
 import { Pin, ArrowRight } from '../components/Icons';
 import { useFinePointer } from '../lib/motion';
 
@@ -141,6 +141,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
       <section className={`pmap ${className}`} style={{ position: 'relative', overflow: 'hidden' }}>
         <Particles kind="embers" count={45} />
         <div style={{ position: 'absolute', right: '-20%', top: '-10%', opacity: 0.15, pointerEvents: 'none' }}><Alpana size={800} spin /></div>
+          <PujaScenario />
         <div style={{ position: 'absolute', left: '-10%', bottom: '-10%', opacity: 0.1, pointerEvents: 'none' }}><Alpana size={600} /></div>
         <div className="wrap pmap-new-grid">
           

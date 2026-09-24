@@ -326,3 +326,73 @@ export function TuniLights({ className = '' }: { className?: string }) {
     </div>
   );
 }
+
+/* ============================================================ *
+ *  Puja Scenario (Illustration)
+ * ============================================================ */
+export function PujaScenario({ className = '' }: { className?: string }) {
+  return (
+    <div className={`puja-scenario ${className}`} aria-hidden="true" style={{ position: 'absolute', bottom: '180px', right: '2%', width: 'clamp(250px, 30vw, 350px)', height: '300px', pointerEvents: 'none', zIndex: 5, color: 'var(--gold)', opacity: 0.85 }}>
+      <svg viewBox="0 0 350 300" width="100%" height="100%" fill="currentColor">
+        {/* Bamboo Pandal Structure */}
+        <g opacity="0.15">
+          <rect x="20" y="50" width="10" height="250" />
+          <rect x="320" y="20" width="10" height="280" />
+          <rect x="0" y="60" width="350" height="8" />
+          <rect x="0" y="100" width="350" height="8" />
+          <line x1="20" y1="100" x2="320" y2="20" stroke="currentColor" strokeWidth="6" />
+          <line x1="20" y1="120" x2="320" y2="40" stroke="currentColor" strokeWidth="6" />
+        </g>
+        
+        {/* Banana Tree (Kola Bou) */}
+        <g transform="translate(280, 120)">
+          {/* trunk */}
+          <path d="M12,180 Q18,100 15,20 Q10,100 5,180 Z" />
+          {/* leaves */}
+          <path d="M15,30 Q60,10 70,50 Q40,40 15,30 Z" />
+          <path d="M15,40 Q80,20 85,70 Q50,60 15,40 Z" />
+          <path d="M5,30 Q-40,10 -50,50 Q-20,40 5,30 Z" />
+          <path d="M5,40 Q-60,20 -65,70 Q-30,60 5,40 Z" />
+          {/* Saree drape */}
+          <path d="M3,60 Q30,100 25,180 L-5,180 Q-15,100 3,60 Z" fill="#b02626" opacity="0.9" />
+        </g>
+
+        {/* Kalsi (Kalash) */}
+        <g transform="translate(200, 230)">
+          {/* Pot */}
+          <path d="M-15,40 C-35,60 -25,80 0,80 C25,80 35,60 15,40 C10,30 5,20 0,20 C-5,20 -10,30 -15,40 Z" />
+          {/* Leaves */}
+          <path d="M0,20 Q-15,5 -25,-5 Q-5,5 0,20 Z" />
+          <path d="M0,20 Q15,5 25,-5 Q5,5 0,20 Z" />
+          <path d="M0,20 Q0,5 -5,-10 Q5,0 0,20 Z" />
+          {/* Coconut */}
+          <circle cx="0" cy="5" r="12" />
+        </g>
+
+        {/* Pandit (Priest) sitting */}
+        <g transform="translate(80, 200)">
+          {/* Head */}
+          <circle cx="35" cy="15" r="14" />
+          {/* Torso leaning forward */}
+          <path d="M30,25 Q50,60 30,80 L-5,80 Q5,50 20,25 Z" />
+          {/* Legs crossed */}
+          <path d="M-20,80 Q20,100 60,80 Q30,65 10,75 Z" />
+          {/* Arm holding bell */}
+          <path d="M35,35 Q70,45 80,65" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+          {/* Bell */}
+          <path d="M75,65 L85,65 L82,80 L78,80 Z" />
+          {/* Dhuti */}
+          <path d="M-20,80 Q20,95 60,80 L30,65 Z" fill="#b02626" opacity="0.5" />
+        </g>
+
+        {/* Offerings / Diya */}
+        <g transform="translate(150, 270)">
+          <path d="M0,0 L30,0 L25,10 L5,10 Z" />
+          {/* Flame */}
+          <path d="M15,-5 Q22,-12 15,-20 Q8,-12 15,-5 Z" fill="#f59e0b" />
+          <circle cx="15" cy="-10" r="4" fill="#fff" opacity="0.8" />
+        </g>
+      </svg>
+    </div>
+  );
+}
