@@ -90,7 +90,7 @@ function Shell() {
           <Nav visible={open} />
           <main id="main" className="page"><Routes /></main>
           {(pathname.replace(/\/$/, '') || '/') !== '/featured' && <Footer />}
-          <PageWipe />
+          
         </>
       )}
       <MusicPlayer visible={open} />
