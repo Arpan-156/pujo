@@ -1,7 +1,7 @@
 import { PUJA_START } from '../data/site';
 import { useCountdown } from '../lib/motion';
 import { pad2 } from '../lib/util';
-import { Alpana, Particles, Reveal, RevealText, Smoke } from '../components/fx';
+import { Alpana, LaalPaar, Particles, Reveal, RevealText, Smoke } from '../components/fx';
 
 /** Each digit re-mounts on change so the old one rolls out and the new one rolls in. */
 const Digit = ({ v }: { v: string }) => (
@@ -42,6 +42,8 @@ export function Countdown() {
         )}
         <Reveal delay={300} className="cd-note">Until Shashthi morning, Saturday 17 October 2026. The face is unveiled at dusk.</Reveal>
       </div>
+      
+      
     </section>
   );
 }

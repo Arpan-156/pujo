@@ -3,7 +3,7 @@ import type { PointerEvent } from 'react';
 import type { Visual } from '../data/types';
 import { useEntrance } from '../lib/entrance';
 import { useFinePointer, useScrollVar } from '../lib/motion';
-import { Photo } from '../components/Art';
+import { Photo, Procession } from '../components/Art';
 import { LaalPaar, Particles, Rays, RevealText, Smoke } from '../components/fx';
 import { Btn } from '../components/shared';
 
@@ -44,6 +44,7 @@ export function Hero() {
         </div>
       </div>
       <div className="hero-scroll" aria-hidden="true"><span>Scroll</span><i /></div>
+      <Procession />
       <LaalPaar className="hero-paar" />
     </section>
   );

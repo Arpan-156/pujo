@@ -540,3 +540,153 @@ export function Photo({ v, className = '', alt = '', eager = false }: { v: Visua
   if (v.src) return <img className={`photo ${className}`} src={v.src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />;
   return <Art {...v} className={`photo ${className}`} title={alt || undefined} />;
 }
+
+
+/* ---------- Cute Procession Animation ---------- */
+export function Procession() {
+  return (
+    <div className="procession-container" style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '80px', overflow: 'hidden', pointerEvents: 'none', zIndex: 10 }}>
+      <style>{`
+        .procession-group {
+          position: absolute;
+          bottom: 12px;
+          right: -800px;
+          height: 60px;
+          color: rgba(233, 181, 88, 0.85); /* gold, slightly transparent */
+          animation: march 30s linear infinite;
+        }
+        @keyframes march {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100vw - 800px)); }
+        }
+        .walker {
+          animation: walk-bob 0.4s alternate infinite ease-in-out;
+        }
+        @keyframes walk-bob {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-4px); }
+        }
+        .procession-svg {
+          height: 100%;
+          width: auto;
+          display: block;
+        }
+      `}</style>
+      <div className="procession-group">
+        <svg viewBox="-80 0 760 100" className="procession-svg" fill="currentColor">
+          
+          {/* Kanshor Player (Very Front) */}
+          <g className="walker" style={{ animationDelay: '0.2s' }}>
+            <circle cx="-50" cy="45" r="8" />
+            <rect x="-54" y="53" width="8" height="37" rx="4" />
+            <path d="M-50 60 L-35 55 M-50 65 L-35 60" stroke="currentColor" strokeWidth="2.5" />
+            <ellipse cx="-33" cy="57" rx="3" ry="9" />
+          </g>
+
+          {/* Dancing Devotee (Front) */}
+          <g className="walker" style={{ animationDelay: '0.5s' }}>
+            <circle cx="-10" cy="40" r="8" />
+            <rect x="-14" y="50" width="8" height="37" rx="4" transform="rotate(10 -10 50)" />
+            <path d="M-10 55 L-25 40 M-10 60 L5 45" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+
+          {/* 1. Dhak Player */}
+          <g className="walker" style={{ animationDelay: '0.1s' }}>
+            <circle cx="30" cy="45" r="8" />
+            <rect x="26" y="53" width="8" height="37" rx="4" />
+            <ellipse cx="18" cy="65" rx="12" ry="18" transform="rotate(-20 18 65)" />
+            <path d="M28 60 L8 55 M28 65 L12 65" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+
+          {/* 2. Kash / Flag Bearer */}
+          <g className="walker" style={{ animationDelay: '0.3s' }}>
+            <circle cx="80" cy="45" r="8" />
+            <rect x="76" y="53" width="8" height="37" rx="4" />
+            <path d="M78 60 L60 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            <path d="M60 20 Q45 10 45 25 Q55 35 60 20 Z" />
+          </g>
+
+          {/* 3. Maa Durga & Palanquin */}
+          <g className="walker idol-group" style={{ animationDelay: '0s' }}>
+            <rect x="140" y="75" width="140" height="6" rx="3" />
+            {/* Front Carrier */}
+            <circle cx="130" cy="45" r="8" />
+            <rect x="126" y="53" width="8" height="37" rx="4" />
+            <path d="M130 60 L145 75" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            
+            {/* Back Carrier */}
+            <circle cx="290" cy="45" r="8" />
+            <rect x="286" y="53" width="8" height="37" rx="4" />
+            <path d="M290 60 L275 75" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            
+            {/* Chalchitra (Arch) */}
+            <path d="M150 75 C150 -5 270 -5 270 75" stroke="currentColor" strokeWidth="5" fill="none" />
+            {/* Idol Base / Lion */}
+            <rect x="190" y="65" width="40" height="10" rx="4" />
+            {/* Idol Body */}
+            <polygon points="210,50 195,75 225,75" />
+            <circle cx="210" cy="40" r="9" />
+            <polygon points="200,20 210,35 220,20" />
+            {/* 10 Arms */}
+            <path d="M210 55 L180 45 M210 58 L180 55 M210 61 L180 65 M210 64 L185 75 M210 55 L240 45 M210 58 L240 55 M210 61 L240 65 M210 64 L235 75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            {/* Trishul */}
+            <path d="M230 40 L185 75" stroke="currentColor" strokeWidth="2.5" />
+            <circle cx="180" cy="70" r="6" />
+          </g>
+
+          {/* 4. Trailing Devotee 1 */}
+          <g className="walker" style={{ animationDelay: '0.4s' }}>
+            <circle cx="340" cy="45" r="8" />
+            <rect x="336" y="53" width="8" height="37" rx="4" />
+            <path d="M340 60 L325 65" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          </g>
+
+          {/* Dhunuchi Dancer */}
+          <g className="walker" style={{ animationDelay: '0.1s' }}>
+            <circle cx="430" cy="42" r="8" />
+            <rect x="426" y="50" width="8" height="37" rx="4" transform="rotate(-5 430 50)" />
+            <path d="M430 55 L445 45 M430 60 L415 45" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            {/* Dhunuchi shape */}
+            <path d="M410 40 L420 40 L418 45 L412 45 Z" />
+            <path d="M440 40 L450 40 L448 45 L442 45 Z" />
+          </g>
+
+          {/* Devotee A */}
+          <g className="walker" style={{ animationDelay: '0.6s' }}>
+            <circle cx="480" cy="45" r="8" />
+            <rect x="476" y="53" width="8" height="37" rx="4" />
+            <path d="M480 60 L465 55" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+
+          {/* Devotee B */}
+          <g className="walker" style={{ animationDelay: '0.3s' }}>
+            <circle cx="520" cy="45" r="8" />
+            <rect x="516" y="53" width="8" height="37" rx="4" />
+          </g>
+
+          {/* Devotee C */}
+          <g className="walker" style={{ animationDelay: '0.7s' }}>
+            <circle cx="560" cy="45" r="8" />
+            <rect x="556" y="53" width="8" height="37" rx="4" />
+            <path d="M560 60 L575 65" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+
+          {/* 2nd Dhak Player */}
+          <g className="walker" style={{ animationDelay: '0.2s' }}>
+            <circle cx="610" cy="45" r="8" />
+            <rect x="606" y="53" width="8" height="37" rx="4" />
+            <ellipse cx="598" cy="65" rx="12" ry="18" transform="rotate(-20 598 65)" />
+            <path d="M608 60 L588 55 M608 65 L592 65" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+          
+          {/* Child */}
+          <g className="walker" style={{ animationDelay: '0.5s' }}>
+            <circle cx="660" cy="50" r="6" />
+            <rect x="656" y="57" width="7" height="33" rx="3.5" />
+          </g>
+
+        </svg>
+      </div>
+    </div>
+  );
+}
