@@ -1,7 +1,7 @@
 import { useData } from '../data/store';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
-import { Reveal, RevealText } from '../components/fx';
+import { Reveal, RevealText, TuniLights } from '../components/fx';
 import { pad2 } from '../lib/util';
 import { ArrowUpRight } from '../components/Icons';
 import { HScroll } from './HScroll';
@@ -9,7 +9,8 @@ import { HScroll } from './HScroll';
 export function FeaturedRail({ compact = false }: { compact?: boolean }) {
   const { featuredPujas } = useData();
   return (
-    <section className="featured" id="featured">
+    <section className="featured" id="featured" style={{ position: 'relative' }}>
+      <TuniLights />
       {!compact && (
         <div className="wrap feat-head">
           <RevealText lines={['FEATURED', 'PANDALS 2026']} className="display" />

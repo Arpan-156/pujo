@@ -271,3 +271,60 @@ export function DurgaEye() {
     </button>
   );
 }
+
+/* ============================================================ *
+ *  Tuni Lights (Decoration)
+ * ============================================================ */
+export function TuniLights({ className = '', count = 40 }: { className?: string; count?: number }) {
+  return (
+    <div className={`tuni-wrapper ${className}`} aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', display: 'flex', justifyContent: 'space-around', pointerEvents: 'none', zIndex: 15 }}>
+      <style>{`
+        .tuni-bulb {
+          width: 5px;
+          height: 10px;
+          border-radius: 50px 50px 30px 30px;
+          position: relative;
+          margin-top: 4px;
+          animation: tuni-flash 1s infinite alternate;
+        }
+        .tuni-bulb::before {
+          content: '';
+          position: absolute;
+          top: -4px;
+          left: 0.5px;
+          width: 4px;
+          height: 4px;
+          background: #000;
+          border-radius: 2px 2px 0 0;
+        }
+        .tuni-bulb::after {
+          content: '';
+          position: absolute;
+          top: -3px;
+          left: -5vw;
+          width: 10vw;
+          height: 1px;
+          background: #000;
+          z-index: -1;
+        }
+        .tuni-c0 { background: #ff3b3b; box-shadow: 0 4px 12px #ff3b3b; }
+        .tuni-c1 { background: #3b82f6; box-shadow: 0 4px 12px #3b82f6; }
+        .tuni-c2 { background: #10b981; box-shadow: 0 4px 12px #10b981; }
+        .tuni-c3 { background: #f59e0b; box-shadow: 0 4px 12px #f59e0b; }
+        .tuni-c4 { background: #ec4899; box-shadow: 0 4px 12px #ec4899; }
+        @keyframes tuni-flash {
+          0%, 20% { opacity: 0.1; filter: brightness(0.5); }
+          80%, 100% { opacity: 1; filter: brightness(1.5); }
+        }
+      `}</style>
+      {Array.from({ length: count }).map((_, i) => {
+        const c = i % 5;
+        const dur = 0.6 + Math.random() * 0.8;
+        const del = Math.random() * 2;
+        return (
+          <div key={i} className={`tuni-bulb tuni-c${c}`} style={{ animationDuration: `${dur}s`, animationDelay: `${del}s` }} />
+        );
+      })}
+    </div>
+  );
+}

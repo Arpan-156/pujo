@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
 import { engine } from '../audio/engine';
 import { useReducedMotion } from '../lib/motion';
-import { Reveal, RevealText } from '../components/fx';
+import { Reveal, RevealText, TuniLights } from '../components/fx';
 
 /* ------------------------------------------------------------------ *
  *  A small canvas that spawns particles where the pointer touches it.
@@ -168,7 +168,8 @@ function ShankhaTile() {
 
 export function Experiences() {
   return (
-    <section className="exp">
+    <section className="exp" style={{ position: 'relative' }}>
+      <TuniLights />
       <div className="wrap">
         <div className="exp-head">
           <RevealText lines={['BURDWAN PUJA,', 'UP CLOSE']} className="display" />
