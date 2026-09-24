@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://burdwanpujo.pages.dev/</loc>
+    <loc>https://burdwanpujo.dev/</loc>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://burdwanpujo.pages.dev/pujas</loc>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://burdwanpujo.pages.dev/featured</loc>
+    <loc>https://burdwanpujo.dev/pujas</loc>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://burdwanpujo.pages.dev/bardhaman</loc>
+    <loc>https://burdwanpujo.dev/featured</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://burdwanpujo.dev/bardhaman</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://burdwanpujo.pages.dev/gallery</loc>
-    <priority>0.7</priority>
+    <loc>https://burdwanpujo.dev/gallery</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://burdwanpujo.pages.dev/map</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://burdwanpujo.pages.dev/timeline</loc>
+    <loc>https://burdwanpujo.dev/about</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://burdwanpujo.pages.dev/about</loc>
+    <loc>https://burdwanpujo.dev/map</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://burdwanpujo.dev/timeline</loc>
+    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>

@@ -89,7 +89,7 @@ function Shell() {
           <GlobalBranding />
           <Nav visible={open} />
           <main id="main" className="page"><Routes /></main>
-          {pathname !== '/featured' && <Footer />}
+          {(pathname.replace(/\/$/, '') || '/') !== '/featured' && <Footer />}
           <PageWipe />
         </>
       )}

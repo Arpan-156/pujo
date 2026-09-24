@@ -30,13 +30,13 @@ export function Nav({ visible }: { visible: boolean }) {
   return (
     <>
       <header className={`nav ${visible ? 'show' : ''} ${scrolled ? 'scrolled' : ''}`}>
-        <Link to="/" className="nav-brand" data-cursor="Home" aria-label="Bardhaman Durga Puja 2026, home">
+        <Link to="/" onClick={(e) => { if (pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} className="nav-brand" data-cursor="Home" aria-label="Bardhaman Durga Puja 2026, home">
           <span className="nav-marks"><BrandMark brand="capturers" size={30} /><BrandMark brand="pujo" size={30} /></span>
           <span className="nav-brand-text"><b>বর্ধমানের দুর্গাপূজা</b><small>2026</small></span>
         </Link>
         <nav className="nav-links" aria-label="Primary">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} aria-current={active(n.to) ? 'page' : undefined}>
+            <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} aria-current={active(n.to) ? 'page' : undefined} onClick={(e) => { if (pathname === n.to) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }}>
               <span>{n.label}</span>
             </Link>
           ))}
@@ -54,7 +54,7 @@ export function Nav({ visible }: { visible: boolean }) {
           <button className="menu-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={28} /></button>
           <nav className="menu-list" aria-label="Mobile">
             {NAV.map((n, i) => (
-              <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+              <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={(e) => { setOpen(false); if (pathname === n.to) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }}>
                 <small>{n.bn}</small>
                 <span>{n.label}</span>
               </Link>

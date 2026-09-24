@@ -171,7 +171,7 @@ export function Experiences() {
     <section className="exp">
       <div className="wrap">
         <div className="exp-head">
-          <RevealText lines={['THE PUJA,', 'UP CLOSE']} className="display" />
+          <RevealText lines={['BURDWAN PUJA,', 'UP CLOSE']} className="display" />
           <Reveal delay={200} className="lead">Four sounds and smells of the festival. Touch them.</Reveal>
         </div>
         <div className="exp-grid">
