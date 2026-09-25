@@ -71,7 +71,7 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 /* ---------- ambience ---------- */
 .particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .smoke { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.smoke i { position: absolute; bottom: -25%; width: 70vmax; height: 46vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 214, 0.14), transparent 72%); filter: blur(34px); animation: drift 26s linear infinite; will-change: transform; }
+.smoke i { position: absolute; bottom: -25%; width: 70vmax; height: 46vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 214, 0.14), transparent 72%);  animation: drift 26s linear infinite; will-change: transform; }
 .smoke i:nth-child(1) { left: -20%; animation-duration: 30s; }
 .smoke i:nth-child(2) { left: 10%; animation-duration: 24s; animation-delay: -8s; }
 .smoke i:nth-child(3) { left: 38%; animation-duration: 34s; animation-delay: -16s; }
@@ -104,11 +104,11 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 .laal-paar { height: 14px; background-color: var(--sindoor); background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%), linear-gradient(to bottom, var(--sindoor) 0 4px, var(--shankha) 4px 10px, var(--sindoor) 10px 14px); background-size: 150vw 100%, 100% 100%; animation: paar-shine 4s ease-in-out infinite; }
 @keyframes paar-shine { 0% { background-position: 150vw 0, 0 0; } 100% { background-position: -100vw 0, 0 0; } }
 .alpana { color: var(--gold); opacity: 0.2; pointer-events: none; }
-.alpana.spin { animation: spin 160s linear infinite; }
-.alpana .ring.r2 { transform-origin: 100px 100px; animation: spin 90s linear infinite reverse; }
+.alpana.spin { animation: spin 160s linear infinite; will-change: transform; transform: translateZ(0); }
+.alpana .ring.r2 { transform-origin: 100px 100px; animation: spin 90s linear infinite reverse; will-change: transform; transform: translateZ(0); }
 .alpana .dots { transform-origin: 100px 100px; transition: transform 1.4s var(--ease); }
 .alpana .dots circle { transition: r 0.6s; }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin { to { transform: rotate(360deg) translateZ(0); } }
 
 /* ---------- buttons ---------- */
 .magnetic { display: inline-block; transition: transform 0.35s var(--ease); will-change: transform; }
@@ -117,7 +117,7 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 .btn:hover svg { transform: translateX(5px); }
 .btn.solid { background: var(--sindoor); color: #fff; box-shadow: 0 8px 30px -8px rgba(200, 40, 30, 0.7); }
 .btn.solid:hover { background: #dd3427; box-shadow: 0 10px 40px -6px rgba(221, 52, 39, 0.85); }
-.btn.ghost { border-color: rgba(246, 239, 226, 0.45); color: var(--shankha); backdrop-filter: blur(6px); }
+.btn.ghost { border-color: rgba(246, 239, 226, 0.45); color: var(--shankha);  }
 .btn.ghost:hover { background: var(--shankha); color: var(--ink); border-color: var(--shankha); }
 .btn.gold { background: var(--gold); color: var(--ink); }
 .chip { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.5em 1.05em; border: 1px solid var(--line-2); border-radius: 999px; font-size: 0.9rem; line-height: 1.2; white-space: nowrap; transition: background 0.25s, color 0.25s, border-color 0.25s; }
@@ -148,10 +148,10 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 @media (max-width: 820px) {
   .smoke, .rays { display: none !important; }
   .intro-sweep { mix-blend-mode: normal !important; }
-  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  * {  -webkit- }
   .nav.scrolled, .music-panel, .music-fab, .btn.ghost { background: rgba(20, 8, 9, 0.95) !important; }
 }
 
-@media (max-width: 800px) { * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } .nav.scrolled { background: rgba(20, 8, 9, 0.95) !important; } .music-fab, .music-panel, .fs-glass, .pmap-new-bot, .pmap-new-list input { background: rgba(20, 8, 9, 0.98) !important; } }
+@media (max-width: 800px) { * {  -webkit- } .nav.scrolled { background: rgba(20, 8, 9, 0.95) !important; } .music-fab, .music-panel, .fs-glass, .pmap-new-bot, .pmap-new-list input { background: rgba(20, 8, 9, 0.98) !important; } }
 /* low-end optimization */
-@media (max-width: 1024px) { * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } .nav.scrolled, .fs-glass, .pmap-new-bot, .music-fab, .music-panel { background: rgba(20, 8, 9, 0.98) !important; } }
+@media (max-width: 1024px) { * {  -webkit- } .nav.scrolled, .fs-glass, .pmap-new-bot, .music-fab, .music-panel { background: rgba(20, 8, 9, 0.98) !important; } }

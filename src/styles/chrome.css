@@ -1,7 +1,7 @@
 /* ---------- nav ---------- */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 70; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: calc(var(--safe-t) + 14px) var(--gut) 14px; transform: translateY(-110%); transition: transform 0.9s var(--ease), background 0.4s, backdrop-filter 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; background: linear-gradient(180deg, rgba(20, 8, 9, 0.7), transparent); }
 .nav.show { transform: none; }
-.nav.scrolled { background: rgba(20, 8, 9, 0.72); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border-bottom-color: var(--line); }
+.nav.scrolled { background: rgba(20, 8, 9, 0.95);  -webkit- border-bottom-color: var(--line); }
 .nav-brand { display: flex; align-items: center; gap: 12px; color: var(--gold-2); }
 .nav-marks { display: flex; gap: 4px; }
 .nav-brand-text { display: grid; line-height: 1.1; }
@@ -12,7 +12,7 @@
 .nav-links a::after { content: ''; position: absolute; left: 0.85em; right: 0.85em; bottom: 0.2em; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
 .nav-links a:hover, .nav-links a.on { color: var(--shankha); }
 .nav-links a:hover::after, .nav-links a.on::after { transform: scaleX(1); }
-.nav-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; place-items: center; border: 1px solid var(--line-2); background: rgba(20, 8, 9, 0.5); backdrop-filter: blur(8px); }
+.nav-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; place-items: center; border: 1px solid var(--line-2); background: rgba(20, 8, 9, 0.95);  }
 
 .menu { position: fixed; inset: 0; z-index: 75; pointer-events: none; visibility: hidden; transition: visibility 0s 0.9s; }
 .menu.open { pointer-events: auto; visibility: visible; transition: visibility 0s; }
@@ -33,11 +33,11 @@
 /* ---------- music ---------- */
 .music { position: fixed; right: 16px; bottom: calc(16px + var(--safe-b)); z-index: 80; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 .music.show { opacity: 1; transform: none; }
-.music-fab { pointer-events: auto; display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 18px 0 14px; border-radius: 999px; background: rgba(20, 8, 9, 0.78); backdrop-filter: blur(14px); border: 1px solid var(--line-2); color: var(--gold-2); font-size: 0.9rem; max-width: min(72vw, 260px); box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5); transition: border-color 0.3s, background 0.3s; }
+.music-fab { pointer-events: auto; display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 18px 0 14px; border-radius: 999px; background: rgba(20, 8, 9, 0.98);  border: 1px solid var(--line-2); color: var(--gold-2); font-size: 0.9rem; max-width: min(72vw, 260px); box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5); transition: border-color 0.3s, background 0.3s; }
 .music-fab:hover { border-color: var(--gold); background: rgba(40, 12, 14, 0.9); }
 .music-fab.playing { border-color: var(--gold); }
 .music-fab-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--shankha); }
-.music-panel { width: min(320px, calc(100vw - 32px)); padding: 18px; border-radius: 18px; background: rgba(20, 8, 9, 0.9); backdrop-filter: blur(18px); border: 1px solid var(--line-2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); display: grid; gap: 14px; opacity: 0; transform: translateY(12px) scale(0.97); transform-origin: bottom right; pointer-events: none; visibility: hidden; transition: opacity 0.35s, transform 0.45s var(--ease), visibility 0s 0.45s; }
+.music-panel { width: min(320px, calc(100vw - 32px)); padding: 18px; border-radius: 18px; background: rgba(20, 8, 9, 0.9);  border: 1px solid var(--line-2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); display: grid; gap: 14px; opacity: 0; transform: translateY(12px) scale(0.97); transform-origin: bottom right; pointer-events: none; visibility: hidden; transition: opacity 0.35s, transform 0.45s var(--ease), visibility 0s 0.45s; }
 .music.open .music-panel { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity 0.35s, transform 0.45s var(--ease), visibility 0s; }
 .music-head { display: flex; justify-content: space-between; gap: 10px; }
 .music-label { font-size: 0.75rem; color: var(--gold); }
@@ -101,10 +101,10 @@
 /* ---------- chatbot ---------- */
 .chatbot-wrapper { position: fixed; right: 16px; bottom: calc(76px + var(--safe-b)); z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 16px; opacity: 0; pointer-events: none; transition: opacity 0.5s ease 0.2s; }
 .chatbot-wrapper.show { opacity: 1; pointer-events: auto; }
-.chat-fab { width: 56px; height: 56px; border-radius: 50%; background: rgba(20, 8, 9, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(233, 181, 88, 0.4); color: var(--gold-2); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(233, 181, 88, 0.1); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); outline: none; padding: 0; }
+.chat-fab { width: 56px; height: 56px; border-radius: 50%; background: rgba(20, 8, 9, 0.98);  border: 1px solid rgba(233, 181, 88, 0.4); color: var(--gold-2); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(233, 181, 88, 0.1); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); outline: none; padding: 0; }
 .chat-fab:hover { transform: scale(1.08) translateY(-4px); background: rgba(30, 15, 15, 0.9); border-color: var(--gold); box-shadow: 0 8px 30px rgba(233, 181, 88, 0.2), inset 0 0 20px rgba(233, 181, 88, 0.2); }
 .chatbot-wrapper.open .chat-fab { background: var(--gold); color: #000; transform: scale(0.9); }
-.chat-panel { width: 340px; height: 480px; max-height: 70vh; background: rgba(15, 6, 7, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(233, 181, 88, 0.25); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; transform: scale(0.8) translateY(20px); opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.chat-panel { width: 340px; height: 480px; max-height: 70vh; background: #0f0607;  border: 1px solid rgba(233, 181, 88, 0.25); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; transform: scale(0.8) translateY(20px); opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .chatbot-wrapper.open .chat-panel { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
 .chat-head { padding: 18px 20px; background: linear-gradient(180deg, rgba(233, 181, 88, 0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(233, 181, 88, 0.15); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
 .chat-title { margin: 0; font-family: var(--f-display); font-size: 1.4rem; color: var(--gold-2); line-height: 1.2; }
