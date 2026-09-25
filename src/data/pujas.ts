@@ -76,7 +76,7 @@ const build = (r: Row): Puja => {
 };
 
 /* ------------------------------------------------------------------ *
- *  PUJA DIRECTORY
+ *  PUJA DIRECTORY ---
  *  All entries below are SAMPLE listings. Replace them with verified data,
  *  or load the same shape from Firebase / Supabase / a CMS and pass it to
  *  <PujaProvider>. Nothing else in the UI needs to change.
