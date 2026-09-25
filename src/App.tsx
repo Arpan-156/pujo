@@ -6,7 +6,7 @@ import { Cursor } from './components/fx';
 import { Curtain, Intro, Loader, PageWipe } from './components/Entrance';
 import { Nav } from './components/Nav';
 import { MusicPlayer } from './components/MusicPlayer';
-import { Chatbot } from './components/Chatbot';
+
 import { Footer } from './components/shared';
 import { Home } from './pages/Home';
 import { AboutPage, BardhamanPage, ContactPage, FeaturedPage, GalleryPage, MapPage, PujaDetail, PujasPage, ThemesPage, TimelinePage } from './pages/Pages';
@@ -94,7 +94,6 @@ function Shell() {
           
         </>
       )}
-      <Chatbot visible={open} />
       <MusicPlayer visible={open} />
       {stage === 'loading' && <Loader onDone={() => setStage('intro')} />}
       {stage === 'intro' && <Intro onDone={() => { setOpen(true); setStage('site'); }} />}
