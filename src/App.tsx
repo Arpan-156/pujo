@@ -6,7 +6,7 @@ import { Cursor } from './components/fx';
 import { Curtain, Intro, Loader, PageWipe } from './components/Entrance';
 import { Nav } from './components/Nav';
 import { MusicPlayer } from './components/MusicPlayer';
-import { Chatbot } from './components/ChatbotV2';
+import { Chatbot } from './components/SmartChatbot';
 
 import { Footer } from './components/shared';
 import { Home } from './pages/Home';
