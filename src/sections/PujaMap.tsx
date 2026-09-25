@@ -152,7 +152,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
               placeholder="Search Pandals..." 
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              style={{ width: '100%', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--line-2)', background: 'rgba(20,8,9,0.5)', color: '#fff', fontSize: '1.1rem', outline: 'none', transition: 'border-color 0.3s' }}
+              style={{ width: '100%', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--line-2)', background: 'rgba(20,8,9,0.5)', color: '#fff', fontSize: '1.1rem', outline: 'none', backdropFilter: 'blur(8px)', transition: 'border-color 0.3s' }}
               onFocus={(e) => e.target.style.borderColor = 'var(--gold)'}
               onBlur={(e) => e.target.style.borderColor = 'var(--line-2)'}
             />
@@ -203,7 +203,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
               ></iframe>
             </div>
             
-            <div className="pmap-new-bot" style={{ padding: '24px', background: 'rgba(20, 8, 9, 0.6)', border: '1px solid rgba(233, 181, 88, 0.2)', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+            <div className="pmap-new-bot" style={{ padding: '24px', background: 'rgba(20, 8, 9, 0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(233, 181, 88, 0.2)', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                 <div>
                   <h3 style={{ margin: '0 0 8px 0', fontSize: '1.8rem', fontFamily: 'var(--f-display)', color: 'var(--gold-2)' }}>{cur.name}</h3>
                   <p style={{ margin: '0 0 0 0', color: 'var(--mute)', fontSize: '1rem' }}>{cur.location}</p>

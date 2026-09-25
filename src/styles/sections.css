@@ -618,3 +618,6 @@
 @media (max-width: 820px) {
   .fc-quote p { text-align: center !important; }
 }
+
+
+.story-img img[src*="station.jpg"] { transform: scale(1.35); object-position: center; }

@@ -553,14 +553,14 @@ export function Procession() {
           right: -800px;
           height: 60px;
           color: rgba(233, 181, 88, 0.85); /* gold, slightly transparent */
-          animation: march 30s linear infinite; will-change: transform; transform: translateZ(0);
+          animation: march 30s linear infinite;
         }
         @keyframes march {
           0% { transform: translateX(0); }
           100% { transform: translateX(calc(-100vw - 800px)); }
         }
         .walker {
-          animation: walk-bob 0.4s alternate infinite ease-in-out; will-change: transform; transform: translateZ(0);
+          animation: walk-bob 0.4s alternate infinite ease-in-out;
         }
         @keyframes walk-bob {
           0% { transform: translateY(0); }
