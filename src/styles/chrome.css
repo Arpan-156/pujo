@@ -1,7 +1,7 @@
 /* ---------- nav ---------- */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 70; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: calc(var(--safe-t) + 14px) var(--gut) 14px; transform: translateY(-110%); transition: transform 0.9s var(--ease), background 0.4s, backdrop-filter 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; background: linear-gradient(180deg, rgba(20, 8, 9, 0.7), transparent); }
 .nav.show { transform: none; }
-.nav.scrolled { background: rgba(20, 8, 9, 0.95);  -webkit- border-bottom-color: var(--line); }
+.nav.scrolled { background: rgba(20, 8, 9, 0.95);  border-bottom-color: var(--line); }
 .nav-brand { display: flex; align-items: center; gap: 12px; color: var(--gold-2); }
 .nav-marks { display: flex; gap: 4px; }
 .nav-brand-text { display: grid; line-height: 1.1; }

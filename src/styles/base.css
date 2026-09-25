@@ -148,10 +148,10 @@ html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor labe
 @media (max-width: 820px) {
   .smoke, .rays { display: none !important; }
   .intro-sweep { mix-blend-mode: normal !important; }
-  * {  -webkit- }
+  
   .nav.scrolled, .music-panel, .music-fab, .btn.ghost { background: rgba(20, 8, 9, 0.95) !important; }
 }
 
-@media (max-width: 800px) { * {  -webkit- } .nav.scrolled { background: rgba(20, 8, 9, 0.95) !important; } .music-fab, .music-panel, .fs-glass, .pmap-new-bot, .pmap-new-list input { background: rgba(20, 8, 9, 0.98) !important; } }
+@media (max-width: 800px) {  .nav.scrolled { background: rgba(20, 8, 9, 0.95) !important; } .music-fab, .music-panel, .fs-glass, .pmap-new-bot, .pmap-new-list input { background: rgba(20, 8, 9, 0.98) !important; } }
 /* low-end optimization */
-@media (max-width: 1024px) { * {  -webkit- } .nav.scrolled, .fs-glass, .pmap-new-bot, .music-fab, .music-panel { background: rgba(20, 8, 9, 0.98) !important; } }
+@media (max-width: 1024px) {  .nav.scrolled, .fs-glass, .pmap-new-bot, .music-fab, .music-panel { background: rgba(20, 8, 9, 0.98) !important; } }
