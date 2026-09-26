@@ -6,6 +6,7 @@ import { BRANDS, NAV } from '../data/site';
 import { Link, useRouter } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { Photo } from './Art';
+import { PassportButton } from './Passport';
 import { Alpana, BrandMark, DhakIcon, DurgaEye, LaalPaar, Magnetic, Reveal, RevealText, Rays, Particles, TuniLights } from './fx';
 import { ArrowRight, Facebook, Instagram, Youtube } from './Icons';
 import type { Visual } from '../data/types';

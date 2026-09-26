@@ -6,6 +6,7 @@ import { Cursor } from './components/fx';
 import { Curtain, Intro, Loader, PageWipe } from './components/Entrance';
 import { Nav } from './components/Nav';
 import { MusicPlayer } from './components/MusicPlayer';
+import { PassportFab } from './components/Passport';
 
 
 import { Footer } from './components/shared';
@@ -96,6 +97,7 @@ function Shell() {
         </>
       )}
       <MusicPlayer visible={open} />
+      <PassportFab visible={open} />
       
       {stage === 'loading' && <Loader onDone={() => setStage('intro')} />}
       {stage === 'intro' && <Intro onDone={() => { setOpen(true); setStage('site'); }} />}
