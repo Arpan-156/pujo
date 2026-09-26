@@ -84,6 +84,9 @@ export function PujaCard({ p }: { p: Puja }) {
         <p className="pcard-loc">{p.location}</p>
         <p className="pcard-theme"><em>Theme:</em> “{p.theme}”</p>
       </Wrapper>
+      <div style={{ position: 'absolute', bottom: '16px', right: '16px', zIndex: 10 }}>
+        <PassportButton slug={p.slug} />
+      </div>
     </article>
   );
 }
