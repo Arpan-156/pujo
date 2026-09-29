@@ -30,7 +30,8 @@ export const NAV = [
   // { label: 'Themes', bn: 'থিম', to: '/themes' },
   { label: 'Featured Pandals', bn: 'বাছাই মণ্ডপ', to: '/featured' },
   { label: 'Explore Bardhaman', bn: 'বর্ধমান', to: '/bardhaman' },
-  { label: 'Gallery', bn: 'ছবিঘর', to: '/gallery' },
+  { label: 'Gallery', bn: '????????', to: '/gallery' },
+    { label: 'Crowd Estimator', bn: '????', to: '/crowd' },
   { label: 'About', bn: 'আমরা', to: '/about' },
   // { label: 'Contact', bn: 'যোগাযোগ', to: '/contact' },
 ];
