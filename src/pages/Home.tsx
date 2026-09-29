@@ -84,11 +84,11 @@ export function Home() {
       
 
         <Social />
-      <section className="surv-teaser" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden', borderTop: '1px solid rgba(233,181,88,0.3)', borderBottom: '1px solid rgba(233,181,88,0.3)', background: '#0a0304' }}>
+      <section className="surv-teaser" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', zIndex: 10, overflow: 'hidden', borderTop: '1px solid rgba(233,181,88,0.3)', borderBottom: '1px solid rgba(233,181,88,0.3)', background: '#0a0304' }}>
         <style>{`
           @keyframes slideGlow {
-            0% { transform: translateX(-100%) skewX(-15deg); }
-            100% { transform: translateX(200%) skewX(-15deg); }
+            0% { left: -50%; }
+            100% { left: 150%; }
           }
           @keyframes pulseGold {
             0%, 100% { opacity: 0.3; }
@@ -105,18 +105,18 @@ export function Home() {
              background: linear-gradient(90deg, rgba(20,5,8,1) 0%, rgba(122,18,32,0.85) 50%, rgba(20,5,8,1) 100%);
           }
           .surv-max-shimmer {
-             position: absolute; top: 0; left: 0; width: 300px; height: 100%;
+             position: absolute; top: 0; width: 300px; height: 100%; transform: skewX(-15deg);
              background: linear-gradient(90deg, transparent, rgba(233,181,88,0.15), transparent);
              animation: slideGlow 5s infinite cubic-bezier(0.4, 0, 0.2, 1);
           }
           .surv-max-content {
-             position: relative; max-width: 1200px; margin: 0 auto; padding: 60px 20px;
+             position: relative; max-width: 1200px; margin: 0 auto; padding: 60px 20px 120px;
              display: flex; flex-direction: column; align-items: center; justify-content: center;
              text-align: center; gap: 30px;
              z-index: 2;
           }
           @media (min-width: 900px) {
-             .surv-max-content { flex-direction: row; text-align: left; justify-content: space-between; padding: 80px 40px; }
+             .surv-max-content { flex-direction: row; text-align: left; justify-content: space-between; padding: 80px 40px 100px; }
           }
           .surv-max-title {
              font-family: var(--f-display); font-size: clamp(2.5rem, 5vw, 4.5rem); 

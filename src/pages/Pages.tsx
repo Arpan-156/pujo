@@ -690,7 +690,9 @@ export function RoutePlannerPage() {
         
         @media print {
           body { background: white !important; color: black !important; }
-          .page-head-bg, .page-head-shade, .print-hide, nav { display: none !important; }
+          @page { size: A4; margin: 0; }
+            .rp-wrap { padding: 1.2cm !important; }
+            .page-head-bg, .page-head-shade, .print-hide, nav, footer, .music, .passport-wrapper { display: none !important; }
           .page-head { padding: 0 !important; min-height: 0 !important; }
           .rp-pandal-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; break-inside: avoid; color: black !important; }
           .rp-timeline::before { background: black !important; }
@@ -953,9 +955,9 @@ export function SurvivalKitPage() {
         }
 
         @media print {
-            @page { size: A4; margin: 1.2cm; }
+            @page { size: A4; margin: 0; }
             body { background: #ffffff !important; color: #000000 !important; font-size: 10pt; }
-            .global-branding, nav, footer, .surv-bg-glow, .surv-print-btn, .skip { display: none !important; }
+            .global-branding, nav, footer, .surv-bg-glow, .surv-print-btn, .skip, .music, .passport-wrapper { display: none !important; }
             .print-only { display: block !important; }
             * {
                 background: transparent !important;
@@ -966,7 +968,7 @@ export function SurvivalKitPage() {
                 -webkit-background-clip: border-box !important;
                 animation: none !important; opacity: 1 !important;
             }
-            .page { padding: 0 !important; margin: 0 !important; }
+            .page { padding: 1.2cm !important; margin: 0 !important; }
             .surv-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px !important; }
             .surv-header h1 { font-size: 24pt !important; margin-bottom: 5px !important; }
             .surv-header p { font-size: 12pt !important; }
