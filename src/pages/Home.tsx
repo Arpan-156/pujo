@@ -9,6 +9,7 @@ import { ThemesGrid } from '../sections/ThemesGrid';
 import { Experiences } from '../sections/Experiences';
 import { Timeline } from '../sections/Timeline';
 import { PujaMap } from '../sections/PujaMap';
+import { DailyShloka } from '../sections/DailyShloka';
 import { Social } from '../sections/About';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
@@ -75,6 +76,7 @@ export function Home() {
         </Reveal>
       </div>
       <PujaMap />
+      <DailyShloka />
       <Social />
     </>
   );

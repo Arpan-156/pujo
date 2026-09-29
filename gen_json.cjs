@@ -1,0 +1,49 @@
+const fs = require('fs');
+
+const data = {
+  "2026-10-10": {
+    "dayName": "Mahalaya",
+    "shloka": "Ya Devi Sarvabhuteshu Matri Rupena Samsthita",
+    "meaning": "To that Goddess who dwells in all beings as a Mother, I bow to her again and again.",
+    "fact": "Mahalaya marks the beginning of Devi Paksha. The goddess descends to Earth."
+  },
+  "2026-10-16": {
+    "dayName": "Shasthi",
+    "shloka": "Om Bilvabrikshavashiney Namah",
+    "meaning": "O Goddess residing in the Bilva tree, please awaken.",
+    "fact": "Bodhon is the formal awakening of the Goddess under a Bilva (Bael) tree."
+  },
+  "2026-10-17": {
+    "dayName": "Saptami",
+    "shloka": "Om Nabapatrikabasinye Namah",
+    "meaning": "Salutations to the Goddess residing in the nine sacred plants.",
+    "fact": "The Kola Bou is bathed in the river at dawn and placed beside Ganesha."
+  },
+  "2026-10-18": {
+    "dayName": "Ashtami",
+    "shloka": "Chamunde Jayamangale Bhukti Mukti Pradayini",
+    "meaning": "O Chamunda, granter of enjoyment and liberation.",
+    "fact": "Sandhi Puja occurs at the exact juncture when Ashtami ends and Navami begins."
+  },
+  "2026-10-19": {
+    "dayName": "Navami",
+    "shloka": "Om Ayur-dehi Dhanam-dehi Vidyam-dehi Maheshwari",
+    "meaning": "Grant me long life, wealth, and knowledge, O Supreme Goddess.",
+    "fact": "Navami is the final day of battle. A massive Maha Aarti and Homa are performed."
+  },
+  "2026-10-20": {
+    "dayName": "Dashami",
+    "shloka": "Gachha Gachha Param Sthanam Swasthanam Parameshwari",
+    "meaning": "Return to your supreme abode, O Supreme Goddess.",
+    "fact": "The idols are immersed, symbolizing her return to Mount Kailash."
+  },
+  "fallback": {
+    "dayName": "Pre-Puja Preparation",
+    "shloka": "Sarva Mangala Mangalye Shive Sarvartha Sadhike",
+    "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+    "fact": "Artisans are currently preparing the idols in Kumartuli and pandals are being erected across Bardhaman."
+  }
+};
+
+fs.mkdirSync('public', { recursive: true });
+fs.writeFileSync('public/shlokas.json', JSON.stringify(data, null, 2), 'utf8');
