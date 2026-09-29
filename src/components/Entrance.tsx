@@ -50,8 +50,10 @@ export function Loader({ onDone }: { onDone: () => void }) {
         <Alpana size={150} className="loader-alpana" />
         <p className="loader-bn">পুজোর প্রস্তুতি চলছে</p>
         <p className="loader-en">Preparing the Puja</p>
-        <div className="loader-bar" aria-hidden="true"><span style={{ transform: `scaleX(${pct / 100})` }} /></div>
-        <p className="loader-pct">{pct}%</p>
+        <div className="loader-bar-wrap">
+            <p className="loader-pct">{pct}%</p>
+            <div className="loader-bar" aria-hidden="true"><span style={{ transform: `scaleX(${pct / 100})` }} /></div>
+          </div>
       </div>
       <div className={`loader-tap ${needsTap ? 'in' : ''}`}>
         <div className="tap-ring-wrap">

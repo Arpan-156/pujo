@@ -33,6 +33,7 @@ export const NAV = [
   { label: 'Gallery', bn: '????????', to: '/gallery' },
     { label: 'Crowd Estimator', bn: '????', to: '/crowd' }, 
   { label: 'Route Planner', bn: '??? ?????', to: '/planner' },
+  { label: 'Top 3 Voter', bn: '????? ?', to: '/top3' },
   { label: 'About', bn: 'আমরা', to: '/about' },
   // { label: 'Contact', bn: 'যোগাযোগ', to: '/contact' },
 ];
