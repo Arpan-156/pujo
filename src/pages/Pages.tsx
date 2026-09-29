@@ -1083,14 +1083,17 @@ export function Top3VoterPage() {
     localStorage.setItem('puja_votes_26', JSON.stringify(newState));
   };
 
-  const PANDALS = [
-    { id: 'p1', name: 'Sreebhumi Sporting', zone: 'Lake Town, Kol', tagline: 'Famous for massive architectural replicas and glowing lighting marvels.', baseVotes: 12450 },
-    { id: 'p2', name: 'Alamganj Barowari', zone: 'Burdwan North', tagline: 'Breathtaking replica of the Kedarnath Temple with icy peaks.', baseVotes: 8920 },
-    { id: 'p3', name: 'Ahiritola Sarbojanin', zone: 'North Kolkata', tagline: 'Heritage and classic traditional artistry honoring ancient roots.', baseVotes: 10430 },
-    { id: 'p4', name: 'Boro Nilpur', zone: 'Burdwan Central', tagline: 'Dubai Swaminarayan Temple grand replica reaching the sky.', baseVotes: 7850 },
-    { id: 'p5', name: 'Vivekananda Sevak Sangha', zone: 'Vivekananda Pally', tagline: 'Eco-friendly celebration focusing purely on mother nature.', baseVotes: 6120 },
-    { id: 'p6', name: 'Rathtala Barowari', zone: 'Rathtala, Burdwan', tagline: 'Mythological Mahakal theme with stunning intricate art.', baseVotes: 9340 }
-  ];
+  const { pujas } = useData();
+  const PANDALS = pujas.map(p => {
+    const stringVal = p.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return {
+      id: p.slug,
+      name: p.name,
+      zone: p.zone || 'Bardhaman',
+      tagline: p.description || p.story || `Theme: ${p.theme}`,
+      baseVotes: (stringVal * 12) + 1980
+    };
+  });
 
   const getScore = (p: any) => {
     const s = userState[p.id] || { rating: 0, upvoted: false };
@@ -1121,7 +1124,7 @@ export function Top3VoterPage() {
 `;
     for(let i=0; i<3; i++) {
         const s = userState[sorted[i].id] || { rating: 0 };
-        const stars = '?'.repeat(s.rating) || 'Unrated';
+        const stars = String.fromCharCode(9733).repeat(s.rating) || 'Unrated';
         text += `${i+1}. ${sorted[i].name} (${stars})
 `;
     }
@@ -1136,7 +1139,11 @@ What's yours? Cast your votes now! ?`;
   return (
     <>
       <style>{`
-        .t3-wrap { padding: clamp(80px, 15vh, 120px) 20px; max-width: 1200px; margin: 0 auto; color: #fff; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatTrophy { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 10px 20px rgba(233,181,88,0.2)); } 50% { transform: translateY(-15px); filter: drop-shadow(0 25px 30px rgba(233,181,88,0.6)); } }
+        @keyframes cardReveal { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        
+        .t3-wrap { padding: clamp(80px, 15vh, 120px) 20px; max-width: 1200px; margin: 0 auto; color: #fff; perspective: 1000px; }
         .t3-head { text-align: center; margin-bottom: 60px; animation: fadeUp 0.6s ease-out forwards; }
         .t3-head h1 { font-family: var(--f-display); font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 16px; 
                       background: linear-gradient(135deg, #e9b558, #ffde82); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -1146,7 +1153,7 @@ What's yours? Cast your votes now! ?`;
         .t3-podium { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 260px; margin-bottom: 40px; }
         @media (min-width: 768px) { .t3-podium { gap: 24px; } }
         
-        .t3-pod-slot { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100px; }
+        .t3-pod-slot { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100px; animation: floatTrophy 6s ease-in-out infinite; }
         @media (min-width: 768px) { .t3-pod-slot { width: 160px; } }
         
         .t3-pod-info { text-align: center; margin-bottom: 16px; transition: transform 0.3s; }
@@ -1158,9 +1165,9 @@ What's yours? Cast your votes now! ?`;
         .t3-pod-base { width: 100%; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; backdrop-filter: blur(10px); border-radius: 8px 8px 0 0; }
         .t3-pod-base span { font-family: var(--f-display); font-size: 3rem; font-weight: 900; opacity: 0.2; }
         
-        .t3-pod-1 { height: 180px; background: linear-gradient(180deg, rgba(233,181,88,0.2) 0%, transparent 100%); border-top: 4px solid #e9b558; }
+        .t3-pod-1 { height: 180px; animation-delay: -1s; background: linear-gradient(180deg, rgba(233,181,88,0.2) 0%, transparent 100%); border-top: 4px solid #e9b558; }
         .t3-pod-2 { height: 130px; background: linear-gradient(180deg, rgba(192,192,192,0.15) 0%, transparent 100%); border-top: 4px solid #c0c0c0; }
-        .t3-pod-3 { height: 100px; background: linear-gradient(180deg, rgba(205,127,50,0.15) 0%, transparent 100%); border-top: 4px solid #cd7f32; }
+        .t3-pod-3 { height: 100px; animation-delay: -3s; background: linear-gradient(180deg, rgba(205,127,50,0.15) 0%, transparent 100%); border-top: 4px solid #cd7f32; }
         
         .t3-share { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(45deg, #e9b558, #ffde82); color: #000; padding: 14px 32px; border: none; border-radius: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 30px rgba(233,181,88,0.3); }
         .t3-share:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(233,181,88,0.5); }
@@ -1170,7 +1177,7 @@ What's yours? Cast your votes now! ?`;
         .t3-cat-head span { color: var(--mute); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; }
         
         .t3-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        .t3-card { background: linear-gradient(145deg, rgba(20,5,8,0.9), rgba(40,10,15,0.7)); border: 1px solid rgba(233,181,88,0.2); border-radius: 16px; padding: 24px; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .t3-card { animation: cardReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; background: linear-gradient(145deg, rgba(20,5,8,0.9), rgba(40,10,15,0.7)); border: 1px solid rgba(233,181,88,0.2); border-radius: 16px; padding: 24px; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .t3-card:hover { transform: translateY(-6px); }
         .t3-top3-badge { position: absolute; top: 0; right: 0; background: var(--gold); color: #000; font-size: 0.7rem; font-weight: bold; padding: 4px 12px; border-radius: 0 0 0 8px; text-transform: uppercase; letter-spacing: 1px; }
         
@@ -1208,7 +1215,7 @@ What's yours? Cast your votes now! ?`;
                   <div className="t3-pod-info">
                     <div className="t3-pod-lbl" style={{ color: slot.color }}>{slot.label}</div>
                     <div className="t3-pod-name">{slot.p.name}</div>
-                    <div className="t3-pod-stars">{'?'.repeat(s.rating)}{'?'.repeat(5-s.rating)}</div>
+                    <div className="t3-pod-stars">{String.fromCharCode(9733).repeat(s.rating)}{String.fromCharCode(9734).repeat(5-s.rating)}</div>
                   </div>
                   <div className={`t3-pod-base ${slot.class}`}>
                     <span style={{ color: slot.color }}>{slot.rank}</span>
@@ -1233,7 +1240,7 @@ What's yours? Cast your votes now! ?`;
               const s = userState[p.id] || { rating: 0, upvoted: false };
               const isTop3 = idx < 3;
               return (
-                <div key={p.id} className="t3-card">
+                <div key={p.id} className="t3-card" style={{ animationDelay: `${idx * 0.1}s` }}>
                   {isTop3 && <div className="t3-top3-badge">Top 3</div>}
                   <div className="t3-card-top">
                     <div>
