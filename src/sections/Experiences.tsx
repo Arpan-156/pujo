@@ -95,7 +95,7 @@ function Burst({ mode, label }: { mode: Mode; label: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-const PAT = 'XtXtdtXtXtXtdtXt';
+const PAT = 'X.X.ttttX.X.tttt';
 
 function DhakTile() {
   const [hit, setHit] = useState(0);
@@ -107,11 +107,15 @@ function DhakTile() {
     if (!auto) { setStep(-1); return; }
     let i = 0;
     const id = setInterval(() => {
-      const ch = PAT[i % 16];
-      setStep(i % 16);
-      if (ch !== 't' && !reduced) engine.oneShot('dhak');
-      i++;
-    }, 230);
+        const ch = PAT[i % 16];
+        setStep(i % 16);
+        if (!reduced) {
+            if (ch === 'X') engine.playDhakBass();
+            else if (ch === 't') engine.playDhakTreble();
+            else if (ch === 'd') engine.playDhakSoft();
+        }
+        i++;
+      }, 200);
     return () => clearInterval(id);
   }, [auto, reduced]);
 
@@ -123,7 +127,7 @@ function DhakTile() {
         <p>The drum that tells the neighbourhood it is time. Tap it, or let the pattern run.</p>
         <button className={`chip ${auto ? 'solid' : ''}`} aria-pressed={auto} onClick={() => setAuto((a) => !a)} data-cursor={auto ? 'Stop' : 'Play'}>{auto ? 'Stop the pattern' : 'Play the pattern'}</button>
       </div>
-      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { setHit((h) => h + 1); engine.oneShot('dhak'); }} aria-label="Strike the dhak" data-cursor="Strike">
+      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { setHit((h) => h + 1); engine.playDhakBass(); }} aria-label="Strike the dhak" data-cursor="Strike">
         {hit > 0 && <><span className="ripple" /><span className="ripple r2" /></>}
         <svg viewBox="0 0 240 200" fill="none" aria-hidden="true">
           <defs>

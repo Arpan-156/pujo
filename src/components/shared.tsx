@@ -83,10 +83,11 @@ export function PujaCard({ p }: { p: Puja }) {
         </h3>
         <p className="pcard-loc">{p.location}</p>
         <p className="pcard-theme"><em>Theme:</em> “{p.theme}”</p>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px', transform: 'translateZ(10px)', transition: 'transform 0.4s', position: 'relative', zIndex: 10 }}>
+            <PassportButton slug={p.slug} />
+          </div>
       </Wrapper>
-      <div style={{ position: 'absolute', bottom: '16px', right: '16px', zIndex: 10 }}>
-        <PassportButton slug={p.slug} />
-      </div>
+      
     </article>
   );
 }
