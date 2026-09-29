@@ -48,7 +48,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       <Particles kind="dust" count={40} />
       <div className="loader-core">
         <Alpana size={150} className="loader-alpana" />
-        <p className="loader-bn">পুজোর প্রস্তুতি চলছে</p>
+        <p className="loader-bn">{decodeURIComponent(escape(window.atob('4Kaq4KeB4Kac4KeL4KawIOCmquCnjeCmsOCmuOCnjeCmpOCngeCmpOCmvyDgpprgprLgppvgp4c=')))}</p>
         <p className="loader-en">Preparing the Puja</p>
         <div className="loader-bar-wrap">
             <p className="loader-pct">{pct}%</p>
