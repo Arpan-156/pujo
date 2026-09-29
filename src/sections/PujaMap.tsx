@@ -221,24 +221,20 @@ export function PujaMap({ className = '' }: { className?: string }) {
 }
 
 /** Small single-pin map for the detail page. */
-export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
-  const finalX = lat && lng ? toX(lng) : x;
-  const finalY = lat && lng ? toY(lat) : y;
-  const { pujas: allPujas } = useData();
-  const pujas = allPujas.filter(p => p.slug !== 'amadpur-zomidar-bari');
-  
-  return (
-    <div className="pmap-canvas mini">
-      <MapBase pujas={pujas} />
-      
-      {/* Render Landmarks in MiniMap */}
-      {LANDMARKS.map(lm => (
-        <div key={lm.id} className="pmap-landmark" style={{ left: `${toX(lm.lng)}%`, top: `${toY(lm.lat)}%` }} aria-label={lm.name}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>{lm.icon}</svg>
-        </div>
-      ))}
+export function MiniMap({ name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
+  const mapQuery = lat && lng ? `${lat},${lng}` : encodeURIComponent(`${name} Durga Puja, Bardhaman`);
 
-      <span className="pin on static" style={{ left: `${finalX}%`, top: `${finalY}%` }} role="img" aria-label={name}><i /></span>
+  return (
+    <div style={{ width: '100%', height: '400px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(233, 181, 88, 0.3)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', position: 'relative' }}>
+      <iframe 
+        width="100%" 
+        height="100%" 
+        style={{ border: 0 }}
+        loading="lazy" 
+        allowFullScreen 
+        referrerPolicy="no-referrer-when-downgrade" 
+        src={`https://maps.google.com/maps?q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+      ></iframe>
     </div>
   );
 }

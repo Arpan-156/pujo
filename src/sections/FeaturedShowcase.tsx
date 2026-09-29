@@ -122,7 +122,7 @@ export function FeaturedShowcase() {
                   <p className="fs-theme">{f.puja.theme}</p>
                   <p className="fs-tag">"{f.tagline}"</p>
                   <p className="fs-note">{f.note}</p>
-                  <Link to={`/pujo/${f.slug}`} className="fs-link">
+                  <Link to={`/puja/${f.slug}`} className="fs-link">
                     Explore Pandal <ArrowRight size={20} />
                   </Link>
                 </div>

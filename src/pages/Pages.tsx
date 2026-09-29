@@ -171,7 +171,6 @@ export function PujaDetail({ slug }: { slug: string }) {
 
   const same = pujas.filter((x) => x.themeId === p.themeId && x.slug !== p.slug).slice(0, 3);
   const i = pujas.findIndex((x) => x.slug === p.slug);
-  const prev = pujas[(i - 1 + pujas.length) % pujas.length], next = pujas[(i + 1) % pujas.length];
   const shots = [p.heroImage, p.idolImage, ...p.gallery];
   const items = shots.map((v, k) => ({ visual: v, caption: `${p.name}, view ${k + 1}`, credit: 'Burdwan Capturers (placeholder)' }));
   const facts: [string, string][] = [
@@ -232,10 +231,10 @@ export function PujaDetail({ slug }: { slug: string }) {
           {p.map.lat && p.map.lng ? (
             <p className="pd-body">
               <strong>Real Coordinates:</strong> {p.map.lat}&deg; N, {p.map.lng}&deg; E <br/>
-              {p.location}. Map pin is stylised.
+              {p.location}. Open map for directions.
             </p>
           ) : (
-            <p className="pd-body">{p.location}. Pin position is a placeholder until real coordinates are added.</p>
+            <p className="pd-body">{p.location}. Exact map pin will be verified soon.</p>
           )}
         </div>
         <MiniMap x={p.map.x} y={p.map.y} lat={p.map.lat} lng={p.map.lng} name={p.name} />
@@ -256,10 +255,7 @@ export function PujaDetail({ slug }: { slug: string }) {
         </section>
       )}
 
-      <nav className="pd-pn wrap" aria-label="Previous and next Puja">
-        <Link to={`/puja/${prev.slug}`} data-cursor="Previous"><ArrowLeft size={20} /><span><small>Previous</small>{prev.name}</span></Link>
-        <Link to={`/puja/${next.slug}`} data-cursor="Next"><span><small>Next</small>{next.name}</span><ArrowRight size={20} /></Link>
-      </nav>
+      
     </>
   );
 }

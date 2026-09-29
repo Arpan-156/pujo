@@ -36,7 +36,9 @@ export const THEMES: Theme[] = [
 /* ------------------------------------------------------------------ *
  *  HELPERS
  * ------------------------------------------------------------------ */
+
 const V = (art: ArtKind, seed: number, hue = 12, tone: Tone = 'night'): Visual => ({ art, seed, hue, tone });
+
 
 const CONCEPT: Record<string, { pandal: string; idol: string; attractions: string[] }> = {
   heritage: { pandal: 'A terracotta-panelled facade with a curved atchala roof and a courtyard entrance.', idol: 'Ekchala idol in classic daker saaj, with a cloth-and-shola crown.', attractions: ['Terracotta panels', 'Courtyard aarti', 'Live dhaki'] },
