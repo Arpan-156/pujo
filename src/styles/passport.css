@@ -276,12 +276,10 @@
 
 @media (max-width: 820px) {
   .passport-panel {
-    position: fixed;
-    top: var(--safe-t, 0px);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
+    position: absolute;
+    bottom: calc(-16px - var(--safe-b, 0px));
+    left: -16px;
+    width: 100vw;
     height: 100dvh;
     max-height: none;
     border-radius: 0;
@@ -293,6 +291,4 @@
   .passport-wrapper.open .passport-panel {
     transform: translateY(0);
   }
-
-  
 }
