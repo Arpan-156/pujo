@@ -1,91 +1,10 @@
-import { useData } from '../data/store';
-import { PujaCard, Btn } from '../components/shared';
-import { Reveal, RevealText, Alpana } from '../components/fx';
-import { Hero } from '../sections/Hero';
-import { Countdown } from '../sections/Countdown';
-import { Manifesto } from '../sections/Manifesto';
-import { FeaturedRail } from '../sections/FeaturedRail';
-import { ThemesGrid } from '../sections/ThemesGrid';
-import { Experiences } from '../sections/Experiences';
-import { Timeline } from '../sections/Timeline';
-import { PujaMap } from '../sections/PujaMap';
-import { DailyShloka } from '../sections/DailyShloka';
-import { Social } from '../sections/About';
-import { Link } from '../lib/router';
-import { Photo } from '../components/Art';
-import type { PointerEvent } from 'react';
-import { useMemo } from 'react';
-import { useFinePointer } from '../lib/motion';
+const fs = require('fs');
+let code = fs.readFileSync('src/pages/Home.tsx', 'utf8');
 
-export function Home() {
-  const { pujas, landmarks } = useData();
-  const fine = useFinePointer();
-  const preview = useMemo(() => pujas.filter((p) => !p.featured).slice(0, 6), [pujas]);
-  const move = (e: PointerEvent<HTMLElement>) => {
-    if (!fine) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
-    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
-  };
+const oldTeaserRegex = /<section className="surv-teaser"[\s\S]*?<\/section>/;
 
-  return (
-    <>
-      <Hero />
-      <Countdown />
-      <Manifesto />
-      <FeaturedRail />
-      <section className="dir-preview" onPointerMove={move} style={{ '--px': 0.5, '--py': 0.5 } as React.CSSProperties}>
-        <div className="dir-spotlight" aria-hidden="true" />
-        <div className="wrap">
-          <div className="dir-head">
-            <div className="dir-head-text">
-              <RevealText lines={['BURDWAN', 'PUJA PANDALS']} className="display" />
-              <Reveal delay={200} className="lead">Explore the Puja celebrations across Bardhaman. The directory grows every week.</Reveal>
-            </div>
-            <div className="dir-head-art" aria-hidden="true">
-              <Alpana size={400} spin />
-            </div>
-          </div>
-          <div className="pcards">
-            {preview.map((p, i) => <Reveal key={p.slug} delay={(i % 3) * 90}><PujaCard p={p} /></Reveal>)}
-          </div>
-          <div className="dir-more"><Btn to="/pujas" cursor="Open">See all {pujas.length} Puja</Btn></div>
-        </div>
-      </section>
-      {/* <ThemesGrid /> */}
-      <Experiences />
-      <Timeline />
-      {/* <section className="bd-teaser">
-        <div className="bd-teaser-bg" aria-hidden="true"><Photo v={landmarks[0].visual} /></div>
-        <div className="bd-teaser-shade" />
-        <div className="wrap bd-teaser-in">
-          <RevealText lines={['A TOWN BUILT', 'FOR WALKING']} className="display" />
-          <Reveal delay={200} className="lead">Curzon Gate, the railway overbridge, the river at first light and the lanes between them.</Reveal>
-          <Reveal delay={300}><Btn to="/bardhaman" cursor="Explore">Explore Bardhaman</Btn></Reveal>
-        </div>
-      </section> */}
-      <div className="wrap map-head">
-        <RevealText lines={['PUJA MAP']} className="display" />
-        <Reveal delay={150}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px' }}>
-            <p className="lead" style={{ margin: 0, maxWidth: '40ch' }}>
-              Tap a glowing pin to see who is building what, and where.
-            </p>
-            <Btn to="/map" cursor="Open">Open the full map</Btn>
-          </div>
-        </Reveal>
-      </div>
-      <PujaMap />
-      <DailyShloka />
-      
-      
-
-        
-      
-
-        <Social />
-      <section className="surv-teaser" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden', borderTop: '1px solid rgba(233,181,88,0.3)', borderBottom: '1px solid rgba(233,181,88,0.3)', background: '#0a0304' }}>
-        <style>{`
+const newTeaser = `      <section className="surv-teaser" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflow: 'hidden', borderTop: '1px solid rgba(233,181,88,0.3)', borderBottom: '1px solid rgba(233,181,88,0.3)', background: '#0a0304' }}>
+        <style>{\`
           @keyframes slideGlow {
             0% { transform: translateX(-100%) skewX(-15deg); }
             100% { transform: translateX(200%) skewX(-15deg); }
@@ -142,7 +61,7 @@ export function Home() {
           }
           .surv-max-btn:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(233,181,88,0.5); }
           .surv-max-btn:hover::before { transform: translateX(200%) skewX(-15deg); }
-        `}</style>
+        \`}</style>
         
         <div className="surv-max-bg" />
         <div className="surv-max-overlay" />
@@ -164,7 +83,9 @@ export function Home() {
               Get the Kit
            </Link>
         </div>
-      </section>
-    </>
-  );
+      </section>`;
+
+if (code.match(oldTeaserRegex)) {
+    code = code.replace(oldTeaserRegex, newTeaser);
+    fs.writeFileSync('src/pages/Home.tsx', code, 'utf8');
 }
