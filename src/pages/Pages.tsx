@@ -392,221 +392,6 @@ export function ContactPage() {
 }
 
 
-export function CrowdEstimatorPage() {
-  const [pandal, setPandal] = useState(40);
-  const [day, setDay] = useState(100);
-  const [time, setTime] = useState(100);
-  const [weather, setWeather] = useState(1.0);
-  const [displayScore, setDisplayScore] = useState(0);
-
-  const rawScore = ((pandal + day + time) / 240) * 100;
-  const score = Math.min(100, Math.max(0, Math.round(rawScore * weather)));
-
-  useEffect(() => {
-    let startTimestamp: number | null = null;
-    const duration = 1200;
-    const startValue = displayScore;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 4);
-      setDisplayScore(Math.floor(ease * (score - startValue) + startValue));
-      if (progress < 1) window.requestAnimationFrame(step);
-    };
-    window.requestAnimationFrame(step);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score]);
-
-  let status: { title?: string, sub?: string, color?: string, tip?: string, glow?: string } = {};
-  if (score <= 30) status = { title: "Gharer Para Vibe", sub: "(Low Crowd)", color: "#22c55e", tip: "Perfect time for leisurely pandal hopping!", glow: 'rgba(34, 197, 94, 0.15)' };
-  else if (score <= 60) status = { title: "Besh Rongo", sub: "(Moderate Crowd)", color: "#eab308", tip: "A lively atmosphere! Expect slight queues.", glow: 'rgba(234, 179, 8, 0.15)' };
-  else if (score <= 85) status = { title: "Durgam Chobol", sub: "(Heavy Crowd)", color: "#ef4444", tip: "Wear comfortable shoes. Be prepared to walk!", glow: 'rgba(239, 68, 68, 0.15)' };
-  else status = { title: "Matha Noshto!", sub: "(Extremely Packed)", color: "#9f1239", tip: "Survival mode activated! Carry water, avoid driving.", glow: 'rgba(159, 18, 57, 0.25)' };
-  
-  if (weather === 0.4 && score > 60) status.tip = "Heavy rain is dispersing crowds, but expect immense traffic jams! Bring an umbrella.";
-  else if (weather === 0.4 && score <= 60) status.tip = "Puddles everywhere! The rain ruined plans, meaning you get a VIP darshan.";
-
-  const offset = 251.32 * (1 - (score / 100));
-
-  return (
-    <div className="page-head" style={{ minHeight: '100vh', height: 'auto', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: 'calc(var(--safe-t, 0px) + 120px) 20px 120px', position: 'relative' }}>
-      
-      <div className="page-head-bg" style={{ position: 'absolute', inset: '-5%', zIndex: -3, opacity: 0.35, filter: 'blur(8px)' }}>
-        <div style={{ width: '100%', height: '100%', opacity: 1 }}><Photo v={{ src: '/images/ashtami.jpg', art: 'pandal', seed: 0 }} eager alt="" className="full-photo" /></div>
-      </div>
-      <div className="page-head-shade" style={{ position: 'absolute', inset: 0, zIndex: -2, background: 'radial-gradient(circle at center, rgba(15,5,6,0.5) 0%, rgba(10,3,4,0.95) 100%)' }} />
-      
-      <div className="glow-orb" style={{ top: '10%', left: '10%', width: '400px', height: '400px', background: 'rgba(233,181,88,0.08)', animationDelay: '0s' }} />
-      <div className="glow-orb" style={{ bottom: '20%', right: '5%', width: '500px', height: '500px', background: 'rgba(155,27,48,0.1)', animationDelay: '-5s' }} />
-
-      <div style={{ position: 'absolute', inset: 0, zIndex: -1, background: `radial-gradient(circle at 50% 50%, ${status.glow} 0%, transparent 70%)`, transition: 'background 2s ease' }} />
-
-      <style>{`
-        .full-photo img { width: 100%; height: 100%; object-fit: cover; }
-        
-        @keyframes floatGlow {
-          0% { transform: translateY(0) scale(1); opacity: 0.5; }
-          100% { transform: translateY(-80px) scale(1.1); opacity: 1; }
-        }
-        .glow-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(60px);
-          animation: floatGlow 8s infinite ease-in-out alternate;
-          pointer-events: none;
-          z-index: -1;
-        }
-
-        .crowd-wrap {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
-          background: rgba(15, 5, 6, 0.4);
-          backdrop-filter: blur(30px);
-          -webkit-backdrop-filter: blur(30px);
-          padding: 30px 24px;
-          border-radius: 28px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 50px 100px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.5);
-          width: 100%;
-          max-width: 1100px;
-          position: relative;
-          overflow: hidden;
-          transition: box-shadow 1s ease, border-color 1s ease;
-        }
-        @media (min-width: 820px) {
-          .crowd-wrap {
-            grid-template-columns: 1fr 1.2fr;
-            gap: 70px;
-            padding: 60px;
-          }
-        }
-        
-        .crowd-select {
-          padding: 16px 20px;
-          background: rgba(0,0,0,0.5);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #fff;
-          border-radius: 12px;
-          appearance: none;
-          font-size: 1.05rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23E9B558' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-          background-position: right 1rem center;
-          background-repeat: no-repeat;
-          background-size: 1.5em 1.5em;
-        }
-        .crowd-select option { background-color: #1a0f14; color: #fff; }
-        .crowd-select:hover, .crowd-select:focus {
-          border-color: var(--gold);
-          background-color: rgba(233, 181, 88, 0.05);
-          box-shadow: 0 0 15px rgba(233, 181, 88, 0.15);
-          outline: none;
-        }
-        
-        .crowd-label {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          color: var(--gold-2);
-          font-weight: 600;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          font-size: 0.8rem;
-        }
-      `}</style>
-      
-      <div className="wrap crowd-wrap" style={{ borderColor: `${status.color}40`, boxShadow: `0 50px 100px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.15), 0 0 40px ${status.color}20` }}>
-        
-        <div style={{ position: 'absolute', top: '50%', right: '-15%', transform: 'translateY(-50%)', opacity: 0.06, pointerEvents: 'none', zIndex: 0 }}>
-           <Alpana size={800} spin={true} />
-        </div>
-
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--gold)', lineHeight: 0.9, marginBottom: '20px', textShadow: '0 4px 20px rgba(233,181,88,0.3)' }}><RevealText as="h1" lines={['Crowd', 'Estimator']} className="display" live /></div>
-          <Reveal delay={100}><p style={{ color: 'var(--mute)', marginBottom: '40px', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '400px' }}>Plan your pandal hopping perfectly. Tweak the parameters below to predict the real-time rush in Burdwan.</p></Reveal>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-            <Reveal delay={200}>
-              <label className="crowd-label">
-                Select Pandal/Zone
-                <select className="crowd-select" value={pandal} onChange={e => setPandal(Number(e.target.value))}>
-                  <option value={40}>Laltu Smriti Sangha & Alamganj</option>
-                  <option value={35}>Ichlabad Kiran Sangha & Jagoroni</option>
-                  <option value={25}>Subhash Athletic & Boro Nilpur</option>
-                  <option value={10}>Local Para / Heritage Bari</option>
-                </select>
-              </label>
-            </Reveal>
-            <Reveal delay={300}>
-              <label className="crowd-label">
-                Select Festive Day
-                <select className="crowd-select" value={day} onChange={e => setDay(Number(e.target.value))}>
-                  <option value={20}>Mahalaya</option>
-                  <option value={50}>Shasthi</option>
-                  <option value={75}>Saptami</option>
-                  <option value={100}>Ashtami</option>
-                  <option value={100}>Navami</option>
-                  <option value={50}>Dashami</option>
-                </select>
-              </label>
-            </Reveal>
-            <Reveal delay={400}>
-              <label className="crowd-label">
-                Select Time of Day
-                <select className="crowd-select" value={time} onChange={e => setTime(Number(e.target.value))}>
-                  <option value={20}>Morning (6 AM - 12 PM)</option>
-                  <option value={45}>Afternoon (12 PM - 4 PM)</option>
-                  <option value={80}>Evening (4 PM - 8 PM)</option>
-                  <option value={100}>Peak Night (8 PM - 2 AM)</option>
-                  <option value={50}>Late Night (2 AM - 6 AM)</option>
-                </select>
-              </label>
-            </Reveal>
-            <Reveal delay={500}>
-              <label className="crowd-label">
-                Weather Condition
-                <select className="crowd-select" value={weather} onChange={e => setWeather(Number(e.target.value))}>
-                  <option value={1.0}>Clear & Pleasant</option>
-                  <option value={0.8}>Drizzling</option>
-                  <option value={0.4}>Heavy Rain</option>
-                </select>
-              </label>
-            </Reveal>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', position: 'relative', zIndex: 2, padding: '20px 0' }}>
-          
-          <Reveal delay={600} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <div style={{ position: 'relative', width: '100%', maxWidth: '380px', aspectRatio: '2/1.1', marginBottom: '40px' }}>
-              
-              <svg viewBox="0 0 200 110" style={{ width: '100%', height: '100%', filter: `drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 25px ${status.color})`, transition: 'filter 1s ease' }}>
-                <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="16" strokeLinecap="round" />
-                <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke={status.color} strokeWidth="16" strokeLinecap="round" style={{ strokeDasharray: 251.32, strokeDashoffset: offset, transition: 'stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.8s ease' }} />
-              </svg>
-              
-              <div style={{ position: 'absolute', bottom: '5px', left: '0', right: '0', fontSize: '5rem', fontWeight: 'bold', color: '#fff', lineHeight: 1, fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums', textShadow: `0 0 40px ${status.color}`, transition: 'text-shadow 1s ease' }}>
-                {displayScore}%
-              </div>
-            </div>
-          </Reveal>
-          
-          <Reveal delay={700}>
-            <h2 style={{ fontSize: '3rem', color: status.color, marginBottom: '12px', transition: 'color 0.8s ease', fontFamily: 'var(--f-display)', textShadow: `0 0 30px ${status.color}80` }}>{status.title}</h2>
-            <span style={{ display: 'inline-block', fontSize: '1rem', color: '#fff', backgroundColor: 'rgba(0,0,0,0.4)', padding: '6px 16px', borderRadius: '99px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '24px', letterSpacing: '1px', textTransform: 'uppercase' }}>{status.sub}</span>
-            <p style={{ color: 'var(--shankha)', fontSize: '1.25rem', lineHeight: 1.6, maxWidth: '380px', margin: '0 auto', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>{status.tip}</p>
-          </Reveal>
-        </div>
-      </div>
-      <div className="print-only" style={{ display: 'none', textAlign: 'center', marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ccc', fontSize: '10pt', fontWeight: 'bold' }}>PHOTOGRAPHY & DESIGN BY BURDWAN CAPTURERS OFFICIAL & BANGLAR PUJO OFFICIAL</div>
-    </div>
-  );
-}
-
-
-
 export function RoutePlannerPage() {
   const [zone, setZone] = useState('central');
   const [time, setTime] = useState('quick');
@@ -1096,9 +881,11 @@ export function Top3VoterPage() {
   });
 
   const getScore = (p: any) => {
-    const s = userState[p.id] || { rating: 0, upvoted: false };
-    return p.baseVotes + (s.rating * 10000) + (s.upvoted ? 5000 : 0);
-  };
+      const s = userState[p.id] || { rating: 0, upvoted: false };
+      // Base votes heavily dominate to represent the "Global Community"
+      // User's local vote just slightly nudges the community score
+      return p.baseVotes + (s.rating * 10) + (s.upvoted ? 50 : 0);
+    };
 
   const sorted = [...PANDALS].sort((a, b) => getScore(b) - getScore(a));
   const top3 = [sorted[0], sorted[1], sorted[2]];
@@ -1119,21 +906,20 @@ export function Top3VoterPage() {
   };
 
   const shareBracket = () => {
-    let text = `?? My Top 3 Durga Puja Pandals 2026:
-
-`;
+    let text = `?? Burdwan Capturers Official - Community Top 3 Pandals:\n\n`;
     for(let i=0; i<3; i++) {
-        const s = userState[sorted[i].id] || { rating: 0 };
-        const stars = String.fromCharCode(9733).repeat(s.rating) || 'Unrated';
-        text += `${i+1}. ${sorted[i].name} (${stars})
-`;
+        text += `${i+1}. ${sorted[i].name}\n`;
     }
-    text += `
-What's yours? Cast your votes now! ?`;
+    text += `\nSent from the Official Burdwan Puja App. View the live leaderboard now!`;
+    
+    // Copy to clipboard
     navigator.clipboard.writeText(text).then(() => {
         setToast(true);
         setTimeout(() => setToast(false), 3000);
     });
+
+    // Open Instagram Direct Message to Burdwan Capturers
+    window.open('https://ig.me/m/burdwan_capturers', '_blank');
   };
 
   return (
@@ -1202,8 +988,8 @@ What's yours? Cast your votes now! ?`;
       
       <div className="t3-wrap">
         <header className="t3-head">
-          <h1>My Top 3 Pandals</h1>
-          <p>Vote, rate, and rank the most iconic pandals. Your top 3 favorites will automatically climb the podium based on your interactions.</p>
+          <h1>Community Top 3</h1>
+          <p>Explore the Global Leaderboard. The top 3 pandals are curated live from all community votes across Burdwan. Your rating directly influences their rank.</p>
         </header>
         
         <section className="t3-podium-sec">
@@ -1267,7 +1053,7 @@ What's yours? Cast your votes now! ?`;
         </section>
       </div>
       
-      <div className={`t3-toast ${toast ? 'show' : ''}`}>Copied to clipboard!</div>
+      <div className={`t3-toast ${toast ? 'show' : ''}`}>Copied! Paste it in the Instagram chat.</div>
     </>
   );
 }
