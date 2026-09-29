@@ -54,6 +54,13 @@ export const passport = {
       notify();
     }
   },
+  clearVisited() {
+    data = { 
+      saved: data.saved.filter(s => !data.visited.includes(s)), 
+      visited: [] 
+    };
+    notify();
+  },
   unmarkVisited(slug: string) {
     data = { ...data, visited: data.visited.filter(s => s !== slug) };
     notify();

@@ -27,7 +27,10 @@ export function PassportFab({ visible }: { visible: boolean }) {
             <h2 className="passport-title">My Pujo Passport</h2>
             <p className="passport-status">{data.visited.length} / {data.saved.length} Visited</p>
           </div>
-          <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close"><X size={18} /></button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+    {data.visited.length > 0 && <button className="icon-btn" style={{ fontSize: '0.7rem', padding: '4px 8px', width: 'auto', height: 'auto', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' }} onClick={() => passport.clearVisited()}>Clear Visited</button>}
+    <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close"><X size={18} /></button>
+  </div>
         </div>
         
         <div className="passport-body">
@@ -47,7 +50,7 @@ export function PassportFab({ visible }: { visible: boolean }) {
                       <Photo v={p.heroImage} />
                     </div>
                     <div className="passport-item-info">
-                      <Link to={`/puja/${p.slug}`} onClick={() => setOpen(false)}>
+                      <Link to={`/map?p=${p.slug}`} onClick={() => setOpen(false)}>
                         <h4>{p.name}</h4>
                       </Link>
                       <p>{p.area}</p>

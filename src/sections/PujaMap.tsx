@@ -1,7 +1,7 @@
 import type { PointerEvent } from 'react';
 import { useState } from 'react';
 import { useData } from '../data/store';
-import { Link } from '../lib/router';
+import { Link, useRouter } from '../lib/router';
 import { Photo } from '../components/Art';
 import { Particles, Alpana, PujaScenario } from '../components/fx';
 import { Pin, ArrowRight } from '../components/Icons';
