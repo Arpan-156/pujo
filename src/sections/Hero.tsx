@@ -3,8 +3,8 @@ import type { PointerEvent } from 'react';
 import type { Visual } from '../data/types';
 import { useEntrance } from '../lib/entrance';
 import { useFinePointer, useScrollVar } from '../lib/motion';
-import { Photo } from '../components/Art';
-import { Particles } from '../components/fx';
+import { Photo, Procession } from '../components/Art';
+import { Particles, LaalPaar } from '../components/fx';
 import { Link } from '../lib/router';
 
 const HERO: Visual = { art: 'pandal', seed: 7, hue: 10, tone: 'dusk', src: '/cover.jpg' };
@@ -157,31 +157,35 @@ export function Hero() {
             text-transform: uppercase; opacity: 0; transition: all 2s ease; 
         }
         .hero.go .hero-brand { opacity: 1; transition-delay: 1.6s; }
+
       
         /* --- BEAUTIFUL MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
             .hero { padding: 0 !important; align-items: center !important; }
-            .hero-in { padding: 0 20px; margin-top: 5vh; }
             
-            .hero-bn-wrap { margin-bottom: 3vh; border-radius: 12px; }
+            /* Center the entire content block naturally */
+            .hero-in { padding: 0 20px; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+            
+            .hero-bn-wrap { margin-bottom: 4vh; border-radius: 12px; }
             .hero-bn { font-size: 0.9rem; line-height: 1.6; padding: 12px 16px; text-align: center; white-space: normal; }
             
             .hero-title-wrap { margin-bottom: 2vh; }
             .t-main { font-size: clamp(2.8rem, 14vw, 3.5rem); letter-spacing: 0.05em; display: flex; flex-direction: column; gap: 5px; }
             .t-main span { font-size: clamp(3.2rem, 16vw, 4rem); margin-top: -5px; }
             
-            .hero-sub { font-size: 0.75rem; letter-spacing: 3px; margin-top: 1vh; line-height: 1.5; }
+            .hero-sub { font-size: 0.75rem; letter-spacing: 3px; margin-top: 2vh; line-height: 1.5; margin-bottom: 6vh; }
             
-            .hero-cta { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4vh; }
+            .hero-cta { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 0; }
             
             .btn.elegant-primary { grid-column: 1 / -1; }
             
             .btn.elegant-primary, .btn.elegant-glass { 
                 width: 100%; padding: 16px 10px; font-size: 0.75rem; letter-spacing: 1px; justify-content: center;
             }
-            .btn.elegant-glass span.arrow { display: none; /* Hide arrows on small secondary buttons to save space */ }
+            .btn.elegant-glass span.arrow { display: none; }
             
-            .hero-brand { margin-top: 4vh; padding-bottom: 80px; font-size: 0.65rem; }
+            /* Give it ample padding at the bottom so it clears the floating icons naturally */
+            .hero-brand { margin-top: 6vh; padding-bottom: 80px; font-size: 0.65rem; text-align: center; }
         }
         `}</style>
       
@@ -211,6 +215,7 @@ export function Hero() {
         </div>
         <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers</span></p>
       </div>
+      
     </section>
   );
 }
