@@ -11,7 +11,7 @@ import { PassportFab } from './components/Passport';
 
 import { Footer } from './components/shared';
 import { Home } from './pages/Home';
-import { AboutPage, BardhamanPage, ContactPage, FeaturedPage, GalleryPage, MapPage, PujaDetail, PujasPage, ThemesPage, TimelinePage, CrowdEstimatorPage } from './pages/Pages';
+import { AboutPage, BardhamanPage, ContactPage, FeaturedPage, GalleryPage, MapPage, PujaDetail, PujasPage, ThemesPage, TimelinePage, CrowdEstimatorPage, RoutePlannerPage } from './pages/Pages';
 
 type Stage = 'loading' | 'intro' | 'curtain' | 'site';
 
@@ -29,6 +29,7 @@ function Routes() {
     case '/timeline': return <TimelinePage />;
     case '/about': return <AboutPage />;
     case '/crowd': return <CrowdEstimatorPage />;
+    case '/planner': return <RoutePlannerPage />;
     // case '/contact': return <ContactPage />;
     default: return <Home />;
   }

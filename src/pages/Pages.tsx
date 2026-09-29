@@ -533,3 +533,266 @@ export function CrowdEstimatorPage() {
     </div>
   );
 }
+
+
+
+export function RoutePlannerPage() {
+  const [zone, setZone] = useState('central');
+  const [time, setTime] = useState('quick');
+  const [vibe, setVibe] = useState('accessible');
+  const [route, setRoute] = useState<any>(null);
+
+  const ROUTES = [
+    {
+        id: 'central-art',
+        match: { zone: 'central', vibe: 'art' },
+        title: 'The Masterpiece Trail',
+        desc: 'Burdwan\'s biggest award-winning theme pujas packed into one visually stunning evening.',
+        pandals: [
+            { name: 'Laltu Smriti Sangha', zone: 'Baranilpur', theme: 'Tirupati Balaji Temple Replica', tip: 'Start here before 7 PM to beat the massive queue. Incredible lighting!', transit: 'Walk 10 mins to next' },
+            { name: 'Boro Nilpur', zone: 'Boro Nilpur', theme: 'Dubai Swaminarayan Temple', tip: 'Grab some phuchka near the exit gate mela.', transit: 'Short toto ride (5 mins)' },
+            { name: 'Chowringhee Club', zone: 'Chhotonilpur', theme: 'Land of the Blue Fairy', tip: 'The interior artwork is delicate, look at the ceiling.', transit: 'End of route' }
+        ]
+    },
+    {
+        id: 'central-carnival',
+        match: { zone: 'central', vibe: 'carnival' },
+        title: 'The Great Burdwan Mela',
+        desc: 'Massive crowds, giant giant-wheels, and endless street food.',
+        pandals: [
+            { name: 'Jagoroni Sangha', zone: 'Chhotonilpur', theme: 'Manaskamana - Grand Palace', tip: 'Massive fairgrounds outside! The egg rolls here are legendary.', transit: 'Toto ride (10 mins)' },
+            { name: 'Laxmipur Math', zone: 'Laxmipur', theme: 'Domino Theme', tip: 'Expect heavy dhak beats and massive crowds dancing.', transit: 'Walk 15 mins through the mela' },
+            { name: 'Nabin Sangha', zone: 'Chhotonilpur', theme: 'Hawa Mahal, Rajasthan', tip: 'Perfect spot for selfies with the brightly lit exterior.', transit: 'End of route' }
+        ]
+    },
+    {
+        id: 'north-accessible',
+        match: { zone: 'north', vibe: 'accessible' },
+        title: 'The Royal Heritage Walk',
+        desc: 'Easy to navigate, historically significant, and incredibly beautiful without the marathon walking.',
+        pandals: [
+            { name: 'Amadpur Zomidar Bari', zone: 'Amadpur', theme: 'A Timeless Legacy', tip: 'Drive up directly. Experience 400-year-old heritage and peaceful chanting.', transit: 'Car/Toto ride (15 mins)' },
+            { name: 'Alamganj Barowari', zone: 'Alamganj', theme: 'Kedarnath Temple', tip: 'Very accessible entrance right off the main road.', transit: 'Walk 5 mins' },
+            { name: 'Tikrahat Sarbojanin', zone: 'Tikrahat', theme: 'The Agony of 46', tip: 'Deeply emotional social theme. Very organized crowd flow.', transit: 'End of route' }
+        ]
+    },
+    {
+        id: 'south-all',
+        match: { zone: 'south', vibe: 'any' },
+        title: 'The Sripally Serenade',
+        desc: 'A vibrant mix of themes and local flavor with very manageable crowds.',
+        pandals: [
+            { name: 'Sripally Officers Colony', zone: 'Sripally', theme: 'Yoga Shakti', tip: 'Very peaceful ambiance. Notice the intricate clay work.', transit: 'Walk 10 mins' },
+            { name: 'Kiran Sangha', zone: 'Ichlabad', theme: 'Jol-i Jibon (Water is Life)', tip: 'Beautiful eco-friendly message. Great lighting over water.', transit: 'Toto ride (8 mins)' },
+            { name: 'Subhash Athletic Club', zone: 'Nutanpally', theme: 'Vande Bharat (Kashmir)', tip: 'The train model is a huge hit with kids!', transit: 'End of route' }
+        ]
+    }
+  ];
+
+  const FALLBACK = { id: 'fallback', match: { zone: 'any', vibe: 'any' },
+    title: 'Burdwan Classics Tour',
+    desc: 'A robust mix of everything that makes Burdwan Durga Puja famous.',
+    pandals: [
+        { name: 'Laltu Smriti Sangha', zone: 'Baranilpur', theme: 'Grand Temple Architecture', tip: 'Arrive early, massive crowds expected!', transit: 'Toto ride (15 mins)' },
+        { name: 'Alamganj Barowari', zone: 'Alamganj', theme: 'Spiritual Kedarnath', tip: 'Don\'t miss the detailed interior sanctum.', transit: 'Walk 10 mins' },
+        { name: 'Shyamlal Sarbojanin', zone: 'Khosbagan', theme: 'Har Har Mahadev', tip: 'Epic idol display and high energy.', transit: 'End of route' }
+    ]
+  };
+
+  const generate = () => {
+    let r = ROUTES.find(r => r.match.zone === zone && (r.match.vibe === vibe || r.match.vibe === 'any'));
+    if (!r) r = FALLBACK;
+    
+    let finalPandals = [...(r?.pandals || [])];
+    let timeDesc = '';
+    
+    if (time === 'quick') {
+        finalPandals = finalPandals.slice(0, 2);
+        timeDesc = 'taking roughly 2 hours.';
+    } else if (time === 'marathon') {
+        finalPandals.push({ name: 'Ichlabad Kiran Sangha', zone: 'Ichlabad', theme: 'Baahubali', tip: 'The ultimate late-night grand finale!', transit: 'End of route' });
+        finalPandals[finalPandals.length - 2].transit = 'Toto ride (20 mins)';
+        timeDesc = 'keeping you up all night!';
+    } else {
+        timeDesc = 'taking roughly 4 hours.';
+    }
+    
+    setRoute({ ...r, pandals: finalPandals, timeDesc });
+  };
+
+  return (
+    <div className="page-head" style={{ minHeight: '100vh', height: 'auto', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: 'calc(var(--safe-t, 0px) + 120px) 20px 120px', position: 'relative' }}>
+      
+      <div className="page-head-bg" style={{ position: 'absolute', inset: '-5%', zIndex: -3, opacity: 0.25, filter: 'blur(8px)' }}>
+        <div style={{ width: '100%', height: '100%', opacity: 1 }}><Photo v={{ src: '/images/saptami.jpg', art: 'pandal', seed: 0 }} eager alt="" className="full-photo" /></div>
+      </div>
+      <div className="page-head-shade" style={{ position: 'absolute', inset: 0, zIndex: -2, background: 'radial-gradient(circle at center, rgba(15,5,6,0.6) 0%, rgba(10,3,4,0.98) 100%)' }} />
+
+      <style>{`
+        .full-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .rp-wrap { width: 100%; max-width: 900px; position: relative; z-index: 2; display: flex; flex-direction: column; gap: 40px; }
+        
+        .rp-radio-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+        @media (min-width: 768px) { .rp-radio-grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        .rp-label { display: block; cursor: pointer; position: relative; }
+        .rp-label input { position: absolute; opacity: 0; width: 0; height: 0; }
+        .rp-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; transition: all 0.3s ease; height: 100%; backdrop-filter: blur(10px); }
+        .rp-label:hover .rp-card { border-color: rgba(255,255,255,0.3); }
+        .rp-label input:checked + .rp-card { border-color: var(--gold); background: rgba(233,181,88,0.1); box-shadow: 0 0 20px rgba(233,181,88,0.2); }
+        
+        .rp-btn { width: 100%; background: linear-gradient(to right, #880808, #b91c1c); color: #fff; border: none; padding: 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(136,8,8,0.5); font-family: var(--f-body); }
+        .rp-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(136,8,8,0.7); }
+        
+        .rp-timeline { position: relative; padding-left: 30px; margin-top: 40px; }
+        .rp-timeline::before { content: ''; position: absolute; left: 0; top: 20px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold) 0%, rgba(233,181,88,0.1) 100%); }
+        
+        .rp-node { position: relative; margin-bottom: 40px; }
+        .rp-node-dot { position: absolute; left: -39px; top: 20px; width: 20px; height: 20px; background: #0a0304; border: 3px solid var(--gold); border-radius: 50%; box-shadow: 0 0 15px var(--gold); }
+        .rp-pandal-card { background: rgba(15,5,6,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        @media print {
+          body { background: white !important; color: black !important; }
+          .page-head-bg, .page-head-shade, .print-hide, nav { display: none !important; }
+          .page-head { padding: 0 !important; min-height: 0 !important; }
+          .rp-pandal-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; break-inside: avoid; color: black !important; }
+          .rp-timeline::before { background: black !important; }
+          .rp-node-dot { border-color: black !important; background: white !important; box-shadow: none !important; }
+          h1, h2, h3, h4, p, span { color: black !important; text-shadow: none !important; }
+        }
+      `}</style>
+
+      <div className="rp-wrap">
+        <div style={{ position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', opacity: 0.04, pointerEvents: 'none', zIndex: -1 }}>
+           <Alpana size={800} spin={true} />
+        </div>
+
+        {!route ? (
+          <div style={{ animation: 'fadeUp 0.5s ease' }}>
+            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+              <div style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--gold)', lineHeight: 0.9, marginBottom: '20px' }}><RevealText as="h1" lines={['Route', 'Planner']} className="display" live /></div>
+              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>Choose your adventure constraints and let us map out the ultimate itinerary.</p>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+              
+              <div>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>1. Starting Point / Zone</h2>
+                <div className="rp-radio-grid">
+                  {[
+                    { v: 'central', t: 'Central', d: 'Khosbagan & Baranilpur. Massive themes.' },
+                    { v: 'north', t: 'North', d: 'Alamganj. Traditional heavy-hitters.' },
+                    { v: 'south', t: 'South', d: 'Sripally. Creative & less chaotic.' }
+                  ].map(o => (
+                    <label key={o.v} className="rp-label">
+                      <input type="radio" name="zone" value={o.v} checked={zone === o.v} onChange={() => setZone(o.v)} />
+                      <div className="rp-card">
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>2. Time Available</h2>
+                <div className="rp-radio-grid">
+                  {[
+                    { v: 'quick', i: '\u23F1\uFE0F', t: 'Quick Express', d: '~2 Hours' },
+                    { v: 'standard', i: '\u{1F6B6}', t: 'Standard Hop', d: '~4 Hours' },
+                    { v: 'marathon', i: '\u{1F989}', t: 'Night Marathon', d: '8+ Hours' }
+                  ].map(o => (
+                    <label key={o.v} className="rp-label">
+                      <input type="radio" name="time" value={o.v} checked={time === o.v} onChange={() => setTime(o.v)} />
+                      <div className="rp-card" style={{ textAlign: 'center', padding: '30px 20px' }}>
+                        <div style={{ fontSize: '2rem', marginBottom: '10px' }}>{o.i}</div>
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>3. Preferred Vibe</h2>
+                <div className="rp-radio-grid">
+                  {[
+                    { v: 'accessible', t: 'Easy Walks', d: 'Clustered pandals with easy auto access.' },
+                    { v: 'art', t: 'Art & Theme', d: 'Award-winning architecture and designs.' },
+                    { v: 'carnival', t: 'Carnival & Food', d: 'Loud dhak, melas, and huge crowds.' }
+                  ].map(o => (
+                    <label key={o.v} className="rp-label">
+                      <input type="radio" name="vibe" value={o.v} checked={vibe === o.v} onChange={() => setVibe(o.v)} />
+                      <div className="rp-card">
+                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <button className="rp-btn" onClick={generate}>{'Generate My Adventure Route \u{1F5FA}\uFE0F'}</button>
+            </div>
+          </div>
+        ) : (
+          <div style={{ animation: 'fadeUp 0.5s ease' }}>
+            <div className="print-hide" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+              <button onClick={() => setRoute(null)} style={{ background: 'transparent', color: 'var(--mute)', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>{'\u2190 Start Over'}</button>
+              <button onClick={() => window.print()} style={{ background: 'rgba(233,181,88,0.2)', color: 'var(--gold)', border: '1px solid var(--gold)', borderRadius: '8px', padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold' }}>Save PDF / Print</button>
+            </div>
+
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.8rem', fontWeight: 'bold' }}>Your Customized Route</span>
+              <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--f-display)', margin: '10px 0' }}>{route.title}</h1>
+              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>{route.desc} {route.timeDesc}</p>
+            </div>
+
+            <div className="rp-timeline">
+              {route.pandals.map((p: any, i: number) => {
+                const isLast = i === route.pandals.length - 1;
+                return (
+                  <div key={i} className="rp-node">
+                    <div className="rp-node-dot"></div>
+                    <div className="rp-pandal-card">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+                        <div>
+                          <span style={{ background: 'rgba(136,8,8,0.2)', color: '#ff4d4d', padding: '4px 8px', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1px' }}>{p.zone}</span>
+                          <h2 style={{ fontSize: '2rem', fontFamily: 'var(--f-display)', color: 'var(--gold)', marginTop: '10px' }}>{p.name}</h2>
+                        </div>
+                        <span style={{ fontSize: '2rem', opacity: 0.5 }}>{'\u{1F3AA}'}</span>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div style={{ display: 'flex', gap: '15px' }}>
+                          <span style={{ fontSize: '1.2rem' }}>{'\u2728'}</span>
+                          <div>
+                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Theme</div>
+                            <div style={{ fontSize: '1.1rem', color: '#fff' }}>{p.theme}</div>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', gap: '15px' }}>
+                          <span style={{ fontSize: '1.2rem' }}>{'\u{1F4A1}'}</span>
+                          <div>
+                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Pro Tip</div>
+                            <div style={{ fontSize: '1.1rem', color: 'var(--shankha)', fontStyle: 'italic' }}>{p.tip}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {!isLast && (
+                      <div className="print-hide" style={{ padding: '30px 0 30px 20px', color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: 'var(--gold)', opacity: 0.5 }}>{'\u2193'}</span> {p.transit}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

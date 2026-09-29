@@ -31,7 +31,8 @@ export const NAV = [
   { label: 'Featured Pandals', bn: 'বাছাই মণ্ডপ', to: '/featured' },
   { label: 'Explore Bardhaman', bn: 'বর্ধমান', to: '/bardhaman' },
   { label: 'Gallery', bn: '????????', to: '/gallery' },
-    { label: 'Crowd Estimator', bn: '????', to: '/crowd' },
+    { label: 'Crowd Estimator', bn: '????', to: '/crowd' }, 
+  { label: 'Route Planner', bn: '??? ?????', to: '/planner' },
   { label: 'About', bn: 'আমরা', to: '/about' },
   // { label: 'Contact', bn: 'যোগাযোগ', to: '/contact' },
 ];
