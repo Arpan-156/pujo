@@ -54,9 +54,19 @@ export function Loader({ onDone }: { onDone: () => void }) {
         <p className="loader-pct">{pct}%</p>
       </div>
       <div className={`loader-tap ${needsTap ? 'in' : ''}`}>
-        <p className="tap-main">Tap anywhere to enter the Puja</p>
-        <p className="tap-sub">Sound on. The Puja has its own music.</p>
-        <button className="tap-skip" onClick={(e) => { e.stopPropagation(); enter(false); }}>Continue without music</button>
+        <div className="tap-ring-wrap">
+          <div className="tap-ring"></div>
+          <div className="tap-ring-inner">
+             <svg viewBox="0 0 24 24" className="tap-play"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div className="tap-content">
+          <h2 className="tap-main">Enter the Puja</h2>
+          <p className="tap-sub">Immersive audio experience recommended</p>
+        </div>
+        <button className="tap-skip" onClick={(e) => { e.stopPropagation(); enter(false); }}>
+          Enter quietly
+        </button>
       </div>
     </div>
   );
