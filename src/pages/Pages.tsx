@@ -7,6 +7,7 @@ import { Photo } from '../components/Art';
 import { Reveal, RevealText } from '../components/fx';
 import { ArrowLeft, ArrowRight, Mail, Pin, Search, X } from '../components/Icons';
 import { Btn, FlipGrid, PageHead, PujaCard } from '../components/shared';
+import { PassportButton } from '../components/Passport';
 import { FeaturedRail } from '../sections/FeaturedRail';
 import { FeaturedShowcase } from '../sections/FeaturedShowcase';
 import { ThemesGrid } from '../sections/ThemesGrid';
@@ -85,7 +86,8 @@ export function PujasPage() {
                     <p className="plist-label">Theme</p>
                     <p className="plist-theme">"{p.theme}"</p>
                   </div>
-                  <div className="plist-arr-wrap">
+                  <div className="plist-arr-wrap" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                      <PassportButton slug={p.slug} />
                     {p.featured && <span className="badge-shiny">Featured</span>}
                     <div className="plist-arr"><ArrowRight size={20} /></div>
                   </div>
@@ -152,6 +154,9 @@ export function PujaDetail({ slug }: { slug: string }) {
           <Link to="/pujas" className="back" data-cursor="Back"><ArrowLeft size={18} /> All Puja</Link>
           <RevealText as="h1" lines={[p.name]} className="display pd-h" live />
           <p className="pd-meta"><span><Pin size={16} /> {p.location}</span><span>Theme: “{p.theme}”</span>{p.featured && <span className="tag-feat static">Featured 2026</span>}</p>
+            <div style={{ marginTop: '24px' }}>
+              <PassportButton slug={p.slug} />
+            </div>
         </div>
       </section>
 

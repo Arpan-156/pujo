@@ -4,6 +4,7 @@ import { Photo } from '../components/Art';
 import { Reveal, RevealText } from '../components/fx';
 import { pad2 } from '../lib/util';
 import { ArrowUpRight } from '../components/Icons';
+import { PassportButton } from '../components/Passport';
 import { HScroll } from './HScroll';
 
 export function FeaturedRail({ compact = false }: { compact?: boolean }) {
@@ -35,7 +36,10 @@ export function FeaturedRail({ compact = false }: { compact?: boolean }) {
               <h3>{puja.name}</h3>
               <p className="cover-tag">{tagline}</p>
               <p className="cover-note">{note}</p>
-              <span className="cover-go">Discover <ArrowUpRight size={18} /></span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '16px' }}>
+                <PassportButton slug={puja.slug} />
+                <span className="cover-go" style={{ position: 'relative', bottom: 'auto' }}>Discover <ArrowUpRight size={18} /></span>
+              </div>
             </div>
           </Link>
         ))}

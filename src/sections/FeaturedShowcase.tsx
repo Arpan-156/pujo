@@ -2,6 +2,7 @@ import { useData } from '../data/store';
 import { Link } from '../lib/router';
 import { Photo } from '../components/Art';
 import { ArrowRight, ChevronDown } from '../components/Icons';
+import { PassportButton } from '../components/Passport';
 import { pad2 } from '../lib/util';
 import { Footer } from '../components/shared';
 import { useEffect, useRef, useState } from 'react';
