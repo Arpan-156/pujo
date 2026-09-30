@@ -1,5 +1,5 @@
 /* ================= HERO ================= */
-.hero { position: relative; min-height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: flex-end; padding: 0 0 clamp(80px, 13svh, 150px); isolation: isolate; }
+.hero { position: relative; min-height: 100svh; height: 100svh; overflow: hidden; display: flex; align-items: flex-end; padding: 0 0 clamp(80px, 13svh, 150px); isolation: isolate; }
 .hero-bg { position: absolute; inset: -4% -3%; z-index: -3; }
 .hero-cam { position: absolute; inset: 0; transform: translate3d(calc(var(--mx, 0) * -18px), calc(var(--my, 0) * -12px + (var(--p, 0.5) - 0.5) * 140px), 0) scale(1.1); transition: transform 0.5s var(--ease); will-change: transform; }
 .hero-cam .photo { animation: kenburns 40s ease-in-out infinite alternate; }
@@ -57,7 +57,7 @@
 /* ================= FEATURED (horizontal) ================= */
 .featured { position: relative; background: linear-gradient(180deg, var(--ink), #1c0a0d 50%, var(--ink)); }
 .feat-head { padding: clamp(80px, 14svh, 150px) 0 40px; display: grid; gap: 20px; }
-.hs.pinned .hs-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+.hs.pinned .hs-sticky { position: sticky; top: 0; height: 100dvh; height: 100svh; overflow: hidden; display: flex; align-items: center; }
 .hs-track { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); padding: 0 var(--gut); will-change: transform; }
 .hs.pinned .hs-track { width: max-content; }
 .hs.native .hs-track { overflow-x: auto; scroll-snap-type: x proximity; padding-block: clamp(50px, 9vh, 90px); padding-block: clamp(50px, 9svh, 90px); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -234,7 +234,7 @@
 .story { padding: clamp(80px, 14svh, 140px) 0 clamp(60px, 10svh, 120px); }
 .story-head { margin-bottom: clamp(20px, 4vh, 40px); margin-bottom: clamp(20px, 4svh, 40px); }
 .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 100px); align-items: start; }
-.story-stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; }
+.story-stage { position: sticky; top: 0; height: 100dvh; height: 100svh; display: flex; align-items: center; }
 .story-frame { position: relative; width: 100%; max-height: 82vh; height: 82svh; aspect-ratio: 4 / 5; border-radius: 999px 999px 0 0; overflow: hidden; outline: 1px solid var(--line-2); outline-offset: 10px; }
 .story-img { position: absolute; inset: 0; opacity: 0; transform: scale(1.08); transition: opacity 1.1s var(--ease), transform 1.6s var(--ease); }
 .story-img.on { opacity: 1; transform: none; }

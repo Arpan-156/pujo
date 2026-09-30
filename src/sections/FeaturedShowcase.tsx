@@ -15,6 +15,7 @@ export function FeaturedShowcase() {
 
   useEffect(() => {
         const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
       if (animating.current) return;
       if (Math.abs(e.deltaY) < 30) return;
       
@@ -39,8 +40,10 @@ export function FeaturedShowcase() {
     };
 
     let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
+    const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; touchProcessed = false; };
+    let touchProcessed = false;
         const handleTouchMove = (e: TouchEvent) => {
+      if (!e.target || !(e.target as HTMLElement).closest('.fs-footer-wrap')) e.preventDefault();
       if (animating.current) return;
       
       const target = e.target as HTMLElement;
@@ -52,7 +55,8 @@ export function FeaturedShowcase() {
         if (inFooter.scrollTop > 0) return; // Allow swiping down if not at top
       }
 
-      if (Math.abs(dy) > 50) {
+      if (Math.abs(dy) > 50 && !touchProcessed) {
+          touchProcessed = true;
         const dir = dy > 0 ? 1 : -1;
         setActive(curr => {
           const next = curr + dir;
