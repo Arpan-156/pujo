@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 import { FILTERS } from '../data/pujas';
 import { useData } from '../data/store';
+import { fetchGlobalLeaderboard, submitGlobalVote } from '../lib/api';
 import { Link, useRouter } from '../lib/router';
 import { Photo } from '../components/Art';
 import { Reveal, RevealText, Alpana } from '../components/fx';
@@ -989,18 +990,44 @@ export function SurvivalKitPage() {
 
 export function Top3VoterPage() {
   const [userState, setUserState] = useState<Record<string, { rating: number; upvoted: boolean }>>({});
+  const [globalState, setGlobalState] = useState<Record<string, { score: number, upvotes: number }>>({});
+  const [isSyncing, setIsSyncing] = useState(false);
   const [toast, setToast] = useState(false);
 
   useEffect(() => {
+    // 1. Load local votes
     try {
       const saved = localStorage.getItem('puja_votes_26');
       if (saved) setUserState(JSON.parse(saved));
     } catch (e) {}
+
+    // 2. Fetch Global Leaderboard asynchronously
+    setIsSyncing(true);
+    fetchGlobalLeaderboard().then(data => {
+      setGlobalState(data);
+      setIsSyncing(false);
+    });
   }, []);
 
-  const saveState = (newState: Record<string, { rating: number; upvoted: boolean }>) => {
+  const saveState = async (id: string, newLocalData: { rating: number; upvoted: boolean }) => {
+    // Calculate difference to push to global backend
+    const old = userState[id] || { rating: 0, upvoted: false };
+    const ratingDiff = newLocalData.rating - old.rating;
+    const upvoteDiff = (newLocalData.upvoted ? 1 : 0) - (old.upvoted ? 1 : 0);
+
+    const newState = { ...userState, [id]: newLocalData };
     setUserState(newState);
     localStorage.setItem('puja_votes_26', JSON.stringify(newState));
+
+    // Async push to industry-level backend
+    if (ratingDiff !== 0 || upvoteDiff !== 0) {
+      setIsSyncing(true);
+      await submitGlobalVote(id, ratingDiff, upvoteDiff);
+      // Re-fetch to get live consensus
+      const latestGlobal = await fetchGlobalLeaderboard();
+      setGlobalState(latestGlobal);
+      setIsSyncing(false);
+    }
   };
 
   const { pujas } = useData();
@@ -1011,16 +1038,17 @@ export function Top3VoterPage() {
       name: p.name,
       zone: p.zone || 'Bardhaman',
       tagline: p.description || p.story || `Theme: ${p.theme}`,
+      // Base is seeded so it looks realistic even before global votes roll in
       baseVotes: (stringVal * 12) + 1980
     };
   });
 
-  const getScore = (p: any) => {
-      const s = userState[p.id] || { rating: 0, upvoted: false };
-      // Base votes heavily dominate to represent the "Global Community"
-      // User's local vote just slightly nudges the community score
-      return p.baseVotes + (s.rating * 10) + (s.upvoted ? 50 : 0);
-    };
+  const getScore = (p: typeof PANDALS[0]) => {
+    const local = userState[p.id] || { rating: 0, upvoted: false };
+    const global = globalState[p.id] || { score: 0, upvotes: 0 };
+    // Mix static seed + live global + immediate local response
+    return p.baseVotes + (local.rating * 10) + (local.upvoted ? 50 : 0) + (global.score * 10) + (global.upvotes * 50);
+  };
 
   const sorted = [...PANDALS].sort((a, b) => getScore(b) - getScore(a));
   const top3 = [sorted[0], sorted[1], sorted[2]];
@@ -1032,12 +1060,12 @@ export function Top3VoterPage() {
   ];
 
   const rate = (id: string, rating: number) => {
-    saveState({ ...userState, [id]: { ...(userState[id] || { rating: 0, upvoted: false }), rating } });
+    saveState(id, { ...(userState[id] || { rating: 0, upvoted: false }), rating });
   };
 
   const toggleUpvote = (id: string) => {
     const s = userState[id] || { rating: 0, upvoted: false };
-    saveState({ ...userState, [id]: { ...s, upvoted: !s.upvoted } });
+    saveState(id, { ...s, upvoted: !s.upvoted });
   };
 
   const shareBracket = () => {
@@ -1124,6 +1152,10 @@ export function Top3VoterPage() {
       <div className="t3-wrap">
         <header className="t3-head">
           <h1>Community Top 3</h1>
+            {isSyncing && <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(233,181,88,0.2)', color: 'var(--gold)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600, marginTop: '10px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--gold)', animation: 'pulse 1s infinite' }} />
+              Syncing Global Votes...
+            </div>}
           <p>Explore the Global Leaderboard. The top 3 pandals are curated live from all community votes across Burdwan. Your rating directly influences their rank.</p>
         </header>
         
