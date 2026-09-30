@@ -78,7 +78,35 @@ export function PujasPage() {
             </button>
           </div>
           {list.length ? (
+            
+            <> {/* PRINT ONLY BCO TABLE */}
+            <div className="print-only bco-print-wrapper">
+              <div className="bco-header">
+                <h2>BCO - Burdwan Capturers Official</h2>
+                <p>Durga Puja 2026 - Official Pandals & Themes Directory</p>
+              </div>
+              <table className="bco-table">
+                <thead>
+                  <tr>
+                    <th>Club Name</th>
+                    <th>Address</th>
+                    <th>Theme</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {list.map(p => (
+                    <tr key={p.slug}>
+                      <td><strong>{p.name}</strong>{p.featured ? ' (Featured)' : ''}</td>
+                      <td>{p.location}</td>
+                      <td>{p.theme || 'Traditional'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
             <FlipGrid className="plist">
+
               {list.map((p) => {
                 const Wrapper: any = p.featured ? Link : 'div';
                 const props = p.featured ? { to: `/puja/${p.slug}`, 'data-cursor': 'View' } : { style: { cursor: 'default' } };
@@ -134,8 +162,7 @@ export function PujasPage() {
                 </Wrapper>
                 );
               })}
-            </FlipGrid>
-          ) : (
+            </FlipGrid></>) : (
             <div className="empty">
               <p className="bn" lang="bn">কিছু পাওয়া যায়নি</p>
               <h3>No Puja matches these filters.</h3>
@@ -409,9 +436,9 @@ export function RoutePlannerPage() {
 
     // 2. Define Area Zones
     const ZONES: Record<string, string[]> = {
-      central: ['Bardhaman Town', 'Baranilpur', 'Khosbagan', 'Vivekananda Pally', 'Vivekananda College Road', 'Rathtala', 'Chhotonilpur', 'Laxmipur Math', 'Susopanna', 'Boro Nilpur', 'Bardhaman'],
+      central: ['Bardhaman Town', 'Baranilpur', 'Khosbagan', 'Vivekananda College Road', 'Rathtala', 'Chhotonilpur', 'Laxmipur Math', 'Susopanna', 'Bardhaman'],
       north: ['Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate'],
-      south: ['Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan']
+      south: ['Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan']
     };
 
     // 3. Filter by Zone
@@ -437,9 +464,9 @@ export function RoutePlannerPage() {
     // This physically groups them from North to South along the main town artery
     const AREA_ORDER = [
       'Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate', // North
-      'Khosbagan', 'Rathtala', 'Vivekananda Pally', 'Vivekananda College Road', 'Bardhaman', 'Susopanna', // Central-West
-      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math', 'Boro Nilpur', // Central-East
-      'Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan' // South
+      'Khosbagan', 'Rathtala', 'Vivekananda College Road', 'Bardhaman', 'Susopanna', // Central-West
+      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math', // Central-East
+      'Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan' // South
     ];
 
     const getAreaIndex = (area: string) => {
