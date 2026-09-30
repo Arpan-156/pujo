@@ -197,6 +197,9 @@ export function Hero() {
       <Particles kind="embers" count={20} />
       <div className="hero-shade" />
       
+      {/* Maa Durga carrying animation */}
+      <Procession />
+      
       <div className="hero-in">
         <div className="hero-bn-wrap">
             <p className="hero-bn" lang="bn">{`আলোর শহর, ঢাকের তালে, আবারও ফিরছে পুজোর দিনগুলি।`}</p>

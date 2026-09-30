@@ -550,14 +550,14 @@ export function Procession() {
         .procession-group {
           position: absolute;
           bottom: 12px;
-          right: -800px;
+          right: -900px;
           height: 60px;
           color: rgba(233, 181, 88, 0.85); /* gold, slightly transparent */
           animation: march 30s linear infinite;
         }
         @keyframes march {
           0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-100vw - 800px)); }
+          100% { transform: translateX(calc(-100vw - 900px)); }
         }
         .walker {
           animation: walk-bob 0.4s alternate infinite ease-in-out;
@@ -573,7 +573,26 @@ export function Procession() {
         }
       `}</style>
       <div className="procession-group">
-        <svg viewBox="-80 0 760 100" className="procession-svg" fill="currentColor">
+        <svg viewBox="-160 0 840 100" className="procession-svg" fill="currentColor">
+            {/* Front Dhak Player 1 */}
+            <g className="walker" style={{ animationDelay: '0.6s' }}>
+              <circle cx="-130" cy="42" r="8" />
+              <rect x="-134" y="50" width="8" height="37" rx="4" />
+              <ellipse cx="-142" cy="62" rx="12" ry="18" transform="rotate(-20 -142 62)" />
+              <path d="M-132 57 L-152 52 M-132 62 L-148 62" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              {/* Drum sticks */}
+              <path d="M-135 48 L-145 35 M-130 52 L-140 40" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </g>
+
+            {/* Front Dhak Player 2 */}
+            <g className="walker" style={{ animationDelay: '0.2s' }}>
+              <circle cx="-90" cy="46" r="8" />
+              <rect x="-94" y="54" width="8" height="37" rx="4" />
+              <ellipse cx="-102" cy="66" rx="12" ry="18" transform="rotate(-20 -102 66)" />
+              <path d="M-92 61 L-112 56 M-92 66 L-108 66" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              <path d="M-95 50 L-105 35 M-90 55 L-100 40" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </g>
+
           
           {/* Kanshor Player (Very Front) */}
           <g className="walker" style={{ animationDelay: '0.2s' }}>
@@ -596,7 +615,8 @@ export function Procession() {
             <rect x="26" y="53" width="8" height="37" rx="4" />
             <ellipse cx="18" cy="65" rx="12" ry="18" transform="rotate(-20 18 65)" />
             <path d="M28 60 L8 55 M28 65 L12 65" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </g>
+              <path d="M25 48 L15 35 M30 52 L20 40" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </g>
 
           {/* 2. Kash / Flag Bearer */}
           <g className="walker" style={{ animationDelay: '0.3s' }}>
