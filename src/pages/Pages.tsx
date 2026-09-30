@@ -1059,14 +1059,40 @@ export function Top3VoterPage() {
     { p: top3[2], rank: 3, class: 't3-pod-3', color: '#cd7f32', label: '3RD' }
   ];
 
+  
+  const votedClubIds = Object.keys(userState).filter(id => userState[id].rating > 0 || userState[id].upvoted);
+
   const rate = (id: string, rating: number) => {
+    if (!votedClubIds.includes(id) && votedClubIds.length >= 3) {
+      alert("You can only vote for up to 3 clubs! Please clear your votes to start over.");
+      return;
+    }
     saveState(id, { ...(userState[id] || { rating: 0, upvoted: false }), rating });
   };
 
   const toggleUpvote = (id: string) => {
+    if (!votedClubIds.includes(id) && votedClubIds.length >= 3) {
+      alert("You can only vote for up to 3 clubs! Please clear your votes to start over.");
+      return;
+    }
     const s = userState[id] || { rating: 0, upvoted: false };
     saveState(id, { ...s, upvoted: !s.upvoted });
   };
+
+  const clearVotes = async () => {
+    if (!confirm("Are you sure you want to clear your cast votes?")) return;
+    setIsSyncing(true);
+    for (const id of votedClubIds) {
+      const s = userState[id];
+      await submitGlobalVote(id, -s.rating, -(s.upvoted ? 1 : 0));
+    }
+    setUserState({});
+    localStorage.removeItem('puja_votes_26');
+    const latestGlobal = await fetchGlobalLeaderboard();
+    setGlobalState(latestGlobal);
+    setIsSyncing(false);
+  };
+
 
   const shareBracket = () => {
     let text = `?? Burdwan Capturers Official - Community Top 3 Pandals:\n\n`;
@@ -1177,10 +1203,17 @@ export function Top3VoterPage() {
               );
             })}
           </div>
-          <button className="t3-share" onClick={shareBracket}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-            Share My Bracket
-          </button>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+              <button className="t3-share" onClick={shareBracket}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                Share My Bracket
+              </button>
+              {votedClubIds.length > 0 && (
+                <button className="t3-share" style={{ background: 'transparent', border: '2px solid #e9b558', color: '#e9b558', boxShadow: 'none' }} onClick={clearVotes}>
+                  Clear My Votes
+                </button>
+              )}
+            </div>
         </section>
         
         <section>
@@ -1189,8 +1222,10 @@ export function Top3VoterPage() {
             <span>Rate to Rank</span>
           </div>
           <div className="t3-grid">
-            {sorted.map((p, idx) => {
-              const s = userState[p.id] || { rating: 0, upvoted: false };
+              {sorted.map((p, idx) => {
+                const s = userState[p.id] || { rating: 0, upvoted: false };
+                const isMaxedOut = !votedClubIds.includes(p.id) && votedClubIds.length >= 3;
+
               const isTop3 = idx < 3;
               return (
                 <div key={p.id} className="t3-card" style={{ animationDelay: `${idx * 0.1}s` }}>

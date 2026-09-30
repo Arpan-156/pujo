@@ -9,8 +9,8 @@
  * 3. Create a table: `puja_votes` with columns `slug` (text, primary key), `score` (int, default 0), `upvotes` (int, default 0).
  */
 
-const SUPABASE_URL = (import.meta as any).env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Fallback Mock Database (Simulating a real backend until Supabase keys are added)
 const mockGlobalDb: Record<string, { score: number, upvotes: number }> = {};
