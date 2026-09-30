@@ -1128,7 +1128,7 @@ export function Top3VoterPage() {
         .t3-podium { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 260px; margin-bottom: 40px; }
         @media (min-width: 768px) { .t3-podium { gap: 24px; } }
         
-        .t3-pod-slot { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100px; animation: floatTrophy 6s ease-in-out infinite; }
+        .t3-pod-slot { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100px; animation: floatTrophy 6s ease-in-out infinite; will-change: transform; filter: drop-shadow(0 15px 25px rgba(233,181,88,0.3)); }
         @media (min-width: 768px) { .t3-pod-slot { width: 160px; } }
         
         .t3-pod-info { text-align: center; margin-bottom: 16px; transition: transform 0.3s; }
