@@ -216,7 +216,7 @@ export function Hero() {
           <Link to="/featured" className="btn elegant-glass" data-cursor="Open">Featured Pandals <span className="arrow">&rarr;</span></Link>
           <Link to="/map" className="btn elegant-glass" data-cursor="Open">Pandal Map <span className="arrow">&rarr;</span></Link>
         </div>
-        <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers</span></p>
+        <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers Official</span></p>
       </div>
       
     </section>

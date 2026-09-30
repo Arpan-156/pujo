@@ -45,7 +45,7 @@ export function FeaturedRail({ compact = false }: { compact?: boolean }) {
         ))}
         <div className="feat-end">
           <p lang="bn" className="bn">আরও মণ্ডপ</p>
-          <Link to="/pujas" className="btn ghost" data-cursor="Open"><span>All Puja</span><ArrowUpRight size={18} /></Link>
+          <Link to="/pujas" className="btn ghost" data-cursor="Open"><span>Pandals & Themes</span><ArrowUpRight size={18} /></Link>
         </div>
       </HScroll>
     </section>

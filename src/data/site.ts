@@ -26,7 +26,7 @@ export const PUJA_START = new Date('2026-10-17T06:00:00+05:30');
 
 export const NAV = [
   { label: 'Home', bn: 'বাড়ি', to: '/' },
-  { label: 'All Puja', bn: 'সব পুজো', to: '/pujas' },
+  { label: 'Pandals & Themes', bn: 'সব পুজো', to: '/pujas' },
   // { label: 'Themes', bn: 'থিম', to: '/themes' },
   { label: 'Featured Pandals', bn: 'বাছাই মণ্ডপ', to: '/featured' },
   { label: 'Explore Bardhaman', bn: 'বর্ধমান', to: '/bardhaman' },

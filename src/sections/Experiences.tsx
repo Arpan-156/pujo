@@ -125,9 +125,9 @@ function DhakTile() {
         <p className="bn" lang="bn">ঢাক</p>
         <h3>Dhak</h3>
         <p>The drum that tells the neighbourhood it is time. Tap it, or let the pattern run.</p>
-        <button className={`chip ${auto ? 'solid' : ''}`} aria-pressed={auto} onClick={() => setAuto((a) => !a)} data-cursor={auto ? 'Stop' : 'Play'}>{auto ? 'Stop the pattern' : 'Play the pattern'}</button>
+        <button className={`chip ${auto ? 'solid' : ''}`} aria-pressed={auto} onClick={() => { engine.unlock(); setAuto((a) => !a); }} data-cursor={auto ? 'Stop' : 'Play'}>{auto ? 'Stop the pattern' : 'Play the pattern'}</button>
       </div>
-      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { setHit((h) => h + 1); engine.playDhakBass(); }} aria-label="Strike the dhak" data-cursor="Strike">
+      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { engine.unlock(); setHit((h) => h + 1); engine.playDhakBass(); }} aria-label="Strike the dhak" data-cursor="Strike">
         {hit > 0 && <><span className="ripple" /><span className="ripple r2" /></>}
         <svg viewBox="0 0 240 200" fill="none" aria-hidden="true">
           <defs>

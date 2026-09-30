@@ -216,7 +216,7 @@
 .tl-scroll::-webkit-scrollbar { display: none; }
 .tl-track { position: relative; min-width: 1200px; max-width: 1600px; margin-inline: auto; padding-top: 20px; padding-inline: 14px; }
 .tl-line { position: absolute; top: 18px; height: 3px; background: rgba(233, 181, 88, 0.15); z-index: 1; border-radius: 2px; }
-.tl-line span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--sindoor)); transform-origin: left; transform: scaleX(var(--hp, 0)); box-shadow: 0 0 10px var(--gold); transition: transform 0.1s linear; }
+.tl-line span { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--sindoor)); transform-origin: left; transform: scaleX(min(1, max(0, calc(var(--p, 0) * 2 - 0.4)))); box-shadow: 0 0 10px var(--gold); transition: transform 0.1s linear; }
 .tl-list { display: grid; grid-template-columns: repeat(7, 1fr); gap: 24px; }
 .tl-item { position: relative; padding-top: 34px; scroll-snap-align: start; scroll-margin-inline-start: 40px; }
 .tl-item .rv { display: grid; gap: 4px; align-content: start; }

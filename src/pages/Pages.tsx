@@ -20,7 +20,7 @@ import { Experiences } from '../sections/Experiences';
 import { AboutBrands, Social, Team } from '../sections/About';
 
 /* ------------------------------------------------------------------ *
- *  All Puja
+ *  Pandals & Themes
  * ------------------------------------------------------------------ */
 export function PujasPage() {
     const { pujas, themes } = useData();
@@ -70,7 +70,13 @@ export function PujasPage() {
               </p>
             )}
           </div>
-          <p className="dir-count" aria-live="polite">{list.length} of {pujas.length} Puja</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <p className="dir-count" aria-live="polite" style={{ margin: 0 }}>{list.length} of {pujas.length} Pandals</p>
+            <button className="btn solid" onClick={() => window.print()} style={{ padding: '6px 14px', fontSize: '0.8rem', gap: '6px' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              Download PDF
+            </button>
+          </div>
           {list.length ? (
             <FlipGrid className="plist">
               {list.map((p) => {
@@ -123,7 +129,7 @@ export function PujasPage() {
                   <div className="plist-arr-wrap" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                       <PassportButton slug={p.slug} />
                     {p.featured && <span className="badge-shiny">Featured</span>}
-                    <div className="plist-arr"><ArrowRight size={20} /></div>
+                    {p.featured && <div className="plist-arr"><ArrowRight size={20} /></div>}
                   </div>
                 </Wrapper>
                 );
@@ -134,7 +140,7 @@ export function PujasPage() {
               <p className="bn" lang="bn">কিছু পাওয়া যায়নি</p>
               <h3>No Puja matches these filters.</h3>
               <p>Try a different area name, or clear the filters to see everything.</p>
-              <button className="btn solid" onClick={reset}><span>Show all Puja</span></button>
+              <button className="btn solid" onClick={reset}><span>Show all Pandals</span></button>
             </div>
           )}
         </div>
@@ -164,7 +170,7 @@ export function PujaDetail({ slug }: { slug: string }) {
       <section className="notfound wrap">
         <p className="bn" lang="bn">এই পুজোটি খুঁজে পাওয়া যায়নি</p>
         <h1 className="display">We could not find that Puja.</h1>
-        <Btn to="/pujas">Back to All Puja</Btn>
+        <Btn to="/pujas">Back to Pandals & Themes</Btn>
       </section>
     );
   }
@@ -184,7 +190,7 @@ export function PujaDetail({ slug }: { slug: string }) {
         <div className="pd-hero-bg"><Photo v={p.heroImage} eager alt={`${p.name} pandal`} /></div>
         <div className="page-head-shade" />
         <div className="wrap pd-hero-in">
-          <Link to="/pujas" className="back" data-cursor="Back"><ArrowLeft size={18} /> All Puja</Link>
+          <Link to="/pujas" className="back" data-cursor="Back"><ArrowLeft size={18} /> Pandals & Themes</Link>
           <RevealText as="h1" lines={[p.name]} className="display pd-h" live />
           <p className="pd-meta"><span><Pin size={16} /> {p.location}</span><span>Theme: “{p.theme}”</span>{p.featured && <span className="tag-feat static">Featured 2026</span>}</p>
             <div style={{ marginTop: '24px' }}>

@@ -20,13 +20,9 @@ export function DailyShloka() {
           // If not a specific Puja date, rotate through the available shlokas based on the day of the year
           const keys = Object.keys(json).filter(k => k !== 'fallback');
           
-          // Calculate day of year
-          const start = new Date(d.getFullYear(), 0, 0);
-          const diff = (d.getTime() - start.getTime()) + ((start.getTimezoneOffset() - d.getTimezoneOffset()) * 60 * 1000);
-          const oneDay = 1000 * 60 * 60 * 24;
-          const dayOfYear = Math.floor(diff / oneDay);
-          
-          const index = dayOfYear % keys.length;
+          // Use a random index for the off-season so users can see different insights
+          // Or base it on the day of the year more reliably
+          const index = Math.floor(Math.random() * keys.length);
           const rotatedData = json[keys[index]];
           
           setData({

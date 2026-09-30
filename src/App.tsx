@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataProvider } from './data/store';
+import { engine } from './audio/engine';
 import { EntranceCtx } from './lib/entrance';
 import { RouterProvider, useRouter } from './lib/router';
 import { Cursor } from './components/fx';
@@ -78,6 +79,21 @@ function Shell() {
   const [stage, setStage] = useState<Stage>('loading');
   const [open, setOpen] = useState(false);
   const { label, pathname } = useRouter();
+
+    useEffect(() => {
+      const unlockAudio = () => {
+        engine.unlock();
+        window.removeEventListener('pointerdown', unlockAudio);
+        window.removeEventListener('touchstart', unlockAudio);
+        window.removeEventListener('click', unlockAudio);
+        window.removeEventListener('keydown', unlockAudio);
+      };
+      window.addEventListener('pointerdown', unlockAudio, { once: true });
+      window.addEventListener('touchstart', unlockAudio, { once: true });
+      window.addEventListener('click', unlockAudio, { once: true });
+      window.addEventListener('keydown', unlockAudio, { once: true });
+    }, []);
+
 
   useEffect(() => {
     document.documentElement.classList.toggle('locked', stage !== 'site');

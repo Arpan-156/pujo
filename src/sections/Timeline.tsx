@@ -13,12 +13,7 @@ export function Timeline() {
         <RevealText lines={['MAHALAYA', 'TO DASHAMI']} className="display" />
         <Reveal delay={150} className="lead">Seven mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>
       </div>
-      <div className="tl-scroll" tabIndex={0} role="region" aria-label="Festival timeline, scroll sideways" style={{ position: 'relative', zIndex: 2 }} onScroll={(e) => {
-        const el = e.currentTarget;
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        const progress = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
-        el.style.setProperty('--hp', progress.toString());
-      }}>
+      <div className="tl-scroll" tabIndex={0} role="region" aria-label="Festival timeline, scroll sideways" style={{ position: 'relative', zIndex: 2 }}>
         <div className="tl-track">
           <div className="tl-line" aria-hidden="true" style={{ left: '30px', right: '30px' }}><span /></div>
           <ol className="tl-list" style={{ padding: '0 20px' }}>

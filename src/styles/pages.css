@@ -121,7 +121,7 @@
 .fs-intro-content { align-items: center; justify-content: center; height: 100%; padding-top: 10vh; }
 
 /* Glass Card */
-.fs-glass { position: relative; max-width: 600px; padding: clamp(30px, 5vw, 60px); background: rgba(30, 12, 15, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(233, 181, 88, 0.15); border-left: 2px solid var(--gold); box-shadow: 0 30px 60px rgba(0,0,0,0.5); opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s; }
+.fs-glass { position: relative; max-width: 600px; padding: clamp(30px, 5vw, 60px); background: rgba(20, 8, 10, 0.85); /* backdrop removed for iOS perf */ border-radius: 20px; border: 1px solid rgba(233, 181, 88, 0.15); border-left: 2px solid var(--gold); box-shadow: 0 30px 60px rgba(0,0,0,0.5); opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s; }
 .fs-active .fs-glass { opacity: 1; transform: translateY(0); }
 
 /* Typography inside Glass */
@@ -138,3 +138,33 @@
 .fs-close { position: fixed; top: 30px; right: 30px; z-index: 101; width: 50px; height: 50px; border-radius: 50%; background: rgba(20, 8, 9, 0.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; color: var(--gold); border: 1px solid rgba(233, 181, 88, 0.2); transition: all 0.3s; cursor: pointer; }
 .fs-close:hover { background: var(--gold); color: var(--ink); transform: rotate(90deg); }
 
+
+
+/* ================= PRINT SPECIFIC PDF EXPORT ================= */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .nav, .music-fab, .footer, .global-brand, .cursor, .no-print, .dir-bar, .dir-count, .page-head, .hero, .ds-wrap { display: none !important; }
+  
+  /* Reset colors for the print chart */
+  .directory { background: transparent !important; padding: 0 !important; }
+  .wrap { padding: 0 !important; }
+  .plist { display: block !important; }
+  .plist-row { display: grid !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    color: #000 !important;
+    margin-bottom: 10px !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+  .plist-name, .plist-cats, .plist-label, .plist-loc, .plist-theme, .plist-col p, .plist-col h3 { color: #000 !important; }
+  .feat-tag { color: #d63384 !important; border-color: #d63384 !important; }
+  
+  /* Hide the download PDF button in print */
+  button { display: none !important; }
+  
+  /* Ensure SVGs or decorative elements print nicely if they exist */
+  svg { display: none !important; }
+}

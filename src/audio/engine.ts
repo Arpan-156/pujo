@@ -158,7 +158,7 @@ class Engine {
       a.volume = this.s.volume;
       a.play().catch(() => this.set({ blocked: true }));
     }
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     this.stopVoices();
     const g = ++this.gen;
     this.set({ index, playing: true, started: true, blocked: ctx.state !== 'running' });
@@ -204,9 +204,9 @@ class Engine {
     if (this.audioEl) this.audioEl.volume = v;
   }
   /** unlock audio from any gesture */
-  async unlock() {
+  unlock() {
     const ctx = this.ensure();
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     this.set({ blocked: ctx.state !== 'running' });
   }
   progress(): number {
@@ -444,30 +444,30 @@ class Engine {
   }
 
   /* ---------- one-shot sounds for the experiences section ---------- */
-  async playDhakBass() {
+  playDhakBass() {
     const ctx = this.ensure();
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     if (ctx.state !== 'running') return;
     this.dhak(ctx.currentTime + 0.01, 1, true, false, this.fx);
   }
 
-  async playDhakTreble() {
+  playDhakTreble() {
     const ctx = this.ensure();
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     if (ctx.state !== 'running') return;
     this.dhak(ctx.currentTime + 0.01, 0.8, false, false, this.fx);
   }
 
-  async playDhakSoft() {
+  playDhakSoft() {
     const ctx = this.ensure();
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     if (ctx.state !== 'running') return;
     this.dhak(ctx.currentTime + 0.01, 0.6, true, true, this.fx);
   }
 
-  async oneShot(kind: 'dhak' | 'shankha' | 'bell') {
+  oneShot(kind: 'dhak' | 'shankha' | 'bell') {
     const ctx = this.ensure();
-    try { await ctx.resume(); } catch { /* ignore */ }
+    try { ctx.resume(); } catch { /* ignore */ }
     if (ctx.state !== 'running') return;
     const t = ctx.currentTime + 0.01;
     if (kind === 'dhak') {

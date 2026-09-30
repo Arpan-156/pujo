@@ -138,7 +138,7 @@ export function Social() {
             </div>
           </Reveal>
           <div className="soc-header-row" style={{ marginTop: '80px', marginBottom: '30px' }}>
-            <RevealText lines={['ABOUT', 'BURDWAN PUJO']} className="display" />
+            <RevealText lines={['ABOUT THE', 'ORGANIZERS']} className="display" />
           </div>
         {(['capturers', 'pujo'] as const).map((b) => (
           <div className="soc-row" key={b}>

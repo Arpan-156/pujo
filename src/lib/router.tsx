@@ -16,7 +16,7 @@ const Ctx = createContext<RouterCtx>(null as unknown as RouterCtx);
 export const useRouter = () => useContext(Ctx);
 
 const TITLES: [RegExp, { en: string; bn: string }][] = [
-  [/^\/pujas/, { en: 'All Puja', bn: 'সব পুজো' }],
+  [/^\/pujas/, { en: 'Pandals & Themes', bn: 'সব পুজো' }],
   [/^\/puja\//, { en: 'The Pandal', bn: 'মণ্ডপ' }],
   [/^\/themes/, { en: 'Themes', bn: 'থিম' }],
   [/^\/featured/, { en: 'Featured Pandals', bn: 'বাছাই মণ্ডপ' }],

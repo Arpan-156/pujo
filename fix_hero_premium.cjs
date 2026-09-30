@@ -163,7 +163,7 @@ export function Hero() {
         </div>
       </div>
       
-      <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers</span></p>
+      <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers Official</span></p>
       
     </section>
   );

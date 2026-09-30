@@ -1,26 +1,40 @@
 const fs = require('fs');
-let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-// Fix opacity bug
-code = code.replace(
-  '.surv-card {',
-  '.surv-card {\n                opacity: 1 !important; visibility: visible !important; display: block !important;'
-);
+let css = fs.readFileSync('src/styles/pages.css', 'utf8');
 
-// Add print-only footer branding
-if (!code.includes('className="print-only"')) {
-    code = code.replace(
-      '</div>\n    </div>\n  );\n}\n',
-      `</div>\n      <div className="print-only" style={{ display: 'none', textAlign: 'center', marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ccc', fontSize: '10pt', fontWeight: 'bold' }}>PHOTOGRAPHY & DESIGN BY BURDWAN CAPTURERS OFFICIAL & BANGLAR PUJO OFFICIAL</div>\n    </div>\n  );\n}\n`
-    );
+const printStyles = `
+
+/* ================= PRINT SPECIFIC PDF EXPORT ================= */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .nav, .music-fab, .footer, .global-brand, .cursor, .no-print, .dir-bar, .dir-count, .page-head, .hero, .ds-wrap { display: none !important; }
+  
+  /* Reset colors for the print chart */
+  .directory { background: transparent !important; padding: 0 !important; }
+  .wrap { padding: 0 !important; }
+  .plist { display: block !important; }
+  .plist-row {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    color: #000 !important;
+    margin-bottom: 10px !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+  .plist-name, .plist-cats, .plist-addr p, .plist-addr strong, .plist-theme p, .plist-theme strong { color: #000 !important; }
+  .feat-tag { color: #d63384 !important; border-color: #d63384 !important; }
+  
+  /* Hide the download PDF button in print */
+  button { display: none !important; }
+  
+  /* Ensure SVGs or decorative elements print nicely if they exist */
+  svg { display: none !important; }
 }
+`;
 
-// Make sure print-only is visible in print
-if (!code.includes('.print-only { display: block !important; }')) {
-    code = code.replace(
-        '.global-branding, nav, footer, .surv-bg-glow, .surv-print-btn, .skip { display: none !important; }',
-        '.global-branding, nav, footer, .surv-bg-glow, .surv-print-btn, .skip { display: none !important; }\n            .print-only { display: block !important; }'
-    );
-}
+css += printStyles;
 
-fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
+fs.writeFileSync('src/styles/pages.css', css, 'utf8');
+console.log("Added print styles.");
