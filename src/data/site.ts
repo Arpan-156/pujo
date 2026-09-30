@@ -39,8 +39,8 @@ export const NAV = [
 
 /** Plays through the built-in synthesiser. Add `src: '/audio/file.mp3'` to swap in a real recording. */
 export const TRACKS: Track[] = [
-  { id: 'pujo-theme', title: 'Pujo Theme', mood: 'Shehnai over a tanpura drone' },
-  { id: 'dhaker-taal', title: 'Dhaker Taal', mood: 'Dhak and kansor, mid tempo' },
+  { id: 'pujo-theme', title: 'Pujo Theme', mood: 'Dugga Elo', src: '/audio/pujo-theme.mp3' },
+  { id: 'dhaker-taal', title: 'Dhaker Taal', mood: 'Real Dhak beats', src: '/audio/dhak.mp3' },
   { id: 'mahalaya', title: 'Mahalaya Atmosphere', mood: 'Conch, bells, pre-dawn hush' },
   { id: 'classical', title: 'Bengali Classical', mood: 'Plucked strings in raga Bhairav' },
   { id: 'dhunuchi', title: 'Dhunuchi Beats', mood: 'Fast dhak for the aarti' },

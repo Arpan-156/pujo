@@ -101,23 +101,42 @@ function DhakTile() {
   const [hit, setHit] = useState(0);
   const [step, setStep] = useState(-1);
   const [auto, setAuto] = useState(false);
-  const reduced = useReducedMotion();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (!auto) { setStep(-1); return; }
-    let i = 0;
-    const id = setInterval(() => {
-        const ch = PAT[i % 16];
+    if (auto) {
+      let i = 0;
+      const id = setInterval(() => {
         setStep(i % 16);
-        if (!reduced) {
-            if (ch === 'X') engine.playDhakBass();
-            else if (ch === 't') engine.playDhakTreble();
-            else if (ch === 'd') engine.playDhakSoft();
-        }
         i++;
       }, 200);
-    return () => clearInterval(id);
-  }, [auto, reduced]);
+      return () => clearInterval(id);
+    } else {
+      setStep(-1);
+    }
+  }, [auto]);
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) audioRef.current.pause();
+    };
+  }, []);
+
+  const toggleAuto = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/audio/dhak.mp3');
+      
+      audioRef.current.loop = true;
+      audioRef.current.volume = 1.0;
+    }
+    const nextState = !auto;
+    setAuto(nextState);
+    if (nextState) {
+      audioRef.current.play().catch(e => console.error("Audio block:", e));
+    } else {
+      audioRef.current.pause();
+    }
+  };
 
   return (
     <div className="xp xp-dhak">
@@ -125,9 +144,9 @@ function DhakTile() {
         <p className="bn" lang="bn">ঢাক</p>
         <h3>Dhak</h3>
         <p>The drum that tells the neighbourhood it is time. Tap it, or let the pattern run.</p>
-        <button className={`chip ${auto ? 'solid' : ''}`} aria-pressed={auto} onClick={() => { engine.unlock(); setAuto((a) => !a); }} data-cursor={auto ? 'Stop' : 'Play'}>{auto ? 'Stop the pattern' : 'Play the pattern'}</button>
+        <button className={`chip ${auto ? 'solid' : ''}`} aria-pressed={auto} onClick={toggleAuto} data-cursor={auto ? 'Stop' : 'Play'}>{auto ? 'Stop the track' : 'Play the track'}</button>
       </div>
-      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { engine.unlock(); setHit((h) => h + 1); engine.playDhakBass(); }} aria-label="Strike the dhak" data-cursor="Strike">
+      <button className={`dhak-drum ${hit ? 'hit' : ''}`} key={hit} onClick={() => { setHit((h) => h + 1); toggleAuto(); }} aria-label="Strike the dhak" data-cursor="Strike">
         {hit > 0 && <><span className="ripple" /><span className="ripple r2" /></>}
         <svg viewBox="0 0 240 200" fill="none" aria-hidden="true">
           <defs>

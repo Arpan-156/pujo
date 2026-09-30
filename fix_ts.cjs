@@ -1,10 +1,13 @@
 const fs = require('fs');
-let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-// Fix 1: let nearest = null; -> let nearest: any = null;
-code = code.replace(/let nearest = null;/, "let nearest: any = null;");
+// Fix engine.ts
+let engineCode = fs.readFileSync('src/audio/engine.ts', 'utf8');
+engineCode = engineCode.replace(/audioEl\?: HTMLAudioElement;/, `audioEl?: HTMLAudioElement;\n  audioSource?: MediaElementAudioSourceNode;`);
+fs.writeFileSync('src/audio/engine.ts', engineCode, 'utf8');
 
-// Fix 2: Add break if nearest is null
-code = code.replace(/finalPandals\.push\(nearest\);\n\s*current = nearest;/m, "if (!nearest) break;\n      finalPandals.push(nearest);\n      current = nearest;");
+// Fix Experiences.tsx
+let expCode = fs.readFileSync('src/sections/Experiences.tsx', 'utf8');
+expCode = expCode.replace(/window\.webkitAudioContext/g, `(window as any).webkitAudioContext`);
+fs.writeFileSync('src/sections/Experiences.tsx', expCode, 'utf8');
 
-fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
+console.log("Fixed TypeScript errors.");

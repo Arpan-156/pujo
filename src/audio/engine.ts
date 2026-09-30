@@ -153,10 +153,19 @@ class Engine {
     const track = TRACKS[index];
     if (track.src) {
       const a = (this.audioEl ??= new Audio());
-      if (!a.src.includes(track.src)) a.src = track.src;
+      
+      if (!a.src.includes(track.src)) {
+        a.src = track.src;
+        a.load();
+      }
       a.loop = true;
       a.volume = this.s.volume;
-      a.play().catch(() => this.set({ blocked: true }));
+      a.play().catch(e => {
+        console.error("Audio engine block:", e);
+        this.set({ blocked: true });
+      });
+    } else {
+      if (this.audioEl) this.audioEl.pause();
     }
     try { ctx.resume(); } catch { /* ignore */ }
     this.stopVoices();
@@ -221,7 +230,7 @@ class Engine {
   private stopVoices() {
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
-    this.audioEl?.pause();
+    
     this.spec = null;
   }
 

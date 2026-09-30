@@ -212,7 +212,7 @@ export function Hero() {
         <p className="hero-sub">Where tradition meets imagination</p>
         
         <div className="hero-cta">
-          <Link to="/pujas" className="btn elegant-primary" data-cursor="Explore">Explore Puja <span className="arrow">&rarr;</span></Link>
+          <Link to="/pujas" className="btn elegant-primary" data-cursor="Explore">Pandals & Themes <span className="arrow">&rarr;</span></Link>
           <Link to="/featured" className="btn elegant-glass" data-cursor="Open">Featured Pandals <span className="arrow">&rarr;</span></Link>
           <Link to="/map" className="btn elegant-glass" data-cursor="Open">Pandal Map <span className="arrow">&rarr;</span></Link>
         </div>
