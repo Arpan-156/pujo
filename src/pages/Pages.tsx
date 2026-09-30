@@ -398,84 +398,170 @@ export function RoutePlannerPage() {
   const [zone, setZone] = useState('central');
   const [time, setTime] = useState('quick');
   const [vibe, setVibe] = useState('accessible');
+  const [transport, setTransport] = useState('toto');
   const [route, setRoute] = useState<any>(null);
 
-  const ROUTES = [
-    {
-        id: 'central-art',
-        match: { zone: 'central', vibe: 'art' },
-        title: 'The Masterpiece Trail',
-        desc: 'Burdwan\'s biggest award-winning theme pujas packed into one visually stunning evening.',
-        pandals: [
-            { name: 'Laltu Smriti Sangha', zone: 'Baranilpur', theme: 'Tirupati Balaji Temple Replica', tip: 'Start here before 7 PM to beat the massive queue. Incredible lighting!', transit: 'Walk 10 mins to next' },
-            { name: 'Boro Nilpur', zone: 'Boro Nilpur', theme: 'Dubai Swaminarayan Temple', tip: 'Grab some phuchka near the exit gate mela.', transit: 'Short toto ride (5 mins)' },
-            { name: 'Chowringhee Club', zone: 'Chhotonilpur', theme: 'Land of the Blue Fairy', tip: 'The interior artwork is delicate, look at the ceiling.', transit: 'End of route' }
-        ]
-    },
-    {
-        id: 'central-carnival',
-        match: { zone: 'central', vibe: 'carnival' },
-        title: 'The Great Burdwan Mela',
-        desc: 'Massive crowds, giant giant-wheels, and endless street food.',
-        pandals: [
-            { name: 'Jagoroni Sangha', zone: 'Chhotonilpur', theme: 'Manaskamana - Grand Palace', tip: 'Massive fairgrounds outside! The egg rolls here are legendary.', transit: 'Toto ride (10 mins)' },
-            { name: 'Laxmipur Math', zone: 'Laxmipur', theme: 'Domino Theme', tip: 'Expect heavy dhak beats and massive crowds dancing.', transit: 'Walk 15 mins through the mela' },
-            { name: 'Nabin Sangha', zone: 'Chhotonilpur', theme: 'Hawa Mahal, Rajasthan', tip: 'Perfect spot for selfies with the brightly lit exterior.', transit: 'End of route' }
-        ]
-    },
-    {
-        id: 'north-accessible',
-        match: { zone: 'north', vibe: 'accessible' },
-        title: 'The Royal Heritage Walk',
-        desc: 'Easy to navigate, historically significant, and incredibly beautiful without the marathon walking.',
-        pandals: [
-            { name: 'Amadpur Zomidar Bari', zone: 'Amadpur', theme: 'A Timeless Legacy', tip: 'Drive up directly. Experience 400-year-old heritage and peaceful chanting.', transit: 'Car/Toto ride (15 mins)' },
-            { name: 'Alamganj Barowari', zone: 'Alamganj', theme: 'Kedarnath Temple', tip: 'Very accessible entrance right off the main road.', transit: 'Walk 5 mins' },
-            { name: 'Tikrahat Sarbojanin', zone: 'Tikrahat', theme: 'The Agony of 46', tip: 'Deeply emotional social theme. Very organized crowd flow.', transit: 'End of route' }
-        ]
-    },
-    {
-        id: 'south-all',
-        match: { zone: 'south', vibe: 'any' },
-        title: 'The Sripally Serenade',
-        desc: 'A vibrant mix of themes and local flavor with very manageable crowds.',
-        pandals: [
-            { name: 'Sripally Officers Colony', zone: 'Sripally', theme: 'Yoga Shakti', tip: 'Very peaceful ambiance. Notice the intricate clay work.', transit: 'Walk 10 mins' },
-            { name: 'Kiran Sangha', zone: 'Ichlabad', theme: 'Jol-i Jibon (Water is Life)', tip: 'Beautiful eco-friendly message. Great lighting over water.', transit: 'Toto ride (8 mins)' },
-            { name: 'Subhash Athletic Club', zone: 'Nutanpally', theme: 'Vande Bharat (Kashmir)', tip: 'The train model is a huge hit with kids!', transit: 'End of route' }
-        ]
-    }
-  ];
-
-  const FALLBACK = { id: 'fallback', match: { zone: 'any', vibe: 'any' },
-    title: 'Burdwan Classics Tour',
-    desc: 'A robust mix of everything that makes Burdwan Durga Puja famous.',
-    pandals: [
-        { name: 'Laltu Smriti Sangha', zone: 'Baranilpur', theme: 'Grand Temple Architecture', tip: 'Arrive early, massive crowds expected!', transit: 'Toto ride (15 mins)' },
-        { name: 'Alamganj Barowari', zone: 'Alamganj', theme: 'Spiritual Kedarnath', tip: 'Don\'t miss the detailed interior sanctum.', transit: 'Walk 10 mins' },
-        { name: 'Shyamlal Sarbojanin', zone: 'Khosbagan', theme: 'Har Har Mahadev', tip: 'Epic idol display and high energy.', transit: 'End of route' }
-    ]
-  };
+  const { pujas } = useData();
 
   const generate = () => {
-    let r = ROUTES.find(r => r.match.zone === zone && (r.match.vibe === vibe || r.match.vibe === 'any'));
-    if (!r) r = FALLBACK;
+    // 1. Filter out outskirts immediately
+    const townPujas = pujas.filter(p => p.zone === 'Bardhaman Town');
+
+    // 2. Define Area Zones
+    const ZONES: Record<string, string[]> = {
+      central: ['Bardhaman Town', 'Baranilpur', 'Khosbagan', 'Vivekananda Pally', 'Vivekananda College Road', 'Rathtala', 'Chhotonilpur', 'Laxmipur Math', 'Susopanna', 'Boro Nilpur', 'Bardhaman'],
+      north: ['Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate'],
+      south: ['Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan']
+    };
+
+    // 3. Filter by Zone
+    let zonePujas = townPujas.filter(p => (ZONES[zone] || []).includes(p.area));
+    if (zonePujas.length === 0) zonePujas = [...townPujas];
+
+    // 4. Filter by Vibe
+    let vibePujas = zonePujas.filter(p => {
+      if (vibe === 'art') return p.categories.includes('Theme Puja') || p.categories.includes('Heritage');
+      if (vibe === 'carnival') return p.categories.includes('Community Puja');
+      if (vibe === 'accessible') return p.categories.includes('Traditional') || p.zone === 'Bardhaman Town';
+      return true;
+    });
+    if (vibePujas.length === 0) vibePujas = [...zonePujas];
+
+    // 5. Determine count
+    let count = 5;
+    let timeDesc = 'A fast-paced 2-hour tour of the highlights.';
+    if (time === 'standard') { count = 10; timeDesc = 'A solid 4-5 hour hop covering the major attractions.'; }
+    if (time === 'marathon') { count = 18; timeDesc = 'An all-night marathon covering maximum ground!'; }
+
+    // 6. Logical Geographic Sorting (Real-world layout instead of fake x/y)
+    // This physically groups them from North to South along the main town artery
+    const AREA_ORDER = [
+      'Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate', // North
+      'Khosbagan', 'Rathtala', 'Vivekananda Pally', 'Vivekananda College Road', 'Bardhaman', 'Susopanna', // Central-West
+      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math', 'Boro Nilpur', // Central-East
+      'Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan' // South
+    ];
+
+    const getAreaIndex = (area: string) => {
+      const idx = AREA_ORDER.indexOf(area);
+      return idx === -1 ? 99 : idx;
+    };
+
+    let available = [...townPujas];
     
-    let finalPandals = [...(r?.pandals || [])];
-    let timeDesc = '';
+    // Sort all available pujas by logical geographic order first, then by featured status within the same area
+    available.sort((a, b) => {
+      const idxA = getAreaIndex(a.area);
+      const idxB = getAreaIndex(b.area);
+      if (idxA !== idxB) return idxA - idxB;
+      // Same area: featured comes first
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return 0;
+    });
+
+    let finalPandals: any[] = [];
     
-    if (time === 'quick') {
-        finalPandals = finalPandals.slice(0, 2);
-        timeDesc = 'taking roughly 2 hours.';
-    } else if (time === 'marathon') {
-        finalPandals.push({ name: 'Ichlabad Kiran Sangha', zone: 'Ichlabad', theme: 'Baahubali', tip: 'The ultimate late-night grand finale!', transit: 'End of route' });
-        finalPandals[finalPandals.length - 2].transit = 'Toto ride (20 mins)';
-        timeDesc = 'keeping you up all night!';
-    } else {
-        timeDesc = 'taking roughly 4 hours.';
+    // Pick starting point based on vibe, preferably featured
+    let startPool = available.filter(p => vibePujas.includes(p));
+    if (startPool.length === 0) startPool = available;
+    
+    // To ensure variety, we don't always start at the absolute North. We can start somewhere in the first few.
+    let current = startPool[Math.floor(Math.random() * Math.min(3, startPool.length))];
+    if (!current) current = startPool[0];
+
+    finalPandals.push(current);
+
+    // Iteratively pick the next logical stop
+    while (finalPandals.length < count) {
+      // Find the next pandal in the sorted list that comes AFTER the current one (or wraps around)
+      // that matches the vibe, AND isn't already in the list, AND doesn't have the same name!
+      
+      // Prevent duplicate names!
+      const usedNames = finalPandals.map(p => p.name);
+      const candidates = startPool.filter(p => !usedNames.includes(p.name));
+      
+      if (candidates.length === 0) {
+        // If we ran out of vibe matches, expand to all town pujas
+        const fallbackCandidates = available.filter(p => !usedNames.includes(p.name));
+        if (fallbackCandidates.length === 0) break; // Literally no more unique pandals
+        
+        let next = fallbackCandidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
+        if (!next) next = fallbackCandidates[0]; // Wrap around
+        finalPandals.push(next);
+        current = next;
+      } else {
+        let next = candidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
+        if (!next) next = candidates[0]; // Wrap around to start if we reached the end
+        finalPandals.push(next);
+        current = next;
+      }
     }
-    
-    setRoute({ ...r, pandals: finalPandals, timeDesc });
+
+    // 7. Map to the route format expected by the UI
+    const mappedPandals = finalPandals.map((p, i) => {
+      let transit = 'Walk 5 mins';
+      
+      if (i === finalPandals.length - 1) {
+        transit = 'End of route';
+      } else {
+        const nextP = finalPandals[i + 1];
+        // Dynamic transit based on whether they are in the same neighborhood!
+        if (p.area === nextP.area) {
+          transit = 'Walk 5 mins';
+        } else {
+          // Different neighborhood
+          const idxDiff = Math.abs(getAreaIndex(p.area) - getAreaIndex(nextP.area));
+          if (transport === 'walk') {
+            if (idxDiff > 3) transit = 'Toto / Walk 20+ mins';
+            else transit = 'Walk 10-15 mins';
+          } else if (transport === 'car') {
+            transit = 'Drive / Park 10 mins';
+          } else {
+            if (idxDiff > 3) transit = 'Toto 15 mins';
+            else transit = 'Toto 5 mins';
+          }
+        }
+      }
+      
+      return {
+        name: p.name,
+        zone: p.area,
+        theme: p.theme || 'Traditional',
+        tip: (() => {
+          if (p.featured) return (p.description && p.description.length > 70 ? p.description.substring(0, 70) + '...' : p.description) + ' (Award Winner!)';
+          let tips = [];
+          if (p.categories.includes('Theme Puja')) tips.push('Take your time to notice the intricate theme details.');
+          else if (p.categories.includes('Traditional')) tips.push('Experience the authentic, traditional Sabeki vibe.');
+          if (p.themeId === 'architecture') tips.push('Stand back for a wide-angle shot of the grand structure!');
+          if (p.themeId === 'eco') tips.push('Look closely at the eco-friendly materials used in the decor.');
+          if (['Chhotonilpur', 'Baranilpur', 'Alamganj'].includes(p.area)) tips.push('Expect heavy crowds�keep your group together!');
+          if (time === 'marathon' && Math.random() > 0.6) tips.push('Great spot to grab some phuchka or egg roll nearby!');
+          if (tips.length > 0) return tips[Math.floor(Math.random() * tips.length)];
+          return 'Arrive early to beat the massive queues!';
+        })(),
+        transit
+      };
+    });
+
+    const routeTitles: Record<string, string> = {
+      'central': 'The Central Core Trail',
+      'north': 'The Northern Heritage Route',
+      'south': 'The Sripally Serenade'
+    };
+
+    const routeDescs: Record<string, string> = {
+      'art': 'A curated journey through breathtaking thematic installations and award-winning artistry.',
+      'carnival': 'Dive into massive crowds, giant wheels, endless street food, and ultimate celebration.',
+      'accessible': 'An easy-to-navigate route focusing on comfort, tradition, and minimal walking.'
+    };
+
+    setRoute({
+      title: routeTitles[zone] || 'Your Custom Puja Trail',
+      desc: routeDescs[vibe] || 'A robust mix of everything that makes Burdwan Durga Puja famous.',
+      pandals: mappedPandals,
+      timeDesc
+    });
   };
 
   return (
@@ -594,7 +680,27 @@ export function RoutePlannerPage() {
                 </div>
               </div>
 
-              <button className="rp-btn" onClick={generate}>{'Generate My Adventure Route \u{1F5FA}\uFE0F'}</button>
+              
+                <div>
+                  <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>4. Transportation</h2>
+                  <div className="rp-radio-grid">
+                    {[
+                      { v: 'walk', t: 'Walking', d: 'Foot-friendly routes between close pandals.' },
+                      { v: 'toto', t: 'Toto / Rickshaw', d: 'Short hops between major drops.' },
+                      { v: 'car', t: 'Personal Car', d: 'Routes prioritizing parking access.' }
+                    ].map(o => (
+                      <label key={o.v} className="rp-label">
+                        <input type="radio" name="transport" value={o.v} checked={transport === o.v} onChange={() => setTransport(o.v)} />
+                        <div className="rp-card">
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
+                          <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <button className="rp-btn" onClick={generate}>{'Generate My Adventure Route \u{1F5FA}\uFE0F'}</button>
             </div>
           </div>
         ) : (
