@@ -68,6 +68,7 @@ export interface GalleryItem {
   visual: Visual;
   tall?: boolean;
   wide?: boolean;
+  year?: number;
 }
 
 export interface Contributor {

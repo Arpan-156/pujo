@@ -23,14 +23,32 @@ export function GalleryBoard() {
           ))}
         </div>
         {list.length > 0 ? (
-          <FlipGrid className="masonry">
-            {list.map((g, i) => (
-              <button key={g.id} className={`g-item ${g.tall ? 'tall' : ''} ${g.wide ? 'wide' : ''}`} onClick={() => setIdx(i)} data-cursor="View" aria-label={`Open photo: ${g.caption}`}>
-                <Photo v={g.visual} alt={g.caption} />
-                <span className="g-cap">{g.caption}</span>
-              </button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '80px', width: '100%' }}>
+            {Object.entries(
+              list.reduce((acc, g) => {
+                const y = g.year || 2025;
+                if (!acc[y]) acc[y] = [];
+                acc[y].push(g);
+                return acc;
+              }, {} as Record<number, typeof list>)
+            ).sort((a, b) => Number(b[0]) - Number(a[0]))
+            .map(([year, items]) => (
+              <div key={year}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
+                  <h2 style={{ fontFamily: 'var(--f-display)', fontSize: '2.5rem', margin: 0, color: 'var(--gold)' }}>{year}</h2>
+                  <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(233,181,88,0.5), transparent)' }} />
+                </div>
+                <FlipGrid className="masonry">
+                  {items.map((g) => (
+                    <button key={g.id} className={`g-item ${g.tall ? 'tall' : ''} ${g.wide ? 'wide' : ''}`} onClick={() => setIdx(list.findIndex(x => x.id === g.id))} data-cursor="View" aria-label={`Open photo: ${g.caption}`}>
+                      <Photo v={g.visual} alt={g.caption} />
+                      <span className="g-cap">{g.caption}</span>
+                    </button>
+                  ))}
+                </FlipGrid>
+              </div>
             ))}
-          </FlipGrid>
+          </div>
         ) : (
           <div className="empty-state" style={{ minHeight: '50svh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px', textAlign: 'center', animation: 'fade 0.8s var(--ease)' }}>
             <div style={{ position: 'relative', width: '120px', height: '120px' }}>

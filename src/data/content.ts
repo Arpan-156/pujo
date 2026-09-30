@@ -5,7 +5,7 @@ export const GALLERY_CATEGORIES = [
 ];
 
 const CREDIT = 'Burdwan Capturers (placeholder)';
-type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?];
+type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?, number?, number?];
 
 const ROWS: Row[] = [
   ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg'],
@@ -27,6 +27,7 @@ export const GALLERY: GalleryItem[] = ROWS.map((r, i) => ({
   visual: { art: r[2], tone: r[3], seed: r[4], hue: r[5], src: r[7] },
   tall: r[6] === 'tall',
   wide: r[6] === 'wide',
+    year: 2025,
 }));
 
 /** Placeholder people. Replace names, bios and links with the real team. */
