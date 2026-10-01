@@ -364,7 +364,7 @@ export function PujaDetail({ slug }: { slug: string }) {
   return (
     <>
       <section className="pd-hero">
-        <div className="pd-hero-bg"><Photo v={p.heroImage} eager alt={`${p.name} pandal`} /></div>
+        <div className="pd-hero-bg"><Photo v={p.heroImage} eager alt={`Durga Puja pandal of ${p.name} in Burdwan`} /></div>
         <div className="page-head-shade" />
         <div className="wrap pd-hero-in">
           <Link to="/pujas" className="back" data-cursor="Back"><ArrowLeft size={18} /> Pandals & Themes</Link>

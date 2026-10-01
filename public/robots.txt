@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://burdwanpujo.dev/sitemap.xml
+Sitemap: https://bardwanpuja.pages.dev/sitemap.xml

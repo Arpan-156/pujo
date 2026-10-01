@@ -3,6 +3,7 @@ import { DataProvider } from './data/store';
 import { engine } from './audio/engine';
 import { EntranceCtx } from './lib/entrance';
 import { RouterProvider, useRouter } from './lib/router';
+import { SEO } from './components/SEO';
 import { Cursor } from './components/fx';
 import { Curtain, Intro, Loader, PageWipe } from './components/Entrance';
 import { Nav } from './components/Nav';
@@ -98,13 +99,14 @@ function Shell() {
   useEffect(() => {
     document.documentElement.classList.toggle('locked', stage !== 'site');
   }, [stage]);
-  useEffect(() => { document.title = `${label.en} — Burdwan Pujo 2026`; }, [label]);
+  // Title is now managed by SEO component
 
   const ctx = useMemo(() => ({ open }), [open]);
 
   return (
     <EntranceCtx.Provider value={ctx}>
       <Cursor />
+      <SEO />
       <a className="skip" href="#main">Skip to content</a>
       {stage === 'site' && (
         <>
