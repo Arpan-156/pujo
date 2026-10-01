@@ -121,7 +121,9 @@
 .pcard { display: grid; gap: 0; perspective: 1200px; }
 .pcard-img { position: relative; display: block; aspect-ratio: 1 / 1.08; overflow: hidden; border-radius: 999px 999px 0 0; isolation: isolate; outline: 1px solid var(--line); }
 .pcard-img > .photo { transition: transform 1.2s var(--ease); }
-.pcard:hover .pcard-img > .photo { transform: scale(1.07); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-img > .photo { transform: scale(1.07); }
+}
 .pcard-idol { position: absolute; z-index: 2; right: 14%; bottom: 16px; width: 22%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55); }
 .pcard-idol .photo { position: absolute; }
 .tag-feat { position: absolute; z-index: 2; top: 16%; left: 50%; translate: -50% 0; background: var(--gold); color: var(--ink); font-size: 0.78rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; white-space: nowrap; }
@@ -129,18 +131,30 @@
 .pcard-year { position: absolute; z-index: 2; left: 14%; bottom: 20px; font-size: 0.8rem; color: var(--shankha); text-shadow: 0 1px 10px #000; }
 
 .pcard-body { position: relative; padding: 24px 16px; margin: -16px; display: grid; gap: 4px; transform-style: preserve-3d; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); transform: rotateY(calc((var(--px, 0.5) - 0.5) * 12deg)) rotateX(calc((var(--py, 0.5) - 0.5) * -12deg)); }
-.pcard:hover .pcard-body { transform: scale(1.05) rotateY(calc((var(--px, 0.5) - 0.5) * 24deg)) rotateX(calc((var(--py, 0.5) - 0.5) * -24deg)); z-index: 10; }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-body { transform: scale(1.05) rotateY(calc((var(--px, 0.5) - 0.5) * 24deg)) rotateX(calc((var(--py, 0.5) - 0.5) * -24deg)); z-index: 10; }
+}
 .pcard-cats { font-size: 0.82rem; color: var(--gold); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); transform: translateZ(5px); }
-.pcard:hover .pcard-cats { transform: translateZ(20px); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-cats { transform: translateZ(20px); }
+}
 .pcard-title { position: relative; font-family: var(--f-display); font-weight: 500; font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.12; transform-style: preserve-3d; }
 .pcard-title-text { display: block; color: var(--shankha); transition: color 0.4s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); transform: translateZ(10px); }
-.pcard:hover .pcard-title-text { color: transparent; -webkit-text-stroke: 1px var(--gold-2); transform: translateZ(40px); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-title-text { color: transparent; -webkit-text-stroke: 1px var(--gold-2); transform: translateZ(40px); }
+}
 .pcard-title-glow { position: absolute; inset: 0; pointer-events: none; opacity: 0; color: var(--gold); transform: translateZ(10px); filter: blur(12px); transition: opacity 0.4s; mix-blend-mode: screen; }
-.pcard:hover .pcard-title-glow { opacity: 0.6; transform: translateZ(20px); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-title-glow { opacity: 0.6; transform: translateZ(20px); }
+}
 .pcard-loc { color: var(--mute); font-size: 0.92rem; transform: translateZ(2px); transition: transform 0.4s, color 0.4s; }
-.pcard:hover .pcard-loc { transform: translateZ(15px); color: var(--shankha); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-loc { transform: translateZ(15px); color: var(--shankha); }
+}
 .pcard-theme { font-size: 0.95rem; margin-top: 4px; transform: translateZ(0px); transition: transform 0.4s; }
-.pcard:hover .pcard-theme { transform: translateZ(10px); }
+@media (hover: hover) and (pointer: fine) {
+  .pcard:hover .pcard-theme { transform: translateZ(10px); }
+}
 .pcard-theme em { color: var(--gold-2); font-style: normal; margin-right: 4px; }
 .pcard-desc { color: var(--mute); font-size: 0.93rem; line-height: 1.55; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .pcard-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }

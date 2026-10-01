@@ -186,7 +186,7 @@ export function Hero() {
             .btn.elegant-glass span.arrow { display: none; }
             
             /* Give it ample padding at the bottom so it clears the floating icons naturally */
-            .hero-brand { margin-top: 6vh; margin-bottom: 40px; font-size: 0.65rem; text-align: center; padding-bottom: 0; }
+            .hero-brand { margin-top: 6vh; margin-bottom: 40px; font-size: 0.65rem; text-align: center; padding-bottom: 0; display: flex; flex-direction: column; gap: 6px; }
         }
         `}</style>
       
