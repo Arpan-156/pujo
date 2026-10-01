@@ -9,6 +9,7 @@ export function PassportFab({ visible }: { visible: boolean }) {
   const [open, setOpen] = useState(false);
   const data = usePassport();
   const savedPujas = PUJAS.filter(p => data.saved.includes(p.slug));
+  const visitedCount = savedPujas.filter(p => data.visited.includes(p.slug)).length;
 
   useEffect(() => {
     if (open) {
@@ -25,10 +26,10 @@ export function PassportFab({ visible }: { visible: boolean }) {
         <div className="passport-head">
           <div>
             <h2 className="passport-title">My Pujo Passport</h2>
-            <p className="passport-status">{data.visited.length} / {data.saved.length} Visited</p>
+            <p className="passport-status">{visitedCount} / {savedPujas.length} Visited</p>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
-    {data.visited.length > 0 && <button className="icon-btn" style={{ fontSize: '0.7rem', padding: '4px 8px', width: 'auto', height: 'auto', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' }} onClick={() => passport.clearVisited()}>Clear Visited</button>}
+    {visitedCount > 0 && <button className="icon-btn" style={{ fontSize: '0.7rem', padding: '4px 8px', width: 'auto', height: 'auto', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' }} onClick={() => passport.clearVisited()}>Clear Visited</button>}
     <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close"><X size={18} /></button>
   </div>
         </div>
@@ -79,7 +80,7 @@ export function PassportFab({ visible }: { visible: boolean }) {
         onClick={() => setOpen(prev => !prev)} 
         aria-label="Open Passport"
       >
-        {data.saved.length > 0 && <span className="passport-badge">{data.saved.length}</span>}
+        {savedPujas.length > 0 && <span className="passport-badge">{savedPujas.length}</span>}
         <Bookmark size={22} />
       </button>
     </div>
