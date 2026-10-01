@@ -210,7 +210,7 @@ export function PujasPage() {
             </label>
             <div className="chips" role="group" aria-label="Filter Puja">
               {FILTERS.map((f) => (
-                <button key={f.id} className={`chip ${filter === f.id ? 'solid' : ''}`} aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>{f.label}</button>
+                <button key={f.id} className={`chip ${filter === f.id ? 'solid' : ''}`} aria-pressed={filter === f.id} onClick={() => f.id === 'all' ? reset() : setFilter(f.id)}>{f.label}</button>
               ))}
             </div>
             {theme && (

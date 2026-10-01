@@ -8,7 +8,7 @@ const oldDataBlock = `  const PANDALS = [
     { id: 'p3', name: 'Ahiritola Sarbojanin', zone: 'North Kolkata', tagline: 'Heritage and classic traditional artistry honoring ancient roots.', baseVotes: 10430 },
     { id: 'p4', name: 'Boro Nilpur', zone: 'Burdwan Central', tagline: 'Dubai Swaminarayan Temple grand replica reaching the sky.', baseVotes: 7850 },
     { id: 'p5', name: 'Vivekananda Sevak Sangha', zone: 'Vivekananda Pally', tagline: 'Eco-friendly celebration focusing purely on mother nature.', baseVotes: 6120 },
-    { id: 'p6', name: 'Rathtala Barowari', zone: 'Rathtala, Burdwan', tagline: 'Mythological Mahakal theme with stunning intricate art.', baseVotes: 9340 }
+    { id: 'p6', name: 'Rathtala Para Barowari', zone: 'Rathtala, Burdwan', tagline: 'Mythological Mahakal theme with stunning intricate art.', baseVotes: 9340 }
   ];`;
 
 const newDataBlock = `  const { pujas } = useData();

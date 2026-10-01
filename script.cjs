@@ -1,7 +1,7 @@
 
 const data = [
   ['natural-city', 'Natural City', 'Vivekananda College Road', 'heritage', 'Sabekiana / Traditional Bengal'],
-  ['rathtala-barowari', 'Rathtala Barowari', 'Rathtala', 'mythology', 'Mahakal'],
+  ['rathtala-barowari', 'Rathtala Para Barowari', 'Rathtala', 'mythology', 'Mahakal'],
   ['kiran-sangha', 'Kiran Sangha', 'Ichlabad', 'eco', 'Jol-i Jibon / Water is Life'],
   ['padmashree-sangha', 'Padmashree Sangha', 'Susopanna', 'heritage', 'Pushpanjali'],
   ['boro-nilpur', 'Boro Nilpur', 'Boro Nilpur', 'architecture', 'Dubai Swaminarayan Temple'],
@@ -11,7 +11,7 @@ const data = [
   ['ichlabad-kiran-sangha', 'Ichlabad Kiran Sangha', 'Ichlabad', 'mythology', 'Baahubali', true],
   ['keshabganj-choti-barowari', 'Keshabganj Choti Barowari', 'Keshabganj', 'social', 'Ami Nari, Ami Mohiyoshi'],
   ['alamganj-barowari-bhubaneswari', 'Alamganj Barowari', 'Alamganj', 'architecture', 'Bhubaneswari Temple'],
-  ['chowringhee-club', 'Chowringhee Club', 'Chhotonilpur', 'contemporary', 'In the Land of the Blue Fairy'],
+  ['chowringhee-club', 'Chowringhee Club', 'Chhotonilpur', 'contemporary', 'Nil Porir Desh E'],
   ['laltu-smriti-sangha', 'Laltu Smriti Sangha', 'Baranilpur', 'architecture', 'Tirupati Balaji Temple', true],
   ['subhash-athletic-club', 'Subhash Athletic Club', 'Nutanpally', 'contemporary', 'A Piece of Kashmir - Vande Bharat'],
   ['badamtala-khaluibil-math', 'Badamtala Khaluibil Math', 'Katwa Road', 'social', 'Artanader Itikotha'],
