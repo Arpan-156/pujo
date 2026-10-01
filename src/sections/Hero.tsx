@@ -27,9 +27,9 @@ export function Hero() {
     <section ref={ref} className={`hero ${open ? 'go' : ''}`} onPointerMove={move} style={{ '--mx': 0, '--my': 0 } as any}>
       <style>{`
         .hero { 
-            position: relative; min-height: 100vh; overflow: hidden; 
-            display: flex; align-items: center !important; justify-content: center !important; 
-            padding: 0 !important; isolation: isolate; background: #0a0808; 
+            position: relative; min-height: 100vh; overflow-x: hidden; overflow-y: auto; 
+            display: flex; align-items: center !important; justify-content: flex-start !important; flex-direction: column; 
+            padding: 100px 0 80px 0 !important; isolation: isolate; background: #0a0808; 
         }
         
         /* Soothing, subtle background movement */
@@ -54,7 +54,7 @@ export function Hero() {
         
         .hero-in { 
             position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; 
-            width: 100%; max-width: 1200px; padding: 0 40px; margin-top: 10vh;
+            width: 100%; max-width: 1200px; padding: 0 40px; margin: auto 0;
         }
         
         /* Elegant Bengali Text */
@@ -151,7 +151,7 @@ export function Hero() {
         }
         
         .hero-brand {
-            position: relative; margin-top: 6vh;
+            position: relative; margin-top: 6vh; margin-bottom: 40px;
             font-family: 'Inter', system-ui, sans-serif; font-size: 0.75rem; 
             font-weight: 400; letter-spacing: 3px; color: rgba(255,255,255,0.4); 
             text-transform: uppercase; opacity: 0; transition: all 2s ease; 
@@ -161,19 +161,19 @@ export function Hero() {
       
         /* --- BEAUTIFUL MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
-            .hero { padding: 0 !important; align-items: center !important; }
+            .hero { padding: 100px 0 80px 0 !important; align-items: center !important; }
             
             /* Center the entire content block naturally */
-            .hero-in { padding: 0 20px; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+            .hero-in { padding: 0 20px; display: flex; flex-direction: column; justify-content: center; margin: auto 0; }
             
-            .hero-bn-wrap { margin-bottom: 4vh; border-radius: 12px; }
+            .hero-bn-wrap { margin-bottom: 2vh; border-radius: 12px; }
             .hero-bn { font-size: 0.9rem; line-height: 1.6; padding: 12px 16px; text-align: center; white-space: normal; }
             
             .hero-title-wrap { margin-bottom: 2vh; }
             .t-main { font-size: clamp(2.8rem, 14vw, 3.5rem); letter-spacing: 0.05em; display: flex; flex-direction: column; gap: 5px; }
             .t-main span { font-size: clamp(3.2rem, 16vw, 4rem); margin-top: -5px; }
             
-            .hero-sub { font-size: 0.75rem; letter-spacing: 3px; margin-top: 2vh; line-height: 1.5; margin-bottom: 6vh; }
+            .hero-sub { font-size: 0.75rem; letter-spacing: 3px; margin-top: 2vh; line-height: 1.5; margin-bottom: 4vh; }
             
             .hero-cta { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 0; }
             
@@ -185,7 +185,7 @@ export function Hero() {
             .btn.elegant-glass span.arrow { display: none; }
             
             /* Give it ample padding at the bottom so it clears the floating icons naturally */
-            .hero-brand { margin-top: 6vh; padding-bottom: 80px; font-size: 0.65rem; text-align: center; }
+            .hero-brand { margin-top: 6vh; margin-bottom: 40px; padding-bottom: 0; font-size: 0.65rem; text-align: center; }
         }
         `}</style>
       
@@ -205,13 +205,13 @@ export function Hero() {
             <p className="hero-bn" lang="bn">{`আলোর শহর, ঢাকের তালে, আবারও ফিরছে পুজোর দিনগুলি।`}</p>
         </div>
         
-        <div className="hero-title-wrap">
-            <h1 className="t-main">Burdwan <span>Pujo 2026</span></h1>
+        <div className="hero-title-wrap" style={{ width: "100%", padding: "0 20px" }}>
+            <h1 className="t-main" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}><img src="/images/calligraphy.png" alt="Burdwan Pujo 2026" style={{ width: "100%", maxWidth: "800px", height: "auto", maxHeight: "35vh", objectFit: "contain", filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.5))" }} /></h1>
         </div>
         
-        <p className="hero-sub">Where tradition meets imagination</p>
+        <p className="hero-sub">Where tradition meets imagination - Explore the best pandals, themes & more in Burdwan</p>
         
-        <div className="hero-cta">
+                <div className="hero-cta">
           <Link to="/pujas" className="btn elegant-primary" data-cursor="Explore">Pandals & Themes <span className="arrow">&rarr;</span></Link>
           <Link to="/featured" className="btn elegant-glass" data-cursor="Open">Featured Pandals <span className="arrow">&rarr;</span></Link>
           <Link to="/map" className="btn elegant-glass" data-cursor="Open">Pandal Map <span className="arrow">&rarr;</span></Link>
@@ -219,6 +219,7 @@ export function Hero() {
         <p className="hero-brand">Presented by <span style={{ color: '#fff' }}>Burdwan Capturers Official</span></p>
       </div>
       
-    </section>
+      
+      </section>
   );
 }

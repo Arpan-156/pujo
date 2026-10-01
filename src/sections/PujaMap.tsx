@@ -33,8 +33,8 @@ function MapBase({ pujas = [] }: { pujas?: any[] }) {
     { x: 40, y: 10 }, { x: 70, y: 30 }, { x: 80, y: 50 } // NH19 curve points
   ];
 
-  const pts = pujas.filter(p => p.map.lat && p.map.lng).map(p => ({
-    x: toX(p.map.lng), y: toY(p.map.lat)
+  const pts = pujas.filter(p => p.lat && p.lng).map(p => ({
+    x: toX(p.lng), y: toY(p.lat)
   }));
   
   // Add anchors to pts so the web connects to the main roads
