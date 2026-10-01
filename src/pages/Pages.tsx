@@ -173,14 +173,11 @@ function MissingPandalNotice() {
 
 export function PujasPage() {
     const { pujas, themes } = useData();
+    const [showPopup, setShowPopup] = useState(false);
+    useEffect(() => { const saved = localStorage.getItem("puja_votes_26"); if (!saved || Object.keys(JSON.parse(saved)).length === 0) { setShowPopup(true); } }, []);
     const [userState, setUserState] = useState<Record<string, { rating: number; upvoted: boolean }>>({});
-    useEffect(() => {
-      try {
-        const saved = localStorage.getItem('puja_votes_26');
-        if (saved) setUserState(JSON.parse(saved));
-      } catch (e) {}
-    }, []);
-  const { query, navigate } = useRouter();
+    useEffect(() => { try { const saved = localStorage.getItem("puja_votes_26"); if (saved) setUserState(JSON.parse(saved)); } catch (e) {} }, []);
+    const { query, navigate } = useRouter();
   const themeId = query.get('theme');
   const theme = themes.find((t) => t.id === themeId);
   const [filter, setFilter] = useState('all');
@@ -1151,6 +1148,9 @@ export function SurvivalKitPage() {
 
 
 export function Top3VoterPage() {
+  const [showPopup, setShowPopup] = useState(false);
+  useEffect(() => { const saved = localStorage.getItem("puja_votes_26"); if (!saved || Object.keys(JSON.parse(saved)).length === 0) { setShowPopup(true); } }, []);
+
   const [userState, setUserState] = useState<Record<string, { rating: number; upvoted: boolean }>>({});
   const [globalState, setGlobalState] = useState<Record<string, { score: number, upvotes: number }>>({});
   const [isSyncing, setIsSyncing] = useState(false);
@@ -1416,6 +1416,162 @@ export function Top3VoterPage() {
       </div>
       
       <div className={`t3-toast ${toast ? 'show' : ''}`}>Copied! Paste it in the Instagram chat.</div>
+
+<style>{`
+  .t3-popup-overlay {
+    position: fixed; inset: 0; background: rgba(10,4,5,0.85); backdrop-filter: blur(8px);
+    z-index: 10000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+  }
+  .t3-popup-overlay.show { opacity: 1; pointer-events: auto; }
+  .t3-popup {
+    background: linear-gradient(135deg, rgba(20,5,8,0.95), rgba(122,18,32,0.8));
+    border: 1px solid rgba(233,181,88,0.4); border-radius: 16px;
+    padding: 40px; max-width: 90vw; width: 500px; text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+    transform: translateY(20px) scale(0.95); transition: transform 0.4s var(--ease);
+  }
+  .t3-popup-overlay.show .t3-popup { transform: translateY(0) scale(1); }
+  .t3-popup h2 {
+    font-family: var(--f-display); font-size: 2rem; margin-bottom: 16px;
+    background: linear-gradient(to right, #fff, #e9b558); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .t3-popup p {
+    color: var(--mute); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;
+  }
+`}</style>
+
+      
+  <style>{`
+    .t3-popup-overlay {
+      position: fixed; inset: 0; background: rgba(10,4,5,0.85); backdrop-filter: blur(8px);
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+    }
+    .t3-popup-overlay.show { opacity: 1; pointer-events: auto; }
+    .t3-popup {
+      background: linear-gradient(135deg, rgba(20,5,8,0.95), rgba(122,18,32,0.8));
+      border: 1px solid rgba(233,181,88,0.4); border-radius: 16px;
+      padding: 40px; max-width: 90vw; width: 500px; text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+      transform: translateY(20px) scale(0.95); transition: transform 0.4s var(--ease);
+    }
+    .t3-popup-overlay.show .t3-popup { transform: translateY(0) scale(1); }
+    .t3-popup h2 {
+      font-family: var(--f-display); font-size: 2rem; margin-bottom: 16px;
+      background: linear-gradient(to right, #fff, #e9b558); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .t3-popup p {
+      color: var(--mute); font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;
+    }
+  `}</style>
+
+<div className={`t3-popup-overlay ${showPopup ? 'show' : ''}`}>
+        <div className="t3-popup">
+          <h2>Top 3 Voter</h2>
+          <p>Vote the best 3 pandals you explored this year and make them winner</p>
+          <button className="btn solid" onClick={() => setShowPopup(false)} style={{ width: '100%', justifyContent: 'center' }}>Start Voting</button>
+        </div>
+      </div>
+
+    </>
+  );
+}
+
+
+
+export function FaqPage() {
+  const [openQ, setOpenQ] = useState<number | null>(0);
+
+  const faqs = [
+    { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
+    { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
+    { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
+    { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
+    { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
+    { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
+    { q: "Is the pandal hopping route planner free to use?", a: "Yes, all features of this guide, including the Route Planner, Live Maps, and Top 3 Voting, are 100% free and open for the community to enjoy a better Puja experience." },
+    { q: "Who created this guide?", a: "This website is an initiative by Burdwan Capturers Official and Banglar Pujo Official to digitalize and celebrate the grandeur of Durga Puja in Bardhaman." }
+  ];
+
+  return (
+    <>
+      <style>{`
+        .faq-hero {
+          position: relative;
+          padding: 160px 20px 80px;
+          background: linear-gradient(135deg, var(--ink), #2a0810);
+          text-align: center;
+          overflow: hidden;
+          border-bottom: 1px solid rgba(233, 181, 88, 0.2);
+        }
+        .faq-hero::before {
+          content: ''; position: absolute; inset: 0;
+          background: radial-gradient(circle at 50% 0%, rgba(233,181,88,0.15), transparent 70%);
+        }
+        .faq-title {
+          font-family: var(--f-display);
+          font-size: clamp(3rem, 8vw, 5rem);
+          background: linear-gradient(to right, #fff, #e9b558);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          margin-bottom: 20px; position: relative; z-index: 2;
+        }
+        .faq-subtitle {
+          color: var(--gold); font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase;
+          margin-bottom: 40px; position: relative; z-index: 2;
+        }
+        .faq-container {
+          max-width: 800px; margin: -40px auto 100px; position: relative; z-index: 10;
+          padding: 0 20px;
+        }
+        .faq-item {
+          background: rgba(15,5,8,0.95);
+          border: 1px solid rgba(233,181,88,0.15);
+          border-radius: 12px; margin-bottom: 16px;
+          overflow: hidden; backdrop-filter: blur(10px);
+          transition: all 0.3s var(--ease);
+        }
+        .faq-item.open {
+          border-color: rgba(233,181,88,0.5);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          transform: scale(1.02);
+        }
+        .faq-q {
+          padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+          font-weight: 600; font-size: 1.1rem; color: #fff;
+        }
+        .faq-q svg {
+          color: var(--gold); transition: transform 0.4s var(--ease);
+        }
+        .faq-item.open .faq-q svg { transform: rotate(180deg); }
+        .faq-a {
+          padding: 0 24px; max-height: 0; opacity: 0; transition: all 0.4s var(--ease);
+          color: var(--mute); line-height: 1.6;
+        }
+        .faq-item.open .faq-a {
+          padding: 0 24px 24px; max-height: 200px; opacity: 1;
+        }
+      `}</style>
+
+      <section className="faq-hero">
+        <h1 className="faq-title">Got Questions?</h1>
+        <p className="faq-subtitle">We have answers.</p>
+        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', opacity: 0.05, zIndex: 1 }}>
+          <Alpana size={600} spin />
+        </div>
+      </section>
+
+      <div className="faq-container">
+        {faqs.map((f, i) => (
+          <div key={i} className={`faq-item ${openQ === i ? 'open' : ''}`}>
+            <div className="faq-q" onClick={() => setOpenQ(openQ === i ? null : i)}>
+              {f.q}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div className="faq-a">{f.a}</div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }

@@ -7,7 +7,7 @@ export function SEO() {
   const { pujas } = useData();
 
   useEffect(() => {
-    let title = 'Bardwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
+    let title = 'Burdwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
     let description = 'Explore the ultimate Burdwan Durga Puja 2026 guide. Discover famous pandals, themes, locations, walking routes, and an interactive map for Bardhaman.';
     let canonical = 'https://bardwanpuja.pages.dev' + pathname;
     
@@ -20,8 +20,8 @@ export function SEO() {
 
     switch (pathname) {
       case '/':
-        title = 'Bardwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
-        description = 'The complete Bardwan Puja guide for 2026. Explore top Durga Puja pandals in Burdwan, local themes, maps, and essential visitor information for Bardhaman.';
+        title = 'Burdwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
+        description = 'The complete Burdwan Puja guide for 2026. Explore top Durga Puja pandals in Burdwan, local themes, maps, and essential visitor information for Bardhaman.';
         schemaType = 'WebSite';
         schemaJson = {
           "@context": "https://schema.org",
@@ -63,6 +63,10 @@ export function SEO() {
       case '/top3':
         title = 'Community Top 3 Pandals | Burdwan Puja Voting 2026';
         description = 'Vote for your favorite Burdwan Durga Puja pandal. View the live community leaderboard for the best pandals in Bardhaman.';
+        break;
+      case '/faq':
+        title = 'Burdwan Puja FAQ | Frequently Asked Questions';
+        description = 'Find answers to frequently asked questions about Burdwan Durga Puja, pandal locations, routing, and voting.';
         break;
       case '/survival':
         title = 'Durga Puja Survival Kit | Burdwan Emergency & Transit Guide';

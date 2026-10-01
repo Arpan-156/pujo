@@ -13,7 +13,7 @@ import { PassportFab } from './components/Passport';
 
 import { Footer } from './components/shared';
 import { Home } from './pages/Home';
-import { AboutPage, BardhamanPage, ContactPage, FeaturedPage, GalleryPage, MapPage, PujaDetail, PujasPage, ThemesPage, TimelinePage, RoutePlannerPage, SurvivalKitPage, Top3VoterPage } from './pages/Pages';
+import { AboutPage, BardhamanPage, ContactPage, FeaturedPage, GalleryPage, MapPage, PujaDetail, PujasPage, ThemesPage, TimelinePage, RoutePlannerPage, SurvivalKitPage, Top3VoterPage, FaqPage } from './pages/Pages';
 
 type Stage = 'loading' | 'intro' | 'curtain' | 'site';
 
@@ -33,6 +33,7 @@ function Routes() {
         case '/planner': return <RoutePlannerPage />;
     case '/survival': return <SurvivalKitPage />;
     case '/top3': return <Top3VoterPage />;
+    case '/faq': return <FaqPage />;
     // case '/contact': return <ContactPage />;
     default: return <Home />;
   }
