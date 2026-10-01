@@ -432,21 +432,17 @@ export function RoutePlannerPage() {
   const { pujas } = useData();
 
   const generate = () => {
-    // 1. Filter out outskirts immediately
     const townPujas = pujas.filter(p => p.zone === 'Bardhaman Town');
 
-    // 2. Define Area Zones
     const ZONES: Record<string, string[]> = {
       central: ['Bardhaman Town', 'Baranilpur', 'Khosbagan', 'Vivekananda College Road', 'Rathtala', 'Chhotonilpur', 'Laxmipur Math', 'Susopanna', 'Bardhaman'],
       north: ['Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate'],
       south: ['Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan']
     };
 
-    // 3. Filter by Zone
     let zonePujas = townPujas.filter(p => (ZONES[zone] || []).includes(p.area));
     if (zonePujas.length === 0) zonePujas = [...townPujas];
 
-    // 4. Filter by Vibe
     let vibePujas = zonePujas.filter(p => {
       if (vibe === 'art') return p.categories.includes('Theme Puja') || p.categories.includes('Heritage');
       if (vibe === 'carnival') return p.categories.includes('Community Puja');
@@ -455,19 +451,16 @@ export function RoutePlannerPage() {
     });
     if (vibePujas.length === 0) vibePujas = [...zonePujas];
 
-    // 5. Determine count
     let count = 5;
     let timeDesc = 'A fast-paced 2-hour tour of the highlights.';
-    if (time === 'standard') { count = 10; timeDesc = 'A solid 4-5 hour hop covering the major attractions.'; }
-    if (time === 'marathon') { count = 18; timeDesc = 'An all-night marathon covering maximum ground!'; }
+    if (time === 'standard') { count = 8; timeDesc = 'A solid 4-5 hour hop covering the major attractions.'; }
+    if (time === 'marathon') { count = 12; timeDesc = 'An all-night marathon covering maximum ground!'; }
 
-    // 6. Logical Geographic Sorting (Real-world layout instead of fake x/y)
-    // This physically groups them from North to South along the main town artery
     const AREA_ORDER = [
-      'Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate', // North
-      'Khosbagan', 'Rathtala', 'Vivekananda College Road', 'Bardhaman', 'Susopanna', // Central-West
-      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math', // Central-East
-      'Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan' // South
+      'Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate',
+      'Khosbagan', 'Rathtala', 'Vivekananda College Road', 'Bardhaman', 'Susopanna',
+      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math',
+      'Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan'
     ];
 
     const getAreaIndex = (area: string) => {
@@ -476,78 +469,53 @@ export function RoutePlannerPage() {
     };
 
     let available = [...townPujas];
-    
-    // Sort all available pujas by logical geographic order first, then by featured status within the same area
     available.sort((a, b) => {
       const idxA = getAreaIndex(a.area);
       const idxB = getAreaIndex(b.area);
       if (idxA !== idxB) return idxA - idxB;
-      // Same area: featured comes first
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
       return 0;
     });
 
     let finalPandals: any[] = [];
-    
-    // Pick starting point based on vibe, preferably featured
     let startPool = available.filter(p => vibePujas.includes(p));
     if (startPool.length === 0) startPool = available;
     
-    // To ensure variety, we don't always start at the absolute North. We can start somewhere in the first few.
     let current = startPool[Math.floor(Math.random() * Math.min(3, startPool.length))];
     if (!current) current = startPool[0];
 
     finalPandals.push(current);
 
-    // Iteratively pick the next logical stop
     while (finalPandals.length < count) {
-      // Find the next pandal in the sorted list that comes AFTER the current one (or wraps around)
-      // that matches the vibe, AND isn't already in the list, AND doesn't have the same name!
-      
-      // Prevent duplicate names!
       const usedNames = finalPandals.map(p => p.name);
-      const candidates = startPool.filter(p => !usedNames.includes(p.name));
+      let candidates = startPool.filter(p => !usedNames.includes(p.name));
+      if (candidates.length === 0) candidates = available.filter(p => !usedNames.includes(p.name));
+      if (candidates.length === 0) break;
       
-      if (candidates.length === 0) {
-        // If we ran out of vibe matches, expand to all town pujas
-        const fallbackCandidates = available.filter(p => !usedNames.includes(p.name));
-        if (fallbackCandidates.length === 0) break; // Literally no more unique pandals
-        
-        let next = fallbackCandidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
-        if (!next) next = fallbackCandidates[0]; // Wrap around
-        finalPandals.push(next);
-        current = next;
-      } else {
-        let next = candidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
-        if (!next) next = candidates[0]; // Wrap around to start if we reached the end
-        finalPandals.push(next);
-        current = next;
-      }
+      let next = candidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
+      if (!next) next = candidates[0];
+      
+      finalPandals.push(next);
+      current = next;
     }
 
-    // 7. Map to the route format expected by the UI
     const mappedPandals = finalPandals.map((p, i) => {
       let transit = 'Walk 5 mins';
-      
       if (i === finalPandals.length - 1) {
         transit = 'End of route';
       } else {
         const nextP = finalPandals[i + 1];
-        // Dynamic transit based on whether they are in the same neighborhood!
         if (p.area === nextP.area) {
           transit = 'Walk 5 mins';
         } else {
-          // Different neighborhood
           const idxDiff = Math.abs(getAreaIndex(p.area) - getAreaIndex(nextP.area));
           if (transport === 'walk') {
-            if (idxDiff > 3) transit = 'Toto / Walk 20+ mins';
-            else transit = 'Walk 10-15 mins';
+            transit = idxDiff > 3 ? 'Toto / Walk 20+ mins' : 'Walk 10-15 mins';
           } else if (transport === 'car') {
             transit = 'Drive / Park 10 mins';
           } else {
-            if (idxDiff > 3) transit = 'Toto 15 mins';
-            else transit = 'Toto 5 mins';
+            transit = idxDiff > 3 ? 'Toto 15 mins' : 'Toto 5 mins';
           }
         }
       }
@@ -556,6 +524,8 @@ export function RoutePlannerPage() {
         name: p.name,
         zone: p.area,
         theme: p.theme || 'Traditional',
+        lat: p.lat,
+        lng: p.lng,
         tip: (() => {
           if (p.featured) return (p.description && p.description.length > 70 ? p.description.substring(0, 70) + '...' : p.description) + ' (Award Winner!)';
           let tips = [];
@@ -592,6 +562,25 @@ export function RoutePlannerPage() {
     });
   };
 
+  const openGoogleMaps = () => {
+    if (!route || route.pandals.length === 0) return;
+    const origin = route.pandals[0].lat + ',' + route.pandals[0].lng;
+    const destination = route.pandals[route.pandals.length - 1].lat + ',' + route.pandals[route.pandals.length - 1].lng;
+    
+    let waypointsArr = route.pandals.slice(1, -1);
+    if (waypointsArr.length > 8) {
+      const step = waypointsArr.length / 8;
+      waypointsArr = Array.from({ length: 8 }, (_, i) => waypointsArr[Math.floor(i * step)]);
+    }
+    const waypoints = waypointsArr.map((p: any) => p.lat + ',' + p.lng).join('|');
+    
+    let mode = 'driving';
+    if (transport === 'walk') mode = 'walking';
+    
+    const url = 'https://www.google.com/maps/dir/?api=1&origin=' + origin + '&destination=' + destination + '&waypoints=' + waypoints + '&travelmode=' + mode;
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="page-head" style={{ minHeight: '100vh', height: 'auto', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: 'calc(var(--safe-t, 0px) + 120px) 20px 120px', position: 'relative' }}>
       
@@ -610,24 +599,29 @@ export function RoutePlannerPage() {
         .rp-label { display: block; cursor: pointer; position: relative; }
         .rp-label input { position: absolute; opacity: 0; width: 0; height: 0; }
         .rp-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; transition: all 0.3s ease; height: 100%; backdrop-filter: blur(10px); }
-        .rp-label:hover .rp-card { border-color: rgba(255,255,255,0.3); }
+        .rp-label:hover .rp-card { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
         .rp-label input:checked + .rp-card { border-color: var(--gold); background: rgba(233,181,88,0.1); box-shadow: 0 0 20px rgba(233,181,88,0.2); }
         
-        .rp-btn { width: 100%; background: linear-gradient(to right, #880808, #b91c1c); color: #fff; border: none; padding: 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(136,8,8,0.5); font-family: var(--f-body); }
-        .rp-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(136,8,8,0.7); }
+        .rp-btn { width: 100%; background: linear-gradient(135deg, var(--gold), #d49527); color: #0a0304; border: none; padding: 20px; font-size: 1.25rem; font-weight: bold; border-radius: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(233,181,88,0.3); font-family: var(--f-body); margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .rp-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(233,181,88,0.5); }
         
         .rp-timeline { position: relative; padding-left: 30px; margin-top: 40px; }
         .rp-timeline::before { content: ''; position: absolute; left: 0; top: 20px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold) 0%, rgba(233,181,88,0.1) 100%); }
         
         .rp-node { position: relative; margin-bottom: 40px; }
-        .rp-node-dot { position: absolute; left: -39px; top: 20px; width: 20px; height: 20px; background: #0a0304; border: 3px solid var(--gold); border-radius: 50%; box-shadow: 0 0 15px var(--gold); }
-        .rp-pandal-card { background: rgba(15,5,6,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .rp-node-dot { position: absolute; left: -39px; top: 20px; width: 20px; height: 20px; background: #0a0304; border: 3px solid var(--gold); border-radius: 50%; box-shadow: 0 0 15px var(--gold); z-index: 2; transition: all 0.3s ease; }
+        .rp-node:hover .rp-node-dot { transform: scale(1.2); box-shadow: 0 0 25px var(--gold); background: var(--gold); }
+        .rp-pandal-card { background: rgba(15,5,6,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: all 0.3s ease; }
+        .rp-pandal-card:hover { border-color: rgba(233,181,88,0.3); transform: translateX(10px); }
         
+        .map-btn { background: rgba(233,181,88,0.15); color: var(--gold); border: 1px solid var(--gold); border-radius: 12px; padding: 12px 24px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; }
+        .map-btn:hover { background: var(--gold); color: #0a0304; box-shadow: 0 0 20px rgba(233,181,88,0.4); }
+
         @media print {
           body { background: white !important; color: black !important; }
           @page { size: A4; margin: 0; }
             .rp-wrap { padding: 1.2cm !important; }
-            .page-head-bg, .page-head-shade, .print-hide, nav, footer, .music, .passport-wrapper { display: none !important; }
+            .page-head-bg, .page-head-shade, .print-hide, nav, footer, .music, .passport-wrapper, .map-btn { display: none !important; }
           .page-head { padding: 0 !important; min-height: 0 !important; }
           .rp-pandal-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; break-inside: avoid; color: black !important; }
           .rp-timeline::before { background: black !important; }
@@ -645,18 +639,18 @@ export function RoutePlannerPage() {
           <div style={{ animation: 'fadeUp 0.5s ease' }}>
             <div style={{ textAlign: 'center', marginBottom: '60px' }}>
               <div style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--gold)', lineHeight: 0.9, marginBottom: '20px' }}><RevealText as="h1" lines={['Route', 'Planner']} className="display" live /></div>
-              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>Choose your adventure constraints and let us map out the ultimate itinerary.</p>
+              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>Smart itinerary generation powered by geographic routing.</p>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               
               <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>1. Starting Point / Zone</h2>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>1. Starting Zone</h2>
                 <div className="rp-radio-grid">
                   {[
-                    { v: 'central', t: 'Central', d: 'Khosbagan & Baranilpur. Massive themes.' },
-                    { v: 'north', t: 'North', d: 'Alamganj. Traditional heavy-hitters.' },
-                    { v: 'south', t: 'South', d: 'Sripally. Creative & less chaotic.' }
+                    { v: 'central', t: 'Central Core', d: 'Khosbagan & Baranilpur. Massive themes.' },
+                    { v: 'north', t: 'Northern Heritage', d: 'Alamganj. Traditional heavy-hitters.' },
+                    { v: 'south', t: 'South Serenade', d: 'Sripally. Creative & less chaotic.' }
                   ].map(o => (
                     <label key={o.v} className="rp-label">
                       <input type="radio" name="zone" value={o.v} checked={zone === o.v} onChange={() => setZone(o.v)} />
@@ -670,17 +664,17 @@ export function RoutePlannerPage() {
               </div>
 
               <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>2. Time Available</h2>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>2. Available Time</h2>
                 <div className="rp-radio-grid">
                   {[
-                    { v: 'quick', i: '\u23F1\uFE0F', t: 'Quick Express', d: '~2 Hours' },
-                    { v: 'standard', i: '\u{1F6B6}', t: 'Standard Hop', d: '~4 Hours' },
-                    { v: 'marathon', i: '\u{1F989}', t: 'Night Marathon', d: '8+ Hours' }
+                    { v: 'quick', i: '⏳', t: 'Quick Express', d: '~2 Hours (5 Pandals)' },
+                    { v: 'standard', i: '🚶', t: 'Standard Hop', d: '~4 Hours (8 Pandals)' },
+                    { v: 'marathon', i: '🦉', t: 'Night Marathon', d: '8+ Hours (12 Pandals)' }
                   ].map(o => (
                     <label key={o.v} className="rp-label">
                       <input type="radio" name="time" value={o.v} checked={time === o.v} onChange={() => setTime(o.v)} />
                       <div className="rp-card" style={{ textAlign: 'center', padding: '30px 20px' }}>
-                        <div style={{ fontSize: '2rem', marginBottom: '10px' }}>{o.i}</div>
+                        <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>{o.i}</div>
                         <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
                         <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
                       </div>
@@ -690,12 +684,12 @@ export function RoutePlannerPage() {
               </div>
 
               <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>3. Preferred Vibe</h2>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>3. Preferred Experience</h2>
                 <div className="rp-radio-grid">
                   {[
-                    { v: 'accessible', t: 'Easy Walks', d: 'Clustered pandals with easy auto access.' },
-                    { v: 'art', t: 'Art & Theme', d: 'Award-winning architecture and designs.' },
-                    { v: 'carnival', t: 'Carnival & Food', d: 'Loud dhak, melas, and huge crowds.' }
+                    { v: 'accessible', t: 'Easy & Accessible', d: 'Clustered pandals with easy auto access.' },
+                    { v: 'art', t: 'Art & Architecture', d: 'Award-winning architecture and designs.' },
+                    { v: 'carnival', t: 'Carnival Vibe', d: 'Loud dhak, melas, and huge crowds.' }
                   ].map(o => (
                     <label key={o.v} className="rp-label">
                       <input type="radio" name="vibe" value={o.v} checked={vibe === o.v} onChange={() => setVibe(o.v)} />
@@ -728,20 +722,31 @@ export function RoutePlannerPage() {
                   </div>
                 </div>
 
-                <button className="rp-btn" onClick={generate}>{'Generate My Adventure Route \u{1F5FA}\uFE0F'}</button>
+                <button className="rp-btn" onClick={generate}>
+                  <span>Generate My Adventure Route</span>
+                  <span style={{ fontSize: '1.5rem' }}>🗺️</span>
+                </button>
             </div>
           </div>
         ) : (
           <div style={{ animation: 'fadeUp 0.5s ease' }}>
-            <div className="print-hide" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
-              <button onClick={() => setRoute(null)} style={{ background: 'transparent', color: 'var(--mute)', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>{'\u2190 Start Over'}</button>
-              <button onClick={() => window.print()} style={{ background: 'rgba(233,181,88,0.2)', color: 'var(--gold)', border: '1px solid var(--gold)', borderRadius: '8px', padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold' }}>Save PDF / Print</button>
+            <div className="print-hide" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
+              <button onClick={() => setRoute(null)} style={{ background: 'transparent', color: 'var(--mute)', border: 'none', cursor: 'pointer', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>?</span> <span>Modify Criteria</span>
+              </button>
+              <div style={{ display: 'flex', gap: '15px' }}>
+                <button onClick={() => window.print()} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '12px', padding: '12px 24px', cursor: 'pointer', fontWeight: 'bold', transition: 'all 0.3s ease' }}>Save PDF</button>
+                <button onClick={openGoogleMaps} className="map-btn">
+                  <span>🗺️</span>
+                  <span>Open in Google Maps</span>
+                </button>
+              </div>
             </div>
 
-            <div style={{ textAlign: 'center' }}>
-              <span style={{ color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.8rem', fontWeight: 'bold' }}>Your Customized Route</span>
-              <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--f-display)', margin: '10px 0' }}>{route.title}</h1>
-              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>{route.desc} {route.timeDesc}</p>
+            <div style={{ textAlign: 'center', background: 'rgba(0,0,0,0.3)', padding: '40px 20px', borderRadius: '24px', border: '1px solid rgba(233,181,88,0.2)', marginBottom: '50px' }}>
+              <span style={{ color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '3px', fontSize: '0.9rem', fontWeight: 'bold' }}>Your Customized Itinerary</span>
+              <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--f-display)', margin: '15px 0 10px', textShadow: '0 5px 15px rgba(0,0,0,0.5)' }}>{route.title}</h1>
+              <p style={{ color: 'var(--mute)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>{route.desc} {route.timeDesc}</p>
             </div>
 
             <div className="rp-timeline">
@@ -751,33 +756,38 @@ export function RoutePlannerPage() {
                   <div key={i} className="rp-node">
                     <div className="rp-node-dot"></div>
                     <div className="rp-pandal-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
                         <div>
-                          <span style={{ background: 'rgba(136,8,8,0.2)', color: '#ff4d4d', padding: '4px 8px', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1px' }}>{p.zone}</span>
-                          <h2 style={{ fontSize: '2rem', fontFamily: 'var(--f-display)', color: 'var(--gold)', marginTop: '10px' }}>{p.name}</h2>
+                          <span style={{ background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1.5px', display: 'inline-block', marginBottom: '10px' }}>Step {i + 1} � {p.zone}</span>
+                          <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--f-display)', color: '#fff', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>{p.name}</h2>
                         </div>
-                        <span style={{ fontSize: '2rem', opacity: 0.5 }}>{'\u{1F3AA}'}</span>
+                        <a href={'https://www.google.com/maps/search/?api=1&query=' + p.lat + ',' + p.lng} target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--shankha)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', textDecoration: 'none', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '6px' }} className="print-hide">
+                          <span>📍</span> View Map
+                        </a>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid var(--gold)' }}>
                         <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ fontSize: '1.2rem' }}>{'\u2728'}</span>
+                          <span style={{ fontSize: '1.4rem' }}>?</span>
                           <div>
-                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Theme</div>
-                            <div style={{ fontSize: '1.1rem', color: '#fff' }}>{p.theme}</div>
+                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Theme</div>
+                            <div style={{ fontSize: '1.1rem', color: '#fff', fontWeight: '500' }}>{p.theme}</div>
                           </div>
                         </div>
                         <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ fontSize: '1.2rem' }}>{'\u{1F4A1}'}</span>
+                          <span style={{ fontSize: '1.4rem' }}>💡</span>
                           <div>
-                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Pro Tip</div>
-                            <div style={{ fontSize: '1.1rem', color: 'var(--shankha)', fontStyle: 'italic' }}>{p.tip}</div>
+                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Insider Tip</div>
+                            <div style={{ fontSize: '1.1rem', color: 'var(--shankha)', fontStyle: 'italic', lineHeight: 1.5 }}>{p.tip}</div>
                           </div>
                         </div>
                       </div>
                     </div>
                     {!isLast && (
-                      <div className="print-hide" style={{ padding: '30px 0 30px 20px', color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ color: 'var(--gold)', opacity: 0.5 }}>{'\u2193'}</span> {p.transit}
+                      <div className="print-hide" style={{ padding: '30px 0 30px 20px', color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+                          <span style={{ color: 'var(--gold)' }}>?</span>
+                        </div>
+                        <span style={{ fontSize: '1.1rem', fontWeight: '500', letterSpacing: '0.5px' }}>{p.transit}</span>
                       </div>
                     )}
                   </div>
@@ -790,7 +800,6 @@ export function RoutePlannerPage() {
     </div>
   );
 }
-
 
 export function SurvivalKitPage() {
   const survivalData = [
@@ -1095,7 +1104,7 @@ export function Top3VoterPage() {
 
 
   const shareBracket = () => {
-    let text = `?? Burdwan Capturers Official - Community Top 3 Pandals:\n\n`;
+    let text = `🏆 Burdwan Capturers Official - Community Top 3 Pandals:\n\n`;
     for(let i=0; i<3; i++) {
         text += `${i+1}. ${sorted[i].name}\n`;
     }

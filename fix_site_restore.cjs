@@ -1,30 +1,8 @@
-import type { Track, Stage } from './types';
+﻿const fs = require('fs');
 
-export const BRANDS = {
-  capturers: {
-    name: 'Burdwan Capturers Official',
-    short: 'Burdwan Capturers',
-    socials: { 
-      instagram: 'https://www.instagram.com/burdwan_capturers/?hl=en', 
-      facebook: 'https://www.facebook.com/burdwancapturer/', 
-      youtube: 'https://www.youtube.com/@BurdwanCapturersOfficial' 
-    },
-  },
-  pujo: {
-    name: 'Banglar Pujo Official',
-    short: 'Banglar Pujo',
-    socials: { 
-      instagram: 'https://www.instagram.com/banglar_pujo_official/?__d=1%252F%253Fhidemenu%253Dtrue', 
-      facebook: 'https://www.facebook.com/Banglarpujoofficial/', 
-      youtube: '#' 
-    },
-  },
-};
+let code = fs.readFileSync('src/data/site.ts', 'utf8');
 
-/** Shashthi morning, IST. Confirm against the local panjika and edit here. */
-export const PUJA_START = new Date('2026-10-17T06:00:00+05:30');
-
-export const NAV = [
+const navReplacement = `export const NAV = [
   { label: 'Home', bn: 'বাড়ি', to: '/' },
   { label: 'Pandals & Themes', bn: 'সব পুজো', to: '/pujas' },
   // { label: 'Themes', bn: 'থিম', to: '/themes' },
@@ -35,19 +13,9 @@ export const NAV = [
   { label: 'Top 3 Voter', bn: 'সেরা ৩ নির্বাচন', to: '/top3' },
   { label: 'About', bn: 'আমরা', to: '/about' },
   // { label: 'Contact', bn: 'যোগাযোগ', to: '/contact' },
-];
+];`;
 
-/** Plays through the built-in synthesiser. Add `src: '/audio/file.mp3'` to swap in a real recording. */
-export const TRACKS: Track[] = [
-  { id: 'jago-durga', title: 'Jago Durga', mood: 'Mahalaya', src: '/audio/jago-durga.mp3' },
-  { id: 'pujo-theme', title: 'Pujo Theme', mood: 'Dugga Elo', src: '/audio/pujo-theme.mp3' },
-  { id: 'dhaker-taal', title: 'Dhaker Taal', mood: 'Real Dhak beats', src: '/audio/dhak.mp3' },
-  { id: 'rupang-dehi', title: 'Rupang Dehi Jayang Deh', mood: 'Mahalaya', src: '/audio/rupang-dehi.mp3' },
-  { id: 'bajlo-tomar', title: 'Bajlo Tomar Alor Benu', mood: 'Mahalaya Classics', src: '/audio/bajlo-tomar.mp3' },
-  { id: 'dhunuchi', title: 'Dhunuchi Beats', mood: 'Fast dhak for the aarti' },
-];
-
-export const STAGES: Stage[] = [
+const stagesReplacement = `export const STAGES: Stage[] = [
   {
     id: 'mahalaya', name: 'Mahalaya', bn: 'মহালয়া', date: 'Sat 10 Oct', iso: '2026-10-10',
     ritual: 'Tarpan, and the voice on the radio',
@@ -90,4 +58,10 @@ export const STAGES: Stage[] = [
     text: 'Married women smear sindoor on the Goddess and on each other. By evening the idols move toward the water, and the dhak slows.',
     visual: { art: 'sindoor', seed: 16, src: '/images/dashami.jpg' },
   }
-];
+];`;
+
+code = code.replace(/export const NAV = \[[\s\S]*?\];/, navReplacement);
+code = code.replace(/export const STAGES: Stage\[\] = \[[\s\S]*?\];/, stagesReplacement);
+
+fs.writeFileSync('src/data/site.ts', code, 'utf8');
+console.log("Restored site.ts NAV and STAGES precisely!");
