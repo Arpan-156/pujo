@@ -6,7 +6,7 @@ import { fetchGlobalLeaderboard, submitGlobalVote } from '../lib/api';
 import { Link, useRouter } from '../lib/router';
 import { Photo } from '../components/Art';
 import { Reveal, RevealText, Alpana } from '../components/fx';
-import { ArrowLeft, ArrowRight, Mail, Pin, Search, X, Instagram, Facebook } from '../components/Icons';
+import {   ArrowLeft, ArrowRight, Mail, Pin, Search, X, Instagram, Facebook , Settings, Palette, Lightbulb , Navigation, CheckCircle } from '../components/Icons';
 import { Btn, FlipGrid, PageHead, PujaCard } from '../components/shared';
 import { PassportButton } from '../components/Passport';
 import { FeaturedRail } from '../sections/FeaturedRail';
@@ -153,7 +153,7 @@ function MissingPandalNotice() {
       <button className="fn-close" onClick={handleClose} aria-label="Close notification"><X size={14} /></button>
       
       <div className="fn-content">
-        <div className="fn-icon">?</div>
+        <div className="fn-icon"><Search size={24} /></div>
         <div className="fn-text">
           <h4>Missing a Pandal?</h4>
           <p>If you don't see your club / pandal in this list, let us know!</p>
@@ -883,7 +883,7 @@ export function RoutePlannerPage() {
           <div style={{ animation: 'fadeUp 0.5s ease' }}>
             <div className="print-hide" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
               <button onClick={() => setRoute(null)} style={{ background: 'transparent', color: 'var(--mute)', border: 'none', cursor: 'pointer', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span>?</span> <span>Modify Criteria</span>
+                <span className="spin-slow"><Settings size={20} /></span> <span>Modify Criteria</span>
               </button>
               <div style={{ display: 'flex', gap: '15px' }}>
                 <button onClick={() => window.print()} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '12px', padding: '12px 24px', cursor: 'pointer', fontWeight: 'bold', transition: 'all 0.3s ease' }}>Save PDF</button>
@@ -909,7 +909,7 @@ export function RoutePlannerPage() {
                     <div className="rp-pandal-card">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
                         <div>
-                          <span style={{ background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1.5px', display: 'inline-block', marginBottom: '10px' }}>Step {i + 1} � {p.zone}</span>
+                          <span style={{ background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1.5px', display: 'inline-block', marginBottom: '10px' }}>Step {i + 1} &bull; {p.zone}</span>
                           <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--f-display)', color: '#fff', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>{p.name}</h2>
                         </div>
                         <a href={'https://www.google.com/maps/search/?api=1&query=' + (p.lat && p.lng ? `${p.lat},${p.lng}` : encodeURIComponent(`${p.name}, Burdwan`))} target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--shankha)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', textDecoration: 'none', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '6px' }} className="print-hide">
@@ -918,14 +918,14 @@ export function RoutePlannerPage() {
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid var(--gold)' }}>
                         <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ fontSize: '1.4rem' }}>?</span>
+                          <span style={{ color: 'var(--gold)' }}><Palette size={24} /></span>
                           <div>
                             <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Theme</div>
                             <div style={{ fontSize: '1.1rem', color: '#fff', fontWeight: '500' }}>{p.theme}</div>
                           </div>
                         </div>
                         <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ fontSize: '1.4rem' }}>💡</span>
+                          <span style={{ color: 'var(--gold)' }}><Lightbulb size={24} /></span>
                           <div>
                             <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Insider Tip</div>
                             <div style={{ fontSize: '1.1rem', color: 'var(--shankha)', fontStyle: 'italic', lineHeight: 1.5 }}>{p.tip}</div>
@@ -936,7 +936,9 @@ export function RoutePlannerPage() {
                     {!isLast && (
                       <div className="print-hide" style={{ padding: '30px 0 30px 20px', color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
-                          <span style={{ color: 'var(--gold)' }}>?</span>
+                          <span style={{ color: 'var(--gold)', display: 'flex' }}>
+    {p.transit.includes('End') ? <CheckCircle size={20} /> : <Navigation size={20} style={{ transform: 'rotate(135deg)' }} />}
+  </span>
                         </div>
                         <span style={{ fontSize: '1.1rem', fontWeight: '500', letterSpacing: '0.5px' }}>{p.transit}</span>
                       </div>

@@ -75,25 +75,41 @@
 .fl-x { font-family: var(--f-display); font-size: clamp(1.6rem, 4vw, 3rem); color: var(--gold); font-weight: 400; }
 .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr 1fr; gap: 40px; align-items: start; }
 .footer-h { font-family: var(--f-display); font-size: 1.15rem; color: var(--gold-2); margin-bottom: 12px; }
-.footer-grid li { padding: 3px 0; }
+.footer-grid li { padding: 2px 0; }
 .footer-grid li a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--mute);
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 4px 0;
   z-index: 50;
   pointer-events: auto !important;
-  color: var(--mute);
+}
+.footer-grid li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  display: flex;
-  width: fit-content;
-  padding: 4px 8px;
-  margin-left: -8px;
-  position: relative;
-  border-radius: 8px;
+  transform: translateY(-50%);
+  opacity: 0;
+  box-shadow: 0 0 8px var(--gold);
+  pointer-events: none;
 }
 .footer-grid li a:hover { 
   color: var(--gold) !important; 
-  padding-left: 10px !important; 
-  text-shadow: 0 0 8px rgba(233, 181, 88, 0.8), 0 0 16px rgba(233, 181, 88, 0.4) !important; 
-  transform: scale(1.05) !important;
-  letter-spacing: 0.5px !important;
+  padding-left: 14px !important; 
+  text-shadow: 0 0 12px rgba(233, 181, 88, 0.4) !important; 
+}
+.footer-grid li a:hover::before {
+  width: 8px;
+  opacity: 1;
 }
 .footer-soc { display: flex; gap: 10px; }
 .footer-soc a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2); display: grid; place-items: center; color: var(--gold-2); transition: background 0.3s, color 0.3s, transform 0.3s var(--ease); }

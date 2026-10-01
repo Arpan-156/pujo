@@ -1,7 +1,7 @@
 const fs = require('fs');
 let css = fs.readFileSync('src/styles/chrome.css', 'utf8');
 
-const regex = /\.footer-grid li a\s*\{[\s\S]*?\}\s*\.footer-grid li a:hover\s*\{[\s\S]*?\}/;
+const regex = /\.footer-grid li a\s*\{[\s\S]*?\}\s*\.footer-grid li a::before\s*\{[\s\S]*?\}\s*\.footer-grid li a:hover\s*\{[\s\S]*?\}\s*\.footer-grid li a:hover::before\s*\{[\s\S]*?\}/;
 
 const newCss = `.footer-grid li a {
   position: relative;
@@ -9,8 +9,10 @@ const newCss = `.footer-grid li a {
   align-items: center;
   color: var(--mute);
   font-size: 0.95rem;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   padding: 4px 0;
+  z-index: 50;
+  pointer-events: auto !important;
 }
 .footer-grid li a::before {
   content: '';
@@ -21,25 +23,26 @@ const newCss = `.footer-grid li a {
   height: 2px;
   background: var(--gold);
   border-radius: 2px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateY(-50%);
   opacity: 0;
   box-shadow: 0 0 8px var(--gold);
+  pointer-events: none;
 }
 .footer-grid li a:hover { 
   color: var(--gold) !important; 
-  padding-left: 18px !important; 
+  padding-left: 14px !important; 
   text-shadow: 0 0 12px rgba(233, 181, 88, 0.4) !important; 
 }
 .footer-grid li a:hover::before {
-  width: 10px;
+  width: 8px;
   opacity: 1;
 }`;
 
-css = css.replace(regex, newCss);
-
-// Also remove `padding: 3px 0;` on `.footer-grid li` to tighten the list.
-css = css.replace('.footer-grid li { padding: 3px 0; }', '.footer-grid li { padding: 2px 0; }');
-
-fs.writeFileSync('src/styles/chrome.css', css, 'utf8');
-console.log("UI Enhanced!");
+if (css.match(regex)) {
+  css = css.replace(regex, newCss);
+  fs.writeFileSync('src/styles/chrome.css', css, 'utf8');
+  console.log("Re-applied pointer-events and z-index");
+} else {
+  console.log("Could not find regex match");
+}

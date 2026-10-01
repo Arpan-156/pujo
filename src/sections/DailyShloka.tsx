@@ -14,21 +14,34 @@ export function DailyShloka() {
         const d = new Date();
         const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         
-        if (json[today]) {
+        if (json.pujaDays && json.pujaDays[today]) {
+          setData(json.pujaDays[today]);
+        } else if (json[today]) {
+          // Fallback to old format just in case
           setData(json[today]);
         } else {
-          // If not a specific Puja date, rotate through the available shlokas based on the day of the year
-          const keys = Object.keys(json).filter(k => k !== 'fallback');
+          // Calculate day of the year (1-365)
+          const start = new Date(d.getFullYear(), 0, 0);
+          const diff = (d.getTime() - start.getTime()) + ((start.getTimezoneOffset() - d.getTimezoneOffset()) * 60 * 1000);
+          const oneDay = 1000 * 60 * 60 * 24;
+          const dayOfYear = Math.floor(diff / oneDay);
           
-          // Use a random index for the off-season so users can see different insights
-          // Or base it on the day of the year more reliably
-          const index = Math.floor(Math.random() * keys.length);
-          const rotatedData = json[keys[index]];
-          
-          setData({
-             ...rotatedData,
-             dayName: `Pre-Puja Focus: ${rotatedData.dayName}`
-          });
+          if (json.daily365 && json.daily365.length > 0) {
+            const rotatedData = json.daily365[(dayOfYear - 1) % json.daily365.length];
+            setData({
+               ...rotatedData,
+               dayName: `Daily Insight: ${rotatedData.dayName}`
+            });
+          } else {
+            // Old fallback
+            const keys = Object.keys(json).filter(k => k !== 'fallback' && k !== 'pujaDays' && k !== 'daily365');
+            const index = dayOfYear % keys.length;
+            const rotatedData = json[keys[index]];
+            setData({
+               ...rotatedData,
+               dayName: `Pre-Puja Focus: ${rotatedData.dayName}`
+            });
+          }
         }
       } catch (err) {
         setData(null);

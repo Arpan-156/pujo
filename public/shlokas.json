@@ -1,44 +1,2232 @@
 {
-  "2026-10-10": {
-    "dayName": "Mahalaya",
-    "shloka": "Ya Devi Sarvabhuteshu Matri Rupena Samsthita",
-    "meaning": "To that Goddess who dwells in all beings as a Mother, I bow to her again and again.",
-    "fact": "Mahalaya marks the beginning of Devi Paksha. The goddess descends to Earth."
+  "pujaDays": {
+    "2026-10-10": {
+      "dayName": "Mahalaya",
+      "shloka": "যা দেবী সর্বভূতেষু মাতৃরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings as a Mother, I bow to her again and again.",
+      "fact": "Mahalaya marks the beginning of Devi Paksha. The goddess descends to Earth."
+    },
+    "2026-10-16": {
+      "dayName": "Shasthi",
+      "shloka": "ওঁ বিল্ববৃক্ষবাসিন্যৈ নমঃ",
+      "meaning": "O Goddess residing in the Bilva tree, please awaken.",
+      "fact": "Bodhon is the formal awakening of the Goddess under a Bilva (Bael) tree."
+    },
+    "2026-10-17": {
+      "dayName": "Saptami",
+      "shloka": "ওঁ নবপত্রিকাবাসিন্যৈ নমঃ",
+      "meaning": "Salutations to the Goddess residing in the nine sacred plants.",
+      "fact": "The Kola Bou is bathed in the river at dawn and placed beside Ganesha."
+    },
+    "2026-10-18": {
+      "dayName": "Ashtami",
+      "shloka": "চামুণ্ডে জয়মঙ্গলে ভুক্তিমুক্তিপ্রদায়িনি",
+      "meaning": "O Chamunda, granter of enjoyment and liberation.",
+      "fact": "Sandhi Puja occurs at the exact juncture when Ashtami ends and Navami begins."
+    },
+    "2026-10-19": {
+      "dayName": "Navami",
+      "shloka": "ওঁ আয়ুর্দেহি ধনং দেহি বিদ্যাং দেহি মহেশ্বরি",
+      "meaning": "Grant me long life, wealth, and knowledge, O Supreme Goddess.",
+      "fact": "Navami is the final day of battle. A massive Maha Aarti and Homa are performed."
+    },
+    "2026-10-20": {
+      "dayName": "Dashami",
+      "shloka": "গচ্ছ গচ্ছ পরং স্থানং স্বস্থানং পরমেশ্বরি",
+      "meaning": "Return to your supreme abode, O Supreme Goddess.",
+      "fact": "The idols are immersed, symbolizing her return to Mount Kailash."
+    }
   },
-  "2026-10-16": {
-    "dayName": "Shasthi",
-    "shloka": "Om Bilvabrikshavashiney Namah",
-    "meaning": "O Goddess residing in the Bilva tree, please awaken.",
-    "fact": "Bodhon is the formal awakening of the Goddess under a Bilva (Bael) tree."
-  },
-  "2026-10-17": {
-    "dayName": "Saptami",
-    "shloka": "Om Nabapatrikabasinye Namah",
-    "meaning": "Salutations to the Goddess residing in the nine sacred plants.",
-    "fact": "The Kola Bou is bathed in the river at dawn and placed beside Ganesha."
-  },
-  "2026-10-18": {
-    "dayName": "Ashtami",
-    "shloka": "Chamunde Jayamangale Bhukti Mukti Pradayini",
-    "meaning": "O Chamunda, granter of enjoyment and liberation.",
-    "fact": "Sandhi Puja occurs at the exact juncture when Ashtami ends and Navami begins."
-  },
-  "2026-10-19": {
-    "dayName": "Navami",
-    "shloka": "Om Ayur-dehi Dhanam-dehi Vidyam-dehi Maheshwari",
-    "meaning": "Grant me long life, wealth, and knowledge, O Supreme Goddess.",
-    "fact": "Navami is the final day of battle. A massive Maha Aarti and Homa are performed."
-  },
-  "2026-10-20": {
-    "dayName": "Dashami",
-    "shloka": "Gachha Gachha Param Sthanam Swasthanam Parameshwari",
-    "meaning": "Return to your supreme abode, O Supreme Goddess.",
-    "fact": "The idols are immersed, symbolizing her return to Mount Kailash."
-  },
-  "fallback": {
-    "dayName": "Pre-Puja Preparation",
-    "shloka": "Sarva Mangala Mangalye Shive Sarvartha Sadhike",
-    "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
-    "fact": "Artisans are currently preparing the idols in Kumartuli and pandals are being erected across Bardhaman."
-  }
+  "daily365": [
+    {
+      "dayName": "Countdown to Pujo (Day 365)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 364)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 363)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 362)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 361)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 360)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 359)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 358)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 357)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 356)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 355)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 354)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 353)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 352)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 351)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 350)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 349)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 348)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 347)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 346)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 345)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 344)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 343)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 342)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 341)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 340)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 339)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 338)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 337)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 336)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 335)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 334)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 333)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 332)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 331)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 330)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 329)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 328)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 327)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 326)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 325)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 324)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 323)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 322)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 321)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 320)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 319)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 318)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 317)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 316)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 315)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 314)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 313)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 312)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 311)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 310)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 309)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 308)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 307)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 306)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 305)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 304)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 303)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 302)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 301)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 300)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 299)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 298)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 297)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 296)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 295)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 294)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 293)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 292)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 291)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 290)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 289)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 288)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 287)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 286)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 285)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 284)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 283)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 282)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 281)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 280)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 279)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 278)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 277)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 276)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 275)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 274)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 273)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 272)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 271)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 270)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 269)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 268)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 267)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 266)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 265)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 264)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 263)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 262)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 261)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 260)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 259)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 258)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 257)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 256)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 255)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 254)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 253)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 252)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 251)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 250)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 249)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 248)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 247)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 246)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 245)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 244)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 243)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 242)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 241)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 240)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 239)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 238)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 237)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 236)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 235)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 234)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 233)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 232)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 231)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 230)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 229)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 228)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 227)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 226)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 225)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 224)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 223)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 222)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 221)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 220)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 219)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 218)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 217)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 216)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 215)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 214)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 213)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 212)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 211)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 210)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 209)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 208)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 207)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 206)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 205)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 204)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 203)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 202)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 201)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 200)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 199)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 198)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 197)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 196)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 195)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 194)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 193)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 192)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 191)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 190)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 189)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 188)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 187)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 186)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 185)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 184)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 183)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 182)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 181)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 180)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 179)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 178)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 177)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 176)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 175)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 174)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 173)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 172)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 171)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 170)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 169)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 168)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 167)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 166)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 165)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 164)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 163)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 162)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 161)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 160)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 159)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 158)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 157)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 156)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 155)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 154)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 153)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 152)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 151)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 150)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 149)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 148)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 147)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 146)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 145)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 144)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 143)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 142)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 141)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 140)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 139)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 138)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 137)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 136)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 135)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 134)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 133)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 132)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 131)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 130)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 129)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 128)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 127)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 126)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 125)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 124)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 123)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 122)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 121)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 120)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 119)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 118)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 117)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 116)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 115)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 114)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 113)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 112)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 111)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 110)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 109)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 108)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 107)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 106)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 105)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 104)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 103)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 102)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 101)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 100)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 99)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 98)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 97)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 96)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 95)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 94)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 93)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 92)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 91)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 90)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 89)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 88)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 87)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 86)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 85)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 84)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 83)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 82)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 81)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 80)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 79)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 78)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 77)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 76)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 75)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 74)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 73)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 72)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 71)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 70)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 69)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 68)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 67)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 66)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 65)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 64)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 63)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 62)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 61)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 60)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 59)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 58)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 57)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 56)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 55)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 54)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 53)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 52)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 51)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 50)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 49)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 48)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 47)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 46)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 45)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 44)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 43)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 42)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 41)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 40)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 39)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 38)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 37)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 36)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 35)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 34)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 33)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 32)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 31)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 30)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 29)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 28)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 27)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 26)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 25)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 24)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 23)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 22)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 21)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 20)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 19)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 18)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 17)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 16)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 15)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 14)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 13)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 12)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 11)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 10)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 9)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 8)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 7)",
+      "shloka": "ওঁ জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী",
+      "meaning": "Salutations to Jayanti, Mangala, Kali, Bhadrakali, and Kapalini.",
+      "fact": "This mantra invokes the protective and fierce forms of the Divine Mother."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 6)",
+      "shloka": "দুর্গা ক্ষমা শিবা ধাত্রী স্বাহা স্বধা নমোঽস্তুতে",
+      "meaning": "Salutations to Durga, the forgiving one, the auspicious one, the sustainer.",
+      "fact": "Durga translates to 'the invincible' or 'one who is difficult to reach'."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 5)",
+      "shloka": "রূপং দেহি জয়ং দেহি যশো দেহি দ্বিষো জহি",
+      "meaning": "Grant me beauty, grant me victory, grant me glory, and destroy my enemies.",
+      "fact": "These lines are part of the Argala Stotram chanted before reading the Chandi Path."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 4)",
+      "shloka": "যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Power.",
+      "fact": "Shakti implies both physical strength and spiritual empowerment."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 3)",
+      "shloka": "যা দেবী সর্বভূতেষু শান্তিরূপেণ সংস্থিতা",
+      "meaning": "To that Goddess who dwells in all beings in the form of Peace.",
+      "fact": "The Devi Mahatmyam highlights that Goddess embodies every human quality, including profound peace."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 2)",
+      "shloka": "শরণাগত দীনার্ত পরিত্রাণ পরায়ণে",
+      "meaning": "O Goddess, who is intent upon rescuing the distressed and afflicted who seek refuge in You.",
+      "fact": "This verse reaffirms the Goddess as the ultimate shelter for humanity."
+    },
+    {
+      "dayName": "Countdown to Pujo (Day 1)",
+      "shloka": "সর্বমঙ্গলমঙ্গল্যে শিবে সর্বার্থসাধিকে",
+      "meaning": "To the auspiciousness of all auspiciousness, to the good, to the accomplisher of all objectives.",
+      "fact": "The Goddess represents the ultimate creative energy (Shakti) of the universe."
+    }
+  ]
 }
