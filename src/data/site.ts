@@ -42,7 +42,7 @@ export const TRACKS: Track[] = [
   { id: 'jago-durga', title: 'Jago Durga', mood: 'Mahalaya', src: '/audio/jago-durga.mp3' },
   { id: 'pujo-theme', title: 'Pujo Theme', mood: 'Dugga Elo', src: '/audio/pujo-theme.mp3' },
   { id: 'dhaker-taal', title: 'Dhaker Taal', mood: 'Real Dhak beats', src: '/audio/dhak.mp3' },
-  { id: 'mahalaya', title: 'Mahalaya Atmosphere', mood: 'Conch, bells, pre-dawn hush' },
+  { id: 'rupang-dehi', title: 'Rupang Dehi Jayang Deh', mood: 'Mahalaya', src: '/audio/rupang-dehi.mp3' },
   { id: 'bajlo-tomar', title: 'Bajlo Tomar Alor Benu', mood: 'Mahalaya Classics', src: '/audio/bajlo-tomar.mp3' },
   { id: 'dhunuchi', title: 'Dhunuchi Beats', mood: 'Fast dhak for the aarti' },
 ];

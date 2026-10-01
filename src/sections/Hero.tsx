@@ -27,10 +27,11 @@ export function Hero() {
     <section ref={ref} className={`hero ${open ? 'go' : ''}`} onPointerMove={move} style={{ '--mx': 0, '--my': 0 } as any}>
       <style>{`
         .hero { 
-            position: relative; min-height: 100vh; overflow-x: hidden; overflow-y: auto; 
+            position: relative; min-height: 100vh; overflow-x: hidden; 
             display: flex; align-items: center !important; justify-content: flex-start !important; flex-direction: column; 
             padding: 100px 0 80px 0 !important; isolation: isolate; background: #0a0808; 
         }
+        .hero::before, .hero::after { content: ""; flex-grow: 1; }
         
         /* Soothing, subtle background movement */
         .hero-bg { position: absolute; inset: -4%; z-index: -5; }
@@ -54,7 +55,7 @@ export function Hero() {
         
         .hero-in { 
             position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; 
-            width: 100%; max-width: 1200px; padding: 0 40px; margin: auto 0;
+            width: 100%; max-width: 1200px; padding: 0 40px; margin: 0 auto; flex-shrink: 0;
         }
         
         /* Elegant Bengali Text */
@@ -161,10 +162,10 @@ export function Hero() {
       
         /* --- BEAUTIFUL MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
-            .hero { padding: 100px 0 80px 0 !important; align-items: center !important; }
+            .hero { padding: 100px 0 80px 0 !important; align-items: center !important; justify-content: flex-start !important; }
             
             /* Center the entire content block naturally */
-            .hero-in { padding: 0 20px; display: flex; flex-direction: column; justify-content: center; margin: auto 0; }
+            .hero-in { padding: 0 20px; display: flex; flex-direction: column; justify-content: flex-start; margin: 0 auto; flex-shrink: 0; width: 100%; }
             
             .hero-bn-wrap { margin-bottom: 2vh; border-radius: 12px; }
             .hero-bn { font-size: 0.9rem; line-height: 1.6; padding: 12px 16px; text-align: center; white-space: normal; }
@@ -185,7 +186,7 @@ export function Hero() {
             .btn.elegant-glass span.arrow { display: none; }
             
             /* Give it ample padding at the bottom so it clears the floating icons naturally */
-            .hero-brand { margin-top: 6vh; margin-bottom: 40px; padding-bottom: 0; font-size: 0.65rem; text-align: center; }
+            .hero-brand { margin-top: 6vh; margin-bottom: 40px; font-size: 0.65rem; text-align: center; padding-bottom: 0; }
         }
         `}</style>
       
