@@ -174,7 +174,7 @@ function ShankhaTile() {
         <p className="bn" lang="bn">শঙ্খ</p>
         <h3>Shankha</h3>
         <p>Married women blow the conch at every welcome. One long breath, held as long as you can.</p>
-        <button className="chip solid" onClick={() => { setN((v) => v + 1); engine.oneShot('shankha'); }} data-cursor="Blow">Blow the shankha</button>
+        <button className="chip solid" onClick={() => { setN((v) => v + 1); new Audio('/audio/shankha.mp3').play().catch(e => console.error(e)); }} data-cursor="Blow">Blow the shankha</button>
       </div>
       <div className="shankha-stage" key={n}>
         {n > 0 && [0, 1, 2, 3].map((i) => <span key={i} className="wave" style={{ animationDelay: `${i * 0.35}s` }} />)}
