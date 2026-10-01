@@ -84,6 +84,7 @@ const build = (r: Row): Puja => {
  *  <PujaProvider>. Nothing else in the UI needs to change.
  * ------------------------------------------------------------------ */
 const ROWS: Row[] = [
+  { slug: 'radha-ballav-jiu-temple', name: 'Radha Ballav Jiu Temple', area: 'Natunganj, Sripally', town: true, themeId: 'heritage', themeName: 'A Timeless Legacy', cats: ['Heritage', 'Family Puja'], est: 1750, feat: true, art: 'temple', seed: 250, hue: 35, tone: 'dusk', x: 28, y: 60, lat: 23.23788, lng: 87.84902, desc: 'A historic heritage puja preserved for generations.' },
   { slug: 'vivekananda-sevak-sangha', name: 'Vivekananda Sevak Sangha', area: 'Sankhari Pukur ln, Sripally', themeId: 'eco', themeName: 'Prakriti O Pran', cats: ['Traditional', 'Community Puja'], est: 1985, feat: true, art: 'eco', seed: 231, hue: 140, tone: 'day', x: 45, y: 65, lat: 23.22969, lng: 87.86378, desc: 'An eco-friendly celebration focusing on nature, using natural materials for a serene and pure environment.', story: 'For decades, Vivekananda Sevak Sangha has organized an authentic, traditional puja. This year, the focus is entirely on eco-consciousness. The pandal is woven from jute and bamboo, and the idol is sculpted from untouched river clay without synthetic paints, returning peacefully to nature on Dashami.' },
   { slug: 'natural-city', name: 'Natural City', area: 'Vivekananda College Road', town: true, themeId: 'heritage', themeName: 'Sabekiana / Traditional Bengal', cats: ['Community Puja', 'Traditional'], est: 1970, feat: false, art: 'pandal', seed: 100, hue: 0, tone: 'night', x: 52, y: 60, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'rathtala-barowari', name: 'Rathtala Barowari', area: 'Rathtala', town: true, themeId: 'mythology', themeName: 'Mahakal', cats: ['Community Puja', 'Theme Puja'], est: 1971, feat: false, art: 'pandal', seed: 101, hue: 10, tone: 'night', x: 58, y: 68, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
@@ -113,6 +114,7 @@ const ROWS: Row[] = [
 export const PUJAS: Puja[] = ROWS.map(build);
 
 export const FEATURED: FeaturedPandal[] = [
+  { slug: 'radha-ballav-jiu-temple', tagline: 'A historic heritage puja preserved for generations.', note: 'Heritage' },
   { slug: 'amadpur-zomidar-bari', tagline: 'A timeless legacy preserving centuries of devotion.', note: 'Heritage' },
   { slug: 'vivekananda-sevak-sangha', tagline: 'A luminous presence in the heart of the city.', note: 'Traditional & Eco' },
   { slug: 'ichlabad-youth-club', tagline: 'Epic grandeur brought to life.', note: 'Mythology' },

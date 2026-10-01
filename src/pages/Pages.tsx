@@ -713,20 +713,22 @@ export function RoutePlannerPage() {
 
   const openGoogleMaps = () => {
     if (!route || route.pandals.length === 0) return;
-    const origin = route.pandals[0].lat + ',' + route.pandals[0].lng;
-    const destination = route.pandals[route.pandals.length - 1].lat + ',' + route.pandals[route.pandals.length - 1].lng;
+    const getQuery = (p: any) => p.lat && p.lng ? `${p.lat},${p.lng}` : encodeURIComponent(`${p.name}, Burdwan`);
+    
+    const origin = getQuery(route.pandals[0]);
+    const destination = getQuery(route.pandals[route.pandals.length - 1]);
     
     let waypointsArr = route.pandals.slice(1, -1);
     if (waypointsArr.length > 8) {
       const step = waypointsArr.length / 8;
       waypointsArr = Array.from({ length: 8 }, (_, i) => waypointsArr[Math.floor(i * step)]);
     }
-    const waypoints = waypointsArr.map((p: any) => p.lat + ',' + p.lng).join('|');
+    const waypoints = waypointsArr.map(getQuery).join('%7C'); // URL encoded pipe
     
     let mode = 'driving';
     if (transport === 'walk') mode = 'walking';
     
-    const url = 'https://www.google.com/maps/dir/?api=1&origin=' + origin + '&destination=' + destination + '&waypoints=' + waypoints + '&travelmode=' + mode;
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=${mode}`;
     window.open(url, '_blank');
   };
 
@@ -910,7 +912,7 @@ export function RoutePlannerPage() {
                           <span style={{ background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1.5px', display: 'inline-block', marginBottom: '10px' }}>Step {i + 1} � {p.zone}</span>
                           <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--f-display)', color: '#fff', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>{p.name}</h2>
                         </div>
-                        <a href={'https://www.google.com/maps/search/?api=1&query=' + p.lat + ',' + p.lng} target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--shankha)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', textDecoration: 'none', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '6px' }} className="print-hide">
+                        <a href={'https://www.google.com/maps/search/?api=1&query=' + (p.lat && p.lng ? `${p.lat},${p.lng}` : encodeURIComponent(`${p.name}, Burdwan`))} target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--shankha)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', textDecoration: 'none', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '6px' }} className="print-hide">
                           <span>📍</span> View Map
                         </a>
                       </div>
