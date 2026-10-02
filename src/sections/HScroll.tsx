@@ -28,10 +28,16 @@ export function HScroll({ children, className = '' }: { children: ReactNode; cla
       const dist = Math.max(0, t.scrollWidth - lastW);
       const h = Math.round(dist + vh);
       if (h !== lastH) { o.style.height = `${h}px`; lastH = h; }
+      if (t.parentElement) { if (dist === 0) { t.parentElement.style.justifyContent = "center"; } else { t.parentElement.style.justifyContent = "flex-start"; } }
       const r = o.getBoundingClientRect();
       const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
       t.style.transform = `translate3d(${(-p * dist).toFixed(1)}px,0,0)`;
-      if (bar.current) bar.current.style.transform = `scaleX(${p.toFixed(4)})`;
+      if (bar.current) {
+        if (bar.current.parentElement) {
+          if (dist === 0) bar.current.parentElement.style.opacity = "0";
+          else { bar.current.parentElement.style.opacity = "1"; bar.current.style.transform = `scaleX(${p.toFixed(4)})`; }
+        }
+      }
     });
   }, [pinned]);
 

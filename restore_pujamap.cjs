@@ -1,4 +1,6 @@
-import { useData } from '../data/store';
+const fs = require('fs');
+
+const code = `import { useData } from '../data/store';
 import { useGeo, getDistance } from '../lib/geo';
 import { GeoBar } from '../components/GeoBar';
 import { useState } from 'react';
@@ -7,25 +9,26 @@ import { Particles, Alpana, PujaScenario } from '../components/fx';
 export function PujaMap({ className = '' }: { className?: string }) {
   const { pujas } = useData();
   const [sel, setSel] = useState<string | null>(pujas[0]?.slug ?? null);
-    const [radius, setRadius] = useState(3);
+  const [q, setQ] = useState('');
+  const [radius, setRadius] = useState(3);
   const { geo } = useGeo();
 
   const filtered = pujas.filter(p => {
-    const matchQ = true;
+    const matchQ = p.name.toLowerCase().includes(q.toLowerCase()) || p.location.toLowerCase().includes(q.toLowerCase());
     let matchRad = true;
     if (geo.status === 'success' && geo.lat && geo.lng && p.lat && p.lng) {
       const d = getDistance(geo.lat, geo.lng, p.lat, p.lng);
-      // radius removed
+      if (d > radius) matchRad = false;
     }
     return matchQ && matchRad;
   });
 
   const cur = pujas.find((p) => p.slug === sel) || filtered[0] || pujas[0];
-  const mapQuery = cur.lat && cur.lng ? `${cur.lat},${cur.lng}` : (cur.x && cur.y ? `${23.28 - (cur.y / 100) * 0.06},${(cur.x / 100) * 0.08 + 87.82}` : encodeURIComponent(`${cur.name} Durga Puja, ${cur.location}, Bardhaman`));
+  const mapQuery = cur.lat && cur.lng ? \`\${cur.lat},\${cur.lng}\` : (cur.x && cur.y ? \`\${23.28 - (cur.y / 100) * 0.06},\${(cur.x / 100) * 0.08 + 87.82}\` : encodeURIComponent(\`\${cur.name} Durga Puja, \${cur.location}, Bardhaman\`));
 
   return (
     <>
-      <style>{`
+      <style>{\`
         .pmap-new-grid { display: grid; grid-template-columns: 380px 1fr; gap: 30px; height: 75vh; min-height: 650px; padding: 40px 0; }
         @media (max-width: 900px) {
           .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; }
@@ -33,14 +36,14 @@ export function PujaMap({ className = '' }: { className?: string }) {
           .pmap-new-iframe { height: 350px; margin-top: 10px; }
           .pmap-mobile-wrapper { height: auto !important; }
         }
-      `}</style>
-      <section className={`pmap ${className}`} style={{ position: 'relative', overflow: 'hidden' }}>
+      \`}</style>
+      <section className={\`pmap \${className}\`} style={{ position: 'relative', overflow: 'hidden' }}>
         <Particles kind="embers" count={45} />
         <div style={{ position: 'absolute', right: '-20%', top: '-10%', opacity: 0.15, pointerEvents: 'none' }}><Alpana size={800} spin /></div>
         <PujaScenario />
         
         <div className="wrap" style={{ position: 'relative', zIndex: 10, paddingTop: '20px' }}>
-          <GeoBar radius={radius} setRadius={setRadius}  />
+          <GeoBar radius={radius} setRadius={setRadius} searchQuery={q} setSearchQuery={setQ} />
         </div>
 
         <div className="wrap pmap-new-grid" style={{ paddingTop: '20px' }}>
@@ -52,7 +55,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
                 let distStr = '';
                 if (geo.status === 'success' && geo.lat && geo.lng && p.lat && p.lng) {
                   const d = getDistance(geo.lat, geo.lng, p.lat, p.lng);
-                  distStr = d < 1 ? `${(d * 1000).toFixed(0)}m away` : `${d.toFixed(1)}km away`;
+                  distStr = d < 1 ? \`\${(d * 1000).toFixed(0)}m away\` : \`\${d.toFixed(1)}km away\`;
                 }
 
                 return (
@@ -63,7 +66,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
                       textAlign: 'left',
                       padding: '20px',
                       background: active ? 'rgba(233,181,88,0.12)' : 'rgba(255,255,255,0.02)',
-                      border: `1px solid ${active ? 'var(--gold)' : 'var(--line)'}`,
+                      border: \`1px solid \${active ? 'var(--gold)' : 'var(--line)'}\`,
                       borderRadius: '12px',
                       cursor: 'pointer',
                       transition: 'all 0.3s',
@@ -93,7 +96,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
               loading="lazy" 
               allowFullScreen 
               referrerPolicy="no-referrer-when-downgrade" 
-              src={geo.status === 'success' && geo.lat && geo.lng && cur.lat && cur.lng ? `https://maps.google.com/maps?saddr=${geo.lat},${geo.lng}&daddr=${cur.lat},${cur.lng}&t=m&z=15&output=embed` : `https://maps.google.com/maps?q=${mapQuery}&t=m&z=16&output=embed&iwloc=near`}
+              src={geo.status === 'success' && geo.lat && geo.lng && cur.lat && cur.lng ? \`https://maps.google.com/maps?saddr=\${geo.lat},\${geo.lng}&daddr=\${cur.lat},\${cur.lng}&t=m&z=15&output=embed\` : \`https://maps.google.com/maps?q=\${mapQuery}&t=m&z=16&output=embed&iwloc=near\`}
             />
           </div>
         </div>
@@ -103,7 +106,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
 }
 
 export function MiniMap({ name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
-  const mapQuery = lat && lng ? `${lat},${lng}` : encodeURIComponent(`${name} Durga Puja, Bardhaman`);
+  const mapQuery = lat && lng ? \`\${lat},\${lng}\` : encodeURIComponent(\`\${name} Durga Puja, Bardhaman\`);
 
   return (
     <div style={{ width: '100%', height: '400px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(233, 181, 88, 0.3)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', position: 'relative' }}>
@@ -114,8 +117,12 @@ export function MiniMap({ name, lat, lng }: { x: number; y: number; name: string
         loading="lazy" 
         allowFullScreen 
         referrerPolicy="no-referrer-when-downgrade" 
-        src={`https://maps.google.com/maps?q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+        src={\`https://maps.google.com/maps?q=\${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed\`}
       ></iframe>
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/sections/PujaMap.tsx', code, 'utf8');
+console.log('Restored original PujaMap.tsx');

@@ -210,18 +210,21 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
           <div className="fl-a"><BrandMark brand="pujo" size={54} /><span>Banglar Pujo Official</span></div>
         </div>
         <div className="footer-grid">
-          <div>
-            <p className="footer-h">Explore</p>
-            <ul>{NAV.map((n) => <li key={n.to}><Link to={n.to} data-cursor="Open">{n.label}</Link></li>)}
-              <li><Link to="/map" data-cursor="Open">Puja Map</Link></li><li><Link to="/timeline" data-cursor="Open">The Five Days</Link></li></ul>
-          </div>
-          <div>
-            <p className="footer-h">Burdwan Capturers</p>
-            <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.capturers.socials[key]} aria-label={`Burdwan Capturers on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
-            <p className="footer-h" style={{ marginTop: 28 }}>Banglar Pujo</p>
-            <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.pujo.socials[key]} aria-label={`Banglar Pujo on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
-          </div>
-          <div>
+            <div className="fg-col">
+              <p className="footer-h">Explore</p>
+              <ul>{NAV.map((n) => <li key={n.to}><Link to={n.to} data-cursor="Open">{n.label}</Link></li>)}
+                <li><Link to="/map" data-cursor="Open">Puja Map</Link></li><li><Link to="/timeline" data-cursor="Open">The Five Days</Link></li></ul>
+            </div>
+            
+            <div className="fg-col">
+              <p className="footer-h">Burdwan Capturers</p>
+              <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.capturers.socials[key]} aria-label={`Burdwan Capturers on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
+              
+              <p className="footer-h" style={{ marginTop: 32 }}>Banglar Pujo</p>
+              <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.pujo.socials[key]} aria-label={`Banglar Pujo on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
+            </div>
+            
+            <div className="fg-col">
               <p className="footer-h">Contact Us</p>
               <div className="footer-contact">
                 <a href="mailto:bwncapturers2019@gmail.com" className="fc-btn" data-cursor="Mail">
@@ -235,13 +238,16 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
                 </a>
               </div>
             </div>
-            <div className="footer-eggs">
-            <DurgaEye />
-            <DhakIcon size={40} />
-            <p className="bn">মা আসছেন</p>
+            
+            <div className="fg-col footer-eggs">
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                <DurgaEye />
+                <DhakIcon size={40} />
+              </div>
+              <p className="bn" style={{ margin: 0, fontSize: '2rem', color: 'var(--gold)' }}>মা আসছেন</p>
+            </div>
           </div>
-        </div>
-        <p className="footer-love">Made with love for Bardhaman &amp; Bengal.</p>
+          <p className="footer-love">Made with love for Bardhaman &amp; Bengal by Arpan Ganguly.</p>
         <button className="footer-copy-btn" onClick={() => setShowCopyright(true)} style={{ background: 'none', border: 'none', padding: 0, color: 'var(--mute)', cursor: 'pointer', fontSize: '0.85rem', textDecoration: 'underline', fontStyle: 'italic', opacity: 0.8, justifySelf: 'center', alignSelf: 'center' }}>all copyrights are reserved by Burdwan Captuers Official</button>
         {showCopyright && typeof document !== 'undefined' && createPortal((
           <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(20, 8, 9, 0.92)', backdropFilter: 'blur(10px)' }} onClick={() => setShowCopyright(false)}>

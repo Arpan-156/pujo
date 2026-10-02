@@ -1,3 +1,4 @@
+import { GeoPill } from './GeoBar';
 import { useEffect, useState } from 'react';
 import { NAV } from '../data/site';
 import { Link, useRouter } from '../lib/router';
@@ -30,10 +31,15 @@ export function Nav({ visible }: { visible: boolean }) {
   return (
     <>
       <header className={`nav ${visible ? 'show' : ''} ${scrolled ? 'scrolled' : ''}`}>
-        <Link to="/" onClick={(e) => { if (pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} className="nav-brand" data-cursor="Home" aria-label="Bardhaman Durga Puja 2026, home">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Link to="/" onClick={(e) => { if (pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} className="nav-brand" data-cursor="Home" aria-label="Bardhaman Durga Puja 2026, home">
           <span className="nav-marks"><BrandMark brand="capturers" size={30} /><BrandMark brand="pujo" size={30} /></span>
           <span className="nav-brand-text"><b>বর্ধমানের দুর্গাপূজা</b><small>2026</small></span>
         </Link>
+          <div className="nav-geo" >
+            <GeoPill />
+          </div>
+        </div>
         <nav className="nav-links" aria-label="Primary">
           {NAV.map((n) => (
             <Link key={n.to} to={n.to} className={active(n.to) ? 'on' : ''} aria-current={active(n.to) ? 'page' : undefined} onClick={(e) => { if (pathname === n.to) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); } }}>

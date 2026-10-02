@@ -58,6 +58,9 @@ interface Row {
   desc: string; x: number; y: number; lat?: number; lng?: number; story?: string;
 }
 
+const REAL_PHOTOS = ['/photos/idol-1.jpg', '/photos/idol-2.jpg', '/photos/durga.jpg', '/photos/kash.jpg', '/photos/108-shiva.jpg', '/photos/curzon.jpg', '/photos/gate.jpg', '/photos/overbridge.jpg', '/photos/radio.jpg', '/photos/station.jpg'];
+const IDOL_PHOTOS = ['/photos/idol-1.jpg', '/photos/idol-2.jpg', '/photos/durga.jpg'];
+
 const build = (r: Row): Puja => {
   const c = CONCEPT[r.themeId];
   const gallerySet: ArtKind[] = ['pandal', 'idol', 'crowd', 'street', 'dhak'];
@@ -69,8 +72,8 @@ const build = (r: Row): Puja => {
     story: r.story ?? `${r.desc} The committee has spent months on the design, with the pandal taking shape in the last three weeks before Shashthi. ${c.pandal} Replace this paragraph with the real story from the organisers.`,
     pandalConcept: c.pandal, idolConcept: c.idol, attractions: c.attractions,
     established: r.est, featured: !!r.feat,
-    heroImage: V(r.art, r.seed, r.hue, r.tone ?? 'night'),
-    idolImage: V('idol', r.seed + 40, r.hue, 'dusk'),
+    heroImage: { art: r.art, seed: r.seed, hue: r.hue, tone: r.tone ?? 'night', src: REAL_PHOTOS[r.seed % REAL_PHOTOS.length] },
+    idolImage: { art: 'idol', seed: r.seed + 40, hue: r.hue, tone: 'dusk', src: IDOL_PHOTOS[(r.seed + 40) % IDOL_PHOTOS.length] },
     gallery: gallerySet.map((k, i) => V(k, r.seed + i * 7, r.hue, i === 4 ? 'dusk' : 'night')),
     map: { x: r.x, y: r.y, lat: r.lat, lng: r.lng },
     sample: true,

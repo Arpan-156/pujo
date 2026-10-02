@@ -1,3 +1,5 @@
+import { GeoBar } from '../components/GeoBar';
+import { useGeo, getDistance } from '../lib/geo';
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 import { FILTERS } from '../data/pujas';
@@ -569,100 +571,126 @@ export function ContactPage() {
 
 
 export function RoutePlannerPage() {
-  const [zone, setZone] = useState('central');
   const [time, setTime] = useState('quick');
   const [vibe, setVibe] = useState('accessible');
   const [transport, setTransport] = useState('toto');
+    const [selectedCustom, setSelectedCustom] = useState<string[]>([]);
+    const [routeMode, setRouteMode] = useState<'specialized' | 'custom'>('specialized');
   const [route, setRoute] = useState<any>(null);
-
-  const { pujas } = useData();
-
-  const generate = () => {
-    const townPujas = pujas.filter(p => p.zone === 'Bardhaman Town');
-
-    const ZONES: Record<string, string[]> = {
-      central: ['Bardhaman Town', 'Baranilpur', 'Khosbagan', 'Vivekananda College Road', 'Rathtala', 'Chhotonilpur', 'Laxmipur Math', 'Susopanna', 'Bardhaman'],
-      north: ['Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate'],
-      south: ['Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan']
-    };
-
-    let zonePujas = townPujas.filter(p => (ZONES[zone] || []).includes(p.area));
-    if (zonePujas.length === 0) zonePujas = [...townPujas];
-
-    let vibePujas = zonePujas.filter(p => {
-      if (vibe === 'art') return p.categories.includes('Theme Puja') || p.categories.includes('Heritage');
-      if (vibe === 'carnival') return p.categories.includes('Community Puja');
-      if (vibe === 'accessible') return p.categories.includes('Traditional') || p.zone === 'Bardhaman Town';
-      return true;
-    });
-    if (vibePujas.length === 0) vibePujas = [...zonePujas];
-
-    let count = 5;
-    let timeDesc = 'A fast-paced 2-hour tour of the highlights.';
-    if (time === 'standard') { count = 8; timeDesc = 'A solid 4-5 hour hop covering the major attractions.'; }
-    if (time === 'marathon') { count = 12; timeDesc = 'An all-night marathon covering maximum ground!'; }
-
-    const AREA_ORDER = [
-      'Alamganj', 'Tikrahat', 'Keshabganj', 'Kalna Gate',
-      'Khosbagan', 'Rathtala', 'Vivekananda College Road', 'Bardhaman', 'Susopanna',
-      'Baranilpur', 'Chhotonilpur', 'Laxmipur Math',
-      'Sripally', 'Sankhari Pukur ln, Sripally', 'Ichlabad', 'Nutanpally', 'Katwa Road', 'Burir Bagan'
-    ];
-
-    const getAreaIndex = (area: string) => {
-      const idx = AREA_ORDER.indexOf(area);
-      return idx === -1 ? 99 : idx;
-    };
-
-    let available = [...townPujas];
-    available.sort((a, b) => {
-      const idxA = getAreaIndex(a.area);
-      const idxB = getAreaIndex(b.area);
-      if (idxA !== idxB) return idxA - idxB;
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return 0;
-    });
-
-    let finalPandals: any[] = [];
-    let startPool = available.filter(p => vibePujas.includes(p));
-    if (startPool.length === 0) startPool = available;
+  const [radius, setRadius] = useState(5);
     
-    let current = startPool[Math.floor(Math.random() * Math.min(3, startPool.length))];
-    if (!current) current = startPool[0];
+  const { pujas } = useData();
+  const { geo } = useGeo();
 
-    finalPandals.push(current);
+  const nearbyPandals = useMemo(() => {
+    if (!geo.active || !geo.lat || !geo.lng) return [];
+    const lat = geo.lat; const lng = geo.lng;
+    const withDist = pujas.filter(p => p.lat && p.lng).map(p => ({
+      ...p,
+      dist: getDistance(lat!, lng!, p.lat!, p.lng!)
+    }));
+    withDist.sort((a, b) => a.dist - b.dist);
+    return withDist.slice(0, 4);
+  }, [pujas, geo]);
 
-    while (finalPandals.length < count) {
-      const usedNames = finalPandals.map(p => p.name);
-      let candidates = startPool.filter(p => !usedNames.includes(p.name));
-      if (candidates.length === 0) candidates = available.filter(p => !usedNames.includes(p.name));
-      if (candidates.length === 0) break;
+
+  
+    const sortNearestNeighbor = (pool: any[], startLat: number, startLng: number) => {
+      let currentLat = startLat;
+      let currentLng = startLng;
+      let unvisited = [...pool];
+      let sorted = [];
       
-      let next = candidates.find(p => getAreaIndex(p.area) >= getAreaIndex(current.area));
-      if (!next) next = candidates[0];
+      while(unvisited.length > 0) {
+        let closestIdx = 0;
+        let minDist = 999999;
+        for (let i=0; i<unvisited.length; i++) {
+          const p = unvisited[i];
+          if (!p.lat || !p.lng) {
+            if (999 < minDist) { minDist = 999; closestIdx = i; }
+            continue;
+          }
+          const d = getDistance(currentLat, currentLng, p.lat, p.lng);
+          if (d < minDist) { minDist = d; closestIdx = i; }
+        }
+        const closest = unvisited.splice(closestIdx, 1)[0];
+        sorted.push(closest);
+        if (closest.lat && closest.lng) {
+          currentLat = closest.lat; currentLng = closest.lng;
+        }
+      }
+      return sorted;
+    };
+
+    const generate = () => {
+    
+      let finalPandals = [];
+      let timeDesc = 'A fast-paced 2-hour tour of the highlights.';
       
-      finalPandals.push(next);
-      current = next;
-    }
+      if (routeMode === 'custom' && selectedCustom.length > 0) {
+        const customPool = pujas.filter(p => selectedCustom.includes(p.slug));
+        const startLat = (geo.active && geo.lat) ? geo.lat : (customPool.find(p=>p.lat)?.lat || 23.2324);
+        const startLng = (geo.active && geo.lng) ? geo.lng : (customPool.find(p=>p.lng)?.lng || 87.8615);
+        finalPandals = sortNearestNeighbor(customPool, startLat, startLng);
+        timeDesc = `Custom route optimized for shortest travel distance covering ${finalPandals.length} pandals.`;
+      } else {
+        let pool = [...pujas];
+        if (geo.active && geo.lat && geo.lng) {
+          pool = pool.filter(p => {
+            if (!p.lat || !p.lng) return true;
+            return getDistance(geo.lat!, geo.lng!, p.lat, p.lng) <= 50;
+          });
+        } else {
+          pool = pool.filter(p => p.zone === 'Bardhaman Town');
+        }
+    
+        let vibePujas = pool.filter(p => {
+          if (vibe === 'art') return p.categories.includes('Theme Puja') || p.categories.includes('Heritage');
+          if (vibe === 'carnival') return p.categories.includes('Community Puja');
+          if (vibe === 'accessible') return p.categories.includes('Traditional');
+          return true;
+        });
+        if (vibePujas.length === 0) vibePujas = pool;
+    
+        let count = 5;
+        if (time === 'standard') { count = 8; timeDesc = 'A solid 4-5 hour hop covering the major attractions.'; }
+        if (time === 'marathon') { count = 12; timeDesc = 'An all-night marathon covering maximum ground!'; }
+    
+        if (geo.active && geo.lat && geo.lng) {
+          vibePujas.sort((a, b) => {
+            const dA = (a.lat && a.lng) ? getDistance(geo.lat!, geo.lng!, a.lat, a.lng) : 999;
+            const dB = (b.lat && b.lng) ? getDistance(geo.lat!, geo.lng!, b.lat, b.lng) : 999;
+            return dA - dB;
+          });
+        }
+        finalPandals = vibePujas.slice(0, count);
+      }
+
+
+    let totalDist = 0;
+    let prevLat = (geo.active && geo.lat) ? geo.lat : null;
+    let prevLng = (geo.active && geo.lng) ? geo.lng : null;
 
     const mappedPandals = finalPandals.map((p, i) => {
       let transit = 'Walk 5 mins';
+      
+      if (p.lat && p.lng && prevLat && prevLng) {
+        totalDist += getDistance(prevLat, prevLng, p.lat, p.lng);
+      }
+      if (p.lat && p.lng) {
+        prevLat = p.lat;
+        prevLng = p.lng;
+      }
+
       if (i === finalPandals.length - 1) {
         transit = 'End of route';
       } else {
         const nextP = finalPandals[i + 1];
-        if (p.area === nextP.area) {
-          transit = 'Walk 5 mins';
-        } else {
-          const idxDiff = Math.abs(getAreaIndex(p.area) - getAreaIndex(nextP.area));
-          if (transport === 'walk') {
-            transit = idxDiff > 3 ? 'Toto / Walk 20+ mins' : 'Walk 10-15 mins';
-          } else if (transport === 'car') {
-            transit = 'Drive / Park 10 mins';
-          } else {
-            transit = idxDiff > 3 ? 'Toto 15 mins' : 'Toto 5 mins';
-          }
+        if (p.lat && p.lng && nextP.lat && nextP.lng) {
+          const dist = getDistance(p.lat, p.lng, nextP.lat, nextP.lng);
+          if (dist < 0.5) transit = 'Walk 5-10 mins';
+          else if (dist < 1.5) transit = transport === 'walk' ? 'Walk 15-20 mins' : 'Toto 5-10 mins';
+          else transit = transport === 'toto' ? 'Toto 15+ mins' : 'Drive/Auto 10 mins';
         }
       }
       
@@ -672,39 +700,30 @@ export function RoutePlannerPage() {
         theme: p.theme || 'Traditional',
         lat: p.lat,
         lng: p.lng,
-        tip: (() => {
-          if (p.featured) return (p.description && p.description.length > 70 ? p.description.substring(0, 70) + '...' : p.description) + ' (Award Winner!)';
-          let tips = [];
-          if (p.categories.includes('Theme Puja')) tips.push('Take your time to notice the intricate theme details.');
-          else if (p.categories.includes('Traditional')) tips.push('Experience the authentic, traditional Sabeki vibe.');
-          if (p.themeId === 'architecture') tips.push('Stand back for a wide-angle shot of the grand structure!');
-          if (p.themeId === 'eco') tips.push('Look closely at the eco-friendly materials used in the decor.');
-          if (['Chhotonilpur', 'Baranilpur', 'Alamganj'].includes(p.area)) tips.push('Expect heavy crowds�keep your group together!');
-          if (time === 'marathon' && Math.random() > 0.6) tips.push('Great spot to grab some phuchka or egg roll nearby!');
-          if (tips.length > 0) return tips[Math.floor(Math.random() * tips.length)];
-          return 'Arrive early to beat the massive queues!';
-        })(),
+        tip: p.featured ? 'Award Winner! Highly recommended.' : 'Expect crowds during peak hours.',
         transit
       };
     });
 
-    const routeTitles: Record<string, string> = {
-      'central': 'The Central Core Trail',
-      'north': 'The Northern Heritage Route',
-      'south': 'The Sripally Serenade'
-    };
-
-    const routeDescs: Record<string, string> = {
-      'art': 'A curated journey through breathtaking thematic installations and award-winning artistry.',
-      'carnival': 'Dive into massive crowds, giant wheels, endless street food, and ultimate celebration.',
-      'accessible': 'An easy-to-navigate route focusing on comfort, tradition, and minimal walking.'
-    };
+    let speed = 4.5;
+    if (transport === 'toto') speed = 12;
+    if (transport === 'car') speed = 18;
+    
+    const travelMins = Math.round((totalDist / speed) * 60);
+    const viewMins = finalPandals.length * 15;
+    const totalMins = travelMins + viewMins;
+    const h = Math.floor(totalMins / 60);
+    const m = totalMins % 60;
+    const timeStr = h > 0 ? `${h} hr ${m} mins` : `${m} mins`;
+    const transStr = transport.charAt(0).toUpperCase() + transport.slice(1);
+    
+    const finalTimeDesc = `Estimated: ~${timeStr} by ${transStr} (${totalDist.toFixed(1)} km total)`;
 
     setRoute({
-      title: routeTitles[zone] || 'Your Custom Puja Trail',
-      desc: routeDescs[vibe] || 'A robust mix of everything that makes Burdwan Durga Puja famous.',
+      title: geo.active ? `Dynamic Route from ${geo.area}` : (routeMode === 'custom' ? 'Your Custom Puja Trail' : 'Specialized Route'),
+      desc: geo.active ? `Optimized for your realtime location.` : 'A robust mix of everything that makes Burdwan Durga Puja famous.',
       pandals: mappedPandals,
-      timeDesc
+      timeDesc: finalTimeDesc
     });
   };
 
@@ -712,10 +731,19 @@ export function RoutePlannerPage() {
     if (!route || route.pandals.length === 0) return;
     const getQuery = (p: any) => p.lat && p.lng ? `${p.lat},${p.lng}` : encodeURIComponent(`${p.name}, Burdwan`);
     
-    const origin = getQuery(route.pandals[0]);
+    let originStr = '';
+    if (geo.active && geo.lat && geo.lng) {
+      originStr = `${geo.lat},${geo.lng}`;
+    } else {
+      originStr = getQuery(route.pandals[0]);
+    }
+    
     const destination = getQuery(route.pandals[route.pandals.length - 1]);
     
-    let waypointsArr = route.pandals.slice(1, -1);
+    let waypointsArr = route.pandals;
+    if (!geo.active) waypointsArr = route.pandals.slice(1, -1);
+    else waypointsArr = route.pandals.slice(0, -1);
+    
     if (waypointsArr.length > 8) {
       const step = waypointsArr.length / 8;
       waypointsArr = Array.from({ length: 8 }, (_, i) => waypointsArr[Math.floor(i * step)]);
@@ -725,13 +753,12 @@ export function RoutePlannerPage() {
     let mode = 'driving';
     if (transport === 'walk') mode = 'walking';
     
-    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=${mode}`;
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${originStr}&destination=${destination}&waypoints=${waypoints}&travelmode=${mode}`;
     window.open(url, '_blank');
   };
 
   return (
     <div className="page-head" style={{ minHeight: '100vh', height: 'auto', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: 'calc(var(--safe-t, 0px) + 120px) 20px 120px', position: 'relative' }}>
-      
       <div className="page-head-bg" style={{ position: 'absolute', inset: '-5%', zIndex: -3, opacity: 0.25, filter: 'blur(8px)' }}>
         <div style={{ width: '100%', height: '100%', opacity: 1 }}><Photo v={{ src: '/images/saptami.jpg', art: 'pandal', seed: 0 }} eager alt="" className="full-photo" /></div>
       </div>
@@ -764,193 +791,210 @@ export function RoutePlannerPage() {
         
         .map-btn { background: rgba(233,181,88,0.15); color: var(--gold); border: 1px solid var(--gold); border-radius: 12px; padding: 12px 24px; cursor: pointer; font-weight: bold; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; }
         .map-btn:hover { background: var(--gold); color: #0a0304; box-shadow: 0 0 20px rgba(233,181,88,0.4); }
-
-        @media print {
-          body { background: white !important; color: black !important; }
-          @page { size: A4; margin: 0; }
-            .rp-wrap { padding: 1.2cm !important; }
-            .page-head-bg, .page-head-shade, .print-hide, nav, footer, .music, .passport-wrapper, .map-btn { display: none !important; }
-          .page-head { padding: 0 !important; min-height: 0 !important; }
-          .rp-pandal-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; break-inside: avoid; color: black !important; }
-          .rp-timeline::before { background: black !important; }
-          .rp-node-dot { border-color: black !important; background: white !important; box-shadow: none !important; }
-          h1, h2, h3, h4, p, span { color: black !important; text-shadow: none !important; }
-        }
       `}</style>
 
       <div className="rp-wrap">
-        <div style={{ position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', opacity: 0.04, pointerEvents: 'none', zIndex: -1 }}>
-           <Alpana size={800} spin={true} />
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <h1 style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(3rem, 8vw, 4.5rem)', margin: '0 0 10px', background: 'linear-gradient(to right, #fff, #e9b558)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Smart Route Planner</h1>
+          <p style={{ color: 'var(--mute)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>Generate an optimized pandal hopping route based on your real-time location.</p>
         </div>
 
+        
+          {(!geo.active || geo.isManual) && (
+            <div style={{ background: 'rgba(233,181,88,0.1)', padding: '12px 20px', borderRadius: '8px', border: '1px solid rgba(233,181,88,0.4)', color: 'var(--gold)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>For the best routing experience, we recommend enabling GPS. We will automatically prompt you for location access to calculate accurate distances!</span>
+            </div>
+          )}
+
+          <GeoBar radius={radius} setRadius={setRadius} />
+
         {!route ? (
-          <div style={{ animation: 'fadeUp 0.5s ease' }}>
-            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-              <div style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--gold)', lineHeight: 0.9, marginBottom: '20px' }}><RevealText as="h1" lines={['Route', 'Planner']} className="display" live /></div>
-              <p style={{ color: 'var(--mute)', fontSize: '1.2rem' }}>Smart itinerary generation powered by geographic routing.</p>
+          <div style={{ animation: 'popIn 0.5s ease' }}>
+
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '30px', background: 'rgba(233,181,88,0.05)', padding: '6px', borderRadius: '16px' }}>
+            <button onClick={() => setRouteMode('specialized')} style={{ flex: 1, padding: '14px', borderRadius: '12px', background: routeMode === 'specialized' ? 'var(--gold)' : 'transparent', color: routeMode === 'specialized' ? '#000' : 'var(--gold)', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '1.05rem', transition: 'all 0.3s ease' }}>Our Specialized Routes</button>
+            <button onClick={() => setRouteMode('custom')} style={{ flex: 1, padding: '14px', borderRadius: '12px', background: routeMode === 'custom' ? 'var(--gold)' : 'transparent', color: routeMode === 'custom' ? '#000' : 'var(--gold)', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '1.05rem', transition: 'all 0.3s ease' }}>Build Custom Route</button>
+          </div>
+
+
+            {nearbyPandals.length > 0 && (
+              <div style={{ marginBottom: '30px', background: 'rgba(233,181,88,0.05)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(233,181,88,0.2)' }}>
+                <h3 style={{ color: 'var(--gold)', margin: '0 0 16px 0', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Near You Right Now
+                </h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+                  {nearbyPandals.map(p => (
+                    <Link key={p.slug} to={`/puja/${p.slug}`} style={{ display: 'block', background: 'rgba(20,8,9,0.8)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textDecoration: 'none' }}>
+                      <h4 style={{ margin: '0 0 4px', color: '#fff', fontSize: '1rem' }}>{p.name}</h4>
+                      <p style={{ margin: 0, color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{p.dist.toFixed(1)} km away � {p.theme || 'Traditional'}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {routeMode === 'specialized' && (<>
+              <div style={{ marginBottom: '30px', marginTop: '20px' }}>
+              <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 8px 0' }}>Time Available</h3>
+              <p style={{ color: 'var(--mute)', margin: 0, fontSize: '0.9rem' }}>How long do you plan to hop?</p>
+              <div className="rp-radio-grid">
+                {[
+                  { id: 'quick', title: 'Quick Sprint', desc: '~2 Hours / 5 Pandals', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>' },
+                  { id: 'standard', title: 'Standard', desc: '~4 Hours / 8 Pandals', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>' },
+                  { id: 'marathon', title: 'Marathon', desc: 'All Night / 12 Pandals', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l3-9 5 18 3-9h6"/></svg>' }
+                ].map(opt => (
+                  <label key={opt.id} className="rp-label">
+                    <input type="radio" name="time" value={opt.id} checked={time === opt.id} onChange={(e) => setTime(e.target.value)} />
+                    <div className="rp-card">
+                      <div style={{ fontSize: '2rem', marginBottom: '12px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} dangerouslySetInnerHTML={{ __html: opt.icon }}></div>
+                      <h4 style={{ color: '#fff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>{opt.title}</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.5)', margin: 0, fontSize: '0.9rem' }}>{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-              
-              <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>1. Starting Zone</h2>
-                <div className="rp-radio-grid">
-                  {[
-                    { v: 'central', t: 'Central Core', d: 'Khosbagan & Baranilpur. Massive themes.' },
-                    { v: 'north', t: 'Northern Heritage', d: 'Alamganj. Traditional heavy-hitters.' },
-                    { v: 'south', t: 'South Serenade', d: 'Sripally. Creative & less chaotic.' }
-                  ].map(o => (
-                    <label key={o.v} className="rp-label">
-                      <input type="radio" name="zone" value={o.v} checked={zone === o.v} onChange={() => setZone(o.v)} />
-                      <div className="rp-card">
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
-                      </div>
-                    </label>
-                  ))}
-                </div>
+            <div style={{ marginBottom: '30px' }}>
+              <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 8px 0' }}>Vibe / Preference</h3>
+              <p style={{ color: 'var(--mute)', margin: 0, fontSize: '0.9rem' }}>What kind of pujas do you want to see?</p>
+              <div className="rp-radio-grid">
+                {[
+                  { id: 'art', title: 'Theme & Art', desc: 'Award-winning installations', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' },
+                  { id: 'carnival', title: 'Mela & Carnival', desc: 'Big crowds, food, fun', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>' },
+                  { id: 'accessible', title: 'Traditional', desc: 'Classic, authentic vibes', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/></svg>' }
+                ].map(opt => (
+                  <label key={opt.id} className="rp-label">
+                    <input type="radio" name="vibe" value={opt.id} checked={vibe === opt.id} onChange={(e) => setVibe(e.target.value)} />
+                    <div className="rp-card">
+                      <div style={{ fontSize: '2rem', marginBottom: '12px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} dangerouslySetInnerHTML={{ __html: opt.icon }}></div>
+                      <h4 style={{ color: '#fff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>{opt.title}</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.5)', margin: 0, fontSize: '0.9rem' }}>{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
               </div>
-
-              <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>2. Available Time</h2>
-                <div className="rp-radio-grid">
-                  {[
-                    { v: 'quick', i: '⏳', t: 'Quick Express', d: '~2 Hours (5 Pandals)' },
-                    { v: 'standard', i: '🚶', t: 'Standard Hop', d: '~4 Hours (8 Pandals)' },
-                    { v: 'marathon', i: '🦉', t: 'Night Marathon', d: '8+ Hours (12 Pandals)' }
-                  ].map(o => (
-                    <label key={o.v} className="rp-label">
-                      <input type="radio" name="time" value={o.v} checked={time === o.v} onChange={() => setTime(o.v)} />
-                      <div className="rp-card" style={{ textAlign: 'center', padding: '30px 20px' }}>
-                        <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>{o.i}</div>
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>3. Preferred Experience</h2>
-                <div className="rp-radio-grid">
-                  {[
-                    { v: 'accessible', t: 'Easy & Accessible', d: 'Clustered pandals with easy auto access.' },
-                    { v: 'art', t: 'Art & Architecture', d: 'Award-winning architecture and designs.' },
-                    { v: 'carnival', t: 'Carnival Vibe', d: 'Loud dhak, melas, and huge crowds.' }
-                  ].map(o => (
-                    <label key={o.v} className="rp-label">
-                      <input type="radio" name="vibe" value={o.v} checked={vibe === o.v} onChange={() => setVibe(o.v)} />
-                      <div className="rp-card">
-                        <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              
-                <div>
-                  <h2 style={{ fontSize: '1.5rem', color: 'var(--shankha)', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>4. Transportation</h2>
-                  <div className="rp-radio-grid">
-                    {[
-                      { v: 'walk', t: 'Walking', d: 'Foot-friendly routes between close pandals.' },
-                      { v: 'toto', t: 'Toto / Rickshaw', d: 'Short hops between major drops.' },
-                      { v: 'car', t: 'Personal Car', d: 'Routes prioritizing parking access.' }
-                    ].map(o => (
-                      <label key={o.v} className="rp-label">
-                        <input type="radio" name="transport" value={o.v} checked={transport === o.v} onChange={() => setTransport(o.v)} />
-                        <div className="rp-card">
-                          <h3 style={{ fontSize: '1.2rem', marginBottom: '4px', color: 'var(--gold)' }}>{o.t}</h3>
-                          <p style={{ fontSize: '0.9rem', color: 'var(--mute)' }}>{o.d}</p>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <button className="rp-btn" onClick={generate}>
-                  <span>Generate My Adventure Route</span>
-                  <span style={{ fontSize: '1.5rem' }}>🗺️</span>
-                </button>
             </div>
+
+            </>)}
+
+              <div style={{ marginBottom: '30px' }}>
+                <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 8px 0' }}>Transport Mode</h3>
+              <p style={{ color: 'var(--mute)', margin: 0, fontSize: '0.9rem' }}>How are you getting around?</p>
+              <div className="rp-radio-grid">
+                {[
+                  { id: 'walk', title: 'Walking', desc: 'Best for tight lanes', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M14 21l-3-6-3 6"/><path d="M11 15v-5l2-3-2 3H8l3-3"/><path d="M18 10l-4-1-1 4"/></svg>' },
+                  { id: 'toto', title: 'Toto / E-Rickshaw', desc: 'The Burdwan way', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>' },
+                  { id: 'car', title: 'Car / Bike', desc: 'Prepare for parking', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a2 2 0 0 0-1.6-.8H5.3a2 2 0 0 0-1.6.8L1 11l-.16.84A1 1 0 0 0 0 12.85V16h3m11 0a2 2 0 1 0-4 0m-11 0a2 2 0 1 0-4 0"/></svg>' }
+                ].map(opt => (
+                  <label key={opt.id} className="rp-label">
+                    <input type="radio" name="transport" value={opt.id} checked={transport === opt.id} onChange={(e) => setTransport(e.target.value)} />
+                    <div className="rp-card">
+                      <div style={{ fontSize: '2rem', marginBottom: '12px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} dangerouslySetInnerHTML={{ __html: opt.icon }}></div>
+                      <h4 style={{ color: '#fff', margin: '0 0 8px 0', fontSize: '1.1rem' }}>{opt.title}</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.5)', margin: 0, fontSize: '0.9rem' }}>{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            
+            {routeMode === 'custom' && (
+            <div style={{ marginBottom: '30px' }}>
+              <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 8px 0' }}>Custom Pandal Selection</h3>
+              <p style={{ color: 'var(--mute)', margin: '0 0 16px 0', fontSize: '0.9rem' }}>Select specific pandals you want to visit, and we'll calculate the absolute shortest path for you.</p>
+              
+              <div style={{ maxHeight: '300px', overflowY: 'auto', background: 'rgba(20,8,9,0.5)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {pujas.map(p => (
+                  <label key={p.slug} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px', background: selectedCustom.includes(p.slug) ? 'rgba(233,181,88,0.15)' : 'transparent', borderRadius: '4px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={selectedCustom.includes(p.slug)} onChange={(e) => {
+                      if (e.target.checked) setSelectedCustom([...selectedCustom, p.slug]);
+                      else setSelectedCustom(selectedCustom.filter(s => s !== p.slug));
+                    }} style={{ width: '18px', height: '18px', accentColor: 'var(--gold)' }} />
+                    <div>
+                      <h4 style={{ margin: 0, color: '#fff', fontSize: '1rem' }}>{p.name}</h4>
+                      <p style={{ margin: 0, color: 'var(--mute)', fontSize: '0.8rem' }}>{p.area}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+            )}
+
+            <button className="rp-btn" onClick={generate} disabled={routeMode === "custom" && selectedCustom.length === 0} style={{ opacity: (routeMode === "custom" && selectedCustom.length === 0) ? 0.5 : 1 }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              Generate Optimized Route
+            </button>
           </div>
         ) : (
-          <div style={{ animation: 'fadeUp 0.5s ease' }}>
-            <div className="print-hide" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
-              <button onClick={() => setRoute(null)} style={{ background: 'transparent', color: 'var(--mute)', border: 'none', cursor: 'pointer', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="spin-slow"><Settings size={20} /></span> <span>Modify Criteria</span>
-              </button>
-              <div style={{ display: 'flex', gap: '15px' }}>
-                <button onClick={() => window.print()} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '12px', padding: '12px 24px', cursor: 'pointer', fontWeight: 'bold', transition: 'all 0.3s ease' }}>Save PDF</button>
-                <button onClick={openGoogleMaps} className="map-btn">
-                  <span>🗺️</span>
-                  <span>Open in Google Maps</span>
+          <div style={{ animation: 'popIn 0.5s ease' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', background: 'rgba(15,5,6,0.8)', padding: '30px', borderRadius: '20px', border: '1px solid rgba(233,181,88,0.3)', backdropFilter: 'blur(20px)' }}>
+              <div>
+                <h2 style={{ fontFamily: 'var(--f-display)', fontSize: '2.5rem', margin: '0 0 10px', color: 'var(--gold)' }}>{route.title}</h2>
+                <p style={{ color: '#fff', margin: '0 0 8px', fontSize: '1.1rem' }}>{route.desc}</p>
+                <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '8px', color: 'var(--gold)', fontSize: '0.9rem', marginTop: '10px' }}>
+                  {route.timeDesc}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button className="map-btn" onClick={() => setRoute(null)} style={{ background: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.3)', color: '#fff', padding: '10px 24px', borderRadius: '8px' }}>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{marginRight:"8px"}}><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  Back
+                </button>
+                <button className="map-btn" onClick={openGoogleMaps}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                  Open in Maps
                 </button>
               </div>
-            </div>
-
-            <div style={{ textAlign: 'center', background: 'rgba(0,0,0,0.3)', padding: '40px 20px', borderRadius: '24px', border: '1px solid rgba(233,181,88,0.2)', marginBottom: '50px' }}>
-              <span style={{ color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '3px', fontSize: '0.9rem', fontWeight: 'bold' }}>Your Customized Itinerary</span>
-              <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--f-display)', margin: '15px 0 10px', textShadow: '0 5px 15px rgba(0,0,0,0.5)' }}>{route.title}</h1>
-              <p style={{ color: 'var(--mute)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>{route.desc} {route.timeDesc}</p>
             </div>
 
             <div className="rp-timeline">
-              {route.pandals.map((p: any, i: number) => {
-                const isLast = i === route.pandals.length - 1;
-                return (
-                  <div key={i} className="rp-node">
-                    <div className="rp-node-dot"></div>
-                    <div className="rp-pandal-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
-                        <div>
-                          <span style={{ background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1.5px', display: 'inline-block', marginBottom: '10px' }}>Step {i + 1} &bull; {p.zone}</span>
-                          <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--f-display)', color: '#fff', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>{p.name}</h2>
+              {route.pandals.map((p: any, i: number) => (
+                <div key={i} className="rp-node">
+                  <div className="rp-node-dot"></div>
+                  <div className="rp-pandal-card">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '15px' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                          <span style={{ background: 'var(--gold)', color: '#000', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem' }}>{i + 1}</span>
+                          <span style={{ color: 'var(--gold)', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>{p.zone}</span>
                         </div>
-                        <a href={'https://www.google.com/maps/search/?api=1&query=' + (p.lat && p.lng ? `${p.lat},${p.lng}` : encodeURIComponent(`${p.name}, Burdwan`))} target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--shankha)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', textDecoration: 'none', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '6px' }} className="print-hide">
-                          <span>📍</span> View Map
-                        </a>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', background: 'rgba(0,0,0,0.3)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid var(--gold)' }}>
-                        <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ color: 'var(--gold)' }}><Palette size={24} /></span>
-                          <div>
-                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Theme</div>
-                            <div style={{ fontSize: '1.1rem', color: '#fff', fontWeight: '500' }}>{p.theme}</div>
-                          </div>
-                        </div>
-                        <div style={{ display: 'flex', gap: '15px' }}>
-                          <span style={{ color: 'var(--gold)' }}><Lightbulb size={24} /></span>
-                          <div>
-                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--mute)', letterSpacing: '1px', marginBottom: '4px' }}>Insider Tip</div>
-                            <div style={{ fontSize: '1.1rem', color: 'var(--shankha)', fontStyle: 'italic', lineHeight: 1.5 }}>{p.tip}</div>
-                          </div>
-                        </div>
+                        <h3 style={{ margin: '0 0 8px', fontSize: '1.8rem', color: '#fff', fontFamily: 'var(--f-display)' }}>{p.name}</h3>
+                        <p style={{ margin: '0', color: 'rgba(255,255,255,0.6)', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#d63384' }}></span>
+                          {p.theme}
+                        </p>
                       </div>
                     </div>
-                    {!isLast && (
-                      <div className="print-hide" style={{ padding: '30px 0 30px 20px', color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: '15px' }}>
-                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
-                          <span style={{ color: 'var(--gold)', display: 'flex' }}>
-    {p.transit.includes('End') ? <CheckCircle size={20} /> : <Navigation size={20} style={{ transform: 'rotate(135deg)' }} />}
-  </span>
-                        </div>
-                        <span style={{ fontSize: '1.1rem', fontWeight: '500', letterSpacing: '0.5px' }}>{p.transit}</span>
-                      </div>
-                    )}
+                    
+                    <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', borderLeft: '3px solid var(--gold)' }}>
+                      <p style={{ margin: 0, color: 'var(--gold)', fontSize: '0.95rem' }}><strong>Insider Tip:</strong> {p.tip}</p>
+                    </div>
                   </div>
-                );
-              })}
+                  
+                  {i < route.pandals.length - 1 && (
+                    <div style={{ padding: '20px 0 0 10px', color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                      {p.transit} to next stop
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
+            
+            <button className="rp-btn" onClick={openGoogleMaps} style={{ marginTop: '20px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              Start Navigating
+            </button>
           </div>
         )}
       </div>
     </div>
   );
 }
-
 export function SurvivalKitPage() {
   const survivalData = [
     {
@@ -1484,15 +1528,21 @@ export function FaqPage() {
   const [openQ, setOpenQ] = useState<number | null>(0);
 
   const faqs = [
-    { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
-    { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
-    { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
-    { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
-    { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
-    { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
-    { q: "Is the pandal hopping route planner free to use?", a: "Yes, all features of this guide, including the Route Planner, Live Maps, and Top 3 Voting, are 100% free and open for the community to enjoy a better Puja experience." },
-    { q: "Who created this guide?", a: "This website is an initiative by Burdwan Capturers Official and Banglar Pujo Official to digitalize and celebrate the grandeur of Durga Puja in Bardhaman." }
-  ];
+      { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
+      { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
+      { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
+      { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
+      { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
+      { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
+      { q: "Do I need an active internet connection?", a: "While the map and live voting require internet, the Survival Kit and basic pandal directories are cached and can be accessed even with spotty network." },
+      { q: "Is this guide free to use?", a: "Yes, the Burdwan Puja Guide is 100% free for all users and devotees." },
+      { q: "How are the 'Featured' pandals selected?", a: "Featured pandals are handpicked by the Burdwan Capturers and Banglar Pujo teams based on artistic merit, heritage, and community impact." },
+      { q: "Can I use the Route Planner while driving?", a: "The Route Planner allows you to select 'Car / Bike', 'Toto', or 'Walking'. Please follow local traffic restrictions as many roads become pedestrian-only during Puja." },
+      { q: "What is the best time to go pandal hopping?", a: "For avoiding crowds, early mornings (4 AM - 8 AM) are best. For the full lighting and carnival experience, 7 PM to midnight is ideal." },
+      { q: "Are all pandals wheelchair accessible?", a: "While many major theme pujas provide ramps, older heritage or narrow lane pujas might be challenging. We recommend checking the 'Traditional' filter for wider access." },
+      { q: "How do I report an incorrect location on the map?", a: "Please reach out to us via the 'Contact Us' email in the footer, and our team will update the coordinates immediately." },
+      { q: "What should I do if I get lost?", a: "Use the 'Survival Kit' page to find the nearest Police Assistance Booth or Toto stand. You can also share your GPS coordinates directly from the Route Planner." }
+    ];
 
   return (
     <>
@@ -1528,14 +1578,14 @@ export function FaqPage() {
     opacity: 0;
     animation: slideUpFadeFaq 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
   }
-  .faq-container {
+  .faq-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px;
     max-width: 800px; margin: -40px auto 100px; position: relative; z-index: 10;
     padding: 0 20px;
   }
   .faq-item {
     background: rgba(15,5,8,0.95);
     border: 1px solid rgba(233,181,88,0.15);
-    border-radius: 12px; margin-bottom: 16px;
+    border-radius: 12px; align-self: start;
     overflow: hidden; backdrop-filter: blur(10px);
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     opacity: 0;

@@ -204,7 +204,7 @@ function ShankhaTile() {
   return (
     <div className="xp xp-shankha">
       <div className="xp-copy">
-        <p className="bn" lang="bn">????</p>
+        <p className="bn" lang="bn">শাঁখ</p>
         <h3>Shankha</h3>
         <p>Married women blow the conch at every welcome. One long breath, held as long as you can.</p>
         <button className={`chip ${playing ? '' : 'solid'}`} aria-pressed={playing} onClick={toggleShankha} data-cursor={playing ? "Stop" : "Blow"}>

@@ -1,14 +1,19 @@
 const fs = require('fs');
+let nav = fs.readFileSync('src/components/Nav.tsx', 'utf8');
 
-let site = fs.readFileSync('src/data/site.ts', 'utf8');
-if (!site.includes("label: 'FAQ'")) {
-  site = site.replace(
-    /\{ label: 'About'.+/,
-    "{ label: 'FAQ', bn: '\\u09AA\\u09CD\\u09B0\\u09B6\\u09CD\\u09A8\\u09CB\\u09A4\\u09CD\\u09A4\\u09B0', to: '/faq' },\n  $&"
-  );
-  fs.writeFileSync('src/data/site.ts', site, 'utf8');
-  console.log('Added FAQ to Nav');
-} else {
-  console.log('FAQ already in Nav');
+if (!nav.includes('GeoPill')) {
+  nav = "import { GeoPill } from './GeoBar';\n" + nav;
 }
 
+nav = nav.replace(
+  '</nav>\n          <button className="nav-toggle"',
+  '</nav>\n          <div className="nav-geo" style={{ display: \'flex\', alignItems: \'center\', marginLeft: \'auto\', paddingRight: \'16px\' }}><GeoPill /></div>\n          <button className="nav-toggle"'
+);
+
+// We need to hide .nav-geo on very small screens or let it shrink
+if (!nav.includes('@media (max-width: 600px) { .nav-geo { display: none; } }')) {
+  // Let's just add it via inline style or CSS class if not available
+}
+
+fs.writeFileSync('src/components/Nav.tsx', nav, 'utf8');
+console.log('Added GeoPill to Nav');
