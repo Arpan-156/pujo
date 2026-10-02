@@ -1,4 +1,19 @@
+
 import { useState, useEffect, useCallback } from 'react';
+
+export const AREAS = [
+  { name: 'Kalibazar', lat: 23.235, lng: 87.855 },
+  { name: 'Sripally', lat: 23.232, lng: 87.861 },
+  { name: 'Nutanpally', lat: 23.238, lng: 87.864 },
+  { name: 'Ichlabad', lat: 23.239, lng: 87.872 },
+  { name: 'Baranilpur', lat: 23.225, lng: 87.875 },
+  { name: 'Sadarghat', lat: 23.220, lng: 87.865 },
+  { name: 'Borehat', lat: 23.242, lng: 87.848 },
+  { name: 'Khosbagan', lat: 23.240, lng: 87.852 },
+  { name: 'Town Hall', lat: 23.245, lng: 87.859 },
+  { name: 'Police Line', lat: 23.250, lng: 87.861 },
+  { name: 'Mehedibagan', lat: 23.255, lng: 87.865 }
+];
 
 export interface GeoState {
   active: boolean;
@@ -10,56 +25,63 @@ export interface GeoState {
   isManual: boolean;
 }
 
-export function useGeo() {
-  const [geo, setGeo] = useState<GeoState>(() => {
-    // Try to load from localStorage first
-    try {
-      const saved = localStorage.getItem('pujo_geo');
-      if (saved) return JSON.parse(saved);
-    } catch(e) {}
-    return {
-      active: false,
-      lat: null,
-      lng: null,
-      error: null,
-      area: 'Unknown',
-      status: 'idle',
-      isManual: false
-    };
-  });
-
-  const AREAS = [
-    { name: 'Kalibazar', lat: 23.2347, lng: 87.8768 },
-    { name: 'Curzon Gate', lat: 23.2384, lng: 87.8631 },
-    { name: 'Sripally', lat: 23.2300, lng: 87.8630 },
-    { name: 'Rathtala', lat: 23.2397, lng: 87.8336 },
-    { name: 'Natunganj', lat: 23.2378, lng: 87.8490 },
-    { name: 'Khosbagan', lat: 23.2420, lng: 87.8650 },
-    { name: 'Burdwan Station', lat: 23.2312, lng: 87.8710 },
-  ];
-
-  const saveState = (newState: GeoState) => {
-    setGeo(newState);
-    localStorage.setItem('pujo_geo', JSON.stringify(newState));
-  };
-
-  const getNearestArea = (lat: number, lng: number) => {
-    let nearest = 'Burdwan';
-    let minDist = Infinity;
-    for (const a of AREAS) {
-      const d = Math.pow(a.lat - lat, 2) + Math.pow(a.lng - lng, 2);
-      if (d < minDist) {
-        minDist = d;
-        nearest = a.name;
-      }
+const getNearestArea = (lat: number, lng: number) => {
+  let nearest = 'Burdwan';
+  let minDist = Infinity;
+  for (const a of AREAS) {
+    const d = Math.pow(a.lat - lat, 2) + Math.pow(a.lng - lng, 2);
+    if (d < minDist) {
+      minDist = d;
+      nearest = a.name;
     }
-    return nearest;
-  };
+  }
+  return nearest;
+};
 
-  const setManualLocation = (areaName: string) => {
+// --- GLOBAL STATE ---
+let globalGeo: GeoState = {
+  active: false,
+  lat: null,
+  lng: null,
+  error: null,
+  area: 'Burdwan',
+  status: 'idle',
+  isManual: false
+};
+
+try {
+  const saved = localStorage.getItem('pujo_geo');
+  if (saved) globalGeo = JSON.parse(saved);
+} catch(e) {}
+
+const listeners = new Set<(s: GeoState) => void>();
+let watcherId: number | null = null;
+
+function emit(newState: GeoState) {
+  globalGeo = newState;
+  localStorage.setItem('pujo_geo', JSON.stringify(newState));
+  listeners.forEach(l => l(newState));
+}
+
+export function useGeo() {
+  const [geo, setGeo] = useState<GeoState>(globalGeo);
+
+  useEffect(() => {
+    listeners.add(setGeo);
+    
+    // Automatically ask for location access on mount
+    if (globalGeo.status === 'idle' && !globalGeo.isManual) {
+      requestPermission();
+    }
+    
+    return () => { listeners.delete(setGeo); };
+  }, []);
+
+  const setManualLocation = useCallback((areaName: string) => {
     const area = AREAS.find(a => a.name === areaName);
     if (area) {
-      saveState({
+      if (watcherId !== null) { navigator.geolocation.clearWatch(watcherId); watcherId = null; }
+      emit({
         active: true,
         lat: area.lat,
         lng: area.lng,
@@ -69,18 +91,33 @@ export function useGeo() {
         isManual: true
       });
     }
-  };
+  }, []);
 
   const requestPermission = useCallback(() => {
     if (!navigator.geolocation) {
-      setGeo(g => ({ ...g, status: 'error', error: 'Geolocation not supported' }));
+      emit({ ...globalGeo, status: 'error', error: 'Geolocation not supported' });
       return;
     }
-    setGeo(g => ({ ...g, status: 'loading', isManual: false }));
-    navigator.geolocation.getCurrentPosition(
+    
+    emit({ ...globalGeo, status: 'loading', isManual: false });
+    
+    if (watcherId !== null) navigator.geolocation.clearWatch(watcherId);
+    
+    let lastEmitTime = 0;
+    watcherId = navigator.geolocation.watchPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        saveState({
+        const now = Date.now();
+        
+        if (now - lastEmitTime < 3000) return; // Max once every 3 seconds
+        
+        if (globalGeo.lat && globalGeo.lng) {
+           const dist = getDistance(globalGeo.lat, globalGeo.lng, latitude, longitude);
+           if (dist < 0.005) return; // Don't update if moved less than 5 meters
+        }
+        
+        lastEmitTime = now;
+        emit({
           active: true,
           lat: latitude,
           lng: longitude,
@@ -91,25 +128,11 @@ export function useGeo() {
         });
       },
       (err) => {
-        setGeo(g => ({ ...g, active: false, status: 'error', error: err.message, isManual: false }));
+        emit({ ...globalGeo, active: false, status: 'error', error: err.message, isManual: false });
       },
-      { timeout: 10000, enableHighAccuracy: true, maximumAge: 0 }
+      { timeout: 15000, enableHighAccuracy: true, maximumAge: 0 }
     );
   }, []);
-
-  useEffect(() => {
-    if (geo.status === 'idle' && !geo.isManual) {
-      if (navigator.permissions) {
-        navigator.permissions.query({ name: 'geolocation' }).then(res => {
-          if (res.state === 'granted' || res.state === 'prompt') {
-            requestPermission();
-          }
-        });
-      } else {
-        requestPermission();
-      }
-    }
-  }, [requestPermission, geo.status, geo.isManual]);
 
   return { geo, requestPermission, setManualLocation, AREAS };
 }

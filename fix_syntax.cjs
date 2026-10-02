@@ -1,6 +1,10 @@
 const fs = require('fs');
-let code = fs.readFileSync('src/data/content.ts', 'utf8');
+let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-code = code.replace(/^[ \t]*\},[ \t]*\r?\n/gm, "");
+code = code.replace(
+  /\}m away` : `\$\{d\.toFixed\(1\)\}km away`;\s*\}/g,
+  ''
+);
 
-fs.writeFileSync('src/data/content.ts', code, 'utf8');
+fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
+console.log('Fixed syntax error');

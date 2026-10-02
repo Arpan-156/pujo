@@ -148,16 +148,7 @@ export function GeoBar({ radius, setRadius, searchQuery, setSearchQuery, onRefre
               <h4>{geo.isManual ? 'Manual Location' : 'GPS Active'} {geo.lat && <span>({geo.lat.toFixed(4)}&deg; N, {geo.lng?.toFixed(4)}&deg; E)</span>}</h4>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <p>From </p>
-                <select 
-                  style={{ background: 'transparent', color: '#10b981', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '4px', padding: '2px 4px', fontSize: '0.85rem', outline: 'none' }}
-                  value={geo.area}
-                  onChange={(e) => setManualLocation(e.target.value)}
-                >
-                  <option value="Unknown" disabled>Select Location</option>
-                  {AREAS.map(a => (
-                    <option key={a.name} value={a.name}>{a.name}</option>
-                  ))}
-                </select>
+                <strong style={{ color: '#10b981' }}>{geo.area}</strong>
                 {geo.isManual && (
                   <button onClick={requestPermission} style={{ background: 'transparent', border: 'none', color: 'var(--gold)', cursor: 'pointer', fontSize: '0.8rem', padding: 0 }}>
                     (Use GPS)
@@ -220,13 +211,12 @@ export function GeoPill() {
 
   return (
     <button className="geo-pill" onClick={() => {
-      setLoading(true);
-      requestPermission();
-      setTimeout(() => setLoading(false), 800);
-    }}>
-      <div className="geo-dot" style={{ background: geo.status === 'success' ? '#10b981' : geo.status === 'error' ? '#ef4444' : '#f59e0b', boxShadow: geo.status === 'success' ? '0 0 8px rgba(16, 185, 129, 0.6)' : 'none' }} />
-      {geo.status === 'success' ? geo.area : geo.status === 'loading' ? 'Locating...' : 'Enable GPS'}
-      <RefreshCw size={16} style={{ animation: loading ? 'spin 1s linear infinite' : 'none', opacity: 0.7 }} />
-    </button>
+        setLoading(true);
+        requestPermission();
+        setTimeout(() => setLoading(false), 800);
+      }} style={{ background: 'transparent', border: '1px solid rgba(16, 185, 129, 0.5)', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.95rem', fontWeight: 600, padding: '4px 12px', borderRadius: '99px' }}>
+        <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px rgba(16, 185, 129, 0.6)', animation: loading ? 'pulse 1s infinite' : 'none' }}></div>
+        {geo.status === 'success' ? geo.area : geo.status === 'loading' ? 'Locating...' : 'Enable GPS'}
+      </button>
   );
 }

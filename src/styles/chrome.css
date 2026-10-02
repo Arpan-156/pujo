@@ -236,9 +236,7 @@
 
 
 @media (max-width: 1120px) {
-  .nav-geo {
-    display: none !important;
-  }
+  .nav-geo { display: none; }
 }
 
 

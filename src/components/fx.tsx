@@ -72,7 +72,8 @@ export function Particles({ kind = 'embers', count = 60, className = '' }: { kin
     if (!c || reduced) return;
     const ctx = c.getContext('2d');
     if (!ctx) return;
-    const n = Math.round(count * (mobile ? 0.25 : 0.5));
+    if (mobile) return; // Completely disable particles on mobile to fix lag
+      const n = Math.round(count * 0.5);
     let w = 0, h = 0, raf = 0, visible = true, last = performance.now();
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const size = () => {
@@ -347,7 +348,9 @@ export function PujaScenario({ className = '' }: { className?: string }) {
     <div className={`puja-scenario ${className}`} aria-hidden="true" style={{ position: 'absolute', bottom: '180px', right: '2%', width: 'clamp(250px, 30vw, 350px)', height: '300px', pointerEvents: 'none', zIndex: 5, color: 'var(--gold)', opacity: 0.85 }}>
       <style>{`
         @keyframes puja-flicker {
-          0%, 100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 4px #f59e0b); }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1) translateY(-1px); opacity: 0.8; }
+          }
           50% { transform: scale(1.15) translateY(-1px); opacity: 0.8; filter: drop-shadow(0 0 8px #f59e0b); }
         }
         @keyframes puja-ring {

@@ -8,7 +8,7 @@ import { fetchGlobalLeaderboard, submitGlobalVote } from '../lib/api';
 import { Link, useRouter } from '../lib/router';
 import { Photo } from '../components/Art';
 import { Reveal, RevealText, Alpana } from '../components/fx';
-import {   ArrowLeft, ArrowRight, Mail, Pin, Search, X, Instagram, Facebook , Settings, Palette, Lightbulb , Navigation, CheckCircle } from '../components/Icons';
+import { Footprints, ArrowLeft, ArrowRight, Mail, Pin, Search, X, Instagram, Facebook , Settings, Palette, Lightbulb , Navigation, CheckCircle } from '../components/Icons';
 import { Btn, FlipGrid, PageHead, PujaCard } from '../components/shared';
 import { PassportButton } from '../components/Passport';
 import { FeaturedRail } from '../sections/FeaturedRail';
@@ -17,7 +17,7 @@ import { ThemesGrid } from '../sections/ThemesGrid';
 import { ExploreBardhaman } from '../sections/ExploreBardhaman';
 import { GalleryBoard } from '../sections/GalleryBoard';
 import { Lightbox } from '../sections/Lightbox';
-import { MiniMap, PujaMap } from '../sections/PujaMap';
+import { MiniMap, PujaMap, RouteMap } from '../sections/PujaMap';
 import { Timeline } from '../sections/Timeline';
 import { Experiences } from '../sections/Experiences';
 import { AboutBrands, Social, Team } from '../sections/About';
@@ -58,6 +58,8 @@ function MissingPandalNotice() {
           transform-origin: bottom center;
         }
         
+        @media print { .fn-wrap { display: none !important; } }
+        .menu-open .fn-wrap { display: none !important; }
         .fn-wrap.closing {
           animation: notice-fly-away 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
         }
@@ -173,8 +175,17 @@ function MissingPandalNotice() {
   );
 }
 
+export function getWalkTimeStr(distKm: number) {
+  const timeInHours = distKm / 5;
+  const hours = Math.floor(timeInHours);
+  const mins = Math.round((timeInHours - hours) * 60);
+  if (hours > 0) return `${hours}h ${mins}m walk`;
+  return `${mins} min walk`;
+}
+
 export function PujasPage() {
-    const { pujas, themes } = useData();
+  const { pujas, themes } = useData();
+  const { geo, requestPermission } = useGeo();
     const [showPopup, setShowPopup] = useState(false);
     useEffect(() => { const saved = localStorage.getItem("puja_votes_26"); if (!saved || Object.keys(JSON.parse(saved)).length === 0) { setShowPopup(true); } }, []);
     const [userState, setUserState] = useState<Record<string, { rating: number; upvoted: boolean }>>({});
@@ -288,7 +299,7 @@ export function PujasPage() {
                              </div>
                              <div style={{ color: 'var(--mute)', fontSize: '0.75rem', fontWeight: 'bold' }}>
                                <span style={{ color: '#fff' }}>{finalRating.toFixed(1)}</span> ({baseVotes.toLocaleString()})
-                               {userR > 0 && <span style={{ color: 'var(--gold)', marginLeft: '6px' }}>� You voted {userR}</span>}
+                               {userR > 0 && <span style={{ color: 'var(--gold)', marginLeft: '6px' }}>• You voted {userR}</span>}
                              </div>
                            </div>
                          );
@@ -297,6 +308,32 @@ export function PujasPage() {
                   <div className="plist-col">
                     <p className="plist-label">Address</p>
                     <p className="plist-loc">{p.location}</p>
+                    {(() => {
+                      let distVal = 0;
+                        if (geo.lat && geo.lng && p.map?.lat && p.map?.lng) {
+                          distVal = getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
+                        }
+                        return p.map?.lat && p.map?.lng ? (
+                          <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
+                            {distVal > 0 && (
+                              <div style={{ background: '#0a0505', border: '1px solid rgba(225,29,72,0.3)', borderRadius: '99px', padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                                <Pin size={14} color="#e11d48" />
+                                <span style={{ color: '#e0f2fe', fontWeight: 600, fontSize: '0.85rem' }}>
+                                  {distVal < 1 ? `${(distVal * 1000).toFixed(0)}m` : `${distVal.toFixed(1)}km`}
+                                </span>
+                                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem' }}>•</span>
+                                <Footprints size={14} color="#d97757" />
+                                <span style={{ color: '#e0f2fe', fontWeight: 600, fontSize: '0.85rem' }}>
+                                  {getWalkTimeStr(distVal)}
+                                </span>
+                              </div>
+                            )}
+                          <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); const url = geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map.lat},${p.map.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map.lat},${p.map.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: 'var(--gold)', color: '#1a0b0c', padding: '8px 24px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, border: 'none', boxShadow: '0 2px 8px rgba(234, 179, 8, 0.3)', transition: 'all 0.2s' }}>
+                            Get Directions
+                          </button>
+                        </div>
+                      ) : null;
+                    })()}
                   </div>
                   <div className="plist-col">
                     <p className="plist-label">Theme</p>
@@ -332,6 +369,13 @@ export function PujaDetail({ slug }: { slug: string }) {
   const { bySlug, pujas } = useData();
   const { query } = useRouter();
   const p = bySlug(slug);
+  const { geo, requestPermission } = useGeo();
+  let distStr = '';
+  let rawDistKm = 0;
+  if (geo.lat && geo.lng && p?.map?.lat && p?.map?.lng) {
+    rawDistKm = getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
+    distStr = rawDistKm < 1 ? `${(rawDistKm * 1000).toFixed(0)}m away` : `${rawDistKm.toFixed(1)}km away`;
+  }
   const [lb, setLb] = useState<number | null>(null);
 
   useEffect(() => {
@@ -375,25 +419,129 @@ export function PujaDetail({ slug }: { slug: string }) {
         </div>
       </section>
 
-      <section className="pd-info wrap">
-        {p.sample && <p className="sample-note">Sample listing. Details will be confirmed with the organisers before the Puja.</p>}
-        <dl className="pd-facts">
-          {facts.map(([k, v], n) => <Reveal key={k} delay={n * 60} className="pd-fact"><dt>{k}</dt><dd>{v}</dd></Reveal>)}
-        </dl>
-        <Reveal className="pd-attr">
-          <h2>Special attractions</h2>
-          <ul>{p.attractions.map((a) => <li key={a}>{a}</li>)}</ul>
-        </Reveal>
-      </section>
+            <section className="wrap" style={{ marginTop: '40px' }}>
+        {/* Distance Banner */}
+        <div style={{ border: '1px solid #4a1c1c', borderRadius: '12px', padding: '24px', background: 'rgba(10, 5, 5, 0.8)', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+          <div>
+            <div style={{ color: '#ef4444', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              DISTANCE FROM YOU <span style={{ background: '#166534', color: '#4ade80', padding: '2px 6px', borderRadius: '4px', fontSize: '0.65rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}><Navigation size={10} /> Live GPS</span>
+            </div>
+            <h2 style={{ fontSize: '1.8rem', color: '#fff', margin: '0 0 4px 0' }}>You're {distStr || 'unknown distance'}</h2>
+            <p style={{ color: 'var(--mute)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Footprints size={16} />
+              Approximately {distStr ? getWalkTimeStr(rawDistKm) : 'calculating...'}
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px' }}>
+              <button onClick={() => { const url = geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: '#ef4444', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', fontWeight: 600 }}>
+                <Navigation size={16} /> Get Directions
+              </button>
+              <button onClick={() => { if(geo.status !== 'loading') requestPermission(); }} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '10px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Refresh Location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.44l5.36 5.36"/></svg>
+              </button>
+            </div>
+        </div>
 
-      <section className="pd-story wrap">
-        <Reveal className="pd-story-img"><Photo v={p.idolImage} alt={`${p.name} idol`} /></Reveal>
-        <div>
-          <RevealText lines={['THE STORY', 'OF THE THEME']} className="display" />
-          <Reveal delay={150} as="p" className="pd-lead">“{p.theme}”</Reveal>
-          <Reveal delay={250} as="p" className="pd-body">{p.story}</Reveal>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+          {/* About Pandal */}
+          <div style={{ border: '1px solid rgba(233,181,88,0.2)', borderRadius: '12px', padding: '24px', background: 'rgba(20, 10, 10, 0.6)' }}>
+            <div style={{ color: '#ef4444', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              ABOUT THE PANDAL
+            </div>
+            <h3 style={{ fontSize: '1.4rem', color: '#fff', margin: '0 0 16px 0' }}>Cultural Heritage & Theme Concept</h3>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '24px' }}>{p.story || p.name + ' represents a unique cultural heritage...'}</p>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', color: 'var(--mute)', fontSize: '0.85rem' }}>
+              Geographic Coordinates: {p.map?.lat?.toFixed(4) || 'N/A'}&deg; N, {p.map?.lng?.toFixed(4) || 'N/A'}&deg; E
+            </div>
+          </div>
+
+          {/* Visiting Rec */}
+          <div style={{ border: '1px solid rgba(233,181,88,0.2)', borderRadius: '12px', padding: '24px', background: 'rgba(20, 10, 10, 0.6)' }}>
+            <div style={{ color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              VISITING RECOMMENDATION
+            </div>
+            <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: '0 0 16px 0' }}>Best Time to Visit</h3>
+            <div style={{ display: 'inline-block', border: '1px solid var(--gold)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '16px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px', verticalAlign: 'text-bottom' }}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Best time: Evening
+            </div>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '24px' }}>
+              Crowds peak between 8 PM and 1 AM. Early morning offers peaceful rituals and photography without long queues.
+            </p>
+            <div style={{ border: '1px solid rgba(233,181,88,0.3)', borderRadius: '8px', padding: '16px', background: 'rgba(233,181,88,0.05)' }}>
+              <div style={{ color: 'var(--gold)', fontSize: '0.8rem', fontWeight: 700, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Lightbulb size={14} /> Pandal Insider Tip:
+              </div>
+              <p style={{ margin: 0, color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', lineHeight: 1.5 }}>
+                {p.attractions[0] || 'Plan to walk the final stretch as local police often restrict vehicle access near the pandal after 4 PM.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Nearby Pandals */}
+        <div style={{ border: '1px solid #4a1c1c', borderRadius: '12px', padding: '24px', background: 'rgba(10, 5, 5, 0.8)', marginBottom: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
+            <div>
+              <h3 style={{ fontSize: '1.3rem', color: '#fff', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg>
+                Nearby Pandals (Walkable Circuit)
+              </h3>
+              <p style={{ color: 'var(--mute)', margin: 0, fontSize: '0.9rem' }}>Visiting <strong>{p.name}</strong>? Hop directly to these neighboring pandals on foot without hailing a cab:</p>
+            </div>
+            <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 600 }}>Within 2 km</div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+            {(() => {
+              if (!p.map?.lat || !p.map?.lng) return <p style={{ color: 'var(--mute)' }}>Location data unavailable.</p>;
+              const nearby = pujas
+                .filter(x => x.slug !== p.slug && x.map?.lat && x.map?.lng)
+                .map(x => {
+                  const d = getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!);
+                  return { ...x, dist: d };
+                })
+                .sort((a, b) => a.dist - b.dist)
+                .slice(0, 3);
+              
+              return nearby.map((n, i) => (
+                <div key={n.slug} style={{ background: i === 1 ? '#e11d48' : 'rgba(20,8,9,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
+                  {i !== 1 ? (
+                    <>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, width: 'fit-content', marginBottom: '12px' }}>
+                        <Pin size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
+                      </div>
+                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
+                      <p style={{ margin: '0 0 16px 0', color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+                        <Pin size={12} style={{ flexShrink: 0, marginTop: '2px' }} /> {n.location}
+                      </p>
+                      <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' }}>
+                        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem' }}>Evening</span>
+                        <Link to={`/puja/${n.slug}`} style={{ color: '#ef4444', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 600 }}>Hop to Pandal ?</Link>
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.9)', fontSize: '0.75rem', fontWeight: 700, marginBottom: '12px' }}>
+                        <Pin size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
+                      </div>
+                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
+                      <p style={{ margin: '0 0 24px 0', color: 'rgba(255,255,255,0.8)', fontSize: '0.8rem' }}>{n.location}</p>
+                      <button onClick={() => window.open(geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${n.map.lat},${n.map.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${n.map.lat},${n.map.lng}`)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '10px', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                        Navigate to {n.name.split(' ')[0]}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ));
+            })()}
+          </div>
         </div>
       </section>
+
 
       <section className="pd-gallery wrap" id="pandal">
         <RevealText lines={['THE PANDAL,', 'FRAME BY FRAME']} className="display" />
@@ -421,6 +569,49 @@ export function PujaDetail({ slug }: { slug: string }) {
         </div>
         <MiniMap x={p.map.x} y={p.map.y} lat={p.map.lat} lng={p.map.lng} name={p.name} />
       </section>
+
+      {p.map?.lat && p.map?.lng && (
+          <section className="wrap" style={{ marginTop: '0', marginBottom: '40px' }}>
+            <div style={{ border: '1px solid #4a1c1c', borderRadius: '12px', padding: '24px', background: 'rgba(10, 5, 5, 0.8)' }}>
+              <div>
+                <h3 style={{ fontSize: '1.3rem', color: '#fff', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Pin size={20} color="#ef4444" />
+                  Nearby Pandals (Walkable Circuit)
+                  <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--gold)' }}>Within 2 km</span>
+                </h3>
+                <p style={{ color: 'var(--mute)', margin: '0 0 24px 0', fontSize: '0.9rem' }}>Visiting <strong>{p.name}</strong>? Hop directly to these neighboring pandals on foot without hailing a cab:</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                {(() => {
+                  const neighbors = pujas
+                    .filter(x => x.slug !== p.slug && x.map?.lat && x.map?.lng)
+                    .map(x => ({ ...x, dist: getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!) }))
+                    .filter(x => x.dist < 2)
+                    .sort((a, b) => a.dist - b.dist)
+                    .slice(0, 3);
+                  
+                  return neighbors.map((n, i) => (
+                    <div key={n.slug} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, width: 'fit-content', marginBottom: '12px' }}>
+                        <Footprints size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
+                      </div>
+                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
+                      <p style={{ margin: '0 0 16px 0', color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+                        <Pin size={12} style={{ flexShrink: 0, marginTop: '2px' }} /> {n.location}
+                      </p>
+                      <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' }}>
+                        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem' }}>Evening</span>
+                        {n.featured ? (
+                          <Link to={`/puja/${n.slug}`} style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>Hop to Pandal &rarr;</Link>
+                        ) : null}
+                      </div>
+                    </div>
+                  ));
+                })()}
+              </div>
+            </div>
+          </section>
+        )}
 
       <section className="pd-more wrap">
         <RevealText lines={['MORE FROM', 'THIS PUJA']} className="display" />
@@ -585,9 +776,9 @@ export function RoutePlannerPage() {
   const nearbyPandals = useMemo(() => {
     if (!geo.active || !geo.lat || !geo.lng) return [];
     const lat = geo.lat; const lng = geo.lng;
-    const withDist = pujas.filter(p => p.lat && p.lng).map(p => ({
+    const withDist = pujas.filter(p => p.map?.lat && p.map?.lng).map(p => ({
       ...p,
-      dist: getDistance(lat!, lng!, p.lat!, p.lng!)
+      dist: getDistance(lat!, lng!, p.map!.lat!, p.map!.lng!)
     }));
     withDist.sort((a, b) => a.dist - b.dist);
     return withDist.slice(0, 4);
@@ -606,11 +797,11 @@ export function RoutePlannerPage() {
         let minDist = 999999;
         for (let i=0; i<unvisited.length; i++) {
           const p = unvisited[i];
-          if (!p.lat || !p.lng) {
+          if (!p.map?.lat || !p.map?.lng) {
             if (999 < minDist) { minDist = 999; closestIdx = i; }
             continue;
           }
-          const d = getDistance(currentLat, currentLng, p.lat, p.lng);
+          const d = getDistance(currentLat, currentLng, p.map!.lat, p.map!.lng);
           if (d < minDist) { minDist = d; closestIdx = i; }
         }
         const closest = unvisited.splice(closestIdx, 1)[0];
@@ -630,15 +821,15 @@ export function RoutePlannerPage() {
       if (routeMode === 'custom' && selectedCustom.length > 0) {
         const customPool = pujas.filter(p => selectedCustom.includes(p.slug));
         const startLat = (geo.active && geo.lat) ? geo.lat : (customPool.find(p=>p.lat)?.lat || 23.2324);
-        const startLng = (geo.active && geo.lng) ? geo.lng : (customPool.find(p=>p.lng)?.lng || 87.8615);
+        const startLng = (geo.active && geo.lng) ? geo.lng : (customPool.find(p=>p.map!.lng)?.lng || 87.8615);
         finalPandals = sortNearestNeighbor(customPool, startLat, startLng);
         timeDesc = `Custom route optimized for shortest travel distance covering ${finalPandals.length} pandals.`;
       } else {
         let pool = [...pujas];
         if (geo.active && geo.lat && geo.lng) {
           pool = pool.filter(p => {
-            if (!p.lat || !p.lng) return true;
-            return getDistance(geo.lat!, geo.lng!, p.lat, p.lng) <= 50;
+            if (!p.map?.lat || !p.map?.lng) return true;
+            return getDistance(geo.lat!, geo.lng!, p.map!.lat, p.map!.lng) <= 50;
           });
         } else {
           pool = pool.filter(p => p.zone === 'Bardhaman Town');
@@ -658,8 +849,8 @@ export function RoutePlannerPage() {
     
         if (geo.active && geo.lat && geo.lng) {
           vibePujas.sort((a, b) => {
-            const dA = (a.lat && a.lng) ? getDistance(geo.lat!, geo.lng!, a.lat, a.lng) : 999;
-            const dB = (b.lat && b.lng) ? getDistance(geo.lat!, geo.lng!, b.lat, b.lng) : 999;
+            const dA = (a.map?.lat && a.map?.lng) ? getDistance(geo.lat!, geo.lng!, a.map.lat, a.map.lng) : 999;
+            const dB = (b.map?.lat && b.map?.lng) ? getDistance(geo.lat!, geo.lng!, b.map.lat, b.map.lng) : 999;
             return dA - dB;
           });
         }
@@ -674,20 +865,20 @@ export function RoutePlannerPage() {
     const mappedPandals = finalPandals.map((p, i) => {
       let transit = 'Walk 5 mins';
       
-      if (p.lat && p.lng && prevLat && prevLng) {
-        totalDist += getDistance(prevLat, prevLng, p.lat, p.lng);
+      if (p.map?.lat && p.map?.lng && prevLat && prevLng) {
+        totalDist += getDistance(prevLat, prevLng, p.map!.lat, p.map!.lng);
       }
-      if (p.lat && p.lng) {
-        prevLat = p.lat;
-        prevLng = p.lng;
+      if (p.map?.lat && p.map?.lng) {
+        prevLat = p.map.lat;
+        prevLng = p.map.lng;
       }
 
       if (i === finalPandals.length - 1) {
         transit = 'End of route';
       } else {
         const nextP = finalPandals[i + 1];
-        if (p.lat && p.lng && nextP.lat && nextP.lng) {
-          const dist = getDistance(p.lat, p.lng, nextP.lat, nextP.lng);
+        if (p.map?.lat && p.map?.lng && nextP.map?.lat && nextP.map?.lng) {
+          const dist = getDistance(p.map!.lat, p.map!.lng, nextP.map!.lat, nextP.map!.lng);
           if (dist < 0.5) transit = 'Walk 5-10 mins';
           else if (dist < 1.5) transit = transport === 'walk' ? 'Walk 15-20 mins' : 'Toto 5-10 mins';
           else transit = transport === 'toto' ? 'Toto 15+ mins' : 'Drive/Auto 10 mins';
@@ -698,8 +889,8 @@ export function RoutePlannerPage() {
         name: p.name,
         zone: p.area,
         theme: p.theme || 'Traditional',
-        lat: p.lat,
-        lng: p.lng,
+        lat: p.map!.lat,
+        lng: p.map?.lng,
         tip: p.featured ? 'Award Winner! Highly recommended.' : 'Expect crowds during peak hours.',
         transit
       };
@@ -828,7 +1019,7 @@ export function RoutePlannerPage() {
                   {nearbyPandals.map(p => (
                     <Link key={p.slug} to={`/puja/${p.slug}`} style={{ display: 'block', background: 'rgba(20,8,9,0.8)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textDecoration: 'none' }}>
                       <h4 style={{ margin: '0 0 4px', color: '#fff', fontSize: '1rem' }}>{p.name}</h4>
-                      <p style={{ margin: 0, color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{p.dist.toFixed(1)} km away � {p.theme || 'Traditional'}</p>
+                      <p style={{ margin: 0, color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{p.dist.toFixed(1)} km away • {getWalkTimeStr(p.dist)}</p>
                     </Link>
                   ))}
                 </div>
@@ -944,10 +1135,7 @@ export function RoutePlannerPage() {
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{marginRight:"8px"}}><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                   Back
                 </button>
-                <button className="map-btn" onClick={openGoogleMaps}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
-                  Open in Maps
-                </button>
+                
               </div>
             </div>
 
@@ -985,7 +1173,8 @@ export function RoutePlannerPage() {
               ))}
             </div>
             
-            <button className="rp-btn" onClick={openGoogleMaps} style={{ marginTop: '20px' }}>
+            <RouteMap route={route} />
+              <button className="rp-btn" onClick={openGoogleMaps} style={{ marginTop: '20px' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
               Start Navigating
             </button>
@@ -1528,21 +1717,41 @@ export function FaqPage() {
   const [openQ, setOpenQ] = useState<number | null>(0);
 
   const faqs = [
-      { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
-      { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
-      { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
-      { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
-      { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
-      { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
-      { q: "Do I need an active internet connection?", a: "While the map and live voting require internet, the Survival Kit and basic pandal directories are cached and can be accessed even with spotty network." },
-      { q: "Is this guide free to use?", a: "Yes, the Burdwan Puja Guide is 100% free for all users and devotees." },
-      { q: "How are the 'Featured' pandals selected?", a: "Featured pandals are handpicked by the Burdwan Capturers and Banglar Pujo teams based on artistic merit, heritage, and community impact." },
-      { q: "Can I use the Route Planner while driving?", a: "The Route Planner allows you to select 'Car / Bike', 'Toto', or 'Walking'. Please follow local traffic restrictions as many roads become pedestrian-only during Puja." },
-      { q: "What is the best time to go pandal hopping?", a: "For avoiding crowds, early mornings (4 AM - 8 AM) are best. For the full lighting and carnival experience, 7 PM to midnight is ideal." },
-      { q: "Are all pandals wheelchair accessible?", a: "While many major theme pujas provide ramps, older heritage or narrow lane pujas might be challenging. We recommend checking the 'Traditional' filter for wider access." },
-      { q: "How do I report an incorrect location on the map?", a: "Please reach out to us via the 'Contact Us' email in the footer, and our team will update the coordinates immediately." },
-      { q: "What should I do if I get lost?", a: "Use the 'Survival Kit' page to find the nearest Police Assistance Booth or Toto stand. You can also share your GPS coordinates directly from the Route Planner." }
-    ];
+    { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
+    { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
+    { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
+    { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
+    { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
+    { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
+    { q: "Do I need an active internet connection?", a: "While the map and live voting require internet, the Survival Kit and basic pandal directories are cached and can be accessed even with spotty network." },
+    { q: "Is this guide free to use?", a: "Yes, the Burdwan Puja Guide is 100% free for all users and devotees." },
+    { q: "How are the 'Featured' pandals selected?", a: "Featured pandals are handpicked by the Burdwan Capturers and Banglar Pujo teams based on artistic merit, heritage, and community impact." },
+    { q: "Can I use the Route Planner while driving?", a: "The Route Planner allows you to select 'Car / Bike', 'Toto', or 'Walking'. Please follow local traffic restrictions as many roads become pedestrian-only during Puja." },
+    { q: "What is the best time to go pandal hopping?", a: "For avoiding crowds, early mornings (4 AM - 8 AM) are best. For the full lighting and carnival experience, 7 PM to midnight is ideal." },
+    { q: "Are all pandals wheelchair accessible?", a: "While many major theme pujas provide ramps, older heritage or narrow lane pujas might be challenging. We recommend checking the 'Traditional' filter for wider access." },
+    { q: "How do I report an incorrect location on the map?", a: "Please reach out to us via the 'Contact Us' email in the footer, and our team will update the coordinates immediately." },
+    { q: "What should I do if I get lost?", a: "Use the 'Survival Kit' page to find the nearest Police Assistance Booth or Toto stand. You can also share your GPS coordinates directly from the Route Planner." },
+    { q: "Which areas in Burdwan have the highest concentration of pandals?", a: "Areas like Alamganj, Kalibazar, Khosbagan, and Ichlabad generally host the highest concentration of major theme and traditional pujas." },
+    { q: "Are there any special transport arrangements during Puja?", a: "Yes, special Toto routes and temporary barricades are set up across Bardhaman. Key intersections are managed by traffic police for pedestrian safety." },
+    { q: "What is the significance of Sabekiana (Traditional) pujas?", a: "Sabekiana pujas preserve the centuries-old heritage of Bengal. They focus on traditional idol craftsmanship, Daker Saaj (silver foil decorations), and authentic rituals rather than modern thematic art." },
+    { q: "How can I share my real-time location with friends?", a: "The Route Planner dashboard displays your exact GPS coordinates. You can copy them and share via WhatsApp to easily locate each other in the crowd." },
+    { q: "Is photography allowed inside the pandals?", a: "Generally yes, but avoid using flash near the idol to prevent damage to the artwork. Also, keep moving to avoid holding up the line behind you." },
+    { q: "Where can I find food and restrooms?", a: "Major intersections and large pandal grounds (like Town Hall or Police Line) have temporary food stalls and mobile bio-toilets arranged by the municipality." },
+    { q: "Can I edit my Top 3 votes after submitting?", a: "No, votes are final once submitted to the global blockchain/database to prevent spam. Take your time to explore before locking in your choices!" },
+    { q: "What should I carry during pandal hopping?", a: "Carry a water bottle, an umbrella, some cash (as digital payments may fail in crowded networks), and wear comfortable walking shoes." },
+    { q: "Are there any emergency medical facilities available?", a: "Yes, first-aid kiosks and ambulance standby points are established near mega-pandals and major road crossings by local NGOs and the Health Department." },
+    { q: "How is the app's walking distance calculated?", a: "We use direct geocoordinate calculations (Haversine formula) to estimate point-to-point distance, assuming a standard walking speed of 4.5 to 5 km/h." },
+    { q: "Is Burdwan Puja different from Kolkata Puja?", a: "While Kolkata focuses heavily on avant-garde art, Burdwan Puja strikes a beautiful balance between massive thematic installations and deep-rooted community traditions, often with slightly more manageable crowds." },
+    { q: "Are pets allowed during pandal hopping?", a: "It is strictly advised not to bring pets during peak evening hours due to massive crowds, loud dhak sounds, and bright lights that can cause severe anxiety to animals." },
+    { q: "What is the Pandal Digital Passport?", a: "It's an upcoming gamified feature! You'll be able to 'check-in' via GPS at each pandal you visit to earn digital stamps and badges." },
+    { q: "Who are the Burdwan Capturers?", a: "Burdwan Capturers is a prominent local community of photographers, videographers, and cultural enthusiasts who extensively document and promote Bardhaman's heritage." },
+    { q: "Can non-residents easily navigate the town?", a: "Absolutely! The Smart Route Planner in this app is specifically designed to guide tourists and non-residents smoothly through the city's puja circuits." },
+    { q: "What happens on Dashami (the last day)?", a: "Dashami features Sindoor Khela in the morning, followed by grand immersion processions (Bhasan) towards the Damodar river and Krishnasayar in the evening." },
+    { q: "How are the themes decided by the clubs?", a: "Planning starts months in advance. Committees select themes reflecting social issues, historical events, fantasy realms, or environmental awareness, executed by skilled artisans." },
+    { q: "Is the app available in Bengali?", a: "While the primary interface is English, key titles, names, and cultural references are presented bilingually with Bengali text to retain the local essence." },
+    { q: "How frequently is the Global Leaderboard updated?", a: "The leaderboard tallies community votes and refreshes dynamically. It accurately reflects the current trending pandals based on live user engagement." },
+    { q: "What is the best way to handle parking?", a: "Parking near major pandals is prohibited. Utilize the designated municipal parking zones listed in the Survival Kit and use Totos or walk for the final stretch." }
+];
 
   return (
     <>

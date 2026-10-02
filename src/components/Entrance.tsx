@@ -13,7 +13,7 @@ function ProgressIndicator({ dur }: { dur: number }) {
   useEffect(() => {
     const t0 = performance.now();
     let raf = 0;
-    const loop = (now) => {
+    const loop = (now: number) => {
       const t = Math.min(1, (now - t0) / dur);
       
       if (t < 1) raf = requestAnimationFrame(loop);
@@ -23,7 +23,7 @@ function ProgressIndicator({ dur }: { dur: number }) {
   }, [dur]);
 
   return (
-    <ProgressIndicator dur={reduced ? 600 : 2600} />
+    <ProgressIndicator dur={2600} />
   );
 }
 

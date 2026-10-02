@@ -1,11 +1,9 @@
 const fs = require('fs');
 let code = fs.readFileSync('src/sections/PujaMap.tsx', 'utf8');
 
-const regex = /\/\*\* Small single-pin map for the detail page\. \*\/[\s\S]*?\}\)/;
-
-const newMiniMap = `/** Small single-pin map for the detail page. */
-export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
-  // Determine the map query based on exact lat/lng if available, otherwise name + location
+code = code.replace(
+  /export function MiniMap\(\{ name, lat, lng \}: \{ x: number; y: number; name: string; lat\?: number; lng\?: number \}\) \{[\s\S]*?\}\n/m,
+  `export function MiniMap({ name, lat, lng }: { x: number; y: number; name: string; lat?: number; lng?: number }) {
   const mapQuery = lat && lng ? \`\${lat},\${lng}\` : encodeURIComponent(\`\${name} Durga Puja, Bardhaman\`);
 
   return (
@@ -21,12 +19,8 @@ export function MiniMap({ x, y, name, lat, lng }: { x: number; y: number; name: 
       ></iframe>
     </div>
   );
-}`;
+}\n`
+);
 
-if (code.match(regex)) {
-    code = code.replace(regex, newMiniMap);
-    fs.writeFileSync('src/sections/PujaMap.tsx', code, 'utf8');
-    console.log("MiniMap updated to Google Maps iframe.");
-} else {
-    console.log("Regex didn't match.");
-}
+fs.writeFileSync('src/sections/PujaMap.tsx', code, 'utf8');
+console.log('Restored MiniMap');
