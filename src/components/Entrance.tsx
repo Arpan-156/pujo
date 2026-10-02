@@ -7,7 +7,28 @@ import { Alpana, Particles, Smoke } from './fx';
 /* ============================================================ *
  *  1. Loader → 2. audio gate
  * ============================================================ */
+
+function ProgressIndicator({ dur }: { dur: number }) {
+  
+  useEffect(() => {
+    const t0 = performance.now();
+    let raf = 0;
+    const loop = (now) => {
+      const t = Math.min(1, (now - t0) / dur);
+      
+      if (t < 1) raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [dur]);
+
+  return (
+    <ProgressIndicator dur={reduced ? 600 : 2600} />
+  );
+}
+
 export function Loader({ onDone }: { onDone: () => void }) {
+
   const reduced = useReducedMotion();
   const [pct, setPct] = useState(0);
   const [needsTap, setNeedsTap] = useState(false);
