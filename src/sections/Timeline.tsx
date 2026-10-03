@@ -13,7 +13,12 @@ export function Timeline() {
         <RevealText lines={['MAHALAYA', 'TO DASHAMI']} className="display" />
         <Reveal delay={150} className="lead">Seven mornings and evenings, from the first radio recital to the last drumbeat at the water.</Reveal>
       </div>
-      <div className="tl-scroll" tabIndex={0} role="region" aria-label="Festival timeline, scroll sideways" style={{ position: 'relative', zIndex: 2 }}>
+      <div className="tl-scroll" onWheel={(e: any) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          e.currentTarget.scrollLeft += e.deltaY;
+        }
+      }} tabIndex={0} role="region" aria-label="Festival timeline, scroll sideways" style={{ position: 'relative', zIndex: 2 }}>
         <div className="tl-track">
           <div className="tl-line" aria-hidden="true" style={{ left: '30px', right: '30px' }}><span /></div>
           <ol className="tl-list" style={{ padding: '0 20px' }}>
