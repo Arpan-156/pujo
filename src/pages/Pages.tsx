@@ -328,7 +328,7 @@ export function PujasPage() {
                                 </span>
                               </div>
                             )}
-                          <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); const url = geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map.lat},${p.map.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map.lat},${p.map.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: 'var(--gold)', color: '#1a0b0c', padding: '8px 24px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, border: 'none', boxShadow: '0 2px 8px rgba(234, 179, 8, 0.3)', transition: 'all 0.2s' }}>
+                          <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); const url = geo.lat && geo.lng ? `https://maps.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map.lat},${p.map.lng}` : `https://maps.google.com/maps/dir/?api=1&destination=${p.map.lat},${p.map.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: 'var(--gold)', color: '#1a0b0c', padding: '8px 24px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, border: 'none', boxShadow: '0 2px 8px rgba(234, 179, 8, 0.3)', transition: 'all 0.2s' }}>
                             Get Directions
                           </button>
                         </div>
@@ -433,7 +433,7 @@ export function PujaDetail({ slug }: { slug: string }) {
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
-              <button onClick={() => { const url = geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: '#ef4444', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', fontWeight: 600 }}>
+              <button onClick={() => { const url = geo.lat && geo.lng ? `https://maps.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://maps.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`; window.open(url, '_blank', 'noopener,noreferrer'); }} style={{ background: '#ef4444', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', fontWeight: 600 }}>
                 <Navigation size={16} /> Get Directions
               </button>
               <button onClick={() => { if(geo.status !== 'loading') requestPermission(); }} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '10px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} aria-label="Refresh Location">
@@ -863,7 +863,7 @@ export function RoutePlannerPage() {
     let mode = 'driving';
     if (transport === 'walk') mode = 'walking';
     
-    const url = `https://www.google.com/maps/dir/?api=1&origin=${originStr}&destination=${destination}&waypoints=${waypoints}&travelmode=${mode}`;
+    const url = `https://maps.google.com/maps/dir/?api=1&origin=${originStr}&destination=${destination}&waypoints=${waypoints}&travelmode=${mode}`;
     window.open(url, '_blank');
   };
 

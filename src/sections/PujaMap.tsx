@@ -129,8 +129,8 @@ export function PujaMap({ className = '' }: { className?: string }) {
 
   const handleDirections = (lat: number, lng: number) => {
     const url = geo.lat && geo.lng 
-      ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${lat},${lng}`
-      : `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      ? `https://maps.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${lat},${lng}`
+      : `https://maps.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -175,7 +175,7 @@ return (
     <>
       <style>{`
         .pmap-new-grid { display: grid; grid-template-columns: 380px 1fr; gap: 30px; height: 75vh; min-height: 650px; padding: 40px 0; }
-        .pmap-map-container { width: 100%; height: 100%; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #eee; z-index: 1; display: flex; flex-direction: column; }
+        .pmap-map-container { width: 100%; height: 100%; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #eee; z-index: 1; display: flex; flex-direction: column; transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); } /* Added hardware acceleration for iOS */
         .leaflet-container { flex: 1; width: 100%; background: #eee; }
         
         .leaflet-popup-content-wrapper { background: #fff; color: #000; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -267,7 +267,7 @@ return (
                     
                     {hasCoords && (
                       <a 
-                        href={(geo.lat && geo.lng) ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`}
+                        href={(geo.lat && geo.lng) ? `https://maps.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://maps.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}

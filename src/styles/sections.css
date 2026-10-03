@@ -2,7 +2,7 @@
 .hero { position: relative; min-height: 100svh; height: 100svh; overflow: hidden; display: flex; align-items: flex-end; padding: 0 0 clamp(80px, 13svh, 150px); isolation: isolate; }
 .hero-bg { position: absolute; inset: -4% -3%; z-index: -3; }
 .hero-cam { position: absolute; inset: 0; transform: translate3d(calc(var(--mx, 0) * -18px), calc(var(--my, 0) * -12px + (var(--p, 0.5) - 0.5) * 140px), 0) scale(1.1); transition: transform 0.5s var(--ease); will-change: transform; }
-.hero-cam .photo { animation: kenburns 40s ease-in-out infinite alternate; }
+.hero-cam .photo { animation: kenburns 40s ease-in-out infinite alternate; object-position: center 55%; }
 @keyframes kenburns { from { transform: scale(1) translate3d(0, 0, 0); } to { transform: scale(1.09) translate3d(-1.5%, -1%, 0); } }
 .hero-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(20, 8, 9, 0.96) 4%, rgba(20, 8, 9, 0.55) 40%, rgba(20, 8, 9, 0.1) 75%), linear-gradient(90deg, rgba(20, 8, 9, 0.7), transparent 65%); }
 .hero-in { position: relative; z-index: 2; }
