@@ -481,66 +481,7 @@ export function PujaDetail({ slug }: { slug: string }) {
           </div>
         </div>
 
-        {/* Nearby Pandals */}
-        <div style={{ border: '1px solid #4a1c1c', borderRadius: '12px', padding: '24px', background: 'rgba(10, 5, 5, 0.8)', marginBottom: '40px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
-            <div>
-              <h3 style={{ fontSize: '1.3rem', color: '#fff', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path></svg>
-                Nearby Pandals (Walkable Circuit)
-              </h3>
-              <p style={{ color: 'var(--mute)', margin: 0, fontSize: '0.9rem' }}>Visiting <strong>{p.name}</strong>? Hop directly to these neighboring pandals on foot without hailing a cab:</p>
-            </div>
-            <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 600 }}>Within 2 km</div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-            {(() => {
-              if (!p.map?.lat || !p.map?.lng) return <p style={{ color: 'var(--mute)' }}>Location data unavailable.</p>;
-              const nearby = pujas
-                .filter(x => x.slug !== p.slug && x.map?.lat && x.map?.lng)
-                .map(x => {
-                  const d = getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!);
-                  return { ...x, dist: d };
-                })
-                .sort((a, b) => a.dist - b.dist)
-                .slice(0, 3);
-              
-              return nearby.map((n, i) => (
-                <div key={n.slug} style={{ background: i === 1 ? '#e11d48' : 'rgba(20,8,9,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
-                  {i !== 1 ? (
-                    <>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, width: 'fit-content', marginBottom: '12px' }}>
-                        <Pin size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
-                      </div>
-                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
-                      <p style={{ margin: '0 0 16px 0', color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
-                        <Pin size={12} style={{ flexShrink: 0, marginTop: '2px' }} /> {n.location}
-                      </p>
-                      <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' }}>
-                        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem' }}>Evening</span>
-                        <Link to={`/puja/${n.slug}`} style={{ color: '#ef4444', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 600 }}>Hop to Pandal ?</Link>
-                      </div>
-                    </>
-                  ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.9)', fontSize: '0.75rem', fontWeight: 700, marginBottom: '12px' }}>
-                        <Pin size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
-                      </div>
-                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
-                      <p style={{ margin: '0 0 24px 0', color: 'rgba(255,255,255,0.8)', fontSize: '0.8rem' }}>{n.location}</p>
-                      <button onClick={() => window.open(geo.lat && geo.lng ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${n.map.lat},${n.map.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${n.map.lat},${n.map.lng}`)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '10px', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
-                        Navigate to {n.name.split(' ')[0]}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ));
-            })()}
-          </div>
-        </div>
-      </section>
+        </section>
 
 
       <section className="pd-gallery wrap" id="pandal">

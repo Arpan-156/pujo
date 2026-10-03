@@ -28,9 +28,13 @@ export async function fetchPOIs(lat: number, lng: number, radiusMeters: number):
       method: 'POST',
       body: query
     });
-    const data = await res.json();
     
-    return data.elements.map((el: any) => ({
+      if (!res.ok) { console.error('Overpass error', res.status); return []; }
+      const data = await res.json();
+      if (!data || !data.elements) return [];
+      
+      return data.elements.map((el: any) => ({
+
       id: el.id,
       lat: el.lat,
       lon: el.lon,

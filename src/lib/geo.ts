@@ -109,11 +109,20 @@ export function useGeo() {
         const { latitude, longitude } = pos.coords;
         const now = Date.now();
         
-        if (now - lastEmitTime < 3000) return; // Max once every 3 seconds
         
-        if (globalGeo.lat && globalGeo.lng) {
+        if (globalGeo.status === 'loading') {
+          emit({ ...globalGeo, status: 'success' });
+        }
+
+
+        // Throttle updates to UI components to prevent lag
+        if (now - lastEmitTime < 2000 && globalGeo.lat && globalGeo.lng) {
            const dist = getDistance(globalGeo.lat, globalGeo.lng, latitude, longitude);
-           if (dist < 0.005) return; // Don't update if moved less than 5 meters
+           if (dist < 0.002) {
+             // Just update status to success without triggering a massive coordinate change
+             emit({ ...globalGeo, active: true, status: 'success', isManual: false, error: null });
+             return;
+           }
         }
         
         lastEmitTime = now;

@@ -188,13 +188,7 @@ export function GeoBar({ radius, setRadius, searchQuery, setSearchQuery, onRefre
       </div>
       
       <div className="geo-controls">
-        <input 
-          type="text" 
-          className="geo-search" 
-          placeholder="Search map places..." 
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        
         
         <button className={`geo-btn ${loading ? 'spin' : ''}`} onClick={handleRefresh}>
           <RefreshCw size={14} />

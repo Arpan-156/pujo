@@ -77,6 +77,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
   const { pujas } = useData();
   const { geo, requestPermission } = useGeo();
   const [sel, setSel] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
   
   const [activePoiTypes, setActivePoiTypes] = useState<Set<POIType>>(new Set());
   const [showPandals, setShowPandals] = useState(true);
@@ -101,6 +102,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
     });
   }, [pujas, geo.lat, geo.lng]);
 
+  const filteredPujas = sortedPujas.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.area.toLowerCase().includes(search.toLowerCase()));
   const activePuja = sortedPujas.find(p => p.slug === sel);
   const validPujas = sortedPujas.filter(p => p.map?.lat != null);
   const mapCenter: [number, number] = activePuja?.map?.lat && activePuja?.map?.lng ? [activePuja.map.lat, activePuja.map.lng] : [23.2324, 87.8615];
@@ -122,7 +124,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
       next.add(type);
       setActivePoiTypes(next);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 3000);
+        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000);
         const filtered = fetched.filter(p => p.type === type);
         setPois(prev => [...prev, ...filtered]);
       }
@@ -138,7 +140,7 @@ export function PujaMap({ className = '' }: { className?: string }) {
       setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm']));
       setShowPandals(true);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 3000);
+        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000);
         setPois(fetched);
       }
     }
@@ -190,58 +192,65 @@ return (
                 </div>
               ) : (
                 <button onClick={requestPermission} style={{ background: "#e11d48", color: "#fff", border: "none", padding: "12px 24px", borderRadius: "999px", cursor: "pointer", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "1.05rem", fontFamily: "inherit" }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  {geo.status === 'loading' ? 'Locating...' : 'Use My Location'}
-                </button>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    {geo.status === 'loading' ? 'Locating...' : 'Use My Location'}
+                  </button>
               )}
             </div>
-            
-            {sortedPujas.map((p) => {
-              const active = sel === p.slug;
-              const hasCoords = p.map?.lat != null;
-              let distStr = '';
-              if (hasCoords && p.distance !== Infinity) {
-                distStr = p.distance < 1 ? `${(p.distance * 1000).toFixed(0)}m away` : `${p.distance.toFixed(1)}km away`;
-              }
 
+            <div style={{ marginBottom: '16px' }}>
+              <input 
+                type="text" 
+                placeholder="Search Pandals..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ width: '100%', padding: '10px 16px', borderRadius: '8px', border: '1px solid var(--line)', background: 'rgba(255,255,255,0.05)', color: '#fff' }}
+              />
+            </div>
+
+            {filteredPujas.map((p) => {
+              const isActive = sel === p.slug;
+              const hasCoords = p.map?.lat != null;
+              
               return (
                 <div
                   key={p.slug}
                   onClick={() => setSel(p.slug)}
                   style={{
-                    textAlign: 'left',
-                    padding: '20px',
-                    background: active ? 'rgba(233,181,88,0.12)' : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${active ? 'var(--gold)' : 'var(--line)'}`,
-                    borderRadius: '12px',
+                    background: isActive ? 'rgba(233,181,88,0.1)' : 'transparent',
+                    border: isActive ? '1px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
+                    padding: '16px',
+                    borderRadius: '8px',
                     cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    position: 'relative',
-                    overflow: 'visible',
-                    opacity: hasCoords ? 1 : 0.6
+                    transition: 'all 0.2s'
                   }}
                 >
-                  {active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '5px', background: 'var(--gold)' }} />}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: active ? 'var(--gold-2)' : '#fff', fontFamily: 'var(--f-display)', fontWeight: 500, lineHeight: 1.5, paddingBottom: '8px' }}>
-                      {p.name}
-                    </h4>
-                    {hasCoords ? (
-                      distStr && <span style={{ fontSize: '0.8rem', color: 'var(--gold)', background: 'rgba(233,181,88,0.1)', padding: '4px 8px', borderRadius: '4px', whiteSpace: 'nowrap', fontWeight: 600 }}>{distStr}</span>
-                    ) : (
-                      <span style={{ fontSize: '0.75rem', color: 'var(--mute)', background: 'rgba(255,255,255,0.05)', padding: '2px 6px', borderRadius: '4px', whiteSpace: 'nowrap' }}>Location Pending</span>
+                  <h4 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', color: isActive ? 'var(--gold)' : '#fff' }}>
+                    {p.name} {hasCoords ? '' : <span style={{ fontSize: '0.7rem', color: '#ef4444' }}>(No map pin)</span>}
+                  </h4>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--mute)', marginBottom: '12px' }}>
+                    {p.location}
+                  </div>
+                  
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    {p.distance !== undefined && (
+                      <div style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px' }}>
+                        {(p.distance * 1000).toFixed(0)}m away
+                      </div>
+                    )}
+                    
+                    {hasCoords && (
+                      <a 
+                        href={(geo.lat && geo.lng) ? `https://www.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}` : `https://www.google.com/maps/dir/?api=1&destination=${p.map!.lat},${p.map!.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ background: 'var(--gold)', color: '#1a0b0c', padding: '8px 24px', borderRadius: '4px', textDecoration: 'none', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, border: 'none', boxShadow: '0 2px 8px rgba(234, 179, 8, 0.3)' }}
+                      >
+                        Get Directions
+                      </a>
                     )}
                   </div>
-                  <p style={{ margin: '0 0 12px 0', fontSize: '0.9rem', color: 'var(--mute)', lineHeight: 1.4 }}>{p.location}</p>
-                  
-                  {active && hasCoords && (
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); handleDirections(p.map!.lat!, p.map!.lng!); }}
-                      style={{ background: 'transparent', border: '1px solid var(--gold)', color: 'var(--gold)', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
-                    >
-                      Get Directions
-                    </button>
-                  )}
                 </div>
               );
             })}

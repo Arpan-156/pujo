@@ -1,16 +1,9 @@
 const fs = require('fs');
-
 let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-code = code.replace(
-  /\{\/\* PRINT ONLY BCO TABLE \*\/\}/,
-  '<> {/* PRINT ONLY BCO TABLE */}'
-);
+const regex = /\{\s*<\/section>/;
 
-code = code.replace(
-  /<\/FlipGrid>\n\s*\) : \(/,
-  '</FlipGrid>\n            </>\n            ) : ('
-);
+code = code.replace(regex, '</section>');
 
 fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
-console.log("Fixed JSX syntax.");
+console.log('Fixed JSX syntax error');
