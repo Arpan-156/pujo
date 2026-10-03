@@ -15,7 +15,7 @@ export async function fetchPOIs(lat: number, lng: number, radiusMeters: number, 
     (
       ${nodes}
     );
-    out body;
+    out center; // out center calculates the center of ways/relations instantly
   `;
   
   try {
@@ -31,8 +31,8 @@ export async function fetchPOIs(lat: number, lng: number, radiusMeters: number, 
       return data.elements.map((el: any) => ({
 
       id: el.id,
-      lat: el.lat,
-      lon: el.lon,
+      lat: el.lat || el.center?.lat,
+      lon: el.lon || el.center?.lon,
       type: el.tags.amenity as POIType,
       name: el.tags.name || el.tags.operator || el.tags.amenity
     }));

@@ -1,7 +1,7 @@
 const fs = require('fs');
 let code = fs.readFileSync('src/sections/PujaMap.tsx', 'utf8');
 
-code = code.replace(/fetchPOIs\(mapCenter\[0\], mapCenter\[1\], 3000\)/g, "fetchPOIs(mapCenter[0], mapCenter[1], 5000)");
+code = code.replace(/geo\.lat \? 10000 : 5000/g, '3000');
 
 fs.writeFileSync('src/sections/PujaMap.tsx', code, 'utf8');
-console.log('Increased POI radius');
+console.log('Fixed radius');

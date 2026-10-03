@@ -98,6 +98,8 @@ export function PujaMap({ className = '' }: { className?: string }) {
   const [search, setSearch] = useState('');
   
   const [activePoiTypes, setActivePoiTypes] = useState<Set<POIType>>(new Set());
+  const [poiLoading, setPoiLoading] = useState(false);
+  const [mapObj, setMapObj] = useState<L.Map | null>(null);
   const [showPandals, setShowPandals] = useState(true);
   const [pois, setPois] = useState<POI[]>([]);
 
@@ -142,7 +144,10 @@ export function PujaMap({ className = '' }: { className?: string }) {
       next.add(type);
       setActivePoiTypes(next);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000, [type]);
+        const center = mapObj ? mapObj.getCenter() : { lat: mapCenter[0], lng: mapCenter[1] };
+        const lat = center.lat;
+        const lng = center.lng;
+        const fetched = await fetchPOIs(lat, lng, 3000, [type]);
           setPois(prev => [...prev, ...fetched]);
       }
     }
@@ -157,7 +162,10 @@ export function PujaMap({ className = '' }: { className?: string }) {
       setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm']));
       setShowPandals(true);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000, ['hospital', 'police', 'atm', 'toilets']);
+        const center = mapObj ? mapObj.getCenter() : { lat: mapCenter[0], lng: mapCenter[1] };
+        const lat = center.lat;
+        const lng = center.lng;
+        const fetched = await fetchPOIs(lat, lng, 3000, ['hospital', 'police', 'atm', 'toilets']);
           setPois(fetched);
       }
     }
@@ -292,7 +300,7 @@ return (
             </div>
 
             {mapCenter && (
-              <MapContainer 
+              <MapContainer ref={setMapObj}
                 center={mapCenter} 
                 zoom={14} 
                 scrollWheelZoom={true} 
