@@ -63,9 +63,12 @@ const build = (r: Row): Puja => {
   let customIdolSrc = undefined;
   
   if (r.slug === 'amadpur-zomidar-bari') {
-    customHeroSrc = '/photos/idol-1.jpg';
-    customIdolSrc = '/photos/idol-1.jpg';
-  }
+      customHeroSrc = '/images/zamindar.jpg';
+    }
+    if (r.slug === 'radha-ballav-jiu-temple') {
+      customHeroSrc = '/images/radha-ballab.jpg';
+      customIdolSrc = '/images/radha-ballab.jpg';
+    }
   if (r.slug === 'vivekananda-sevak-sangha') {
     customHeroSrc = '/photos/idol-2.jpg';
     customIdolSrc = '/photos/idol-2.jpg';
@@ -114,7 +117,7 @@ const ROWS: Row[] = [
   { slug: 'alamganj-barowari-kedarnath', name: 'Alamganj Barowari', area: 'Alamganj', town: true, themeId: 'architecture', themeName: 'Kedarnath', cats: ['Community Puja', 'Theme Puja'], est: 1975, feat: false, art: 'pandal', seed: 105, hue: 50, tone: 'night', x: 55, y: 75, lat: 23.232791, lng: 87.849424, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'laxmipur-math', name: 'Laxmipur Math', area: 'Laxmipur Math', town: true, themeId: 'contemporary', themeName: 'Domino Theme', cats: ['Community Puja', 'Theme Puja'], est: 1976, feat: false, art: 'pandal', seed: 106, hue: 60, tone: 'night', x: 68, y: 72, lat: 23.255559, lng: 87.863531, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'nabin-sangha', name: 'Nabin Sangha', area: 'Chhotonilpur', town: true, themeId: 'architecture', themeName: 'Hawa Mahal, Rajasthan', cats: ['Community Puja', 'Theme Puja'], est: 1977, feat: false, art: 'pandal', seed: 107, hue: 70, tone: 'night', x: 40, y: 60, lat: 23.226692, lng: 87.865346, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
-  { slug: 'ichlabad-youth-club', name: 'Ichlabad Youth Club', area: 'Ichlabad', town: true, themeId: 'mythology', themeName: 'Baahubali', cats: ['Community Puja', 'Theme Puja'], est: 1978, feat: true, art: 'pandal', seed: 108, hue: 80, tone: 'night', x: 35, y: 68, lat: 23.22866, lng: 87.879957, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
+  { slug: 'ichlabad-youth-club', name: 'Ichlabad Youth Club', area: 'Ichlabad', town: true, themeId: 'mythology', themeName: 'Baahubali', cats: ['Community Puja', 'Theme Puja'], est: 1978, feat: true, art: 'pandal', seed: 108, hue: 80, tone: 'night', x: 35, y: 68, lat: 23.2276, lng: 87.8808, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'keshabganj-choti-barowari', name: 'Keshabganj Choti Barowari', area: 'Keshabganj', town: true, themeId: 'social', themeName: 'Ami Nari, Ami Mohiyoshi', cats: ['Community Puja', 'Theme Puja'], est: 1979, feat: false, art: 'pandal', seed: 109, hue: 90, tone: 'night', x: 42, y: 78, lat: 23.258469, lng: 87.84811, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'chowringhee-club', name: 'Chowringhee Club', area: 'Chhotonilpur', town: true, themeId: 'contemporary', themeName: 'Nil Porir Desh E', cats: ['Community Puja', 'Theme Puja'], est: 1981, feat: false, art: 'pandal', seed: 111, hue: 110, tone: 'night', x: 72, y: 55, lat: 23.218459, lng: 87.86843, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'laltu-smriti-sangha', name: 'Laltu Smriti Sangha', area: 'Baranilpur', town: true, themeId: 'architecture', themeName: 'Tirupati Balaji Temple', cats: ['Community Puja', 'Theme Puja'], est: 1982, feat: true, art: 'pandal', seed: 112, hue: 120, tone: 'night', x: 80, y: 70, lat: 23.229232, lng: 87.869135, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },

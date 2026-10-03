@@ -45,10 +45,10 @@ const getNearestArea = (lat: number, lng: number) => {
 // Async reverse geocoding to get actual city/suburb worldwide
 async function fetchExactLocationName(lat: number, lng: number): Promise<string | null> {
   try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14`);
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=16`);
     if (!res.ok) return null;
     const data = await res.json();
-    return data.address?.city || data.address?.town || data.address?.suburb || data.address?.village || data.address?.county || null;
+    return data.address?.neighbourhood || data.address?.suburb || data.address?.village || data.address?.town || data.address?.city || data.address?.county || null;
   } catch(e) {
     return null;
   }
@@ -151,21 +151,33 @@ export function useGeo() {
         
         lastEmitTime = now;
         
-        // Update the module-level state so new components get the correct state
+        const syncArea = getNearestArea(latitude, longitude);
+
+        // Keep existing globalGeo area if it was already fetched via Nominatim, otherwise use syncArea
+        const newArea = (globalGeo.area && globalGeo.area !== 'Your Location' && globalGeo.area !== 'Outside Burdwan' && globalGeo.area !== 'Burdwan' && !AREAS.some(a => a.name === globalGeo.area)) ? globalGeo.area : syncArea;
+        
         globalGeo = {
           ...globalGeo,
           active: true,
           lat: latitude,
           lng: longitude,
           error: null,
-          area: globalGeo.area !== 'Your Location' && globalGeo.area !== 'Outside Burdwan' ? globalGeo.area : getNearestArea(latitude, longitude),
+          area: newArea,
           status: 'success',
           isManual: false
         };
         
-        // Save to cache and broadcast to all React components
         localStorage.setItem('pujo_geo', JSON.stringify(globalGeo));
         emit(globalGeo);
+
+        // Always fetch exact real-world location name lazily for maximum accuracy
+        fetchExactLocationName(latitude, longitude).then(realName => {
+          if (realName && globalGeo.lat === latitude && globalGeo.lng === longitude && globalGeo.area !== realName) {
+            globalGeo = { ...globalGeo, area: realName };
+            localStorage.setItem('pujo_geo', JSON.stringify(globalGeo));
+            emit(globalGeo);
+          }
+        });
       },
       (err) => {
         globalGeo = { ...globalGeo, active: false, status: 'error', error: err.message, isManual: false };
@@ -184,5 +196,7 @@ export function getDistance(lat1: number, lon1: number, lat2: number, lon2: numb
   const a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + 
             Math.cos(lat1 * p) * Math.cos(lat2 * p) * 
             (1 - Math.cos((lon2 - lon1) * p)) / 2;
-  return 2 * R * Math.asin(Math.sqrt(a));
+  const straightLineDist = 2 * R * Math.asin(Math.sqrt(a));
+    // Multiply by a tortuosity factor (1.4) to approximate actual walking/road distance rather than straight-line (crow-flies)
+    return straightLineDist * 1.4;
 }

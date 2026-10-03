@@ -181,13 +181,8 @@ return (
         @media (max-width: 900px) {
           .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; display: flex; flex-direction: column-reverse; gap: 20px; padding-top: calc(var(--safe-t) + 90px) !important; }
           .pmap-new-list { height: auto !important; max-height: none !important; overflow-y: visible !important; flex: none !important; }
-          .pmap-map-container { height: 50vh; min-height: 380px; flex-shrink: 0; }
-        }
-          .pmap-new-list { height: auto !important; max-height: 45vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; flex: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-          .pmap-map-container { height: 50vh; min-height: 400px; flex-shrink: 0; }
-        }
-          .pmap-new-list { height: 450px !important; max-height: 50vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; flex: none !important; }
-          .pmap-map-container { height: 500px; flex-shrink: 0; }
+          /* Fixed pixel height prevents aggressive layout shifting (jumping) when mobile browser address bar hides/shows */
+          .pmap-map-container { height: 420px; flex-shrink: 0; }
         }
       `}</style>
       <section className={`pmap ${className}`} style={{ position: 'relative', overflow: 'hidden' }}>
