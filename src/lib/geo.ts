@@ -51,7 +51,15 @@ let globalGeo: GeoState = {
 
 try {
   const saved = localStorage.getItem('pujo_geo');
-  if (saved) globalGeo = JSON.parse(saved);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed.isManual) {
+      globalGeo = parsed;
+    } else {
+      // Don't use stale GPS coordinates from a previous session!
+      globalGeo = { ...globalGeo, isManual: false, status: 'idle', active: false, lat: null, lng: null };
+    }
+  }
 } catch(e) {}
 
 const listeners = new Set<(s: GeoState) => void>();
@@ -81,7 +89,7 @@ export function useGeo() {
     const area = AREAS.find(a => a.name === areaName);
     if (area) {
       if (watcherId !== null) { navigator.geolocation.clearWatch(watcherId); watcherId = null; }
-      emit({
+      globalGeo = {
         active: true,
         lat: area.lat,
         lng: area.lng,
@@ -89,44 +97,47 @@ export function useGeo() {
         area: area.name,
         status: 'success',
         isManual: true
-      });
+      };
+      localStorage.setItem('pujo_geo', JSON.stringify(globalGeo));
+      emit(globalGeo);
     }
   }, []);
 
   const requestPermission = useCallback(() => {
     if (!navigator.geolocation) {
-      emit({ ...globalGeo, status: 'error', error: 'Geolocation not supported' });
+      globalGeo = { ...globalGeo, status: 'error', error: 'Geolocation not supported' };
+      emit(globalGeo);
       return;
     }
     
-    emit({ ...globalGeo, status: 'loading', isManual: false });
+    globalGeo = { ...globalGeo, status: 'loading', isManual: false };
+      emit(globalGeo);
     
     if (watcherId !== null) navigator.geolocation.clearWatch(watcherId);
     
     let lastEmitTime = 0;
     watcherId = navigator.geolocation.watchPosition(
       (pos) => {
-        const { latitude, longitude } = pos.coords;
+        const { latitude, longitude, accuracy } = pos.coords;
         const now = Date.now();
         
-        
-        if (globalGeo.status === 'loading') {
-          emit({ ...globalGeo, status: 'success' });
+        // If we already have a lock, ignore very coarse cell-tower jumps
+        if (globalGeo.status === 'success' && accuracy && accuracy > 2000) {
+          return; 
         }
 
-
-        // Throttle updates to UI components to prevent lag
-        if (now - lastEmitTime < 2000 && globalGeo.lat && globalGeo.lng) {
-           const dist = getDistance(globalGeo.lat, globalGeo.lng, latitude, longitude);
-           if (dist < 0.002) {
-             // Just update status to success without triggering a massive coordinate change
-             emit({ ...globalGeo, active: true, status: 'success', isManual: false, error: null });
-             return;
-           }
+        const isInitialLock = globalGeo.status !== 'success';
+        
+        // Throttle updates strictly to prevent React re-render lag (unless it's the very first lock)
+        if (!isInitialLock && now - lastEmitTime < 2000) {
+          return;
         }
         
         lastEmitTime = now;
-        emit({
+        
+        // Update the module-level state so new components get the correct state
+        globalGeo = {
+          ...globalGeo,
           active: true,
           lat: latitude,
           lng: longitude,
@@ -134,10 +145,15 @@ export function useGeo() {
           area: getNearestArea(latitude, longitude),
           status: 'success',
           isManual: false
-        });
+        };
+        
+        // Save to cache and broadcast to all React components
+        localStorage.setItem('pujo_geo', JSON.stringify(globalGeo));
+        emit(globalGeo);
       },
       (err) => {
-        emit({ ...globalGeo, active: false, status: 'error', error: err.message, isManual: false });
+        globalGeo = { ...globalGeo, active: false, status: 'error', error: err.message, isManual: false };
+        emit(globalGeo);
       },
       { timeout: 15000, enableHighAccuracy: true, maximumAge: 0 }
     );

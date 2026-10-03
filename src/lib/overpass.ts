@@ -8,17 +8,12 @@ export interface POI {
   name: string;
 }
 
-export async function fetchPOIs(lat: number, lng: number, radiusMeters: number): Promise<POI[]> {
+export async function fetchPOIs(lat: number, lng: number, radiusMeters: number, types: POIType[] = ['hospital', 'police', 'atm', 'toilets']): Promise<POI[]> {
+  const nodes = types.map(t => `node["amenity"="${t}"](around:${radiusMeters},${lat},${lng});`).join('\n      ');
   const query = `
-    [out:json];
+    [out:json][timeout:10];
     (
-      node["amenity"="police"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="hospital"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="pharmacy"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="restaurant"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="cafe"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="toilets"](around:${radiusMeters},${lat},${lng});
-      node["amenity"="atm"](around:${radiusMeters},${lat},${lng});
+      ${nodes}
     );
     out body;
   `;

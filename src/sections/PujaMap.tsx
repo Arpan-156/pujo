@@ -72,6 +72,24 @@ function MapController({ center, zoom, userCoords }: { center: [number, number] 
   return null;
 }
 
+
+const RecenterControl = ({ center, userCoords }: { center: [number, number], userCoords: [number, number] | null }) => {
+  const map = useMap();
+  return (
+    <div className="leaflet-top leaflet-right" style={{ zIndex: 1000, pointerEvents: 'none' }}>
+      <div className="leaflet-control leaflet-bar" style={{ margin: '10px', pointerEvents: 'auto' }}>
+        <button 
+          onClick={(e) => { e.preventDefault(); map.flyTo(userCoords || center, 15, { animate: true, duration: 1.5 }); }}
+          style={{ width: '34px', height: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', border: 'none', cursor: 'pointer', color: '#000', borderRadius: '4px', boxShadow: '0 1px 5px rgba(0,0,0,0.65)' }}
+          title="Recenter Map"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export function PujaMap({ className = '' }: { className?: string }) {
   const mobile = useIsMobile();
   const { pujas } = useData();
@@ -119,14 +137,13 @@ export function PujaMap({ className = '' }: { className?: string }) {
     if (next.has(type)) {
       next.delete(type);
       setActivePoiTypes(next);
-      setPois(pois.filter(p => p.type !== type));
+      setPois(prev => prev.filter(p => p.type !== type));
     } else {
       next.add(type);
       setActivePoiTypes(next);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000);
-        const filtered = fetched.filter(p => p.type === type);
-        setPois(prev => [...prev, ...filtered]);
+        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000, [type]);
+          setPois(prev => [...prev, ...fetched]);
       }
     }
   };
@@ -140,8 +157,8 @@ export function PujaMap({ className = '' }: { className?: string }) {
       setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm']));
       setShowPandals(true);
       if (mapCenter) {
-        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000);
-        setPois(fetched);
+        const fetched = await fetchPOIs(mapCenter[0], mapCenter[1], 5000, ['hospital', 'police', 'atm', 'toilets']);
+          setPois(fetched);
       }
     }
   };
@@ -215,7 +232,7 @@ return (
               return (
                 <div
                   key={p.slug}
-                  onClick={() => setSel(p.slug)}
+                  onClick={() => setSel(sel === p.slug ? null : p.slug)}
                   style={{
                     background: isActive ? 'rgba(233,181,88,0.1)' : 'transparent',
                     border: isActive ? '1px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
@@ -281,8 +298,8 @@ return (
                 style={{ flex: 1, width: '100%' }}
               >
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; Google Maps'
+                  url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
                 />
                 <MapController center={mapCenter} zoom={sel ? 16 : 14} userCoords={geo.lat && geo.lng ? [geo.lat, geo.lng] : null} />
                 
@@ -306,7 +323,7 @@ return (
                     key={p.slug} 
                     position={[p.map!.lat!, p.map!.lng!]} 
                     icon={sel === p.slug ? activePujaIcon : inactivePujaIcon}
-                    eventHandlers={{ click: () => setSel(p.slug) }}
+                    eventHandlers={{ click: () => setSel(sel === p.slug ? null : p.slug) }}
                   >
                     <Popup>
                       <strong style={{ color: 'var(--gold-2)' }}>{p.name}</strong><br/>
@@ -349,8 +366,8 @@ export function RouteMap({ route }: { route: any }) {
     <div className="pmap-map-container" style={{ height: '400px', marginTop: '20px' }}>
       <MapContainer center={mapCenter} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%', background: '#eee' }}>
         <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; Google Maps'
+          url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
         />
         {route.pandals.map((p: any, i: number) => {
           if (!p.lat || !p.lng) return null;
