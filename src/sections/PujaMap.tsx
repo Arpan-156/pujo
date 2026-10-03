@@ -64,10 +64,10 @@ const POI_COLORS: Record<POIType, string> = {
 function MapController({ center, zoom, userCoords }: { center: [number, number] | null; zoom: number; userCoords: [number, number] | null }) {
   const map = useMap();
   useEffect(() => {
-    if (center) {
-      map.flyTo(center, zoom, { duration: 1.5 });
-    }
-  }, [center, zoom, map]);
+      if (center) {
+        map.flyTo(center, zoom, { duration: 1.5, animate: true });
+      }
+    }, [center?.[0], center?.[1], zoom, map]);
 
   return null;
 }
@@ -179,7 +179,13 @@ return (
         .poi-btn-color { width: 8px; height: 8px; border-radius: 50%; }
 
         @media (max-width: 900px) {
-          .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; display: flex; flex-direction: column-reverse; }
+          .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; display: flex; flex-direction: column-reverse; gap: 20px; padding-top: calc(var(--safe-t) + 90px) !important; }
+          .pmap-new-list { height: auto !important; max-height: none !important; overflow-y: visible !important; flex: none !important; }
+          .pmap-map-container { height: 50vh; min-height: 380px; flex-shrink: 0; }
+        }
+          .pmap-new-list { height: auto !important; max-height: 45vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; flex: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+          .pmap-map-container { height: 50vh; min-height: 400px; flex-shrink: 0; }
+        }
           .pmap-new-list { height: 450px !important; max-height: 50vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; flex: none !important; }
           .pmap-map-container { height: 500px; flex-shrink: 0; }
         }

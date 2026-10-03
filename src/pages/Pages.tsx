@@ -511,48 +511,7 @@ export function PujaDetail({ slug }: { slug: string }) {
         <MiniMap x={p.map.x} y={p.map.y} lat={p.map.lat} lng={p.map.lng} name={p.name} />
       </section>
 
-      {p.map?.lat && p.map?.lng && (
-          <section className="wrap" style={{ marginTop: '0', marginBottom: '40px' }}>
-            <div style={{ border: '1px solid #4a1c1c', borderRadius: '12px', padding: '24px', background: 'rgba(10, 5, 5, 0.8)' }}>
-              <div>
-                <h3 style={{ fontSize: '1.3rem', color: '#fff', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Pin size={20} color="#ef4444" />
-                  Nearby Pandals (Walkable Circuit)
-                  <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--gold)' }}>Within 2 km</span>
-                </h3>
-                <p style={{ color: 'var(--mute)', margin: '0 0 24px 0', fontSize: '0.9rem' }}>Visiting <strong>{p.name}</strong>? Hop directly to these neighboring pandals on foot without hailing a cab:</p>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-                {(() => {
-                  const neighbors = pujas
-                    .filter(x => x.slug !== p.slug && x.map?.lat && x.map?.lng)
-                    .map(x => ({ ...x, dist: getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!) }))
-                    .filter(x => x.dist < 2)
-                    .sort((a, b) => a.dist - b.dist)
-                    .slice(0, 3);
-                  
-                  return neighbors.map((n, i) => (
-                    <div key={n.slug} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, width: 'fit-content', marginBottom: '12px' }}>
-                        <Footprints size={12} /> {(n.dist * 1000).toFixed(0)} m from here • {getWalkTimeStr(n.dist)}
-                      </div>
-                      <h4 style={{ margin: '0 0 4px 0', color: '#fff', fontSize: '1.1rem' }}>{n.name}</h4>
-                      <p style={{ margin: '0 0 16px 0', color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
-                        <Pin size={12} style={{ flexShrink: 0, marginTop: '2px' }} /> {n.location}
-                      </p>
-                      <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' }}>
-                        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem' }}>Evening</span>
-                        {n.featured ? (
-                          <Link to={`/puja/${n.slug}`} style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}>Hop to Pandal &rarr;</Link>
-                        ) : null}
-                      </div>
-                    </div>
-                  ));
-                })()}
-              </div>
-            </div>
-          </section>
-        )}
+      
 
       <section className="pd-more wrap">
         <RevealText lines={['MORE FROM', 'THIS PUJA']} className="display" />
@@ -849,7 +808,7 @@ export function RoutePlannerPage() {
     const timeStr = h > 0 ? `${h} hr ${m} mins` : `${m} mins`;
     const transStr = transport.charAt(0).toUpperCase() + transport.slice(1);
     
-    const finalTimeDesc = `Estimated: ~${timeStr} by ${transStr} (${totalDist.toFixed(1)} km total)`;
+    const finalTimeDesc = `Total Time: ~${timeStr} (Travel: ${travelMins}m by ${transStr} | Viewing Pandals: ${viewMins}m)`;
 
     setRoute({
       title: geo.active ? `Dynamic Route from ${geo.area}` : (routeMode === 'custom' ? 'Your Custom Puja Trail' : 'Specialized Route'),
@@ -1678,13 +1637,10 @@ export function FaqPage() {
     { q: "How can I share my real-time location with friends?", a: "The Route Planner dashboard displays your exact GPS coordinates. You can copy them and share via WhatsApp to easily locate each other in the crowd." },
     { q: "Is photography allowed inside the pandals?", a: "Generally yes, but avoid using flash near the idol to prevent damage to the artwork. Also, keep moving to avoid holding up the line behind you." },
     { q: "Where can I find food and restrooms?", a: "Major intersections and large pandal grounds (like Town Hall or Police Line) have temporary food stalls and mobile bio-toilets arranged by the municipality." },
-    { q: "Can I edit my Top 3 votes after submitting?", a: "No, votes are final once submitted to the global blockchain/database to prevent spam. Take your time to explore before locking in your choices!" },
     { q: "What should I carry during pandal hopping?", a: "Carry a water bottle, an umbrella, some cash (as digital payments may fail in crowded networks), and wear comfortable walking shoes." },
     { q: "Are there any emergency medical facilities available?", a: "Yes, first-aid kiosks and ambulance standby points are established near mega-pandals and major road crossings by local NGOs and the Health Department." },
-    { q: "How is the app's walking distance calculated?", a: "We use direct geocoordinate calculations (Haversine formula) to estimate point-to-point distance, assuming a standard walking speed of 4.5 to 5 km/h." },
     { q: "Is Burdwan Puja different from Kolkata Puja?", a: "While Kolkata focuses heavily on avant-garde art, Burdwan Puja strikes a beautiful balance between massive thematic installations and deep-rooted community traditions, often with slightly more manageable crowds." },
     { q: "Are pets allowed during pandal hopping?", a: "It is strictly advised not to bring pets during peak evening hours due to massive crowds, loud dhak sounds, and bright lights that can cause severe anxiety to animals." },
-    { q: "What is the Pandal Digital Passport?", a: "It's an upcoming gamified feature! You'll be able to 'check-in' via GPS at each pandal you visit to earn digital stamps and badges." },
     { q: "Who are the Burdwan Capturers?", a: "Burdwan Capturers is a prominent local community of photographers, videographers, and cultural enthusiasts who extensively document and promote Bardhaman's heritage." },
     { q: "Can non-residents easily navigate the town?", a: "Absolutely! The Smart Route Planner in this app is specifically designed to guide tourists and non-residents smoothly through the city's puja circuits." },
     { q: "What happens on Dashami (the last day)?", a: "Dashami features Sindoor Khela in the morning, followed by grand immersion processions (Bhasan) towards the Damodar river and Krishnasayar in the evening." },

@@ -54,18 +54,6 @@ export function Home() {
           <div className="dir-more"><Btn to="/pujas" cursor="Open">See all {pujas.length} Puja</Btn></div>
         </div>
       </section>
-      {/* <ThemesGrid /> */}
-      <Experiences />
-      <Timeline />
-      {/* <section className="bd-teaser">
-        <div className="bd-teaser-bg" aria-hidden="true"><Photo v={landmarks[0].visual} /></div>
-        <div className="bd-teaser-shade" />
-        <div className="wrap bd-teaser-in">
-          <RevealText lines={['A TOWN BUILT', 'FOR WALKING']} className="display" />
-          <Reveal delay={200} className="lead">Curzon Gate, the railway overbridge, the river at first light and the lanes between them.</Reveal>
-          <Reveal delay={300}><Btn to="/bardhaman" cursor="Explore">Explore Bardhaman</Btn></Reveal>
-        </div>
-      </section> */}
       <div className="wrap map-head">
         <RevealText lines={['PUJA MAP']} className="display" />
         <Reveal delay={150}>
@@ -78,6 +66,19 @@ export function Home() {
         </Reveal>
       </div>
       <PujaMap />
+      {/* <ThemesGrid /> */}
+      <Experiences />
+      <Timeline />
+      {/* <section className="bd-teaser">
+        <div className="bd-teaser-bg" aria-hidden="true"><Photo v={landmarks[0].visual} /></div>
+        <div className="bd-teaser-shade" />
+        <div className="wrap bd-teaser-in">
+          <RevealText lines={['A TOWN BUILT', 'FOR WALKING']} className="display" />
+          <Reveal delay={200} className="lead">Curzon Gate, the railway overbridge, the river at first light and the lanes between them.</Reveal>
+          <Reveal delay={300}><Btn to="/bardhaman" cursor="Explore">Explore Bardhaman</Btn></Reveal>
+        </div>
+      </section> */}
+      
       <DailyShloka />
       
       
