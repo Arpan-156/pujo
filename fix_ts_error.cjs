@@ -1,10 +1,7 @@
 const fs = require('fs');
-let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
+let code = fs.readFileSync('src/lib/geo.ts', 'utf8');
 
-code = code.replace(
-  /const d = getDistance\(p\.map\.lat, p\.map\.lng, x\.map\.lat, x\.map\.lng\);/,
-  'const d = getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!);'
-);
+code = code.replace(/const dists = \{\};/g, `const dists: Record<string, number> = {};`);
 
-fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
+fs.writeFileSync('src/lib/geo.ts', code, 'utf8');
 console.log('Fixed TS error');

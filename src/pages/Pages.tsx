@@ -311,7 +311,7 @@ export function PujasPage() {
                     {(() => {
                       let distVal = 0;
                         if (geo.lat && geo.lng && p.map?.lat && p.map?.lng) {
-                          distVal = getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
+                          distVal = geo.distances?.[p.slug] ?? getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
                         }
                         return p.map?.lat && p.map?.lng ? (
                           <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', width: '100%', flexWrap: 'wrap' }}>
@@ -373,7 +373,7 @@ export function PujaDetail({ slug }: { slug: string }) {
   let distStr = '';
   let rawDistKm = 0;
   if (geo.lat && geo.lng && p?.map?.lat && p?.map?.lng) {
-    rawDistKm = getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
+    rawDistKm = geo.distances?.[p.slug] ?? getDistance(geo.lat, geo.lng, p.map.lat, p.map.lng);
     distStr = rawDistKm < 1 ? `${(rawDistKm * 1000).toFixed(0)}m away` : `${rawDistKm.toFixed(1)}km away`;
   }
   const [lb, setLb] = useState<number | null>(null);
@@ -678,7 +678,7 @@ export function RoutePlannerPage() {
     const lat = geo.lat; const lng = geo.lng;
     const withDist = pujas.filter(p => p.map?.lat && p.map?.lng).map(p => ({
       ...p,
-      dist: getDistance(lat!, lng!, p.map!.lat!, p.map!.lng!)
+      dist: geo.distances?.[p.slug] ?? getDistance(lat!, lng!, p.map!.lat!, p.map!.lng!)
     }));
     withDist.sort((a, b) => a.dist - b.dist);
     return withDist.slice(0, 4);

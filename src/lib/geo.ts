@@ -1,3 +1,4 @@
+import { PUJAS } from '../data/pujas';
 
 import { useState, useEffect, useCallback } from 'react';
 
@@ -21,7 +22,8 @@ export interface GeoState {
   lng: number | null;
   error: string | null;
   area: string;
-  status: 'idle' | 'loading' | 'success' | 'error';
+    distances?: Record<string, number>;
+    status: 'idle' | 'loading' | 'success' | 'error';
   isManual: boolean;
 }
 
@@ -62,8 +64,9 @@ let globalGeo: GeoState = {
   error: null,
   area: 'Burdwan',
   status: 'idle',
-  isManual: false
-};
+    distances: {},
+    isManual: false
+  };
 
 try {
   const saved = localStorage.getItem('pujo_geo');
@@ -85,6 +88,49 @@ function emit(newState: GeoState) {
   globalGeo = newState;
   localStorage.setItem('pujo_geo', JSON.stringify(newState));
   listeners.forEach(l => l(newState));
+}
+
+
+// OSRM Matrix API for real-world road distances
+let matrixLock = false;
+async function fetchDistanceMatrix(lat: number, lng: number) {
+  if (matrixLock) return;
+  matrixLock = true;
+  try {
+    const validPujas = PUJAS || [];
+    if (validPujas.length === 0) return;
+    
+    // OSRM accepts: lon,lat;lon,lat;...
+    let coords = `${lng},${lat}`;
+    const slugs = [];
+    
+    for (const p of validPujas) {
+      if (p.map?.lat && p.map?.lng) {
+        coords += `;${p.map.lng},${p.map.lat}`;
+        slugs.push(p.slug);
+      }
+    }
+    
+    const res = await fetch(`https://router.project-osrm.org/table/v1/walking/${coords}?sources=0`);
+    if (!res.ok) return;
+    const data = await res.json();
+    
+    if (data.distances && data.distances[0]) {
+      const dists: Record<string, number> = {};
+      const sourceToAll = data.distances[0]; 
+      for (let i = 0; i < slugs.length; i++) {
+        if (sourceToAll[i + 1] !== null) {
+          dists[slugs[i]] = sourceToAll[i + 1] / 1000; // convert meters to km
+        }
+      }
+      globalGeo = { ...globalGeo, distances: dists };
+      emit(globalGeo);
+    }
+  } catch(e) {
+    console.error('OSRM Matrix failed', e);
+  } finally {
+    matrixLock = false;
+  }
 }
 
 export function useGeo() {
@@ -171,6 +217,7 @@ export function useGeo() {
         emit(globalGeo);
 
         // Always fetch exact real-world location name lazily for maximum accuracy
+        fetchDistanceMatrix(latitude, longitude);
         fetchExactLocationName(latitude, longitude).then(realName => {
           if (realName && globalGeo.lat === latitude && globalGeo.lng === longitude && globalGeo.area !== realName) {
             globalGeo = { ...globalGeo, area: realName };
