@@ -1,87 +1,70 @@
 const fs = require('fs');
 let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-const regex = /<div style=\{\{ display: 'grid', gridTemplateColumns: 'repeat\(auto-fit, minmax\(300px, 1fr\)\)', gap: '24px', marginBottom: '24px' \}\}>[\s\S]*?\{ p\.feat && \(/;
+const regex = /<div style=\{\{ display: 'grid', gridTemplateColumns: 'repeat\(auto-fit, minmax\(300px, 1fr\)\)', gap: '24px', marginBottom: '24px' \}\}>\s*\{\/\* About Pandal \*\/\}[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/m;
 
-const stunningCards = `<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '32px' }}>
-          
-          {/* Jaw-Dropping About Pandal Card */}
-          <div style={{
-            position: 'relative',
-            borderRadius: '16px',
-            padding: '32px',
-            background: 'linear-gradient(145deg, rgba(30,10,12,0.8) 0%, rgba(15,5,5,0.9) 100%)',
-            border: '1px solid rgba(233,181,88,0.15)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(233,181,88,0.1) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
+const replacement = `<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+          {/* About Pandal - Glassmorphism Glow */}
+          <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px', padding: '32px', background: 'linear-gradient(145deg, rgba(30, 20, 20, 0.8) 0%, rgba(15, 10, 10, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+            <div style={{ position: 'absolute', top: '-50%', left: '-20%', width: '150%', height: '150%', background: 'radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 60%)', pointerEvents: 'none' }}></div>
             
-            <div>
-              <div style={{ color: '#ef4444', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ width: '24px', height: '1px', background: '#ef4444' }} />
-                About The Pandal
-              </div>
-              <h3 style={{ fontSize: '1.8rem', color: '#fff', margin: '0 0 20px 0', fontFamily: 'var(--f-display)', lineHeight: 1.2 }}>Cultural Heritage & <span style={{ color: 'var(--gold)' }}>Theme Concept</span></h3>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '24px', position: 'relative', zIndex: 1 }}>{p.story || p.name + ' represents a unique cultural heritage...'}</p>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '99px', color: '#ef4444', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '24px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+              About The Pandal
             </div>
-            
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px', color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '0.5px' }}>
-              <Pin size={14} /> Geographic Coordinates: {p.map?.lat?.toFixed(4) || 'N/A'}&deg; N, {p.map?.lng?.toFixed(4) || 'N/A'}&deg; E
+
+            <h3 style={{ fontSize: '1.8rem', color: '#fff', margin: '0 0 20px 0', letterSpacing: '-0.5px' }}>{p.theme || 'Cultural Heritage & Theme'}</h3>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '28px' }}>
+              {p.story || \`\${p.name} represents a unique cultural heritage. Celebrating Durga Puja with grand festivities and devotion. The committee has spent months on the design, with the pandal taking shape in the last three weeks before Shashthi.\`}
+            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <MapPin size={18} color="#9ca3af" />
+              </div>
+              <div>
+                <div style={{ color: 'var(--mute)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Geographic Coordinates</div>
+                <div style={{ color: '#fff', fontSize: '0.95rem', fontWeight: 500, fontFamily: 'monospace' }}>{p.map?.lat?.toFixed(5) || 'N/A'}&deg; N, {p.map?.lng?.toFixed(5) || 'N/A'}&deg; E</div>
+              </div>
             </div>
           </div>
 
-          {/* Jaw-Dropping Visiting Rec Card */}
-          <div style={{
-            position: 'relative',
-            borderRadius: '16px',
-            padding: '32px',
-            background: 'linear-gradient(145deg, rgba(20,15,5,0.8) 0%, rgba(10,5,5,0.9) 100%)',
-            border: '1px solid rgba(233,181,88,0.25)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(233,181,88,0.08) 0%, transparent 70%)', transform: 'translate(-30%, 30%)' }} />
+          {/* Visiting Rec - Glossy Gold */}
+          <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px', padding: '32px', background: 'linear-gradient(145deg, rgba(30, 25, 10, 0.8) 0%, rgba(15, 12, 5, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(233, 181, 88, 0.1)' }}>
+            <div style={{ position: 'absolute', bottom: '-50%', right: '-20%', width: '150%', height: '150%', background: 'radial-gradient(circle, rgba(233, 181, 88, 0.15) 0%, transparent 60%)', pointerEvents: 'none' }}></div>
             
-            <div>
-              <div style={{ color: 'var(--gold)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ width: '24px', height: '1px', background: 'var(--gold)' }} />
-                Visiting Recommendation
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(233, 181, 88, 0.1)', border: '1px solid rgba(233, 181, 88, 0.3)', borderRadius: '99px', color: 'var(--gold)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '24px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Visiting Recommendation
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '20px', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.6rem', color: '#fff', margin: 0, letterSpacing: '-0.5px' }}>Best Time to Visit</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'linear-gradient(90deg, #d97757, #e9b558)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 800, fontSize: '1.2rem' }}>
+                Evening
               </div>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(233,181,88,0.1)', border: '1px solid rgba(233,181,88,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold)', flexShrink: 0, boxShadow: '0 0 20px rgba(233,181,88,0.1)' }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '1.4rem', color: '#fff', margin: '0 0 4px 0', fontFamily: 'var(--f-display)' }}>Best Time to Visit</h3>
-                  <div style={{ color: 'var(--gold)', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>Late Evening (8 PM - 1 AM)</div>
-                </div>
+            </div>
+
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '32px' }}>
+              Crowds peak between 8 PM and 1 AM. Early morning offers peaceful rituals and beautiful photography without the long queues.
+            </p>
+
+            <div style={{ position: 'relative', overflow: 'hidden', padding: '20px', background: 'rgba(233, 181, 88, 0.08)', borderRadius: '16px', border: '1px solid rgba(233, 181, 88, 0.2)' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'var(--gold)' }}></div>
+              <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                <Lightbulb size={16} /> Insider Tip
               </div>
-              
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '24px', position: 'relative', zIndex: 1 }}>
-                Crowds peak between 8 PM and 1 AM. Early morning offers peaceful rituals and photography without long queues.
+              <p style={{ margin: 0, color: 'rgba(255,255,255,0.9)', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                {p.attractions[0] || 'Plan to walk the final stretch as local police often restrict vehicle access near the pandal after 4 PM.'}
               </p>
             </div>
-            
-            <div style={{ background: 'rgba(233,181,88,0.05)', border: '1px solid rgba(233,181,88,0.2)', borderRadius: '8px', padding: '16px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-              <div style={{ color: 'var(--gold)', marginTop: '2px' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
-              <div>
-                <div style={{ color: '#fff', fontSize: '0.85rem', fontWeight: 700, marginBottom: '4px' }}>PANDAL INSIDER TIP</div>
-                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', lineHeight: 1.5 }}>Use the northern entry gate for faster access during peak crowd hours.</div>
-              </div>
-            </div>
           </div>
-        </div>
+        </div>`;
 
-        { p.feat && (`;
-
-code = code.replace(regex, stunningCards);
-fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
-console.log('Cards redesigned');
+if (code.match(regex)) {
+  code = code.replace(regex, replacement);
+  fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
+  console.log('Successfully replaced cards!');
+} else {
+  console.log('Regex failed to match');
+}

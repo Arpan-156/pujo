@@ -63,6 +63,10 @@ const build = (r: Row): Puja => {
   let customIdolSrc = undefined;
   
   
+    if (r.slug === 'ichlabad-youth-club') {
+      customHeroSrc = '/images/ichlabad-youth-club.jpg';
+      customIdolSrc = '/images/ichlabad-youth-club.jpg';
+    }
     if (r.slug === 'amadpur-zomidar-bari') {
       customHeroSrc = '/images/zamindar.jpg';
       customIdolSrc = '/images/zamindar.jpg';
