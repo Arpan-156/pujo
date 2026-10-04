@@ -90,7 +90,7 @@ const RecenterControl = ({ center, userCoords }: { center: [number, number], use
   );
 };
 
-export function PujaMap({ className = '' }: { className?: string }) {
+export function PujaMap({ className = '', isHome = false }: { className?: string, isHome?: boolean }) {
   const mobile = useIsMobile();
   const { pujas } = useData();
   const { geo, requestPermission } = useGeo();
@@ -102,6 +102,26 @@ export function PujaMap({ className = '' }: { className?: string }) {
   const [mapObj, setMapObj] = useState<L.Map | null>(null);
   const [showPandals, setShowPandals] = useState(true);
   const [pois, setPois] = useState<POI[]>([]);
+
+  // Auto-fetch POIs when location is available
+  useEffect(() => {
+    if (geo.status === 'success' && geo.lat && geo.lng && pois.length === 0) {
+      let isMounted = true;
+      const fetchInitial = async () => {
+        setPoiLoading(true);
+        const types: POIType[] = ['hospital', 'police', 'atm', 'toilets'];
+        const fetched = await fetchPOIs(geo.lat!, geo.lng!, 3000, types);
+        if (isMounted) {
+          setPois(fetched);
+          setActivePoiTypes(new Set(types));
+          setPoiLoading(false);
+        }
+      };
+      fetchInitial();
+      return () => { isMounted = false; };
+    }
+  }, [geo.status, geo.lat, geo.lng]);
+
 
   // Calculate distances and sort all pujas
   const sortedPujas = useMemo(() => {
@@ -154,18 +174,18 @@ export function PujaMap({ className = '' }: { className?: string }) {
   };
 
     const toggleAll = async () => {
-    if (activePoiTypes.size === 4 && showPandals) {
+    if (activePoiTypes.size === 5 && showPandals) {
       setActivePoiTypes(new Set());
       setShowPandals(false);
       setPois([]);
     } else {
-      setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm']));
+      setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm', 'restaurant']));
       setShowPandals(true);
       if (mapCenter) {
         const center = mapObj ? mapObj.getCenter() : { lat: mapCenter[0], lng: mapCenter[1] };
         const lat = center.lat;
         const lng = center.lng;
-        const fetched = await fetchPOIs(lat, lng, 3000, ['hospital', 'police', 'atm', 'toilets']);
+        const fetched = await fetchPOIs(lat, lng, 3000, ['hospital', 'police', 'atm', 'toilets', 'restaurant']);
           setPois(fetched);
       }
     }
@@ -232,7 +252,7 @@ return (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     {geo.status === 'loading' ? 'Locating...' : 'Use My Location'}
                   </button>
-              )}
+                )}
             </div>
 
             <div className="pmap-card-mob" style={{ marginBottom: '16px' }}>
@@ -250,26 +270,29 @@ return (
               const hasCoords = p.map?.lat != null;
               
               return (
+                
                 <div className="pmap-card-mob" key={p.slug} onClick={() => setSel(sel === p.slug ? null : p.slug)} style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     background: isActive ? 'rgba(233,181,88,0.1)' : 'transparent',
-                    border: isActive ? '1px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
-                    padding: '16px',
-                    borderRadius: '8px',
+                    borderBottom: '1px solid rgba(255,255,255,0.05)',
+                    padding: '16px 12px',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
                   }}
                 >
-                  <h4 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', color: isActive ? 'var(--gold)' : '#fff' }}>
-                    {p.name} {hasCoords ? '' : <span style={{ fontSize: '0.7rem', color: '#ef4444' }}>(No map pin)</span>}
-                  </h4>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--mute)', marginBottom: '12px' }}>
-                    {p.location}
+                  <div style={{ flex: 1, paddingRight: '16px' }}>
+                     <h4 style={{ margin: '0 0 4px 0', fontSize: '1.05rem', color: isActive ? 'var(--gold)' : '#fff', fontWeight: 600 }}>
+                       {p.name} {hasCoords ? '' : <span style={{ fontSize: '0.7rem', color: '#ef4444' }}>(No map pin)</span>}
+                     </h4>
+                     <div style={{ fontSize: '0.85rem', color: 'var(--mute)' }}>
+                       {p.location}
+                     </div>
                   </div>
                   
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     {p.distance !== undefined && (
-                      <div style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px' }}>
-                        {(p.distance * 1000).toFixed(0)}m away
+                      <div style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                        {p.distance.toFixed(1)} km
                       </div>
                     )}
                     
@@ -279,13 +302,14 @@ return (
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        style={{ background: 'var(--gold)', color: '#1a0b0c', padding: '8px 24px', borderRadius: '4px', textDecoration: 'none', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, border: 'none', boxShadow: '0 2px 8px rgba(234, 179, 8, 0.3)' }}
+                        style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', display: 'grid', placeContent: 'center', flexShrink: 0, textDecoration: 'none' }}
                       >
-                        Get Directions
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                       </a>
                     )}
                   </div>
                 </div>
+
               );
             })}
           </aside>
@@ -295,7 +319,7 @@ return (
               <span style={{ fontSize: '0.85rem', color: 'var(--mute)', paddingRight: '8px', alignSelf: 'center' }}>Find Nearby:</span>
               <button className={`poi-btn ${activePoiTypes.size === 4 && showPandals ? 'active' : ''}`} onClick={toggleAll}>All</button>
               <button className={`poi-btn ${showPandals ? 'active' : ''}`} onClick={() => setShowPandals(!showPandals)}><div className="poi-btn-color" style={{ background: '#eab308' }}></div>Pandals</button>
-              {(['hospital', 'toilets', 'police', 'atm'] as POIType[]).map(type => (
+              {(['hospital', 'toilets', 'police', 'atm', 'restaurant'] as POIType[]).map(type => (
                 <button 
                   key={type} 
                   className={`poi-btn ${activePoiTypes.has(type) ? 'active' : ''}`}
@@ -307,8 +331,8 @@ return (
               ))}
             </div>
 
-            {mapCenter && (
-              <MapContainer ref={setMapObj}
+            {mapCenter && (<>
+                <MapContainer ref={setMapObj}
                 center={mapCenter} 
                 zoom={14} 
                 scrollWheelZoom={true} 
@@ -349,7 +373,111 @@ return (
                   </Marker>
                 ))}
               </MapContainer>
+
+                <button 
+                  onClick={() => {
+                    if (geo.status !== 'success') requestPermission();
+                    if (geo.lat && geo.lng && mapObj) {
+                      mapObj.flyTo([geo.lat, geo.lng], 16, { duration: 1.5 });
+                    }
+                  }}
+                  title="Recenter on my location"
+                  style={{ position: 'absolute', bottom: '24px', right: '16px', zIndex: 400, width: '48px', height: '48px', borderRadius: '50%', background: '#fff', color: '#1d4ed8', border: '1px solid rgba(0,0,0,0.1)', boxShadow: '0 4px 15px rgba(0,0,0,0.4)', display: 'grid', placeContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.transform='scale(1.1)'}
+                  onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M12 4a8 8 0 0 0-8 8"></path><path d="M12 20a8 8 0 0 0 8-8"></path><path d="M20 12a8 8 0 0 0-8-8"></path><path d="M4 12a8 8 0 0 0 8 8"></path></svg>
+                </button>
+              </>)}
+          </div>
+        </div>
+
+        
+        <div className="wrap" style={{ marginTop: '40px', paddingBottom: '60px', position: 'relative', zIndex: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+            
+            <div style={{ gridColumn: '1 / -1' }}>
+              <h3 style={{ color: 'var(--gold)', margin: '0 0 24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.5rem', fontFamily: 'var(--f-display)' }}>
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                 Nearby Pandals
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', background: 'linear-gradient(145deg, rgba(30, 20, 20, 0.4) 0%, rgba(15, 10, 10, 0.6) 100%)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+                {validPujas.slice(0, isHome ? 4 : 6).map((p, i) => (
+                   <div key={p.slug} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,0.02)'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                      <div style={{ flex: 1, paddingRight: '16px' }}>
+                         <h4 style={{ margin: '0 0 4px', fontSize: '1.05rem', color: '#fff', fontWeight: 600 }}>{p.name}</h4>
+                         <div style={{ color: 'var(--mute)', fontSize: '0.85rem' }}>{p.location}</div>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                         {p.distance !== undefined && <div style={{ color: 'var(--gold)', fontSize: '0.85rem', fontWeight: 600, whiteSpace: 'nowrap' }}>{p.distance.toFixed(1)} km</div>}
+                         {geo.lat && geo.lng && (
+                           <a 
+                             href={`https://maps.google.com/maps/dir/?api=1&origin=${geo.lat},${geo.lng}&destination=${p.map!.lat},${p.map!.lng}`}
+                             target="_blank" rel="noopener noreferrer"
+                             style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(233,181,88,0.15)', color: 'var(--gold)', display: 'grid', placeContent: 'center', flexShrink: 0, textDecoration: 'none' }}
+                           >
+                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                           </a>
+                         )}
+                      </div>
+                   </div>
+                ))}
+              </div>
+
+            </div>
+
+            {!isHome && (
+              <>
+                <div style={{ background: 'linear-gradient(145deg, rgba(30, 20, 20, 0.8) 0%, rgba(15, 10, 10, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
+                  <h3 style={{ color: 'var(--gold)', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                     Essential Services
+                  </h3>
+                  <p style={{ color: 'var(--mute)', fontSize: '0.85rem', marginBottom: '16px' }}>Toggle categories on the map to find specific places. Here are the closest results:</p>
+                  {pois.length > 0 ? (
+                    pois.slice(0, 5).map(poi => (
+                      <div key={poi.id} style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                        <h4 style={{ margin: '0 0 4px', fontSize: '0.95rem', color: '#fff', textTransform: 'capitalize' }}>{poi.type}: {poi.name || 'Unnamed Location'}</h4>
+                        <div style={{ color: 'var(--mute)', fontSize: '0.85rem' }}>
+                          {geo.lat && geo.lng ? getDistance(geo.lat!, geo.lng!, poi.lat, poi.lon).toFixed(1) + ' km away' : 'Distance unknown'}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', fontStyle: 'italic', padding: '20px', textAlign: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+                      Select "Hospital", "Police", or "ATM" on the map to see closest results here.
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ background: 'linear-gradient(145deg, rgba(40, 10, 10, 0.8) 0%, rgba(15, 5, 5, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 100, 100, 0.2), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}></div>
+                  <h3 style={{ color: '#ef4444', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px', position: 'relative' }}>
+                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                     Emergency Helplines
+                  </h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, position: 'relative' }}>
+                    <li style={{ marginBottom: '16px' }}>
+                      <div style={{ color: 'var(--mute)', fontSize: '0.85rem' }}>Burdwan Police Station</div>
+                      <a href="tel:100" style={{ color: '#fff', fontSize: '1.2rem', textDecoration: 'none', fontWeight: 'bold' }}>100 / 0342-2662495</a>
+                    </li>
+                    <li style={{ marginBottom: '16px' }}>
+                      <div style={{ color: 'var(--mute)', fontSize: '0.85rem' }}>Burdwan Medical College (BMCH)</div>
+                      <a href="tel:03422558641" style={{ color: '#fff', fontSize: '1.2rem', textDecoration: 'none', fontWeight: 'bold' }}>0342-2558641</a>
+                    </li>
+                    <li style={{ marginBottom: '16px' }}>
+                      <div style={{ color: 'var(--mute)', fontSize: '0.85rem' }}>Women's Helpline / Ambulance</div>
+                      <div style={{ display: 'flex', gap: '16px' }}>
+                        <a href="tel:1091" style={{ color: '#fff', fontSize: '1.2rem', textDecoration: 'none', fontWeight: 'bold' }}>1091</a>
+                        <a href="tel:102" style={{ color: '#fff', fontSize: '1.2rem', textDecoration: 'none', fontWeight: 'bold' }}>102</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </>
             )}
+
           </div>
         </div>
       </section>
@@ -380,8 +508,8 @@ export function RouteMap({ route }: { route: any }) {
   if (!route || !route.pandals || route.pandals.length === 0) return null;
   const mapCenter = [route.pandals[0].lat, route.pandals[0].lng] as [number, number];
   return (
-    <div className="pmap-map-container" style={{ height: '400px', marginTop: '20px' }}>
-      <MapContainer center={mapCenter} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%', background: '#eee' }}>
+    <div className="pmap-map-container" style={{ height: '400px', marginTop: '20px', borderRadius: '16px', overflow: 'hidden' }}>
+      <MapContainer center={mapCenter} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; Google Maps'
           url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"

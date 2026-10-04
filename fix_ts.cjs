@@ -1,7 +1,11 @@
 const fs = require('fs');
-let code = fs.readFileSync('src/pages/Pages.tsx', 'utf8');
 
-code = code.replace(/dist: getDistance\(p\.map!\.lat, p\.map!\.lng, x\.map!\.lat, x\.map!\.lng\)/g, "dist: getDistance(p.map!.lat!, p.map!.lng!, x.map!.lat!, x.map!.lng!)");
+let homeCode = fs.readFileSync('src/pages/Home.tsx', 'utf8');
+homeCode = homeCode.replace(/getDistance\(geo\.lat, geo\.lng, p\.map\.lat, p\.map\.lng\)/g, "getDistance(geo.lat!, geo.lng!, p.map.lat!, p.map.lng!)");
+fs.writeFileSync('src/pages/Home.tsx', homeCode, 'utf8');
 
-fs.writeFileSync('src/pages/Pages.tsx', code, 'utf8');
-console.log('Fixed TS error');
+let pmapCode = fs.readFileSync('src/sections/PujaMap.tsx', 'utf8');
+pmapCode = pmapCode.replace(/await fetchPOIs\(geo\.lat, geo\.lng, 3000, types\)/g, "await fetchPOIs(geo.lat!, geo.lng!, 3000, types)");
+fs.writeFileSync('src/sections/PujaMap.tsx', pmapCode, 'utf8');
+
+console.log('Fixed TS errors');

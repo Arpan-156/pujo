@@ -1299,7 +1299,7 @@ export function SurvivalKitPage() {
 
 
 
-export function Top3VoterPage() {
+export function PublicVotingPage() {
   const [showPopup, setShowPopup] = useState(false);
   useEffect(() => { const saved = localStorage.getItem("puja_votes_26"); if (!saved || Object.keys(JSON.parse(saved)).length === 0) { setShowPopup(true); } }, []);
 
@@ -1620,8 +1620,8 @@ export function Top3VoterPage() {
 
 <div className={`t3-popup-overlay ${showPopup ? 'show' : ''}`}>
         <div className="t3-popup">
-          <h2>Top 3 Voter</h2>
-          <p>Vote the best 3 pandals you explored this year and make them winner</p>
+          <h2>Public Choice Awards</h2>
+          <p>Vote for the best pandals you explored this year to help them win!</p>
           <button className="btn solid" onClick={() => setShowPopup(false)} style={{ width: '100%', justifyContent: 'center' }}>Start Voting</button>
         </div>
       </div>
@@ -1639,7 +1639,7 @@ export function FaqPage() {
     { q: "What is the Burdwan Puja Guide?", a: "The Burdwan Puja Guide is your complete digital companion for Durga Puja 2026 in Burdwan (Bardhaman). It features curated pandal lists, themes, live voting, a transit survival kit, and an interactive map." },
     { q: "Where can I find Durga Puja pandals in Burdwan?", a: "You can explore our Pandal Directory or use the Interactive Puja Map to find precise locations and themes for all major committees across Bardhaman." },
     { q: "How can I explore the pandals efficiently?", a: "We recommend using our Route Planner to generate optimized walking or toto itineraries based on your current location and available time." },
-    { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Top 3 Voter page. Select the best pandals you explored this year to help them win community recognition!" },
+    { q: "How does the Top 3 Voting work?", a: "You can vote for your 3 favorite pandals on the Public Choice Awards page. Select the best pandals you explored this year to help them win community recognition!" },
     { q: "Is there an offline mode or survival guide?", a: "Yes! Visit our Survival Kit page to find emergency contacts, bus and toto stands, and helpful tips to navigate the crowds safely. It is designed to be your offline companion." },
     { q: "Can I add my club's pandal to the directory?", a: "Absolutely! If your Durga Puja pandal is missing, please contact the Burdwan Capturers Official or Banglar Pujo Official teams through the social links in our footer to get it listed." },
     { q: "Do I need an active internet connection?", a: "While the map and live voting require internet, the Survival Kit and basic pandal directories are cached and can be accessed even with spotty network." },

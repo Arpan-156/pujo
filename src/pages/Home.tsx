@@ -1,4 +1,5 @@
 import { useData } from '../data/store';
+import { useGeo, getDistance } from '../lib/geo';
 import { PujaCard, Btn } from '../components/shared';
 import { Reveal, RevealText, Alpana } from '../components/fx';
 import { Hero } from '../sections/Hero';
@@ -54,18 +55,20 @@ export function Home() {
           <div className="dir-more"><Btn to="/pujas" cursor="Open">See all {pujas.length} Puja</Btn></div>
         </div>
       </section>
-      <div className="wrap map-head">
+      
+            <div className="wrap map-head">
         <RevealText lines={['PUJA MAP']} className="display" />
         <Reveal delay={150}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px' }}>
             <p className="lead" style={{ margin: 0, maxWidth: '40ch' }}>
-              Glowing pin to see the exact location of the Pandals - Click on the " Get Directions " button to get the exact directions from where you are. [Note: Hospitals and others will take time to load .]
+              Glowing pin to see the exact location of the Pandals - Click on the " Get Directions " button to get the exact directions from where you are.
             </p>
             <Btn to="/map" cursor="Open">Open the full map</Btn>
           </div>
         </Reveal>
       </div>
-      <PujaMap />
+      <PujaMap isHome />
+
       {/* <ThemesGrid /> */}
       <Experiences />
       <Timeline />
