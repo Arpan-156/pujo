@@ -21,7 +21,7 @@ export function MiniMap({ name, lat, lng }: { x?: number; y?: number; name: stri
   );
 }
 
-
+ 
 export function RouteMap({ route }: { route: any }) {
   if (!route || !route.pandals || route.pandals.length === 0) return null;
   const mapCenter = [route.pandals[0].lat, route.pandals[0].lng] as [number, number];
