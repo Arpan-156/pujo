@@ -1,34 +1,34 @@
-import type { Puja, PujaCategory, Theme, FeaturedPandal, ArtKind, Tone, Visual } from './types';
+﻿import type { Puja, PujaCategory, Theme, FeaturedPandal, ArtKind, Tone, Visual } from './types';
 
 /* ------------------------------------------------------------------ *
  *  THEMES
  * ------------------------------------------------------------------ */
 export const THEMES: Theme[] = [
-  { id: 'heritage', title: 'Heritage Bengal', bn: 'ঐতিহ্যের বাংলা',
+  { id: 'heritage', title: 'Heritage Bengal', bn: 'à¦à¦¤à¦¿à¦¹à§à¦¯à§‡à¦° à¦¬à¦¾à¦‚à¦²à¦¾',
     description: 'Terracotta panels, atchala roofs, zamindari courtyards. Pandals that rebuild the Bengal our grandparents remember.',
     visual: { art: 'temple', seed: 101, tone: 'dusk', hue: 18 } },
-  { id: 'mythology', title: 'Mythology', bn: 'পুরাণকথা',
+  { id: 'mythology', title: 'Mythology', bn: 'à¦ªà§à¦°à¦¾à¦£à¦•à¦¥à¦¾',
     description: 'The Devi Mahatmya told in light, paper and bamboo. Battle scenes, cosmic oceans, the ten mahavidyas.',
     visual: { art: 'mythology', seed: 102, tone: 'night', hue: 8 } },
-  { id: 'contemporary', title: 'Contemporary Art', bn: 'সমকালীন শিল্প',
+  { id: 'contemporary', title: 'Contemporary Art', bn: 'à¦¸à¦®à¦•à¦¾à¦²à§€à¦¨ à¦¶à¦¿à¦²à§à¦ª',
     description: 'Installations that borrow from galleries: suspended forms, mirrored surfaces, sculpture at street scale.',
     visual: { art: 'abstract', seed: 103, tone: 'night', hue: 330 } },
-  { id: 'social', title: 'Social Awareness', bn: 'সমাজভাবনা',
+  { id: 'social', title: 'Social Awareness', bn: 'à¦¸à¦®à¦¾à¦œà¦­à¦¾à¦¬à¦¨à¦¾',
     description: 'Pandals that carry a message: water, women, waste, health, the quiet workers of the city.',
     visual: { art: 'social', seed: 104, tone: 'dusk', hue: 40 } },
-  { id: 'architecture', title: 'Architecture', bn: 'স্থাপত্য',
+  { id: 'architecture', title: 'Architecture', bn: 'à¦¸à§à¦¥à¦¾à¦ªà¦¤à§à¦¯',
     description: 'Replicas of gates, stations and palaces, built at full size from bamboo, cloth and plywood in three weeks.',
     visual: { art: 'gate', seed: 105, tone: 'dusk', hue: 14 } },
-  { id: 'rural', title: 'Rural Bengal', bn: 'গ্রামবাংলা',
+  { id: 'rural', title: 'Rural Bengal', bn: 'à¦—à§à¦°à¦¾à¦®à¦¬à¦¾à¦‚à¦²à¦¾',
     description: 'Mud walls, thatch, palm and paddy. The village as memory, rebuilt inside the town.',
     visual: { art: 'rural', seed: 106, tone: 'dawn', hue: 34 } },
-  { id: 'international', title: 'International Concepts', bn: 'বিশ্বভাবনা',
+  { id: 'international', title: 'International Concepts', bn: 'à¦¬à¦¿à¦¶à§à¦¬à¦­à¦¾à¦¬à¦¨à¦¾',
     description: 'Cathedrals, canals and far-off temples reimagined around a Bengali goddess.',
     visual: { art: 'global', seed: 107, tone: 'night', hue: 210 } },
-  { id: 'eco', title: 'Eco-friendly', bn: 'পরিবেশবান্ধব',
+  { id: 'eco', title: 'Eco-friendly', bn: 'à¦ªà¦°à¦¿à¦¬à§‡à¦¶à¦¬à¦¾à¦¨à§à¦§à¦¬',
     description: 'Clay idols, jute, bamboo, dried leaves. Pandals designed to go back to the earth after Dashami.',
     visual: { art: 'eco', seed: 108, tone: 'day', hue: 110 } },
-  { id: 'abstract', title: 'Abstract Art', bn: 'বিমূর্ত',
+  { id: 'abstract', title: 'Abstract Art', bn: 'à¦¬à¦¿à¦®à§‚à¦°à§à¦¤',
     description: 'Colour and form with no literal story. Stand inside it and decide what you see.',
     visual: { art: 'abstract', seed: 109, tone: 'dusk', hue: 280 } },
 ];
@@ -114,7 +114,7 @@ const build = (r: Row): Puja => {
 const ROWS: Row[] = [
   { slug: 'baranilpur-friends', name: 'Baranilpur Friends club', area: 'Baranilpur', town: true, themeId: 'contemporary', themeName: 'Unknown', cats: ['Community Puja'], est: 1990, feat: false, art: 'pandal', seed: 125, hue: 15, tone: 'night', x: 50, y: 50, lat: 23.226136, lng: 87.868722, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'radha-ballav-jiu-temple', name: 'Radha Ballav Jiu Temple', area: 'Natunganj, Sripally', town: true, themeId: 'heritage', themeName: 'A Timeless Legacy', cats: ['Heritage', 'Family Puja'], est: 1750, feat: true, art: 'temple', seed: 250, hue: 35, tone: 'dusk', x: 28, y: 60, lat: 23.23788, lng: 87.84902, desc: 'A historic heritage puja preserved for generations.' },
-  { slug: 'vivekananda-sevak-sangha', name: 'Vivekananda Sevak Sangha', area: 'Sankhari Pukur ln, Sripally', themeId: 'eco', themeName: 'Prakriti O Pran', cats: ['Traditional', 'Community Puja'], est: 1985, feat: true, art: 'eco', seed: 231, hue: 140, tone: 'day', x: 45, y: 65, lat: 23.22969, lng: 87.86378, desc: 'An eco-friendly celebration focusing on nature, using natural materials for a serene and pure environment.', story: 'For decades, Vivekananda Sevak Sangha has organized an authentic, traditional puja. This year, the focus is entirely on eco-consciousness. The pandal is woven from jute and bamboo, and the idol is sculpted from untouched river clay without synthetic paints, returning peacefully to nature on Dashami.' },
+  { slug: 'vivekananda-sevak-sangha', name: 'Vivekananda Sevak Sangha', area: 'Sankhari Pukur ln, Sripally', themeId: 'social', themeName: 'Chaina Hote Uma', cats: ['Traditional', 'Community Puja'], est: 1985, feat: true, art: 'eco', seed: 231, hue: 140, tone: 'day', x: 45, y: 65, lat: 23.22969, lng: 87.86378, desc: 'An eco-friendly celebration focusing on nature, using natural materials for a serene and pure environment.', story: 'For decades, Vivekananda Sevak Sangha has organized an authentic, traditional puja. This year, the focus is entirely on eco-consciousness. The pandal is woven from jute and bamboo, and the idol is sculpted from untouched river clay without synthetic paints, returning peacefully to nature on Dashami.' },
   { slug: 'natural-city', name: 'Natural City', area: 'Vivekananda College Road', town: true, themeId: 'heritage', themeName: 'Sabekiana / Traditional Bengal', cats: ['Community Puja', 'Traditional'], est: 1970, feat: false, art: 'pandal', seed: 100, hue: 0, tone: 'night', x: 52, y: 60, lat: 23.224648, lng: 87.859631, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'rathtala-barowari', name: 'Rathtala Para Barowari', area: 'Rathtala Playground', town: true, themeId: 'mythology', themeName: 'Mahakal', cats: ['Community Puja', 'Theme Puja'], est: 1971, feat: false, art: 'pandal', seed: 101, hue: 10, tone: 'night', x: 58, y: 68, lat: 23.2398, lng: 87.8337, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'kiran-sangha', name: 'Kiran Sangha', area: 'Ichlabad', town: true, themeId: 'eco', themeName: 'Jol-i Jibon / Water is Life', cats: ['Community Puja', 'Theme Puja'], est: 1972, feat: false, art: 'pandal', seed: 102, hue: 20, tone: 'night', x: 65, y: 62, lat: 23.228645, lng: 87.881031, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
@@ -123,7 +123,7 @@ const ROWS: Row[] = [
   { slug: 'alamganj-barowari-kedarnath', name: 'Alamganj Barowari', area: 'Alamganj', town: true, themeId: 'architecture', themeName: 'Kedarnath', cats: ['Community Puja', 'Theme Puja'], est: 1975, feat: false, art: 'pandal', seed: 105, hue: 50, tone: 'night', x: 55, y: 75, lat: 23.232791, lng: 87.849424, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'laxmipur-math', name: 'Laxmipur Math', area: 'Laxmipur Math', town: true, themeId: 'contemporary', themeName: 'Domino Theme', cats: ['Community Puja', 'Theme Puja'], est: 1976, feat: false, art: 'pandal', seed: 106, hue: 60, tone: 'night', x: 68, y: 72, lat: 23.255559, lng: 87.863531, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'nabin-sangha', name: 'Nabin Sangha', area: 'Chhotonilpur', town: true, themeId: 'architecture', themeName: 'Hawa Mahal, Rajasthan', cats: ['Community Puja', 'Theme Puja'], est: 1977, feat: false, art: 'pandal', seed: 107, hue: 70, tone: 'night', x: 40, y: 60, lat: 23.226692, lng: 87.865346, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
-  { slug: 'ichlabad-youth-club', name: 'Ichlabad Youth Club', area: 'Ichlabad', town: true, themeId: 'mythology', themeName: 'Baahubali', cats: ['Community Puja', 'Theme Puja'], est: 1978, feat: true, art: 'pandal', seed: 108, hue: 80, tone: 'night', x: 35, y: 68, lat: 23.2276, lng: 87.8808, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
+  { slug: 'ichlabad-youth-club', name: 'Ichlabad Youth Club', area: 'Ichlabad', town: true, themeId: 'heritage', themeName: 'Purano Shei Din Er Kotha', cats: ['Community Puja', 'Theme Puja'], est: 1978, feat: true, art: 'pandal', seed: 108, hue: 80, tone: 'night', x: 35, y: 68, lat: 23.2276, lng: 87.8808, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'keshabganj-choti-barowari', name: 'Keshabganj Choti Barowari', area: 'Keshabganj', town: true, themeId: 'social', themeName: 'Ami Nari, Ami Mohiyoshi', cats: ['Community Puja', 'Theme Puja'], est: 1979, feat: false, art: 'pandal', seed: 109, hue: 90, tone: 'night', x: 42, y: 78, lat: 23.258469, lng: 87.84811, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'chowringhee-club', name: 'Chowringhee Club', area: 'Chhotonilpur', town: true, themeId: 'contemporary', themeName: 'Nil Porir Desh E', cats: ['Community Puja', 'Theme Puja'], est: 1981, feat: false, art: 'pandal', seed: 111, hue: 110, tone: 'night', x: 72, y: 55, lat: 23.218459, lng: 87.86843, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'laltu-smriti-sangha', name: 'Laltu Smriti Sangha', area: 'Baranilpur', town: true, themeId: 'architecture', themeName: 'Tirupati Balaji Temple', cats: ['Community Puja', 'Theme Puja'], est: 1982, feat: true, art: 'pandal', seed: 112, hue: 120, tone: 'night', x: 80, y: 70, lat: 23.229232, lng: 87.869135, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
@@ -144,7 +144,7 @@ export const FEATURED: FeaturedPandal[] = [
   { slug: 'radha-ballav-jiu-temple', tagline: 'A historic heritage puja preserved for generations.', note: 'Heritage' },
   { slug: 'amadpur-zomidar-bari', tagline: 'A timeless legacy preserving centuries of devotion.', note: 'Heritage' },
   { slug: 'vivekananda-sevak-sangha', tagline: 'A luminous presence in the heart of the city.', note: 'Traditional & Eco' },
-  { slug: 'ichlabad-youth-club', tagline: 'Epic grandeur brought to life.', note: 'Mythology' },
+  { slug: 'ichlabad-youth-club', tagline: 'A nostalgic journey to the days of yore.', note: 'Nostalgia' },
   { slug: 'laltu-smriti-sangha', tagline: 'Divine architecture recreated.', note: 'Architecture' },
   { slug: 'jagoroni-sangha', tagline: 'Fulfilling the deepest desires.', note: 'Theme Puja' }
 ];
@@ -158,3 +158,4 @@ export const FILTERS: { id: string; label: string; test: (p: Puja) => boolean }[
 
 export const bySlug = (slug: string) => PUJAS.find((p) => p.slug === slug);
 export const themeCount = (id: string) => PUJAS.filter((p) => p.themeId === id).length;
+

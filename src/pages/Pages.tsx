@@ -21,6 +21,7 @@ import { MiniMap, PujaMap, RouteMap } from '../sections/PujaMap';
 import { Timeline } from '../sections/Timeline';
 import { Experiences } from '../sections/Experiences';
 import { AboutBrands, Social, Team } from '../sections/About';
+import { HallOfFameV2 as HallOfFame } from '../components/HallOfFameV2';
 
 /* ------------------------------------------------------------------ *
  *  Pandals & Themes
@@ -502,6 +503,8 @@ export function PujaDetail({ slug }: { slug: string }) {
 
         </section>
 
+
+      <HallOfFame p={p} />
 
       <section className="pd-gallery wrap" id="pandal">
         <RevealText lines={['THE PANDAL,', 'FRAME BY FRAME']} className="display" />
@@ -1773,3 +1776,5 @@ export function FaqPage() {
     </>
   );
 }
+
+

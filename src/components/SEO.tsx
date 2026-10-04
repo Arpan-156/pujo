@@ -9,7 +9,7 @@ export function SEO() {
   useEffect(() => {
     let title = 'Burdwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
     let description = 'Explore the ultimate Burdwan Durga Puja 2026 guide. Discover famous pandals, themes, locations, walking routes, and an interactive map for Bardhaman.';
-    let canonical = 'https://bardwanpuja.pages.dev' + pathname;
+    let canonical = 'https://burdwanpujo.pages.dev' + pathname;
     
     let schemaType = 'WebSite';
     let schemaJson: any = {};
