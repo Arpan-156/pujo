@@ -27,11 +27,12 @@ export const PUJA_START = new Date('2026-10-17T06:00:00+05:30');
 export const NAV = [
   { label: 'Home', bn: 'বাড়ি', to: '/' },
   { label: 'Pandals & Themes', bn: 'সব পুজো', to: '/pujas' },
+  { label: 'Route Planner', bn: 'পথ নির্দেশিকা', to: '/planner' },
   // { label: 'Themes', bn: 'থিম', to: '/themes' },
   { label: 'Featured Pandals', bn: 'বাছাই মণ্ডপ', to: '/featured' },
   
   { label: 'Gallery', bn: 'গ্যালারি', to: '/gallery' },
-      { label: 'Route Planner', bn: 'পথ নির্দেশিকা', to: '/planner' },
+      
   { label: 'Top 3 Voter', bn: 'সেরা ৩ নির্বাচন', to: '/top3' },
   { label: 'FAQ', bn: '\u09AA\u09CD\u09B0\u09B6\u09CD\u09A8\u09CB\u09A4\u09CD\u09A4\u09B0', to: '/faq' },
   { label: 'About', bn: 'আমরা', to: '/about' },

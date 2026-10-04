@@ -188,7 +188,18 @@ return (
 
         @media (max-width: 900px) {
           .pmap-new-grid { grid-template-columns: 1fr; height: auto; min-height: auto; display: flex; flex-direction: column-reverse; gap: 20px; padding-top: calc(var(--safe-t) + 90px) !important; }
-          .pmap-new-list { height: auto !important; max-height: none !important; overflow-y: visible !important; flex: none !important; }
+          .pmap-new-list { 
+    height: 450px !important; 
+    max-height: 50vh !important; 
+    flex-direction: column !important; 
+    overflow-y: auto !important; 
+    overflow-x: hidden !important; 
+    padding-bottom: 10px; 
+    padding-right: 12px !important;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  
           /* Fixed pixel height prevents aggressive layout shifting (jumping) when mobile browser address bar hides/shows */
           .pmap-map-container { height: 420px; flex-shrink: 0; }
         }
@@ -205,7 +216,7 @@ return (
         <div className="wrap pmap-new-grid" style={{ paddingTop: '20px', position: 'relative', zIndex: 10 }}>
           <aside className="pmap-new-list" style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', WebkitOverflowScrolling: 'touch', flexDirection: 'column', gap: '10px', paddingRight: '12px', scrollbarWidth: 'thin', scrollbarColor: 'var(--gold) transparent' }}>
             
-            <div style={{ padding: '16px', background: 'rgba(20,8,9,0.5)', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '10px' }}>
+            <div className="pmap-card-mob" style={{ padding: '16px', background: 'rgba(20,8,9,0.5)', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '10px' }}>
               <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: 'var(--gold-2)' }}>Location Services</h3>
               {geo.status === 'success' ? (
                 <div style={{ color: '#4ADE80', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -224,7 +235,7 @@ return (
               )}
             </div>
 
-            <div style={{ marginBottom: '16px' }}>
+            <div className="pmap-card-mob" style={{ marginBottom: '16px' }}>
               <input 
                 type="text" 
                 placeholder="Search Pandals..." 
@@ -239,10 +250,7 @@ return (
               const hasCoords = p.map?.lat != null;
               
               return (
-                <div
-                  key={p.slug}
-                  onClick={() => setSel(sel === p.slug ? null : p.slug)}
-                  style={{
+                <div className="pmap-card-mob" key={p.slug} onClick={() => setSel(sel === p.slug ? null : p.slug)} style={{
                     background: isActive ? 'rgba(233,181,88,0.1)' : 'transparent',
                     border: isActive ? '1px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
                     padding: '16px',
