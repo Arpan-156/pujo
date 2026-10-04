@@ -70,7 +70,6 @@ export function Home() {
       <PujaMap isHome />
 
       {/* <ThemesGrid /> */}
-      <Experiences />
       <Timeline />
       {/* <section className="bd-teaser">
         <div className="bd-teaser-bg" aria-hidden="true"><Photo v={landmarks[0].visual} /></div>
@@ -83,6 +82,7 @@ export function Home() {
       </section> */}
       
       <DailyShloka />
+      <Experiences />
       
       
 

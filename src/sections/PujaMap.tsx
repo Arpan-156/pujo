@@ -55,7 +55,6 @@ const POI_COLORS: Record<POIType, string> = {
   police: '#2563EB',
   hospital: '#E11D48',
   pharmacy: '#7C3AED',
-  restaurant: '#EA580C',
   cafe: '#B45309',
   toilets: '#0D9488',
   atm: '#059669'
@@ -89,6 +88,16 @@ const RecenterControl = ({ center, userCoords }: { center: [number, number], use
     </div>
   );
 };
+
+
+const BURDWAN_SPOTS = [
+  { id: 't1', name: 'Curzon Gate', type: 'Monument', lat: 23.2393, lon: 87.8631, desc: 'Historical gateway built in 1903' },
+  { id: 't2', name: '108 Shiva Temple', type: 'Temple', lat: 23.2355, lon: 87.8931, desc: 'Nawab Hat, 108 distinct Shiva lingas' },
+  { id: 't3', name: 'Krishnasayar Park', type: 'Park / Lake', lat: 23.2504, lon: 87.8542, desc: 'Beautiful lake dug by King Krishnachandra' },
+  { id: 't4', name: 'Sarbamangala Temple', type: 'Temple', lat: 23.2424, lon: 87.8639, desc: 'Ancient temple of goddess Sarbamangala' },
+  { id: 't5', name: 'Meghnad Saha Planetarium', type: 'Science / Museum', lat: 23.2483, lon: 87.8576, desc: 'Built by University of Burdwan' },
+  { id: 't6', name: 'Burdwan Rajbari', type: 'Palace', lat: 23.2541, lon: 87.8504, desc: 'Palace of the Bardhaman Maharaja' }
+];
 
 export function PujaMap({ className = '', isHome = false }: { className?: string, isHome?: boolean }) {
   const mobile = useIsMobile();
@@ -174,18 +183,18 @@ export function PujaMap({ className = '', isHome = false }: { className?: string
   };
 
     const toggleAll = async () => {
-    if (activePoiTypes.size === 5 && showPandals) {
+    if (activePoiTypes.size === 4 && showPandals) {
       setActivePoiTypes(new Set());
       setShowPandals(false);
       setPois([]);
     } else {
-      setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm', 'restaurant']));
+      setActivePoiTypes(new Set(['hospital', 'toilets', 'police', 'atm']));
       setShowPandals(true);
       if (mapCenter) {
         const center = mapObj ? mapObj.getCenter() : { lat: mapCenter[0], lng: mapCenter[1] };
         const lat = center.lat;
         const lng = center.lng;
-        const fetched = await fetchPOIs(lat, lng, 3000, ['hospital', 'police', 'atm', 'toilets', 'restaurant']);
+        const fetched = await fetchPOIs(lat, lng, 3000, ['hospital', 'police', 'atm', 'toilets']);
           setPois(fetched);
       }
     }
@@ -271,6 +280,8 @@ return (
               
               return (
                 
+                
+                
                 <div className="pmap-card-mob" key={p.slug} onClick={() => setSel(sel === p.slug ? null : p.slug)} style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     background: isActive ? 'rgba(233,181,88,0.1)' : 'transparent',
@@ -319,7 +330,7 @@ return (
               <span style={{ fontSize: '0.85rem', color: 'var(--mute)', paddingRight: '8px', alignSelf: 'center' }}>Find Nearby:</span>
               <button className={`poi-btn ${activePoiTypes.size === 4 && showPandals ? 'active' : ''}`} onClick={toggleAll}>All</button>
               <button className={`poi-btn ${showPandals ? 'active' : ''}`} onClick={() => setShowPandals(!showPandals)}><div className="poi-btn-color" style={{ background: '#eab308' }}></div>Pandals</button>
-              {(['hospital', 'toilets', 'police', 'atm', 'restaurant'] as POIType[]).map(type => (
+              {(['hospital', 'toilets', 'police', 'atm'] as POIType[]).map(type => (
                 <button 
                   key={type} 
                   className={`poi-btn ${activePoiTypes.has(type) ? 'active' : ''}`}
@@ -427,9 +438,8 @@ return (
 
             </div>
 
-            {!isHome && (
-              <>
-                <div style={{ background: 'linear-gradient(145deg, rgba(30, 20, 20, 0.8) 0%, rgba(15, 10, 10, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
+            {!isHome && (<>
+            <div style={{ background: 'linear-gradient(145deg, rgba(30, 20, 20, 0.8) 0%, rgba(15, 10, 10, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
                   <h3 style={{ color: 'var(--gold)', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                      Essential Services
@@ -451,7 +461,34 @@ return (
                   )}
                 </div>
 
-                <div style={{ background: 'linear-gradient(145deg, rgba(40, 10, 10, 0.8) 0%, rgba(15, 5, 5, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 100, 100, 0.2), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
+                
+                  <div style={{ background: 'linear-gradient(145deg, rgba(20, 30, 20, 0.8) 0%, rgba(10, 15, 10, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
+                    <h3 style={{ color: '#10B981', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1v12z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                       Visiting Spots
+                    </h3>
+                    <p style={{ color: 'var(--mute)', fontSize: '0.85rem', marginBottom: '16px' }}>Top attractions and heritage sites around Burdwan:</p>
+                    
+                    {BURDWAN_SPOTS.map(spot => {
+                      const dist = (geo.lat && geo.lng) ? getDistance(geo.lat, geo.lng, spot.lat, spot.lon) : undefined;
+                      return (
+                        <div key={spot.id} style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <h4 style={{ margin: '0 0 4px', fontSize: '1rem', color: '#fff' }}>{spot.name}</h4>
+                            <div style={{ color: 'var(--mute)', fontSize: '0.8rem' }}>{spot.type} &bull; {spot.desc}</div>
+                          </div>
+                          {dist !== undefined && (
+                            <div style={{ fontSize: '0.85rem', color: '#10B981', fontWeight: 'bold', whiteSpace: 'nowrap', marginLeft: '12px' }}>
+                              {dist.toFixed(1)} km
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+
+                  <div style={{ background: 'linear-gradient(145deg, rgba(40, 10, 10, 0.8) 0%, rgba(15, 5, 5, 0.9) 100%)', boxShadow: 'inset 0 1px 1px rgba(255, 100, 100, 0.2), 0 20px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '24px', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}></div>
                   <h3 style={{ color: '#ef4444', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: '8px', position: 'relative' }}>
                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -474,12 +511,10 @@ return (
                       </div>
                     </li>
                   </ul>
-                </div>
-              </>
-            )}
-
+                  </div>
+                </>)}
+            </div>
           </div>
-        </div>
       </section>
     </>
   );

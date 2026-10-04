@@ -1,4 +1,4 @@
-export type POIType = 'police' | 'hospital' | 'pharmacy' | 'restaurant' | 'cafe' | 'toilets' | 'atm';
+export type POIType = 'police' | 'hospital' | 'pharmacy' | 'cafe' | 'toilets' | 'atm';
 
 export interface POI {
   id: number;
@@ -8,14 +8,23 @@ export interface POI {
   name: string;
 }
 
+const tagMap: Record<POIType, string> = {
+  police: '"amenity"="police"',
+  hospital: '"amenity"="hospital"',
+  pharmacy: '"amenity"="pharmacy"',
+  cafe: '"amenity"="cafe"',
+  toilets: '"amenity"="toilets"',
+  atm: '"amenity"="atm"'
+};
+
 export async function fetchPOIs(lat: number, lng: number, radiusMeters: number, types: POIType[] = ['hospital', 'police', 'atm', 'toilets']): Promise<POI[]> {
-  const nodes = types.map(t => `node["amenity"="${t}"](around:${radiusMeters},${lat},${lng});`).join('\n      ');
+  const nodes = types.map(t => `nwr[${tagMap[t]}](around:${radiusMeters},${lat},${lng});`).join('\n      ');
   const query = `
-    [out:json][timeout:10];
+    [out:json][timeout:15];
     (
       ${nodes}
     );
-    out center; // out center calculates the center of ways/relations instantly
+    out center;
   `;
   
   try {
@@ -24,18 +33,23 @@ export async function fetchPOIs(lat: number, lng: number, radiusMeters: number, 
       body: query
     });
     
-      if (!res.ok) { console.error('Overpass error', res.status); return []; }
-      const data = await res.json();
-      if (!data || !data.elements) return [];
+    if (!res.ok) { console.error('Overpass error', res.status); return []; }
+    const data = await res.json();
+    if (!data || !data.elements) return [];
       
-      return data.elements.map((el: any) => ({
+    return data.elements.map((el: any) => {
+      let resolvedType = 'unknown';
+      if (el.tags.amenity) resolvedType = el.tags.amenity;
+      
 
-      id: el.id,
-      lat: el.lat || el.center?.lat,
-      lon: el.lon || el.center?.lon,
-      type: el.tags.amenity as POIType,
-      name: el.tags.name || el.tags.operator || el.tags.amenity
-    }));
+      return {
+        id: el.id,
+        lat: el.lat || el.center?.lat,
+        lon: el.lon || el.center?.lon,
+        type: resolvedType as POIType,
+        name: el.tags.name || el.tags.operator || resolvedType
+      };
+    });
   } catch (err) {
     console.error('Overpass error', err);
     return [];

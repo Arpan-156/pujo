@@ -48,4 +48,4 @@ code = code.replace(
 );
 
 fs.writeFileSync('src/sections/PujaMap.tsx', code, 'utf8');
-console.log('Fixed Sidebar card to minimalist');
+console.log('Restored Sidebar card to minimalist again');
