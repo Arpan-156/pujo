@@ -105,7 +105,7 @@ const GenericLogo = () => (
 );
 
 export const HallOfFameV2 = ({ p }: { p: any }) => {
-  if (!p || (p.slug !== 'vivekananda-sevak-sangha' && p.slug !== 'jagoroni-sangha')) return null;
+  if (!p || (p.slug !== 'vivekananda-sevak-sangha' && p.slug !== 'jagoroni-sangha' && p.slug !== 'ichlabad-youth-club')) return null;
 
   let awards = [
     { title: 'Best Pandal', year: '2025', Icon: GenericLogo },
@@ -129,6 +129,22 @@ export const HallOfFameV2 = ({ p }: { p: any }) => {
     ];
   }
 
+
+  if (p.slug === 'ichlabad-youth-club') {
+    awards = [
+      { title: 'ABP Ananda', year: 'Award Winner', Icon: LogoABP },
+      { title: 'Mukto Bangla', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'TV9 Bangla', year: 'Award Winner', Icon: LogoTV9 },
+      { title: 'News18 Bangla', year: 'Award Winner', Icon: LogoNews18 },
+      { title: 'Tara News', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'News 10', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'Sahara', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'Jela Prashasanik', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'Burdwan Durga Samman', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'Gana Bondhu Media', year: 'Award Winner', Icon: GenericLogo },
+      { title: 'Matir Baag', year: 'Award Winner', Icon: GenericLogo },
+    ];
+  }
 
   if (p.slug === 'jagoroni-sangha') {
     awards = [
