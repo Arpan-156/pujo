@@ -137,6 +137,8 @@ const ROWS: Row[] = [
   { slug: 'shyamlal-sarbojanin', name: 'Shyamlal Sarbojanin', area: 'Khosbagan', town: true, themeId: 'mythology', themeName: 'Har Har Mahadev', cats: ['Community Puja', 'Theme Puja'], est: 1992, feat: false, art: 'pandal', seed: 122, hue: 220, tone: 'night', x: 50, y: 82, lat: 23.2325, lng: 87.8634, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'amadpur-zomidar-bari', name: 'Amadpur Zomidar Bari', area: 'Amadpur', town: false, themeId: 'heritage', themeName: 'A Timeless Legacy', cats: ['Family Puja', 'Heritage'], est: 1650, feat: true, art: 'pandal', seed: 123, hue: 15, tone: 'night', x: 85, y: 85, lat: 23.2326, lng: 88.0903, desc: 'Experience the grandeur of a heritage Durga Puja, preserving centuries of devotion and tradition at the historic Amadpur Zomidar Bari.' },
   { slug: 'jagoroni-sangha', name: 'Jagoroni Sangha', area: 'Chhotonilpur', town: true, themeId: 'mythology', themeName: 'Manaskamana', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: true, art: 'pandal', seed: 124, hue: 45, tone: 'night', x: 42, y: 58, lat: 23.220459, lng: 87.865717, desc: 'Celebrating Durga Puja with grand festivities and devotion.' }
+  ,
+  { slug: 'olaichanditala-sarbojonin', name: 'Olaichanditala Sarbojonin', area: '5 Ichlabad, Sripally, Bardhaman', town: true, themeId: 'heritage', themeName: 'Sabekiana', cats: ['Community Puja', 'Traditional'], est: 1980, feat: false, art: 'pandal', seed: 130, hue: 45, tone: 'night', x: 75, y: 55, lat: 23.228367614577127, lng: 87.88417692671021, desc: 'Celebrating Durga Puja with grand festivities and devotion.' }
 ];
 
 export const PUJAS: Puja[] = ROWS.map(build);
