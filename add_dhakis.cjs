@@ -39,3 +39,4 @@ code = code.replace(
 
 fs.writeFileSync('src/components/Art.tsx', code, 'utf8');
 console.log("Added more Dhakis to the front.");
+ 
