@@ -1356,15 +1356,14 @@ export function PublicVotingPage() {
       zone: p.zone || 'Bardhaman',
       tagline: p.description || p.story || `Theme: ${p.theme}`,
       // Base is seeded so it looks realistic even before global votes roll in
-      baseVotes: (stringVal * 12) + 1980
+      baseVotes: 100
     };
   });
 
   const getScore = (p: typeof PANDALS[0]) => {
-    const local = userState[p.id] || { rating: 0, upvoted: false };
     const global = globalState[p.id] || { score: 0, upvotes: 0 };
-    // Mix static seed + live global + immediate local response
-    return p.baseVotes + (local.rating * 10) + (local.upvoted ? 50 : 0) + (global.score * 10) + (global.upvotes * 50);
+    // Every vote = +100 points
+    return p.baseVotes + (global.upvotes * 100);
   };
 
   const sorted = [...PANDALS].sort((a, b) => getScore(b) - getScore(a));
@@ -1384,7 +1383,8 @@ export function PublicVotingPage() {
       alert("You can only vote for up to 3 clubs! Please clear your votes to start over.");
       return;
     }
-    saveState(id, { ...(userState[id] || { rating: 0, upvoted: false }), rating });
+    const current = userState[id] || { rating: 0, upvoted: false };
+    saveState(id, { ...current, rating, upvoted: rating > 0 });
   };
 
   const toggleUpvote = (id: string) => {

@@ -123,11 +123,11 @@ export function Social() {
                  <div className="fc-ring"></div>
               </div>
               <div className="fc-info">
-                 <span className="fc-role">Founder &amp; Owner</span>
+                 <span className="fc-role">Founder, Owner &amp; Developer</span>
                  <h4 className="fc-name">Arpan Ganguly</h4>
-                 <p className="fc-desc">Driving the vision of Burdwan Capturers and Banglar Pujo to the world.</p>
+                 <p className="fc-desc">Driving the vision of Burdwan Capturers and Banglar Pujo to the world, and the developer behind this website.</p>
                  <div className="fc-socials">
-                   <a href="#" aria-label="Arpan Ganguly Instagram" data-cursor="Follow"><Instagram size={18} /></a>
+                   <a href="https://www.instagram.com/photostat_capturer/" aria-label="Arpan Ganguly Instagram" data-cursor="Follow" target="_blank"><Instagram size={18} /></a>
                    <a href="#" aria-label="Arpan Ganguly Facebook" data-cursor="Like"><Facebook size={18} /></a>
                  </div>
               </div>
@@ -145,7 +145,7 @@ export function Social() {
             <div className="soc-who"><BrandMark brand={b} size={44} /><h3>{BRANDS[b].name}</h3></div>
             <div className="soc-cards">
               {SOCIALS.map(({ key, label, Icon }, i) => {
-                
+                if (b === 'pujo' && key === 'youtube') return null;
                 return (
                   <Reveal key={key} delay={i * 90} variant="up">
                     <a className={`soc-card ${key}`} href={BRANDS[b].socials[key]} data-cursor={DETAIL[key][1]} aria-label={`${BRANDS[b].short} on ${label}`}>

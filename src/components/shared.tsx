@@ -221,7 +221,7 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
               <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.capturers.socials[key]} aria-label={`Burdwan Capturers on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
               
               <p className="footer-h" style={{ marginTop: 32 }}>Banglar Pujo</p>
-              <div className="footer-soc">{SOCIALS.map(({ key, Icon, label }) => <a key={key} href={BRANDS.pujo.socials[key]} aria-label={`Banglar Pujo on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
+              <div className="footer-soc">{SOCIALS.filter(s => s.key !== 'youtube').map(({ key, Icon, label }) => <a key={key} href={BRANDS.pujo.socials[key]} aria-label={`Banglar Pujo on ${label}`} data-cursor="Follow"><Icon size={20} /></a>)}</div>
             </div>
             
             <div className="fg-col">
