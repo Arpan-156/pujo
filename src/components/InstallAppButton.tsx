@@ -29,11 +29,24 @@ export function InstallAppButton() {
     }
 
     // Android/Chrome logic
+    // First check if we already caught it in main.tsx
+    if (window.deferredPWAInstallPrompt) {
+      setDeferredPrompt(window.deferredPWAInstallPrompt);
+    }
+
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
       setDeferredPrompt(e);
+      window.deferredPWAInstallPrompt = e;
     };
+    
+    // Custom event dispatched from main.tsx if it fires after this component mounts but we want to be safe
+    const handleCustomPrompt = (e: any) => {
+      setDeferredPrompt(e.detail);
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('pwa-prompt-ready', handleCustomPrompt);
 
     // iOS detection
     const ua = window.navigator.userAgent;
@@ -42,14 +55,11 @@ export function InstallAppButton() {
     
     if (isIOSDevice || isMaciPad) {
       setIsIOS(true);
-    } else {
-      // If it's not iOS and we haven't received beforeinstallprompt after a timeout, 
-      // it might not be supported (e.g. Firefox) or already installed.
-      // But we will still show the button and give a fallback message.
     }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('pwa-prompt-ready', handleCustomPrompt);
     };
   }, []);
 
