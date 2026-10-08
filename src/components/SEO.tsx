@@ -7,7 +7,7 @@ export function SEO() {
   const { pujas } = useData();
 
   useEffect(() => {
-    let title = 'Burdwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
+    let title = 'Burdwan Pujo Guide | Durga Puja Pandals, Map & Routes';
     let description = 'Explore the ultimate Burdwan Durga Puja 2026 guide. Discover famous pandals, themes, locations, walking routes, and an interactive map for Bardhaman.';
     let canonical = 'https://burdwanpujo.pages.dev' + pathname;
     
@@ -20,18 +20,18 @@ export function SEO() {
 
     switch (pathname) {
       case '/':
-        title = 'Burdwan Puja Guide 2026 | Burdwan Durga Puja, Pandals & Map';
-        description = 'The complete Burdwan Puja guide for 2026. Explore top Durga Puja pandals in Burdwan, local themes, maps, and essential visitor information for Bardhaman.';
+        title = 'Burdwan Pujo Guide | Durga Puja Pandals, Map & Routes';
+        description = 'Burdwan Pujo Guide – Discover Durga Puja pandals, locations, map, routes, themes, and celebrations across Bardhaman (Burdwan). Plan your Puja visit today!';
         schemaType = 'WebSite';
         schemaJson = {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "name": "Burdwan Capturers Official Puja Guide",
-          "url": "https://bardwanpuja.pages.dev/",
+          "name": "Burdwan Pujo Guide",
+          "url": "https://burdwanpujo.pages.dev/",
           "description": "Local guide to Durga Puja pandals in Burdwan/Bardhaman.",
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://bardwanpuja.pages.dev/pujas?q={search_term_string}",
+            "target": "https://burdwanpujo.pages.dev/pujas?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
         };
@@ -146,9 +146,9 @@ export function SEO() {
     setOgTag('og:url', canonical);
     setOgTag('og:type', isPujaRoute ? 'article' : 'website');
     if (isPujaRoute && pandal) {
-      setOgTag('og:image', 'https://bardwanpuja.pages.dev' + pandal.heroImage);
+      setOgTag('og:image', 'https://burdwanpujo.pages.dev' + pandal.heroImage);
     } else {
-      setOgTag('og:image', 'https://bardwanpuja.pages.dev/og-image.jpg');
+      setOgTag('og:image', 'https://burdwanpujo.pages.dev/og-image.jpg');
     }
 
     // Update JSON-LD Schema
@@ -165,3 +165,6 @@ export function SEO() {
 
   return null;
 }
+
+
+

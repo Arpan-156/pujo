@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { Link } from '../lib/router';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -292,8 +293,8 @@ return (
                   }}
                 >
                   <div style={{ flex: 1, paddingRight: '16px' }}>
-                     <h4 style={{ margin: '0 0 4px 0', fontSize: '1.05rem', color: isActive ? 'var(--gold)' : '#fff', fontWeight: 600 }}>
-                       {p.name} {hasCoords ? '' : <span style={{ fontSize: '0.7rem', color: '#ef4444' }}>(No map pin)</span>}
+                     <h4 style={{ margin: '0 0 4px 0', fontSize: '1.05rem', fontWeight: 600 }}><Link to={`/puja/${p.slug}`} style={{ color: isActive ? 'var(--gold)' : '#fff', textDecoration: 'none' }}>
+                       {p.name} {hasCoords ? '' : <span style={{ fontSize: '0.7rem', color: '#ef4444' }}>(No map pin)</span>}</Link>
                      </h4>
                      <div style={{ fontSize: '0.85rem', color: 'var(--mute)' }}>
                        {p.location}
@@ -580,3 +581,7 @@ export function RouteMap({ route }: { route: any }) {
     </div>
   );
 }
+
+
+
+

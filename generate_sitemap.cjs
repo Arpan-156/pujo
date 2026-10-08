@@ -11,7 +11,7 @@ while ((match = regex.exec(pujasCode)) !== null) {
   slugs.push(match[1]);
 }
 
-const baseUrl = 'https://bardwanpuja.pages.dev';
+const baseUrl = 'https://burdwanpujo.pages.dev';
 const staticRoutes = [
   '',
   '/pujas',
@@ -59,4 +59,5 @@ Sitemap: ${baseUrl}/sitemap.xml
 
 fs.writeFileSync('public/robots.txt', robots, 'utf8');
 console.log('Generated robots.txt');
+
 

@@ -207,7 +207,7 @@ export function Hero() {
         </div>
         
         <div className="hero-title-wrap" style={{ width: "100%", padding: "0 20px" }}>
-            <h1 className="t-main" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}><span className="sr-only">Burdwan Puja Guide 2026 - Discover Burdwan Durga Puja, Pandals & Map</span><img src="/images/calligraphy.png" alt="Burdwan Pujo 2026" style={{ width: "100%", maxWidth: "800px", height: "auto", maxHeight: "35vh", objectFit: "contain", filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.5))" }} /></h1>
+            <h1 className="t-main" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}><span className="sr-only">Burdwan Pujo Guide - Your Complete Durga Puja Guide in Burdwan</span><img src="/images/calligraphy.png" alt="Burdwan Pujo 2026" style={{ width: "100%", maxWidth: "800px", height: "auto", maxHeight: "35vh", objectFit: "contain", filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.5))" }} /></h1>
         </div>
         
         <p className="hero-sub">Where tradition meets imagination - Explore the best pandals, themes & more in Burdwan</p>
@@ -224,3 +224,4 @@ export function Hero() {
       </section>
   );
 }
+
