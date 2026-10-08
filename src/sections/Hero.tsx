@@ -178,7 +178,7 @@ export function Hero() {
             
             .hero-cta { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 0; }
             
-            .btn.elegant-primary { grid-column: 1 / -1; }
+            .btn.elegant-primary, .install-app-btn { grid-column: 1 / -1; }
             
             .btn.elegant-primary, .btn.elegant-glass { 
                 width: 100%; padding: 16px 10px; font-size: 0.75rem; letter-spacing: 1px; justify-content: center;

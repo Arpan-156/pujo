@@ -30,16 +30,9 @@ export function Home() {
     e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width).toFixed(3));
     e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height).toFixed(3));
   };
-
   return (
     <>
       <Hero />
-            <section className="wrap" style={{ padding: '60px 20px', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: 'var(--f-display)', fontSize: '2.5rem', marginBottom: '20px', color: 'var(--gold)' }}>Explore Durga Puja in Burdwan</h2>
-        <p style={{ color: 'var(--mute)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-          Welcome to the ultimate <strong>Burdwan Pujo Guide</strong>. Discover the most prominent <Link to="/pujas" style={{ color: 'var(--gold)' }}>Durga Puja pandals</Link>, explore their unique themes, and easily find their locations across Bardhaman. Whether you're looking for traditional heritage pujas or contemporary thematic art, our comprehensive guide, interactive <Link to="/map" style={{ color: 'var(--gold)' }}>Pandal Map</Link>, and curated <Link to="/planner" style={{ color: 'var(--gold)' }}>Routes</Link> help you plan the perfect Puja visit in Burdwan.
-        </p>
-      </section>
       <Countdown />
       <Manifesto />
       <FeaturedRail />
@@ -74,6 +67,22 @@ export function Home() {
         </Reveal>
       </div>
       <PujaMap isHome />
+
+      <section style={{ padding: '100px 20px', position: 'relative', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)', background: 'radial-gradient(ellipse at center, rgba(233,181,88,0.05) 0%, transparent 70%)' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '24px' }}>
+             <span style={{ width: '60px', height: '1px', background: 'linear-gradient(90deg, transparent, var(--gold))' }} />
+             <span style={{ color: 'var(--gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: 600 }}>The Ultimate Guide</span>
+             <span style={{ width: '60px', height: '1px', background: 'linear-gradient(270deg, transparent, var(--gold))' }} />
+          </div>
+          <RevealText lines={['EXPLORE DURGA PUJA', 'IN BURDWAN']} className="display" />
+          <Reveal delay={200}>
+            <p style={{ color: 'var(--mute)', fontSize: '1.2rem', lineHeight: '1.8', margin: '40px auto 0' }}>
+              Welcome to the ultimate <strong style={{ color: '#fff', fontWeight: 500 }}>Burdwan Pujo Guide</strong>. Discover the most prominent <Link to="/pujas" style={{ color: 'var(--gold)', textDecoration: 'none' }}>Durga Puja pandals</Link>, explore their unique themes, and easily find their locations across Bardhaman. Whether you're looking for traditional heritage pujas or contemporary thematic art, our comprehensive guide, interactive <Link to="/map" style={{ color: 'var(--gold)', textDecoration: 'none' }}>Pandal Map</Link>, and curated <Link to="/planner" style={{ color: 'var(--gold)', textDecoration: 'none' }}>Routes</Link> help you plan the perfect Puja visit in Burdwan.
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
       {/* <ThemesGrid /> */}
       <Timeline />

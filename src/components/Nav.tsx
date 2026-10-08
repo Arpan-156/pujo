@@ -1,5 +1,6 @@
 import { GeoPill } from './GeoBar';
 import { useEffect, useState } from 'react';
+import { InstallAppButton } from './InstallAppButton';
 import { NAV } from '../data/site';
 import { Link, useRouter } from '../lib/router';
 import { Alpana, BrandMark, LaalPaar } from './fx';
@@ -47,9 +48,12 @@ export function Nav({ visible }: { visible: boolean }) {
             </Link>
           ))}
         </nav>
-        <button className="nav-toggle" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
-          <Menu size={26} />
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <InstallAppButton />
+          <button className="nav-toggle" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}>
+            <Menu size={26} />
+          </button>
+        </div>
       </header>
 
       <div className={`menu ${open ? 'open' : ''}`} aria-hidden={!open}>

@@ -282,7 +282,7 @@ export function PujasPage() {
                          let hash = 0;
                          for (let i = 0; i < p.slug.length; i++) hash = p.slug.charCodeAt(i) + ((hash << 5) - hash);
                          const baseRating = 3.8 + (Math.abs(hash) % 12) / 10; 
-                         let baseVotes = 800 + (Math.abs(hash) % 3000);
+                         let baseVotes = 100;
                          
                          let finalRating = baseRating;
                          let userR = userState[p.slug]?.rating;
