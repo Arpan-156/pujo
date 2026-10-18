@@ -79,13 +79,27 @@ const build = (r: Row): Puja => {
     customHeroSrc = '/photos/idol-2.jpg';
     customIdolSrc = '/photos/idol-2.jpg';
   }
+  let customHeroPos: string | undefined = undefined;
   if (r.slug === 'laltu-smriti-sangha') {
-    customHeroSrc = '/photos/idol-3.jpg';
-    customIdolSrc = '/photos/idol-3.jpg';
+    customHeroSrc = '/images/laltu-smriti-sangha.jpg';
+    customIdolSrc = '/images/laltu-smriti-sangha.jpg';
+    customHeroPos = 'center 12%';
   }
+  let customGallery: Visual[] | undefined = undefined;
   if (r.slug === 'jagoroni-sangha') {
-    customHeroSrc = '/photos/idol-4.jpg';
-    customIdolSrc = '/photos/idol-4.jpg';
+    customHeroSrc = '/images/jagoroni-sangha.jpg';
+    customIdolSrc = '/images/jagoroni-sangha.jpg';
+    customGallery = [
+      { art: 'pandal', seed: r.seed + 1, hue: r.hue, tone: 'night', src: '/images/jagoroni-sangha-pandal.jpg' },
+      { art: 'idol', seed: r.seed + 2, hue: r.hue, tone: 'night', src: '/images/jagoroni-sangha.jpg' },
+      V('crowd', r.seed + 14, r.hue, 'night'),
+      V('street', r.seed + 21, r.hue, 'night'),
+      V('dhak', r.seed + 28, r.hue, 'dusk'),
+    ];
+  }
+  if (r.slug === 'sarba-milan-sangha') {
+    customHeroSrc = '/images/sarba-milan-sangha.jpg';
+    customIdolSrc = '/images/sarba-milan-sangha.jpg';
   }
   const c = CONCEPT[r.themeId];
   const gallerySet: ArtKind[] = ['pandal', 'idol', 'crowd', 'street', 'dhak'];
@@ -97,9 +111,9 @@ const build = (r: Row): Puja => {
     story: r.story ?? `${r.desc} The committee has spent months on the design, with the pandal taking shape in the last three weeks before Shashthi. ${c.pandal} Replace this paragraph with the real story from the organisers.`,
     pandalConcept: c.pandal, idolConcept: c.idol, attractions: c.attractions,
     established: r.est, featured: !!r.feat,
-    heroImage: { art: r.art, seed: r.seed, hue: r.hue, tone: r.tone ?? 'night', src: customHeroSrc },
+    heroImage: { art: r.art, seed: r.seed, hue: r.hue, tone: r.tone ?? 'night', src: customHeroSrc, pos: customHeroPos },
     idolImage: { art: 'idol', seed: r.seed + 40, hue: r.hue, tone: 'dusk', src: customIdolSrc },
-    gallery: gallerySet.map((k, i) => V(k, r.seed + i * 7, r.hue, i === 4 ? 'dusk' : 'night')),
+    gallery: customGallery ?? gallerySet.map((k, i) => V(k, r.seed + i * 7, r.hue, i === 4 ? 'dusk' : 'night')),
     map: { x: r.x, y: r.y, lat: r.lat, lng: r.lng },
     sample: true,
   };
@@ -112,7 +126,7 @@ const build = (r: Row): Puja => {
  *  <PujaProvider>. Nothing else in the UI needs to change.
  * ------------------------------------------------------------------ */
 const ROWS: Row[] = [
-  { slug: 'baranilpur-friends', name: 'Baranilpur Friends club', area: 'Baranilpur', town: true, themeId: 'contemporary', themeName: 'Unknown', cats: ['Community Puja'], est: 1990, feat: false, art: 'pandal', seed: 125, hue: 15, tone: 'night', x: 50, y: 50, lat: 23.226136, lng: 87.868722, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
+  { slug: 'baranilpur-friends', name: 'Baranilpur Friends club', area: 'Baranilpur', town: true, themeId: 'architecture', themeName: 'Belurmath Temple', cats: ['Community Puja', 'Theme Puja'], est: 1990, feat: false, art: 'pandal', seed: 125, hue: 15, tone: 'night', x: 50, y: 50, lat: 23.226136, lng: 87.868722, desc: 'Recreating the serene and grand architecture of Belur Math Temple in Bardhaman.' },
   { slug: 'ghordour-choti-sharbojonin', name: 'Ghordour Choti Sharbojonin', area: 'Ghordourchati Crossing', town: true, themeId: 'contemporary', themeName: 'Mayachakra', cats: ['Community Puja', 'Theme Puja'], est: 2000, feat: false, art: 'pandal', seed: 126, hue: 130, tone: 'night', x: 60, y: 35, lat: 23.22196376468755, lng: 87.88362469875788, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'radha-ballav-jiu-temple', name: 'Radha Ballav Jiu Temple', area: 'Natunganj, Sripally', town: true, themeId: 'heritage', themeName: 'A Timeless Legacy', cats: ['Heritage', 'Family Puja'], est: 1750, feat: true, art: 'temple', seed: 250, hue: 35, tone: 'dusk', x: 28, y: 60, lat: 23.23788, lng: 87.84902, desc: 'A historic heritage puja preserved for generations.' },
   { slug: 'vivekananda-sevak-sangha', name: 'Vivekananda Sevak Sangha', area: 'Sankhari Pukur ln, Sripally', themeId: 'social', themeName: 'Chaina Hote Uma', cats: ['Traditional', 'Community Puja'], est: 1985, feat: true, art: 'eco', seed: 231, hue: 140, tone: 'day', x: 45, y: 65, lat: 23.23218100265509, lng: 87.86444959000303, desc: 'An eco-friendly celebration focusing on nature, using natural materials for a serene and pure environment.', story: 'For decades, Vivekananda Sevak Sangha has organized an authentic, traditional puja. This year, the focus is entirely on eco-consciousness. The pandal is woven from jute and bamboo, and the idol is sculpted from untouched river clay without synthetic paints, returning peacefully to nature on Dashami.' },
@@ -140,7 +154,7 @@ const ROWS: Row[] = [
   { slug: 'olaichanditala-sarbojonin', name: 'Olaichanditala Sarbojonin', area: '5 Ichlabad, Sripally, Bardhaman', town: true, themeId: 'heritage', themeName: 'Sabekiana', cats: ['Community Puja', 'Traditional'], est: 1980, feat: false, art: 'pandal', seed: 130, hue: 45, tone: 'night', x: 75, y: 55, lat: 23.228367614577127, lng: 87.88417692671021, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'agradoot-sangha', name: 'Agradoot Sangha', area: 'Sadarghat Rd, Perbirhata', town: true, themeId: 'mythology', themeName: 'Ardhanarishwar', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 131, hue: 55, tone: 'night', x: 50, y: 50, lat: 23.231727367807018, lng: 87.86156451043125, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'parbirhata-nivedita-sangha', name: 'Parbirhata Nivedita Sangha', area: 'Perbirhata', town: true, themeId: 'contemporary', themeName: 'Alor Dishai Shilpokotha', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 132, hue: 65, tone: 'night', x: 50, y: 50, lat: 23.233339937391538, lng: 87.8653915827616, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
-  { slug: 'sarba-milan-sangha', name: 'Sarba Milan Sangha', area: 'Shalbagan, Gopalnagar Ave', town: true, themeId: 'contemporary', themeName: 'Ek Tukro Satyajit', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 133, hue: 75, tone: 'night', x: 50, y: 50, lat: 23.21876333642236, lng: 87.88028168091711, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
+  { slug: 'sarba-milan-sangha', name: 'Sarba Milan Sangha', area: 'Shalbagan, Gopalnagar Ave', town: true, themeId: 'contemporary', themeName: 'Ek Tukro Satyajit', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: true, art: 'pandal', seed: 133, hue: 75, tone: 'night', x: 50, y: 50, lat: 23.21876333642236, lng: 87.88028168091711, desc: 'A cinematic tribute to the maestro Satyajit Ray, blending world-class film motifs with iconic Bengal artistry.', story: 'Sarba Milan Sangha at Shalbagan presents "Ek Tukro Satyajit", an extraordinary artistic tribute celebrating the timeless cinematic vision, illustration, and storytelling of Satyajit Ray. From iconic film framing to artistic pandal installations, it brings cinema and devotion together.' },
   { slug: 'bajepratappur-traffic-colony', name: 'Bajepratappur Traffic Colony Durgapuja', area: 'Dr. Shyama Prasad Mukherjee Udyan, Bajepratappur', town: true, themeId: 'contemporary', themeName: 'Swapnalok', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 134, hue: 85, tone: 'night', x: 50, y: 50, lat: 23.252610892090228, lng: 87.870697614559, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'jora-mandir', name: 'Jora Mandir', area: 'Grand Trunk Road (SH-13), Laxmipur Math', town: true, themeId: 'architecture', themeName: '3D Projection Light & Sound Show', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 135, hue: 95, tone: 'night', x: 50, y: 50, lat: 23.25315516369241, lng: 87.8642212823592, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
   { slug: 'laxmipur-math-sarbojonin', name: 'Laxmipur Math Sarbojonin', area: 'Laxmipur Math', town: true, themeId: 'rural', themeName: 'Adibasi', cats: ['Community Puja', 'Theme Puja'], est: 1980, feat: false, art: 'pandal', seed: 136, hue: 105, tone: 'night', x: 50, y: 50, lat: 23.255528215524237, lng: 87.86364048243232, desc: 'Celebrating Durga Puja with grand festivities and devotion.' },
@@ -156,7 +170,8 @@ export const FEATURED: FeaturedPandal[] = [
   { slug: 'vivekananda-sevak-sangha', tagline: 'A luminous presence in the heart of the city.', note: 'Traditional & Eco' },
   { slug: 'ichlabad-youth-club', tagline: 'A nostalgic journey to the days of yore.', note: 'Nostalgia' },
   { slug: 'laltu-smriti-sangha', tagline: 'Divine architecture recreated.', note: 'Architecture' },
-  { slug: 'jagoroni-sangha', tagline: 'Fulfilling the deepest desires.', note: 'Theme Puja' }
+  { slug: 'jagoroni-sangha', tagline: 'Fulfilling the deepest desires.', note: 'Theme Puja' },
+  { slug: 'sarba-milan-sangha', tagline: 'A cinematic tribute to the maestro Satyajit Ray.', note: 'Theme & Cinema' }
 ];
 
 export const FILTERS: { id: string; label: string; test: (p: Puja) => boolean }[] = [

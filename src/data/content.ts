@@ -17,6 +17,8 @@ const ROWS: Row[] = [
   ['Maa Durga', 'Traditional goddess form with mesmerizing eyes', 'idol', 'night', 307, 60, undefined, '/images/maa7.jpg'],
   ['Maa Durga', 'Idol set within a grand thematic arch', 'idol', 'dusk', 308, 70, 'wide', '/images/maa8.jpg'],
   ['Maa Durga', 'Detailed craftsmanship and radiant golden crown', 'idol', 'night', 309, 80, 'tall', '/images/maa9.jpg'],
+  ['Pandals', 'Jagoroni Sangha - Illuminated bamboo architectural pavilion', 'pandal', 'night', 310, 45, 'tall', '/images/jagoroni-sangha-pandal.jpg'],
+  ['Maa Durga', 'Jagoroni Sangha - Adi Dhakeshwari Pratima', 'idol', 'night', 311, 45, 'wide', '/images/jagoroni-sangha.jpg'],
 ];
 
 export const GALLERY: GalleryItem[] = ROWS.map((r, i) => ({

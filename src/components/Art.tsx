@@ -537,7 +537,7 @@ export const Art = memo(function Art({ art, seed, hue = 12, tone = 'night', clas
 
 /* ---------- Photo: real image or placeholder ---------- */
 export function Photo({ v, className = '', alt = '', eager = false }: { v: Visual; className?: string; alt?: string; eager?: boolean }) {
-  if (v.src) return <img className={`photo ${className}`} src={v.src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />;
+  if (v.src) return <img className={`photo ${className}`} src={v.src} alt={alt} style={v.pos ? { objectPosition: v.pos } : undefined} loading={eager ? 'eager' : 'lazy'} decoding="async" />;
   return <Art {...v} className={`photo ${className}`} title={alt || undefined} />;
 }
 

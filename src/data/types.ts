@@ -12,6 +12,7 @@ export interface Visual {
   hue?: number;
   tone?: Tone;
   src?: string;
+  pos?: string;
 }
 
 export type PujaCategory =
