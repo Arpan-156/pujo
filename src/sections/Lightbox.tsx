@@ -53,8 +53,8 @@ export function Lightbox({ items, index, onIndex, onClose }: { items: LbItem[]; 
           <button className="icon-btn" aria-label="Close" onClick={onClose}><X size={24} /></button>
         </div>
       </div>
-      <button className="lb-nav prev" aria-label="Previous photo" onClick={() => go(-1)}><ChevronLeft size={28} /></button>
-      <button className="lb-nav next" aria-label="Next photo" onClick={() => go(1)}><ChevronRight size={28} /></button>
+      <button className="lb-nav prev" aria-label="Previous photo" onClick={() => go(-1)} data-cursor="Prev"><ChevronLeft size={28} /></button>
+      <button className="lb-nav next" aria-label="Next photo" onClick={() => go(1)} data-cursor="Next"><ChevronRight size={28} /></button>
       <figure className="lb-fig" onPointerDown={down} onPointerUp={up} onPointerMove={aim}>
         <div key={index} className={`lb-img ${zoom ? 'zoom' : ''}`} style={vars({ '--o': origin })} onClick={() => setZoom((z) => !z)}>
           <Photo v={it.visual} alt={it.caption} eager />

@@ -30,7 +30,7 @@ export function Cursor() {
     const down = () => el.classList.add('down');
     const up = () => el.classList.remove('down');
     const loop = () => {
-      rx += (x - rx) * 0.16; ry += (y - ry) * 0.16;
+      rx += (x - rx) * 0.55; ry += (y - ry) * 0.55;
       el.style.transform = `translate3d(${rx}px,${ry}px,0)`;
       raf = requestAnimationFrame(loop);
     };

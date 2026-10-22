@@ -1,0 +1,27 @@
+# Cloudflare Pages Cache-Control Rules for PWA & Instant Updates
+
+# Service Worker script - never cache, always fetch latest from origin
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+# Web Manifest - revalidate immediately
+/manifest.webmanifest
+  Cache-Control: no-cache, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+# Workbox runtime scripts
+/workbox-*.js
+  Cache-Control: no-cache, must-revalidate, max-age=0
+
+# HTML documents - revalidate immediately so new asset hashes are discovered
+/*.html
+  Cache-Control: no-cache, must-revalidate, max-age=0
+
+/
+  Cache-Control: no-cache, must-revalidate, max-age=0
+
+# Hashed assets in assets folder are immutable and can be cached long-term
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+

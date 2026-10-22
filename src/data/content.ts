@@ -5,31 +5,91 @@ export const GALLERY_CATEGORIES = [
 ];
 
 const CREDIT = 'Burdwan Capturers (placeholder)';
-type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?, number?, number?];
+type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?, number?, string?];
+
+export interface MagazineEdition {
+  year: number;
+  volume: string;
+  issueTitle: string;
+  englishTitle: string;
+  tagline: string;
+  editorNote: string;
+  themeStory: string;
+  coverImage: string;
+  accentColor: string;
+  spineColor: string;
+  publishDate: string;
+  curator: string;
+}
+
+export const MAGAZINE_EDITIONS: MagazineEdition[] = [
+  {
+    year: 2026,
+    volume: "Vol. II",
+    issueTitle: "শারদোৎসব ২০২৬",
+    englishTitle: "Burdwan Pujo Annual 2026",
+    tagline: "The Golden Chronicles & New Horizons",
+    editorNote: "From monumental architectural tributes like Satyajit Ray's cinematic motifs and Balaji replicas to sacred clay sculpting, the 2026 volume documents Bardhaman's crowning festive creations.",
+    themeStory: "As the beats of the dhak echoed through the historic lanes of Bardhaman, 2026 heralded an unprecedented surge of thematic innovation and heritage revival. Our photographic team traversed from Shalbagan to Chhotonilpur to capture the living devotion of the artisans.",
+    coverImage: "/images/jagoroni-sangha.jpg",
+    accentColor: "#e9b558",
+    spineColor: "#3a1217",
+    publishDate: "Sharadiya 2026",
+    curator: "Burdwan Capturers Official"
+  },
+  {
+    year: 2025,
+    volume: "Vol. I",
+    issueTitle: "শারদোৎসব ২০২৫",
+    englishTitle: "Burdwan Pujo Annual 2025",
+    tagline: "Timeless Heritage & Classic Maa Durga",
+    editorNote: "The inaugural archival volume celebrating the serenity of Ekchala pratimas, shimmering daaker saaj, and the ageless grandeur of Burdwan's heritage Pujas.",
+    themeStory: "In 2025, our cameras focused closely on the divine expressions of Maa Durga in the quiet hours before Mahasaptami Bodhon. From traditional rajbari courtyards to intricate terracotta arches, this collection preserves the authentic soul of Bengal's greatest festival.",
+    coverImage: "/images/maa1.jpg",
+    accentColor: "#d4af37",
+    spineColor: "#1d1912",
+    publishDate: "Sharadiya 2025",
+    curator: "Burdwan Capturers Official"
+  }
+];
 
 const ROWS: Row[] = [
-  ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg'],
-  ['Maa Durga', 'Ekchala idol, painted by hand, unlit', 'idol', 'night', 302, 20, undefined, '/images/maa2.jpg'],
-  ['Maa Durga', 'Ten arms, one lamp', 'idol', 'night', 303, 350, 'tall', '/images/maa3.jpg'],
-  ['Maa Durga', 'Traditional daaker saaj and vibrant colors', 'idol', 'dusk', 304, 34, undefined, '/images/maa4.jpg'],
-  ['Maa Durga', 'Divine aura, close up of the idol face', 'idol', 'night', 305, 45, 'tall', '/images/maa5.jpg'],
-  ['Maa Durga', 'Majestic ten-armed idol in full glory', 'idol', 'dusk', 306, 50, 'tall', '/images/maa6.jpg'],
-  ['Maa Durga', 'Traditional goddess form with mesmerizing eyes', 'idol', 'night', 307, 60, undefined, '/images/maa7.jpg'],
-  ['Maa Durga', 'Idol set within a grand thematic arch', 'idol', 'dusk', 308, 70, 'wide', '/images/maa8.jpg'],
-  ['Maa Durga', 'Detailed craftsmanship and radiant golden crown', 'idol', 'night', 309, 80, 'tall', '/images/maa9.jpg'],
-  ['Pandals', 'Jagoroni Sangha - Illuminated bamboo architectural pavilion', 'pandal', 'night', 310, 45, 'tall', '/images/jagoroni-sangha-pandal.jpg'],
-  ['Maa Durga', 'Jagoroni Sangha - Adi Dhakeshwari Pratima', 'idol', 'night', 311, 45, 'wide', '/images/jagoroni-sangha.jpg'],
+  // --- 2026 EDITION ---
+  ['Pandals', 'Jagoroni Sangha - Illuminated bamboo architectural pavilion', 'pandal', 'night', 401, 45, 'tall', '/images/jagoroni-sangha-pandal.jpg', 2026],
+  ['Maa Durga', 'Jagoroni Sangha - Adi Dhakeshwari Pratima in sacred crimson saaj', 'idol', 'night', 402, 45, 'wide', '/images/jagoroni-sangha.jpg', 2026],
+  ['Maa Durga', 'Sarba Milan Sangha - "Ek Tukro Satyajit" Cinematic Pratima', 'idol', 'night', 403, 75, 'tall', '/images/sarba-milan-sangha.jpg', 2026],
+  ['Maa Durga', 'Laltu Smriti Sangha - Golden Balaji-inspired Maa Durga', 'idol', 'night', 404, 120, 'tall', '/images/laltu-smriti-sangha.jpg', 2026],
+  ['Maa Durga', 'Ichlabad Youth Club - Authentic Daaker Saaj & Shola Artistry', 'idol', 'night', 405, 80, 'wide', '/images/ichlabad-youth-club.jpg', 2026],
+  ['Pandals', 'Amadpur Zamindar Bari - Centuries-old heritage Natmandir', 'temple', 'dusk', 406, 15, 'wide', '/images/zamindar.jpg', 2026],
+  ['Maa Durga', 'Radha Ballav Jiu - Sacred centuries-old family legacy Pratima', 'temple', 'dusk', 407, 35, 'tall', '/images/radha-ballab.jpg', 2026],
+  ['Maa Durga', 'Vivekananda Sevak Sangha - Eco-friendly clay & jute sculpted Goddess', 'idol', 'dusk', 408, 140, 'tall', '/photos/idol-2.jpg', 2026],
+  ['Street', 'Station Overbridge - Midnight festive lights overlooking the rail corridor', 'bridge', 'night', 409, 20, 'wide', '/photos/overbridge.jpg', 2026],
+  ['Pandals', '108 Shiva Temple - Historic concentric terracotta sanctums at first light', 'temple', 'dawn', 410, 24, 'tall', '/photos/108-shiva.jpg', 2026],
+
+  // --- 2025 EDITION ---
+  ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg', 2025],
+  ['Maa Durga', 'Ekchala idol, painted by hand, unlit', 'idol', 'night', 302, 20, undefined, '/images/maa2.jpg', 2025],
+  ['Maa Durga', 'Ten arms, one lamp', 'idol', 'night', 303, 350, 'tall', '/images/maa3.jpg', 2025],
+  ['Maa Durga', 'Traditional daaker saaj and vibrant colors', 'idol', 'dusk', 304, 34, undefined, '/images/maa4.jpg', 2025],
+  ['Maa Durga', 'Divine aura, close up of the idol face', 'idol', 'night', 305, 45, 'tall', '/images/maa5.jpg', 2025],
+  ['Maa Durga', 'Majestic ten-armed idol in full glory', 'idol', 'dusk', 306, 50, 'tall', '/images/maa6.jpg', 2025],
+  ['Maa Durga', 'Traditional goddess form with mesmerizing eyes', 'idol', 'night', 307, 60, undefined, '/images/maa7.jpg', 2025],
+  ['Maa Durga', 'Idol set within a grand thematic arch', 'idol', 'dusk', 308, 70, 'wide', '/images/maa8.jpg', 2025],
+  ['Maa Durga', 'Detailed craftsmanship and radiant golden crown', 'idol', 'night', 309, 80, 'tall', '/images/maa9.jpg', 2025],
+  ['Street', 'Curzon Gate glowing under golden festival illuminations', 'gate', 'night', 310, 14, 'wide', '/photos/curzon.jpg', 2025],
+  ['Crowd', 'Burdwan Junction bustling with returning diaspora for Puja', 'station', 'night', 311, 20, 'wide', '/photos/station.jpg', 2025],
+  ['Street', 'Kash flowers swaying by the Damodar river at sunrise', 'kash', 'dawn', 312, 28, 'tall', '/photos/kash.jpg', 2025],
 ];
 
 export const GALLERY: GalleryItem[] = ROWS.map((r, i) => ({
   id: `g${i + 1}`,
   category: r[0],
   caption: r[1],
-  credit: CREDIT,
+  credit: r[9] || CREDIT,
   visual: { art: r[2], tone: r[3], seed: r[4], hue: r[5], src: r[7] },
   tall: r[6] === 'tall',
   wide: r[6] === 'wide',
-    year: 2025,
+  year: r[8] ?? 2025,
 }));
 
 /** Placeholder people. Replace names, bios and links with the real team. */

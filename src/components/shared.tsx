@@ -186,7 +186,10 @@ export function KashField() {
 }
 
 /* ---------- footer ---------- */
-export function Footer() { const [showCopyright, setShowCopyright] = useState(false);
+export function Footer() {
+  const [showCopyright, setShowCopyright] = useState(false);
+  const [updateChecking, setUpdateChecking] = useState(false);
+  const [updateChecked, setUpdateChecked] = useState(false);
     const { pathname } = useRouter();
 
   useLayoutEffect(() => {
@@ -249,6 +252,29 @@ export function Footer() { const [showCopyright, setShowCopyright] = useState(fa
           </div>
           <p className="footer-love">Made with love for Bardhaman &amp; Bengal by Arpan Ganguly.</p>
         <button className="footer-copy-btn" onClick={() => setShowCopyright(true)} style={{ background: 'none', border: 'none', padding: 0, color: 'var(--mute)', cursor: 'pointer', fontSize: '0.85rem', textDecoration: 'underline', fontStyle: 'italic', opacity: 0.8, justifySelf: 'center', alignSelf: 'center' }}>all copyrights are reserved by Burdwan Captuers Official</button>
+        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--mute)', justifySelf: 'center' }}>
+          <span>v2026.10</span>
+          <span>•</span>
+          <button
+            onClick={async () => {
+              if (window.checkForAppUpdate) {
+                setUpdateChecking(true);
+                const updated = await window.checkForAppUpdate();
+                setTimeout(() => {
+                  setUpdateChecking(false);
+                  setUpdateChecked(true);
+                  setTimeout(() => setUpdateChecked(false), 3000);
+                }, 1000);
+              } else {
+                window.location.reload();
+              }
+            }}
+            data-cursor="Update"
+            style={{ background: 'none', border: 'none', color: updateChecked ? '#4ade80' : 'var(--gold)', cursor: 'pointer', padding: 0, textDecoration: 'underline', fontSize: '0.78rem', fontWeight: 500 }}
+          >
+            {updateChecking ? 'Checking for updates...' : updateChecked ? '✓ App is up to date' : 'Check for app updates'}
+          </button>
+        </div>
         {showCopyright && typeof document !== 'undefined' && createPortal((
           <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(20, 8, 9, 0.92)', backdropFilter: 'blur(10px)' }} onClick={() => setShowCopyright(false)}>
             
