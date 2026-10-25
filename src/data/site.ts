@@ -21,8 +21,12 @@ export const BRANDS = {
   },
 };
 
-/** Shashthi morning, IST. Confirm against the local panjika and edit here. */
-export const PUJA_START = new Date('2026-10-17T06:00:00+05:30');
+/** Maha Shashthi 2027 morning, IST (Tuesday, 5 October 2027). */
+export const PUJA_2027_START = new Date('2027-10-05T06:00:00+05:30');
+export const PUJA_START = PUJA_2027_START;
+
+/** Kali Puja / Shyama Puja & Diwali 2026 (Sunday, 8 November 2026). */
+export const KALI_PUJA_2026 = new Date('2026-11-08T18:00:00+05:30');
 
 export const NAV = [
   { label: 'Home', bn: 'বাড়ি', to: '/' },
