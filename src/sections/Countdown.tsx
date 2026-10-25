@@ -3,6 +3,14 @@ import { useCountdown } from '../lib/motion';
 import { pad2 } from '../lib/util';
 import { Alpana, Particles, Reveal, RevealText, Smoke } from '../components/fx';
 
+/** Sleek Diya SVG icon */
+const DiyaFlameIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="cks-tag-icon" aria-hidden="true">
+    <path d="M12 2C10.5 4.8 8 7.5 8 10.5a4 4 0 0 0 8 0c0-3-2.5-5.7-4-8.5z" fill="#f59e0b" />
+    <path d="M4 14.5c0 3.6 3.6 6.5 8 6.5s8-2.9 8-6.5c0-1.8-3.2-2.8-8-2.8s-8 1-8 2.8z" stroke="var(--gold)" strokeWidth="1.6" fill="rgba(233, 181, 88, 0.15)" />
+  </svg>
+);
+
 /** Each digit re-mounts on change so the old one rolls out and the new one rolls in. */
 const Digit = ({ v }: { v: string }) => (
   <span className="cd-digit"><span key={v} className="cd-roll">{v}</span></span>
@@ -29,6 +37,7 @@ export function Countdown() {
       <Alpana size={980} className="cd-alpana" />
       <Smoke className="cd-smoke" />
       <Particles kind="dust" count={34} />
+
       <div className="wrap cd-in">
 
         {/* Top Eyebrow Badge */}
@@ -70,85 +79,54 @@ export function Countdown() {
           Until Maha Shashthi morning, Tuesday 5 October 2027 (১৮ই আশ্বিন ১৪৩৪). The countdown to next year’s grand celebration has begun.
         </Reveal>
 
-        {/* Ornate Divider */}
-        <div className="cd-divider" aria-hidden="true">
-          <span className="cd-divider-line" />
-          <span className="cd-divider-symbol">🪔</span>
-          <span className="cd-divider-line" />
-        </div>
-
-        {/* Kali Puja 2026 Special Showcase Card */}
-        <Reveal delay={350} className="kali-card">
-          <div className="kali-glow" aria-hidden="true" />
-
-          {/* Badge */}
-          <div className="kali-badge">
-            <span className="kali-diya-emoji">🪔</span>
-            <span>এই বছরের শ্যামাপূজা ও দীপাবলি • KALI PUJA 2026</span>
-          </div>
-
-          {/* Main Date & Live Status */}
-          <div className="kali-header-content">
-            <div className="kali-date-info">
-              <h3 className="kali-date-title" lang="bn">রবিবার, ৮ই নভেম্বর ২০২৬</h3>
-              <p className="kali-date-sub">Sunday, 8 November 2026</p>
-              <p className="kali-tithi-detail" lang="bn">
-                ২২শে কার্তিক ১৪৩৩ বঙ্গাব্দ • কার্তিক অমাবস্যা তিথি (নিশীথ কাল মহানিশা পূজা)
-              </p>
+        {/* Ultra-Sleek, Compact Kali Puja 2026 Strip */}
+        <Reveal delay={350} className="cd-kali-strip">
+          <div className="cks-top">
+            <div className="cks-tag">
+              <DiyaFlameIcon />
+              <span>KALI PUJA 2026</span>
             </div>
 
-            <div className="kali-pill-box">
+            <div className="cks-date-group">
+              <span className="cks-date-bn" lang="bn">রবিবার, ৮ই নভেম্বর ২০২৬</span>
+              <span className="cks-date-en">Sunday, 8 Nov 2026</span>
+              <span className="cks-tithi-tag" lang="bn">২২শে কার্তিক • অমাবস্যা নিশীথ কাল</span>
+            </div>
+
+            <div className="cks-countdown">
               {kali.done ? (
-                <div className="kali-status-pill done">
-                  <span className="kali-pulse-dot" />
-                  <span>✨ আজ শ্যামাপূজা ও দীপাবলি • শুভ কালীপূজা</span>
-                </div>
+                <span className="cks-pill live">✨ আজ শ্যামাপূজা ও দীপাবলি</span>
               ) : (
-                <div className="kali-status-pill">
-                  <span className="kali-pulse-dot" />
-                  <span lang="bn">
-                    আর মাত্র <b className="kali-count-num">{kali.d}</b> দিন <b className="kali-count-num">{kali.h}</b> ঘণ্টা বাকি
-                  </span>
-                  <small className="kali-count-sub">({kali.d} days to go)</small>
-                </div>
+                <span className="cks-pill">
+                  <span className="cks-dot" />
+                  <span lang="bn">আর মাত্র <b>{kali.d}</b> দিন বাকি</span>
+                  <small>({kali.d}d to go)</small>
+                </span>
               )}
             </div>
           </div>
 
-          {/* 3 Auspicious Dates Grid */}
-          <div className="kali-grid">
-            <div className="kali-col">
-              <div className="kali-col-head">
-                <span className="kali-col-icon">🕯️</span>
-                <span className="kali-col-title" lang="bn">ভূত চতুর্দশী</span>
-              </div>
-              <p className="kali-col-date">শনিবার, ৭ নভেম্বর ২০২৬</p>
-              <p className="kali-col-desc">১৪ শাক ভক্ষণ ও পূর্বপুরুষদের স্মরণে সন্ধ্যায় ১৪ প্রদীপ প্রজ্জ্বলন</p>
+          <div className="cks-bottom">
+            <div className="cks-chips">
+              <span className="cks-chip">
+                <span className="cks-chip-date">৭ নভে</span>
+                <span className="cks-chip-label" lang="bn">ভূত চতুর্দশী (১৪ প্রদীপ)</span>
+              </span>
+              <span className="cks-chip-sep" aria-hidden="true">•</span>
+              <span className="cks-chip cks-chip-main">
+                <span className="cks-chip-date">৮ নভে</span>
+                <span className="cks-chip-label" lang="bn">শ্যামাপূজা ও দীপাবলি</span>
+              </span>
+              <span className="cks-chip-sep" aria-hidden="true">•</span>
+              <span className="cks-chip">
+                <span className="cks-chip-date">১১ নভে</span>
+                <span className="cks-chip-label" lang="bn">ভ্রাতৃদ্বিতীয়া (ভাইফোঁটা)</span>
+              </span>
             </div>
 
-            <div className="kali-col kali-col-featured">
-              <div className="kali-col-badge">প্রধান উৎসব</div>
-              <div className="kali-col-head">
-                <span className="kali-col-icon">🪔</span>
-                <span className="kali-col-title" lang="bn">শ্যামাপূজা ও দেওয়ালি</span>
-              </div>
-              <p className="kali-col-date">রবিবার, ৮ নভেম্বর ২০২৬</p>
-              <p className="kali-col-desc">অমাবস্যার গভীর রাতে মা কালীর আরাধনা ও চতুর্দিকে আলোর রোশনাই</p>
+            <div className="cks-shloka" lang="bn">
+              "তমসো মা জ্যোতির্গময় — আলোর উৎসবে দূর হোক সমস্ত অন্ধকার"
             </div>
-
-            <div className="kali-col">
-              <div className="kali-col-head">
-                <span className="kali-col-icon">✨</span>
-                <span className="kali-col-title" lang="bn">ভ্রাতৃদ্বিতীয়া (ভাইফোঁটা)</span>
-              </div>
-              <p className="kali-col-date">বুধবার, ১১ নভেম্বর ২০২৬</p>
-              <p className="kali-col-desc">ভাই-বোনের পরম পবিত্র উৎসব — চন্দনের ফোঁটায় দীর্ঘায়ু কামনা</p>
-            </div>
-          </div>
-
-          {/* Auspicious Chants */}
-          <div className="kali-footer-mantra" lang="bn">
-            <span className="kali-mantra-line">"তমসো মা জ্যোতির্গময় — আলোর উৎসবে দূর হোক সমস্ত অন্ধকার"</span>
           </div>
         </Reveal>
 

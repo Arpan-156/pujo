@@ -331,68 +331,42 @@ export function GalleryBoard() {
                       <>
                         {/* Left Page */}
                         <div className="mag-page left">
-                          <div className="mag-page-header">
-                            <span>PLATE {String(pageLeftNumber).padStart(2, '0')} OF {filteredList.length}</span>
-                            {itemLeft && <span className="mag-photo-cat-pill">{itemLeft.category}</span>}
-                          </div>
-
                           {itemLeft ? (
                             <div
                               className="mag-page-photo-frame"
                               onClick={() => setIdx(yearItems.findIndex(x => x.id === itemLeft.id))}
-                              title="Click photo to inspect full-screen in Lightbox"
+                              title={`Click to view ${itemLeft.caption} in full-screen`}
                               data-cursor="View"
                             >
                               <div className="mag-page-img-box">
                                 <Photo v={itemLeft.visual} alt={itemLeft.caption} />
                               </div>
-                              <h4 className="mag-photo-caption">{itemLeft.caption}</h4>
-                              <div className="mag-photo-credit">
-                                <span>✦ {itemLeft.credit}</span>
-                                <span>• Click photo to view high-res</span>
-                              </div>
+                              <h3 className="mag-club-title">{itemLeft.caption}</h3>
                             </div>
                           ) : (
                             <div className="mag-editorial-cover" style={{ border: 'none' }}>
-                              <p style={{ color: 'var(--mute)' }}>No plates found in this category.</p>
+                              <p style={{ color: 'var(--mute)' }}>No photos in this category.</p>
                             </div>
                           )}
 
                           <div className="mag-page-footer">
-                            <button
-                              className="mag-page-flip-link"
-                              onClick={handlePrev}
-                              data-cursor="Prev"
-                              title="Turn to Previous Page Spread"
-                            >
-                              <ArrowLeft size={13} /> Prev Spread
-                            </button>
-                            <span className="mag-page-num">PAGE {String(pageLeftNumber).padStart(2, '0')}</span>
+                            <span className="mag-page-folio">{String(pageLeftNumber).padStart(2, '0')}</span>
                           </div>
                         </div>
 
                         {/* Right Page */}
                         <div className="mag-page right">
-                          <div className="mag-page-header">
-                            <span>{itemRight ? `PLATE ${String(pageRightNumber).padStart(2, '0')} OF ${filteredList.length}` : 'COLOPHON'}</span>
-                            {itemRight && <span className="mag-photo-cat-pill">{itemRight.category}</span>}
-                          </div>
-
                           {itemRight ? (
                             <div
                               className="mag-page-photo-frame"
                               onClick={() => setIdx(yearItems.findIndex(x => x.id === itemRight.id))}
-                              title="Click photo to inspect full-screen in Lightbox"
+                              title={`Click to view ${itemRight.caption} in full-screen`}
                               data-cursor="View"
                             >
                               <div className="mag-page-img-box">
                                 <Photo v={itemRight.visual} alt={itemRight.caption} />
                               </div>
-                              <h4 className="mag-photo-caption">{itemRight.caption}</h4>
-                              <div className="mag-photo-credit">
-                                <span>✦ {itemRight.credit}</span>
-                                <span>• Click photo to view high-res</span>
-                              </div>
+                              <h3 className="mag-club-title">{itemRight.caption}</h3>
                             </div>
                           ) : (
                             /* Closing Colophon Page for Odd Counts */
@@ -402,7 +376,7 @@ export function GalleryBoard() {
                                 End of Volume
                               </h3>
                               <p style={{ color: 'var(--mute)', fontSize: '0.92rem', maxWidth: '320px', lineHeight: 1.6 }}>
-                                You have viewed all {filteredList.length} plates in the {activeEdition?.year} Sharadiya edition.
+                                You have viewed all photos in the {activeEdition?.year} Sharadiya edition.
                               </p>
                               <div style={{ display: 'flex', gap: '12px', marginTop: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
                                 <button
@@ -410,7 +384,7 @@ export function GalleryBoard() {
                                   onClick={() => setCurrentSpread(0)}
                                   data-cursor="First"
                                 >
-                                  Return to Plate 01
+                                  Return to Page 01
                                 </button>
                                 <button
                                   className="mag-tracker-nav-btn"
@@ -424,15 +398,7 @@ export function GalleryBoard() {
                           )}
 
                           <div className="mag-page-footer">
-                            <span className="mag-page-num">{itemRight ? `PAGE ${String(pageRightNumber).padStart(2, '0')}` : 'FOLIO END'}</span>
-                            <button
-                              className="mag-page-flip-link"
-                              onClick={handleNext}
-                              data-cursor="Next"
-                              title="Turn to Next Page Spread"
-                            >
-                              Next Spread <ArrowRight size={13} />
-                            </button>
+                            <span className="mag-page-folio">{itemRight ? String(pageRightNumber).padStart(2, '0') : ''}</span>
                           </div>
                         </div>
                       </>
@@ -520,10 +486,7 @@ export function GalleryBoard() {
                       >
                         <Photo v={g.visual} alt={g.caption} />
                         <span className="g-cap">
-                          <span style={{ display: 'block', fontSize: '0.7rem', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '4px' }}>
-                            {g.category}
-                          </span>
-                          {g.caption}
+                          <span className="g-cap-title">{g.caption}</span>
                         </span>
                       </button>
                     ))}

@@ -4,7 +4,7 @@ export const GALLERY_CATEGORIES = [
   'All', 'Maa Durga', 'Pandals', 'Street', 'Crowd'
 ];
 
-const CREDIT = 'Burdwan Capturers (placeholder)';
+const CREDIT = 'Burdwan Capturers Official';
 type Row = [string, string, ArtKind, Tone, number, number, ('tall' | 'wide')?, string?, number?, string?];
 
 export interface MagazineEdition {
@@ -54,31 +54,31 @@ export const MAGAZINE_EDITIONS: MagazineEdition[] = [
 ];
 
 const ROWS: Row[] = [
-  // --- 2026 EDITION ---
-  ['Pandals', 'Jagoroni Sangha - Illuminated bamboo architectural pavilion', 'pandal', 'night', 401, 45, 'tall', '/images/jagoroni-sangha-pandal.jpg', 2026],
-  ['Maa Durga', 'Jagoroni Sangha - Adi Dhakeshwari Pratima in sacred crimson saaj', 'idol', 'night', 402, 45, 'wide', '/images/jagoroni-sangha.jpg', 2026],
-  ['Maa Durga', 'Sarba Milan Sangha - "Ek Tukro Satyajit" Cinematic Pratima', 'idol', 'night', 403, 75, 'tall', '/images/sarba-milan-sangha.jpg', 2026],
-  ['Maa Durga', 'Laltu Smriti Sangha - Golden Balaji-inspired Maa Durga', 'idol', 'night', 404, 120, 'tall', '/images/laltu-smriti-sangha.jpg', 2026],
-  ['Maa Durga', 'Ichlabad Youth Club - Authentic Daaker Saaj & Shola Artistry', 'idol', 'night', 405, 80, 'wide', '/images/ichlabad-youth-club.jpg', 2026],
-  ['Pandals', 'Amadpur Zamindar Bari - Centuries-old heritage Natmandir', 'temple', 'dusk', 406, 15, 'wide', '/images/zamindar.jpg', 2026],
-  ['Maa Durga', 'Radha Ballav Jiu - Sacred centuries-old family legacy Pratima', 'temple', 'dusk', 407, 35, 'tall', '/images/radha-ballab.jpg', 2026],
-  ['Maa Durga', 'Vivekananda Sevak Sangha - Eco-friendly clay & jute sculpted Goddess', 'idol', 'dusk', 408, 140, 'tall', '/photos/idol-2.jpg', 2026],
-  ['Street', 'Station Overbridge - Midnight festive lights overlooking the rail corridor', 'bridge', 'night', 409, 20, 'wide', '/photos/overbridge.jpg', 2026],
-  ['Pandals', '108 Shiva Temple - Historic concentric terracotta sanctums at first light', 'temple', 'dawn', 410, 24, 'tall', '/photos/108-shiva.jpg', 2026],
+  // --- 2026 EDITION (Club Names Only) ---
+  ['Pandals', 'Jagoroni Sangha', 'pandal', 'night', 401, 45, 'tall', '/images/jagoroni-sangha-pandal.jpg', 2026],
+  ['Maa Durga', 'Jagoroni Sangha', 'idol', 'night', 402, 45, 'wide', '/images/jagoroni-sangha.jpg', 2026],
+  ['Maa Durga', 'Sarba Milan Sangha', 'idol', 'night', 403, 75, 'tall', '/images/sarba-milan-sangha.jpg', 2026],
+  ['Maa Durga', 'Laltu Smriti Sangha', 'idol', 'night', 404, 120, 'tall', '/images/laltu-smriti-sangha.jpg', 2026],
+  ['Maa Durga', 'Ichlabad Youth Club', 'idol', 'night', 405, 80, 'wide', '/images/ichlabad-youth-club.jpg', 2026],
+  ['Pandals', 'Amadpur Zamindar Bari', 'temple', 'dusk', 406, 15, 'wide', '/images/zamindar.jpg', 2026],
+  ['Maa Durga', 'Radha Ballav Jiu', 'temple', 'dusk', 407, 35, 'tall', '/images/radha-ballab.jpg', 2026],
+  ['Maa Durga', 'Vivekananda Sevak Sangha', 'idol', 'dusk', 408, 140, 'tall', '/photos/idol-2.jpg', 2026],
+  ['Street', 'Station Overbridge', 'bridge', 'night', 409, 20, 'wide', '/photos/overbridge.jpg', 2026],
+  ['Pandals', '108 Shiva Temple', 'temple', 'dawn', 410, 24, 'tall', '/photos/108-shiva.jpg', 2026],
 
-  // --- 2025 EDITION ---
-  ['Maa Durga', 'Durga under the chalchitra arch, moments before Bodhon', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg', 2025],
-  ['Maa Durga', 'Ekchala idol, painted by hand, unlit', 'idol', 'night', 302, 20, undefined, '/images/maa2.jpg', 2025],
-  ['Maa Durga', 'Ten arms, one lamp', 'idol', 'night', 303, 350, 'tall', '/images/maa3.jpg', 2025],
-  ['Maa Durga', 'Traditional daaker saaj and vibrant colors', 'idol', 'dusk', 304, 34, undefined, '/images/maa4.jpg', 2025],
-  ['Maa Durga', 'Divine aura, close up of the idol face', 'idol', 'night', 305, 45, 'tall', '/images/maa5.jpg', 2025],
-  ['Maa Durga', 'Majestic ten-armed idol in full glory', 'idol', 'dusk', 306, 50, 'tall', '/images/maa6.jpg', 2025],
-  ['Maa Durga', 'Traditional goddess form with mesmerizing eyes', 'idol', 'night', 307, 60, undefined, '/images/maa7.jpg', 2025],
-  ['Maa Durga', 'Idol set within a grand thematic arch', 'idol', 'dusk', 308, 70, 'wide', '/images/maa8.jpg', 2025],
-  ['Maa Durga', 'Detailed craftsmanship and radiant golden crown', 'idol', 'night', 309, 80, 'tall', '/images/maa9.jpg', 2025],
-  ['Street', 'Curzon Gate glowing under golden festival illuminations', 'gate', 'night', 310, 14, 'wide', '/photos/curzon.jpg', 2025],
-  ['Crowd', 'Burdwan Junction bustling with returning diaspora for Puja', 'station', 'night', 311, 20, 'wide', '/photos/station.jpg', 2025],
-  ['Street', 'Kash flowers swaying by the Damodar river at sunrise', 'kash', 'dawn', 312, 28, 'tall', '/photos/kash.jpg', 2025],
+  // --- 2025 EDITION (Club Names Only) ---
+  ['Maa Durga', 'Baranilpur Friends Club', 'idol', 'dusk', 301, 8, 'tall', '/images/maa1.jpg', 2025],
+  ['Maa Durga', 'Ghordour Choti Sharbojonin', 'idol', 'night', 302, 20, undefined, '/images/maa2.jpg', 2025],
+  ['Maa Durga', 'Alamganj Barowari', 'idol', 'night', 303, 350, 'tall', '/images/maa3.jpg', 2025],
+  ['Maa Durga', 'Badamtala Khaluibil Math', 'idol', 'dusk', 304, 34, undefined, '/images/maa4.jpg', 2025],
+  ['Maa Durga', 'Burirbagan Sarbojanin', 'idol', 'night', 305, 45, 'tall', '/images/maa5.jpg', 2025],
+  ['Maa Durga', 'Keshabganj Choti Barowari', 'idol', 'dusk', 306, 50, 'tall', '/images/maa6.jpg', 2025],
+  ['Maa Durga', 'Chowringhee Club', 'idol', 'night', 307, 60, undefined, '/images/maa7.jpg', 2025],
+  ['Maa Durga', 'Kiran Sangha', 'idol', 'dusk', 308, 70, 'wide', '/images/maa8.jpg', 2025],
+  ['Maa Durga', 'Nabin Sangha', 'idol', 'night', 309, 80, 'tall', '/images/maa9.jpg', 2025],
+  ['Street', 'Curzon Gate', 'gate', 'night', 310, 14, 'wide', '/photos/curzon.jpg', 2025],
+  ['Crowd', 'Burdwan Junction', 'station', 'night', 311, 20, 'wide', '/photos/station.jpg', 2025],
+  ['Street', 'Damodar River', 'kash', 'dawn', 312, 28, 'tall', '/photos/kash.jpg', 2025],
 ];
 
 export const GALLERY: GalleryItem[] = ROWS.map((r, i) => ({
